@@ -1,0 +1,3 @@
+variant,marginal_nll,nll_ramp,nll_mid,nll_seasoned,heldout_deviance_per_pool,x2_per_information,faces,active_vertices,gate_admitted_vertices
+"historical parity split, seed 7",2.7413,2.92,3.045,2.382,7.022,0.1685,307,181,47
+"locally balanced split, seed 7",2.7129,2.665,3.046,2.376,6.59,0.1483,967,526,187

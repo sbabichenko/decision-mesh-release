@@ -1,0 +1,129 @@
+--- dm_release_inspect/DecisionMesh_local_split_release_2026-07-30/core/vertex.h	2026-07-28 18:20:38.000000000 +0000
++++ dm_quad_prior_experiment/core/vertex.h	2026-07-31 01:29:42.629841770 +0000
+@@ -210,6 +210,7 @@
+     double mu_lin() const;
+     double mu_prior() const;
+     double mu_quad() const;
++    std::vector<std::pair<const Vertex*, double>> prior_stencil() const;
+     void clamp_height();
+     std::pair<double, double> compute_eb_params(double xTx) const;
+ 
+--- dm_release_inspect/DecisionMesh_local_split_release_2026-07-30/core/vertex.cpp	2026-07-28 18:20:37.000000000 +0000
++++ dm_quad_prior_experiment/core/vertex.cpp	2026-07-31 01:29:42.629841770 +0000
+@@ -600,22 +600,47 @@
+ }
+ 
+ double Vertex::mu_quad() const {
+-    // Locally quadratic target along the parent edge: Dubuc-Deslauriers
+-    // 4-point where both collinear extensions exist; one-sided quadratic at
+-    // boundaries; parent midpoint fallback. Always available regardless of
+-    // DMESH_QUAD_PRIOR, so callers (e.g. the MAP prior mean) can use the
+-    // quadratic geometry without engaging the global quad-prior machinery,
+-    // which is incompatible with the clampless stage dynamics.
+-    if (parent_edge == nullptr) return 0.0;
++    // Locally quadratic target along the parent edge.  The symmetric stencil
++    // is the midpoint value implied by the average left/right second
++    // difference (equivalently the interpolatory four-point rule); a
++    // one-sided quadratic is used when only one extension exists.
++    double value = 0.0;
++    for (const auto& [vertex, weight] : prior_stencil())
++        value += weight * vertex->height;
++    return value;
++}
++
++std::vector<std::pair<const Vertex*, double>> Vertex::prior_stencil() const {
++    std::vector<std::pair<const Vertex*, double>> stencil;
++    if (parent_edge == nullptr) return stencil;
+     const Vertex* p0 = parent_edge->vertex0;
+     const Vertex* p1 = parent_edge->vertex1;
+-    const double lin = 0.5 * (p0->height + p1->height);
++    static const bool QUAD = std::getenv("DMESH_QUAD_PRIOR") != nullptr;
++    if (!QUAD) {
++        stencil.push_back({p0, 0.5});
++        stencil.push_back({p1, 0.5});
++        return stencil;
++    }
+     const Vertex* a = mesh->vertex_at(2 * p0->x - p1->x, 2 * p0->y - p1->y);
+     const Vertex* b = mesh->vertex_at(2 * p1->x - p0->x, 2 * p1->y - p0->y);
+-    if (a && b) return (-a->height + 9.0 * p0->height + 9.0 * p1->height - b->height) / 16.0;
+-    if (a) return (6.0 * p0->height + 3.0 * p1->height - a->height) / 8.0;
+-    if (b) return (6.0 * p1->height + 3.0 * p0->height - b->height) / 8.0;
+-    return lin;
++    if (a && b) {
++        stencil.push_back({a, -1.0 / 16.0});
++        stencil.push_back({p0, 9.0 / 16.0});
++        stencil.push_back({p1, 9.0 / 16.0});
++        stencil.push_back({b, -1.0 / 16.0});
++    } else if (a) {
++        stencil.push_back({a, -1.0 / 8.0});
++        stencil.push_back({p0, 6.0 / 8.0});
++        stencil.push_back({p1, 3.0 / 8.0});
++    } else if (b) {
++        stencil.push_back({p0, 3.0 / 8.0});
++        stencil.push_back({p1, 6.0 / 8.0});
++        stencil.push_back({b, -1.0 / 8.0});
++    } else {
++        stencil.push_back({p0, 0.5});
++        stencil.push_back({p1, 0.5});
++    }
++    return stencil;
+ }
+ 
+ 
+--- dm_release_inspect/DecisionMesh_local_split_release_2026-07-30/core/pipeline.cpp	2026-07-30 19:44:47.000000000 +0000
++++ dm_quad_prior_experiment/core/pipeline.cpp	2026-07-31 01:29:42.633841770 +0000
+@@ -280,13 +280,16 @@
+     // ascent on the stated penalized objective. Build the exact sparse penalty
+     // derivatives once; the residuals are updated incrementally with each
+     // Gauss--Seidel move, just like the likelihood predictions.
+-    const bool coupled_linear_prior =
+-        std::getenv("DMESH_QUAD_PRIOR") == nullptr &&
++    // Linear and quadratic midpoint priors are both fixed linear stencils in
++    // the active vertex heights, so both admit the exact sparse coupled
++    // penalty construction. Ghost-boundary targets are location-dependent
++    // searches and retain their specialized diagonal treatment.
++    const bool coupled_stencil_prior =
+         std::getenv("DMESH_GHOST_BC") == nullptr;
+     std::vector<CoupledPenalty> coupled_penalties;
+     std::unordered_map<Vertex*, std::vector<CoupledPenaltyTerm>>
+         penalty_terms_by_coordinate;
+-    if (coupled_linear_prior) {
++    if (coupled_stencil_prior) {
+         for (Vertex* w : vs) {
+             if (!w->free_coefficient || w->retired_coefficient ||
+                 w->parent_edge == nullptr) continue;
+@@ -301,12 +304,12 @@
+ 
+             std::unordered_map<Vertex*, double> derivative;
+             derivative[w] += 1.0;
+-            for (const Vertex* parent : {w->parent_edge->vertex0,
+-                                         w->parent_edge->vertex1}) {
+-                const auto found = design.parameter_map.find(parent);
++            for (const auto& [stencil_vertex, stencil_weight] :
++                 w->prior_stencil()) {
++                const auto found = design.parameter_map.find(stencil_vertex);
+                 if (found == design.parameter_map.end()) continue;
+                 for (const auto& [coefficient, weight] : found->second)
+-                    derivative[coefficient] -= 0.5 * weight;
++                    derivative[coefficient] -= stencil_weight * weight;
+             }
+             for (const auto& [coefficient, value] : derivative) {
+                 if (std::fabs(value) <= 1e-14) continue;
+@@ -352,7 +355,7 @@
+                     coordinate.column->size(), visit_rows.size());
+             }
+             const auto penalty_found = penalty_terms_by_coordinate.find(v);
+-            const bool have_coupled_penalty = coupled_linear_prior &&
++            const bool have_coupled_penalty = coupled_stencil_prior &&
+                 penalty_found != penalty_terms_by_coordinate.end();
+             if (visit_rows.empty() && !have_coupled_penalty && lam_logit <= 0.0)
+                 continue;
+@@ -424,7 +427,7 @@
+             Vertex* v = coordinate.vertex;
+             double gradient = 0.0;
+             const auto penalty_found = penalty_terms_by_coordinate.find(v);
+-            if (coupled_linear_prior &&
++            if (coupled_stencil_prior &&
+                 penalty_found != penalty_terms_by_coordinate.end()) {
+                 for (const CoupledPenaltyTerm& term : penalty_found->second) {
+                     const CoupledPenalty& penalty =

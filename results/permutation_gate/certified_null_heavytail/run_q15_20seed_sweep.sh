@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+ROOT=/mnt/data/perm_gate_impl/DecisionMesh_complete_release_2026-08-01; BIN=$ROOT/build-perm/decision_mesh; DATA_ROOT=/mnt/data/heavytail_certified_null_inputs_2026-08-01; OUT_ROOT=/mnt/data/perm_gate_heavytail_certified_null_2026-08-01
+run_one(){ local seed=$1; local out="$OUT_ROOT/perm_bh_k4_q15__seed${seed}"; mkdir -p "$out"; [[ -f "$out/run_mesh.csv" ]]&&return; export DMESH_DATA="$DATA_ROOT/hcn_heavytail_seed${seed}.csv" DMESH_SPLIT=1 DMESH_SPLIT_MODE=local DMESH_PL_SOLVER=1 DMESH_HIER_FIT=2 DMESH_HEIGHT_LIMIT_LOGIT=12 DMESH_IRLS_STEP_CAP=4 DMESH_HIER_MAP=1 DMESH_SIGMA0_MIN=0.3 DMESH_SIGMA0_MAX=6 DMESH_PI0_MIN=0.05 DMESH_TAU_FLOOR_LOGIT_SD=0.005 DMESH_DUMP="$out/run" DMESH_STAGE_COUNT=3 DMESH_MAX_GATE_ROUNDS=80 DMESH_PARENT_VAR_SCALE=0.25 DMESH_GATE_EXTRA_VAR=0.35 DMESH_B3_USE_SCORE=1 DMESH_B3_STAGE0_EXACT=0 DMESH_PERM_GATE=1 DMESH_PERM_BH=1 DMESH_PERM_DRAWS=32 DMESH_PERM_MIN_KEFF=4; unset DMESH_STOP_AFTER_ADAPTATION DMESH_HIST_NULL DMESH_HIST_TOTAL_VAR DMESH_HIST_MIX_SHAPE DMESH_B3_FIXED_EMPIRICAL_NULL DMESH_CANDIDATE_BH DMESH_MIN_CURRENT_KEFF; /usr/bin/time -f '%e' -o "$out/time.txt" "$BIN" 0 0.15 1 24 7 >"$out/stdout.log" 2>"$out/stderr.log"; }
+export -f run_one; export ROOT BIN DATA_ROOT OUT_ROOT
+seq 0 19 | xargs -n1 -P8 bash -lc 'run_one "$0"'

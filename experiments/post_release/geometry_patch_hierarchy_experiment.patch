@@ -1,0 +1,376 @@
+--- /mnt/data/dm_quad_prior_experiment/core/mesh.h	2026-07-30 19:43:41.000000000 +0000
++++ /mnt/data/dm_geometry_patch_experiment/core/mesh.h	2026-07-31 02:50:47.229952862 +0000
+@@ -136,6 +136,13 @@
+     // Empirical Bayes state
+     std::map<int, double> tau_sq;       // depth -> tau_sq
+     std::map<int, int> tau_sq_vertex_counts;  // depth -> count at last recomputation
++
++    // Frozen-topology geometry-patch EB experiment.  The ordinary quadratic
++    // split-tree residual remains the coefficient coordinate; a nested
++    // hierarchy of graph-local patches only redistributes its slab variance.
++    // Keys are stable vertex ids.  The map is empty during adaptation and is
++    // populated only by the final refit when requested.
++    std::unordered_map<int, double> geometry_patch_scale;
+     int tau_sq_recompute_interval = 20;
+     int steps_since_tau_recompute = 0;
+ 
+@@ -171,6 +178,8 @@
+     void recompute_tau_sq();
+     void maybe_recompute_tau_sq();
+     double tau_for_depth(int depth) const;
++    void recompute_geometry_patch_scales();
++    double geometry_patch_scale_for(const Vertex* vertex) const;
+ 
+     double get_x(int i, int col) const { return X[i * 2 + col]; }
+ 
+--- /mnt/data/dm_quad_prior_experiment/core/mesh.cpp	2026-07-28 18:20:38.000000000 +0000
++++ /mnt/data/dm_geometry_patch_experiment/core/mesh.cpp	2026-07-31 02:54:34.661958056 +0000
+@@ -11,6 +11,9 @@
+ #include <sstream>
+ #include <numeric>
+ #include <limits>
++#include <queue>
++#include <functional>
++#include <unordered_map>
+ 
+ bool EdgeCoordLess::operator()(const Edge* a, const Edge* b) const {
+     if (a == b) return false;
+@@ -458,6 +461,300 @@
+                     tau_floor_sq);
+ }
+ 
++
++
++namespace {
++
++struct GeometryPatchDraw {
++    double residual = 0.0;
++    double noise_variance = 0.0;
++    double base_variance = 0.0;
++};
++
++std::vector<double> geometry_patch_dijkstra(
++        int source,
++        const std::vector<std::vector<std::pair<int, double>>>& adjacency) {
++    const double inf = std::numeric_limits<double>::infinity();
++    std::vector<double> distance(adjacency.size(), inf);
++    using Entry = std::pair<double, int>;
++    std::priority_queue<Entry, std::vector<Entry>, std::greater<Entry>> queue;
++    distance[source] = 0.0;
++    queue.push({0.0, source});
++    while (!queue.empty()) {
++        const auto [current, vertex] = queue.top();
++        queue.pop();
++        if (current != distance[vertex]) continue;
++        for (const auto& [neighbor, length] : adjacency[vertex]) {
++            const double proposal = current + length;
++            if (proposal < distance[neighbor]) {
++                distance[neighbor] = proposal;
++                queue.push({proposal, neighbor});
++            }
++        }
++    }
++    return distance;
++}
++
++double estimate_geometry_patch_log_scale(
++        const std::vector<GeometryPatchDraw>& draws,
++        double parent_log_scale,
++        double log_prior_strength,
++        double minimum_scale,
++        double maximum_scale) {
++    if (draws.empty()) return parent_log_scale;
++    const double z_lo = std::log(minimum_scale);
++    const double z_hi = std::log(maximum_scale);
++    constexpr int grid_points = 181;
++    double best_z = std::clamp(parent_log_scale, z_lo, z_hi);
++    double best_objective = -std::numeric_limits<double>::infinity();
++    for (int j = 0; j < grid_points; ++j) {
++        const double z = z_lo + (z_hi - z_lo) * j / (grid_points - 1.0);
++        const double scale = std::exp(z);
++        double objective = -0.5 * log_prior_strength *
++            (z - parent_log_scale) * (z - parent_log_scale);
++        for (const GeometryPatchDraw& draw : draws) {
++            const double variance = draw.noise_variance +
++                                    scale * draw.base_variance;
++            if (!(variance > 0.0) || !std::isfinite(variance)) continue;
++            objective -= 0.5 * (std::log(variance) +
++                draw.residual * draw.residual / variance);
++        }
++        if (objective > best_objective) {
++            best_objective = objective;
++            best_z = z;
++        }
++    }
++    return best_z;
++}
++
++}  // namespace
++
++void DecisionMesh::recompute_geometry_patch_scales() {
++    geometry_patch_scale.clear();
++
++    const int target_leaf_size = [] {
++        const char* e = std::getenv("DMESH_GEOMETRY_PATCH_LEAF_SIZE");
++        return std::clamp(e ? std::atoi(e) : 24, 8, 128);
++    }();
++    const int minimum_draws = [] {
++        const char* e = std::getenv("DMESH_GEOMETRY_PATCH_MIN_COUNT");
++        return std::clamp(e ? std::atoi(e) : 6, 2, 64);
++    }();
++    const int maximum_level = [] {
++        const char* e = std::getenv("DMESH_GEOMETRY_PATCH_MAX_LEVEL");
++        return std::clamp(e ? std::atoi(e) : 8, 1, 20);
++    }();
++    const double log_prior_strength = [] {
++        const char* e = std::getenv("DMESH_GEOMETRY_PATCH_LOG_PRIOR");
++        const double value = e ? std::atof(e) : 10.0;
++        return (std::isfinite(value) && value >= 0.0) ? value : 10.0;
++    }();
++    const double minimum_scale = [] {
++        const char* e = std::getenv("DMESH_GEOMETRY_PATCH_MIN_SCALE");
++        const double value = e ? std::atof(e) : 0.35;
++        return (std::isfinite(value) && value > 0.0) ? value : 0.35;
++    }();
++    const double maximum_scale = [minimum_scale] {
++        const char* e = std::getenv("DMESH_GEOMETRY_PATCH_MAX_SCALE");
++        const double value = e ? std::atof(e) : 2.5;
++        return (std::isfinite(value) && value >= minimum_scale)
++            ? value : std::max(2.5, minimum_scale);
++    }();
++
++    std::vector<Vertex*> active;
++    active.reserve(vertices.size());
++    for (Vertex* vertex : vertices)
++        if (vertex != nullptr && vertex->active) active.push_back(vertex);
++    if (active.empty()) return;
++
++    std::unordered_map<Vertex*, int> active_index;
++    active_index.reserve(active.size());
++    for (int i = 0; i < static_cast<int>(active.size()); ++i)
++        active_index[active[i]] = i;
++
++    std::vector<std::vector<std::pair<int, double>>> adjacency(active.size());
++    for (Edge* edge : active_edges) {
++        if (edge == nullptr || !edge->active || edge->vertex0 == nullptr ||
++            edge->vertex1 == nullptr) continue;
++        const auto first = active_index.find(edge->vertex0);
++        const auto second = active_index.find(edge->vertex1);
++        if (first == active_index.end() || second == active_index.end()) continue;
++        double length = std::hypot(edge->vertex0->x - edge->vertex1->x,
++                                   edge->vertex0->y - edge->vertex1->y);
++        if (!(length > 0.0)) length = 1e-12;
++        adjacency[first->second].push_back({second->second, length});
++        adjacency[second->second].push_back({first->second, length});
++    }
++
++    std::vector<Vertex*> statistical;
++    for (Vertex* vertex : active) {
++        if (!vertex->free_coefficient || vertex->retired_coefficient ||
++            vertex->parent_edge == nullptr) continue;
++        statistical.push_back(vertex);
++    }
++    const int n = static_cast<int>(statistical.size());
++    if (n < minimum_draws) return;
++
++    struct PatchNode {
++        std::vector<int> members;
++        int parent = -1;
++        int level = 0;
++        int left = -1;
++        int right = -1;
++        double log_scale = 0.0;
++        int draw_count = 0;
++    };
++    std::vector<PatchNode> nodes;
++    nodes.push_back({});
++    nodes[0].members.resize(n);
++    std::iota(nodes[0].members.begin(), nodes[0].members.end(), 0);
++
++    std::function<void(int)> split_patch = [&](int node_index) {
++        PatchNode& node = nodes[node_index];
++        if (node.level >= maximum_level ||
++            static_cast<int>(node.members.size()) <= target_leaf_size) return;
++        const int seed = node.members.front();
++        const auto seed_distance = geometry_patch_dijkstra(
++            active_index.at(statistical[seed]), adjacency);
++        auto farthest_using = [&](const std::vector<double>& source_distance,
++                                  int fallback) {
++            int best = fallback;
++            double best_distance = -1.0;
++            for (int candidate : node.members) {
++                const double value = source_distance[
++                    active_index.at(statistical[candidate])];
++                if (std::isfinite(value) &&
++                    (value > best_distance + 1e-14 ||
++                     (std::fabs(value - best_distance) <= 1e-14 &&
++                      statistical[candidate]->_id < statistical[best]->_id))) {
++                    best = candidate;
++                    best_distance = value;
++                }
++            }
++            return best;
++        };
++        const int first_center = farthest_using(seed_distance, seed);
++        const auto first_distance = geometry_patch_dijkstra(
++            active_index.at(statistical[first_center]), adjacency);
++        const int second_center = farthest_using(first_distance, first_center);
++        if (first_center == second_center) return;
++        const auto second_distance = geometry_patch_dijkstra(
++            active_index.at(statistical[second_center]), adjacency);
++
++        std::vector<int> left_members, right_members;
++        left_members.reserve(node.members.size());
++        right_members.reserve(node.members.size());
++        for (int member : node.members) {
++            const int member_active = active_index.at(statistical[member]);
++            const double dl = first_distance[member_active];
++            const double dr = second_distance[member_active];
++            if (dl < dr || (std::fabs(dl - dr) <= 1e-14 &&
++                            statistical[first_center]->_id <
++                            statistical[second_center]->_id))
++                left_members.push_back(member);
++            else
++                right_members.push_back(member);
++        }
++        if (static_cast<int>(left_members.size()) < minimum_draws ||
++            static_cast<int>(right_members.size()) < minimum_draws) return;
++
++        const int child_level = node.level + 1;
++        const int left_index = static_cast<int>(nodes.size());
++        nodes.push_back({std::move(left_members), node_index, child_level});
++        const int right_index = static_cast<int>(nodes.size());
++        nodes.push_back({std::move(right_members), node_index, child_level});
++        nodes[node_index].left = left_index;
++        nodes[node_index].right = right_index;
++        split_patch(left_index);
++        split_patch(right_index);
++    };
++    split_patch(0);
++
++    std::vector<int> deepest_node(n, 0);
++    std::function<void(int)> estimate_patch = [&](int node_index) {
++        PatchNode& node = nodes[node_index];
++        const double parent_log = node.parent < 0 ? 0.0 : nodes[node.parent].log_scale;
++        std::vector<GeometryPatchDraw> draws;
++        draws.reserve(node.members.size());
++        for (int member : node.members) {
++            Vertex* vertex = statistical[member];
++            if (!vertex->gate_admitted || vertex->dormant_coefficient ||
++                !(vertex->sigma_sq > 0.0) || !(vertex->sigma_sq < 1e250)) continue;
++            const double base = tau_for_depth(vertex->depth);
++            if (!(base > 0.0) || !std::isfinite(base)) continue;
++            const double residual = vertex->height - vertex->mu_prior();
++            if (!std::isfinite(residual)) continue;
++            draws.push_back({residual, vertex->sigma_sq, base});
++        }
++        node.draw_count = static_cast<int>(draws.size());
++        if (node.parent < 0) node.log_scale = 0.0;
++        else if (node.draw_count >= minimum_draws)
++            node.log_scale = estimate_geometry_patch_log_scale(
++                draws, parent_log, log_prior_strength,
++                minimum_scale, maximum_scale);
++        else node.log_scale = parent_log;
++
++        if (node.left < 0 && node.right < 0) {
++            for (int member : node.members) deepest_node[member] = node_index;
++        } else {
++            if (node.left >= 0) estimate_patch(node.left);
++            if (node.right >= 0) estimate_patch(node.right);
++        }
++    };
++    estimate_patch(0);
++
++    double weighted_log_sum = 0.0;
++    double weight_sum = 0.0;
++    for (int member = 0; member < n; ++member) {
++        Vertex* vertex = statistical[member];
++        if (!vertex->gate_admitted || vertex->dormant_coefficient) continue;
++        weighted_log_sum += nodes[deepest_node[member]].log_scale;
++        weight_sum += 1.0;
++    }
++    const double mean_log = weight_sum > 0.0 ? weighted_log_sum / weight_sum : 0.0;
++    double min_seen = 1.0, max_seen = 1.0;
++    for (int member = 0; member < n; ++member) {
++        double scale = std::exp(nodes[deepest_node[member]].log_scale - mean_log);
++        scale = std::clamp(scale, minimum_scale, maximum_scale);
++        geometry_patch_scale[statistical[member]->_id] = scale;
++        min_seen = std::min(min_seen, scale);
++        max_seen = std::max(max_seen, scale);
++    }
++
++    int leaf_count = 0, estimated_nodes = 0;
++    for (const PatchNode& node : nodes) {
++        if (node.left < 0 && node.right < 0) ++leaf_count;
++        if (node.parent >= 0 && node.draw_count >= minimum_draws) ++estimated_nodes;
++    }
++    std::fprintf(stderr,
++        "[geometry-patch-eb] vertices %d nodes %zu leaves %d estimated %d "
++        "leaf-target %d min-draws %d log-prior %.4g scale-range %.4g..%.4g\n",
++        n, nodes.size(), leaf_count, estimated_nodes, target_leaf_size,
++        minimum_draws, log_prior_strength, min_seen, max_seen);
++
++    if (const char* path = std::getenv("DMESH_GEOMETRY_PATCH_DUMP")) {
++        if (*path) {
++            std::ofstream out(path);
++            out << "vertex_id,x,y,depth,patch_node,patch_level,patch_size,draw_count,scale\n";
++            for (int member = 0; member < n; ++member) {
++                Vertex* vertex = statistical[member];
++                const int node_index = deepest_node[member];
++                const PatchNode& node = nodes[node_index];
++                out << vertex->_id << ',' << vertex->x << ',' << vertex->y << ','
++                    << vertex->depth << ',' << node_index << ',' << node.level << ','
++                    << node.members.size() << ',' << node.draw_count << ','
++                    << geometry_patch_scale[vertex->_id] << '\n';
++            }
++        }
++    }
++}
++
++double DecisionMesh::geometry_patch_scale_for(const Vertex* vertex) const {
++    if (vertex == nullptr || geometry_patch_scale.empty()) return 1.0;
++    const auto found = geometry_patch_scale.find(vertex->_id);
++    return found == geometry_patch_scale.end() ? 1.0 : found->second;
++}
++
+ // --- Prediction: walk tree to leaf face, then affine interpolate ---
+ 
+ double DecisionMesh::predict(double px, double py) const {
+--- /mnt/data/dm_quad_prior_experiment/core/vertex.cpp	2026-07-31 01:29:42.629841770 +0000
++++ /mnt/data/dm_geometry_patch_experiment/core/vertex.cpp	2026-07-31 02:50:47.229952862 +0000
+@@ -1500,6 +1500,7 @@
+     if (parent_edge == nullptr || xTx <= 0) return {0.0, 0.0};
+ 
+     double tau = mesh->tau_for_depth(depth);
++    tau *= mesh->geometry_patch_scale_for(this);
+     // DMESH_EDGE_TAU_SCALE=<f>: vertices with boundary-clipped stars carry
+     // one-sided (roughly halved) information, and their ancestral shrink
+     // targets are themselves boundary-dragged; scaling tau up by f weakens
+--- /mnt/data/dm_quad_prior_experiment/core/pipeline.cpp	2026-07-31 01:29:42.633841770 +0000
++++ /mnt/data/dm_geometry_patch_experiment/core/pipeline.cpp	2026-07-31 02:56:38.081960875 +0000
+@@ -2520,8 +2520,23 @@
+                 int final_cycles = 30;
+                 if (const char* fc = std::getenv("DMESH_B1_FINAL_CYCLES"))
+                     final_cycles = std::max(1, std::atoi(fc));
+-                for (int cycle = 0; cycle < final_cycles; ++cycle)
+-                    pl_solver::run(*mesh, 0.0005, 120);
++                const bool geometry_patch_eb = [] {
++                    const char* gp = std::getenv("DMESH_GEOMETRY_PATCH_EB");
++                    return gp != nullptr &&
++                        (std::string(gp).empty() || std::atoi(gp) != 0);
++                }();
++                if (geometry_patch_eb) {
++                    int outer_blocks = 6;
++                    if (const char* ob = std::getenv("DMESH_GEOMETRY_PATCH_OUTER"))
++                        outer_blocks = std::max(1, std::atoi(ob));
++                    for (int block = 0; block < outer_blocks; ++block) {
++                        mesh->recompute_geometry_patch_scales();
++                        pl_solver::run(*mesh, 0.0005, 120);
++                    }
++                } else {
++                    for (int cycle = 0; cycle < final_cycles; ++cycle)
++                        pl_solver::run(*mesh, 0.0005, 120);
++                }
+             }
+             else hier_fit::run(*mesh, 0.5, 60);
+         }

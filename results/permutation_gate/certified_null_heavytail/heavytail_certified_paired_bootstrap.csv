@@ -1,0 +1,13 @@
+mode,label,metric,mean_difference_vs_shipped,ci_2_5,ci_97_5,seeds_improved,seeds_tied,seeds_worse
+perm_bh_k05_q10,"Permutation BH, K_eff≥.5, q=.10",total_admissions,-160.9,-197.0,-125.8,20,0,0
+perm_bh_k05_q10,"Permutation BH, K_eff≥.5, q=.10",window_nonquadratic_rms_centi_logodds,-7.748596642123877,-13.274496790423237,-3.1845514419620002,19,0,1
+perm_bh_k05_q10,"Permutation BH, K_eff≥.5, q=.10",outside_centered_rmse_centi_logodds,-1.677940947922562,-2.8672831708816844,-0.48872381984705654,13,0,7
+perm_bh_k4_q10,"Permutation BH, K_eff≥4, q=.10",total_admissions,-161.8,-197.7,-126.85,20,0,0
+perm_bh_k4_q10,"Permutation BH, K_eff≥4, q=.10",window_nonquadratic_rms_centi_logodds,-7.742884298132121,-13.348854153078861,-3.218574063307828,19,0,1
+perm_bh_k4_q10,"Permutation BH, K_eff≥4, q=.10",outside_centered_rmse_centi_logodds,-2.1797319591074755,-3.2936883255030467,-1.0689815059137753,15,0,5
+perm_bh_k4_q15,"Permutation BH, K_eff≥4, q=.15",total_admissions,-157.85,-193.15125,-123.3,20,0,0
+perm_bh_k4_q15,"Permutation BH, K_eff≥4, q=.15",window_nonquadratic_rms_centi_logodds,-7.759135752549971,-13.22349864301347,-3.268931477344509,19,0,1
+perm_bh_k4_q15,"Permutation BH, K_eff≥4, q=.15",outside_centered_rmse_centi_logodds,-2.290775495389255,-3.411364277195722,-1.174394982452005,15,0,5
+perm_bh_k4_q20,"Permutation BH, K_eff≥4, q=.20",total_admissions,-149.15,-183.9,-115.55,20,0,0
+perm_bh_k4_q20,"Permutation BH, K_eff≥4, q=.20",window_nonquadratic_rms_centi_logodds,-7.216480469256029,-12.352782562773763,-3.0412384956078395,18,0,2
+perm_bh_k4_q20,"Permutation BH, K_eff≥4, q=.20",outside_centered_rmse_centi_logodds,-2.4046784472861993,-3.4672756667968367,-1.3503669061696533,16,0,4

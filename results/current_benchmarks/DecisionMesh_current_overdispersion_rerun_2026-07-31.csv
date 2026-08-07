@@ -1,0 +1,6 @@
+seed,returncode,vertices,stage_sigma,naive,corrected,truth,error,energy,energy_truth,final_retirement
+7,0,181,0.0867,0.0867,0.0882,0.09,-0.0017999999999999,0.0933,0.0969,completed
+8,0,149,0.0852,0.0852,0.0865,0.09,-0.0035,0.0953,0.0983,completed
+9,0,168,0.0919,0.0919,0.0935,0.09,0.0035,0.0964,0.1004,completed
+10,0,184,0.0897,0.0897,0.0911,0.09,0.0011,0.1095,0.1179,completed
+11,0,165,0.0821,0.0821,0.0835,0.09,-0.0064999999999999,0.0895,0.0934,invariant assertion; result obtained with neutral retirement disabled

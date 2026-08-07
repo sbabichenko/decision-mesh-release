@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+name=$1; data=$2; mode=$3
+out=/mnt/data/true_null_cert_compare/$name
+mkdir -p "$out"
+export DMESH_DATA="$data" DMESH_SPLIT=1 DMESH_PL_SOLVER=1 DMESH_HIER_FIT=2
+export DMESH_HEIGHT_LIMIT_LOGIT=12 DMESH_IRLS_STEP_CAP=4 DMESH_HIER_MAP=1
+export DMESH_SIGMA0_MIN=0.3 DMESH_SIGMA0_MAX=6 DMESH_PI0_MIN=0.05 DMESH_TAU_FLOOR_LOGIT_SD=0.005
+export DMESH_DUMP="$out/run" DMESH_B2_SCORE_DUMP="$out/scores.csv"
+unset DMESH_HIST_NULL DMESH_HIST_TOTAL_VAR DMESH_HIST_MIX_SHAPE DMESH_GATE_EXTRA_VAR DMESH_B3_USE_SCORE DMESH_B3_STAGE0_EXACT DMESH_B3_FIXED_EMPIRICAL_NULL
+case "$mode" in
+ legacy) export DMESH_GATE_EXTRA_VAR=0.35 ;;
+ b3) export DMESH_GATE_EXTRA_VAR=0.35 DMESH_B3_USE_SCORE=1 DMESH_B3_STAGE0_EXACT=0 ;;
+ hist) export DMESH_HIST_NULL=1 DMESH_HIST_TOP=8 DMESH_HIST_TOTAL_VAR='0.7052106170,0.4648783763,0.4790827059,0.3806532231' DMESH_HIST_MIX_SHAPE='0.2710449345,5.85195;0.1583151119,5.923;0.0688630065,7.7869;0.1039544004,91.617' ;;
+esac
+/usr/bin/time -f '%e' -o "$out/time.txt" /mnt/data/decision_mesh_phaseB3_hist_work/build_hist/decision_mesh 0 0.10 1 24 7 >"$out/stdout.log" 2>"$out/stderr.log"

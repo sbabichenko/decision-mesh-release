@@ -1,0 +1,207 @@
+--- /mnt/data/dm_release_b/DecisionMesh_optimized_release_2026-07-29/core/pipeline.cpp	2026-07-29 13:03:50.000000000 +0000
++++ /mnt/data/dm_fit_bug_coupled_penalty/pipeline.cpp	2026-07-30 17:49:26.230598623 +0000
+@@ -206,8 +206,18 @@
+     double temper;
+ };
+ 
++struct CoupledPenalty {
++    double residual_logit = 0.0;
++    double lambda_logit = 0.0;
++};
++
++struct CoupledPenaltyTerm {
++    int penalty_index = -1;
++    double derivative = 0.0;
++};
++
+ void run(DecisionMesh& mesh, double tol_units, int max_sweeps) {
+-    if (mesh.obs_store == nullptr || mesh.refresh_epoch == 0) return;
++    if (mesh.obs_store == nullptr) return;
+     const auto& obs = *mesh.obs_store;
+ 
+     hierarchical_design::BuildOptions design_options;
+@@ -263,6 +273,49 @@
+     std::vector<VisitRow> visit_rows;
+     visit_rows.reserve(maximum_rows);
+ 
++    // The declared hierarchical Gaussian prior is a joint penalty on every
++    // free surplus. Moving an ancestor changes the prior residuals of free
++    // descendants whose parents inherit that ancestor. The old solver priced
++    // only the visited coordinate's own penalty, so it was not coordinate
++    // ascent on the stated penalized objective. Build the exact sparse penalty
++    // derivatives once; the residuals are updated incrementally with each
++    // Gauss--Seidel move, just like the likelihood predictions.
++    const bool coupled_linear_prior =
++        std::getenv("DMESH_QUAD_PRIOR") == nullptr &&
++        std::getenv("DMESH_GHOST_BC") == nullptr;
++    std::vector<CoupledPenalty> coupled_penalties;
++    std::unordered_map<Vertex*, std::vector<CoupledPenaltyTerm>>
++        penalty_terms_by_coordinate;
++    if (coupled_linear_prior) {
++        for (Vertex* w : vs) {
++            if (!w->free_coefficient || w->retired_coefficient ||
++                w->parent_edge == nullptr) continue;
++            const auto [lambda_units, prior_units] = w->compute_eb_params(1.0);
++            const double lambda_logit = std::max(lambda_units, 0.0) * kVarianceScale;
++            if (!(lambda_logit > 0.0)) continue;
++            const int penalty_index = static_cast<int>(coupled_penalties.size());
++            coupled_penalties.push_back({
++                (w->height - prior_units) / kHeightScale,
++                lambda_logit
++            });
++
++            std::unordered_map<Vertex*, double> derivative;
++            derivative[w] += 1.0;
++            for (const Vertex* parent : {w->parent_edge->vertex0,
++                                         w->parent_edge->vertex1}) {
++                const auto found = design.parameter_map.find(parent);
++                if (found == design.parameter_map.end()) continue;
++                for (const auto& [coefficient, weight] : found->second)
++                    derivative[coefficient] -= 0.5 * weight;
++            }
++            for (const auto& [coefficient, value] : derivative) {
++                if (std::fabs(value) <= 1e-14) continue;
++                penalty_terms_by_coordinate[coefficient].push_back(
++                    {penalty_index, value});
++            }
++        }
++    }
++
+     for (int sweep = 0; sweep < max_sweeps; ++sweep) {
+         double max_move = 0.0;
+         for (CoordinateRows& coordinate : coordinates) {
+@@ -275,6 +328,7 @@
+             const double lam_logit = std::max(lv, 0.0) * kVarianceScale;
+             const double mu_l = mu_v / kHeightScale;
+             double b = v->height / kHeightScale;
++            const double b_entry = b;
+ 
+             visit_rows.clear();
+             for (const StaticRow& row : coordinate.rows) {
+@@ -297,9 +351,27 @@
+                     sweep, v->_id, v->height, mu_v, lam_logit,
+                     coordinate.column->size(), visit_rows.size());
+             }
+-            if (visit_rows.empty() && lam_logit <= 0.0) continue;
++            const auto penalty_found = penalty_terms_by_coordinate.find(v);
++            const bool have_coupled_penalty = coupled_linear_prior &&
++                penalty_found != penalty_terms_by_coordinate.end();
++            if (visit_rows.empty() && !have_coupled_penalty && lam_logit <= 0.0)
++                continue;
+             for (int itn = 0; itn < 40; ++itn) {
+-                double g = -lam_logit * (b - mu_l), H = -lam_logit;
++                double g = 0.0, H = 0.0;
++                if (have_coupled_penalty) {
++                    const double shift = b - b_entry;
++                    for (const CoupledPenaltyTerm& term : penalty_found->second) {
++                        const CoupledPenalty& penalty =
++                            coupled_penalties[term.penalty_index];
++                        const double residual = penalty.residual_logit +
++                            term.derivative * shift;
++                        g -= penalty.lambda_logit * term.derivative * residual;
++                        H -= penalty.lambda_logit * term.derivative * term.derivative;
++                    }
++                } else {
++                    g = -lam_logit * (b - mu_l);
++                    H = -lam_logit;
++                }
+                 for (const VisitRow& row : visit_rows) {
+                     const double e2 = row.eta_other + b * row.x;
+                     const double p = 1.0 / (1.0 + std::exp(-e2));
+@@ -327,11 +399,96 @@
+             for (const auto& entry : *coordinate.column) {
+                 pred[entry.first] += entry.second * committed_delta;
+             }
++            if (have_coupled_penalty) {
++                const double delta_logit = committed_delta / kHeightScale;
++                for (const CoupledPenaltyTerm& term : penalty_found->second)
++                    coupled_penalties[term.penalty_index].residual_logit +=
++                        term.derivative * delta_logit;
++            }
+             max_move = std::max(max_move, std::fabs(committed_delta));
+         }
+         if (max_move < tol_units) break;
+     }
+ 
++    if (std::getenv("DMESH_COUPLED_FIXED_POINT_AUDIT")) {
++        double max_abs_gradient = 0.0;
++        double sum_squared_gradient = 0.0;
++        double max_abs_interior_gradient = 0.0;
++        double sum_squared_interior_gradient = 0.0;
++        int audited = 0;
++        int interior_audited = 0;
++        int boundary_kkt_violations = 0;
++        int max_id = -1;
++        int max_interior_id = -1;
++        for (const CoordinateRows& coordinate : coordinates) {
++            Vertex* v = coordinate.vertex;
++            double gradient = 0.0;
++            const auto penalty_found = penalty_terms_by_coordinate.find(v);
++            if (coupled_linear_prior &&
++                penalty_found != penalty_terms_by_coordinate.end()) {
++                for (const CoupledPenaltyTerm& term : penalty_found->second) {
++                    const CoupledPenalty& penalty =
++                        coupled_penalties[term.penalty_index];
++                    gradient -= penalty.lambda_logit * term.derivative *
++                                penalty.residual_logit;
++                }
++            } else {
++                const auto [lv, mu_v] = v->compute_eb_params(1.0);
++                const double lambda = std::max(lv, 0.0) * kVarianceScale;
++                gradient -= lambda *
++                    ((v->height - mu_v) / kHeightScale);
++            }
++            for (const StaticRow& row : coordinate.rows) {
++                const Observation& o = obs[row.index];
++                const double eta = o.offset + pred[row.index] / kHeightScale;
++                const double probability = 1.0 / (1.0 + std::exp(-eta));
++                const double current_information =
++                    row.exposure * probability * (1.0 - probability);
++                if (!(current_information > 0.0)) continue;
++                const double temper = std::isfinite(row.fixed_temper)
++                    ? row.fixed_temper
++                    : std::clamp(mesh.weights[row.index] * kVarianceScale /
++                                 current_information, 0.0, 1.0);
++                if (temper < 1e-8) continue;
++                gradient += temper * row.x *
++                    (row.events - row.exposure * probability);
++            }
++            ++audited;
++            sum_squared_gradient += gradient * gradient;
++            if (std::fabs(gradient) > max_abs_gradient) {
++                max_abs_gradient = std::fabs(gradient);
++                max_id = v->_id;
++            }
++            const double limit_units = 12.0 * kHeightScale;
++            const bool at_lower = v->height <= -limit_units + 1e-7;
++            const bool at_upper = v->height >= limit_units - 1e-7;
++            if (at_lower || at_upper) {
++                const bool kkt_ok = (at_lower && gradient <= 1e-6) ||
++                                    (at_upper && gradient >= -1e-6);
++                if (!kkt_ok) ++boundary_kkt_violations;
++            } else {
++                ++interior_audited;
++                sum_squared_interior_gradient += gradient * gradient;
++                if (std::fabs(gradient) > max_abs_interior_gradient) {
++                    max_abs_interior_gradient = std::fabs(gradient);
++                    max_interior_id = v->_id;
++                }
++            }
++        }
++        const double rms_gradient = audited > 0
++            ? std::sqrt(sum_squared_gradient / audited) : 0.0;
++        const double rms_interior_gradient = interior_audited > 0
++            ? std::sqrt(sum_squared_interior_gradient / interior_audited) : 0.0;
++        std::fprintf(stderr,
++            "[coupled fixed-point audit] audited %d max/rms gradient "
++            "%.9g/%.9g (max id %d); interior %d max/rms %.9g/%.9g "
++            "(max id %d); boundary KKT violations %d\n",
++            audited, max_abs_gradient, rms_gradient, max_id,
++            interior_audited, max_abs_interior_gradient,
++            rms_interior_gradient, max_interior_id,
++            boundary_kkt_violations);
++    }
++
+     for (Vertex* v : vs) {
+         if (v->parent_edge == nullptr && v->free_coefficient &&
+             v->current_fit_points < Vertex::kMinimumFitPoints) {

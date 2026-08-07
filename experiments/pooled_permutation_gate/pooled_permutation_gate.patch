@@ -1,0 +1,814 @@
+diff -ruN /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/CMakeLists.txt /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/CMakeLists.txt
+--- /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/CMakeLists.txt	2026-07-29 11:31:24.000000000 +0000
++++ /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/CMakeLists.txt	2026-08-01 19:15:18.228084469 +0000
+@@ -17,6 +17,7 @@
+   diagnostics.cpp
+   hierarchical_design.cpp
+   lfdr.cpp
++  permutation_gate.cpp
+   mesh.cpp
+   vertex.cpp
+   edge.cpp
+@@ -49,4 +50,15 @@
+     $<$<CXX_COMPILER_ID:GNU,Clang>:-Wall;-Wextra;-Wpedantic>
+     $<$<CXX_COMPILER_ID:MSVC>:/O2;/W4>)
+   add_test(NAME lindsey_guard COMMAND test_lindsey_guard)
++
++  add_executable(test_permutation_gate
++    tests/test_permutation_gate.cpp
++    permutation_gate.cpp
++    mesh.cpp vertex.cpp edge.cpp face.cpp tree.cpp hierarchical_design.cpp)
++  target_include_directories(test_permutation_gate PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
++  target_compile_options(test_permutation_gate PRIVATE
++    $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:GNU,Clang>>:-O3>
++    $<$<CXX_COMPILER_ID:GNU,Clang>:-Wall;-Wextra;-Wpedantic>
++    $<$<CXX_COMPILER_ID:MSVC>:/O2;/W4>)
++  add_test(NAME permutation_gate COMMAND test_permutation_gate)
+ endif()
+diff -ruN /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/lfdr.cpp /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/lfdr.cpp
+--- /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/lfdr.cpp	2026-07-28 23:14:00.000000000 +0000
++++ /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/lfdr.cpp	2026-08-01 19:14:19.228086142 +0000
+@@ -40,7 +40,7 @@
+     }
+     return "unknown";
+ }
+-LfdrResult lindsey_lfdr(std::vector<double> z, bool free_empirical_null) {
++LfdrResult lindsey_lfdr(std::vector<double> z, bool free_empirical_null, bool theoretical_null) {
+     const int NB = 72, DEG = 6;
+     LfdrResult R;
+     R.lfdr.assign(z.size(), 1.0);  // fail closed; caller may replace with BH
+@@ -138,34 +138,46 @@
+     solve_small(3, A3, b3, th);
+     double a0 = th[0], a1 = th[1], a2 = th[2];
+     R.central_curvature = a2;
+-    if (!std::isfinite(a0) || !std::isfinite(a1) || !std::isfinite(a2)
+-        || !(a2 < -1e-10)) {
+-        R.status = LindseyStatus::invalid_central_fit;
+-        return R;
+-    }
+     double d0 = 0, s0 = 1, pi0 = 1;
+-    {
++    const double default_pi0min = 0.5;
++    const double PI0MIN = std::getenv("DMESH_PI0_MIN")
++        ? std::atof(std::getenv("DMESH_PI0_MIN")) : default_pi0min;
++    if (theoretical_null) {
++        // Permutation calibration already fixes the null location and scale.
++        // Estimate only its mixing mass.  Under a two-groups model f/f0 >= pi0;
++        // a low central quantile of that ratio is a stable conservative estimate.
++        std::vector<double> ratios;
++        for (int b = 0; b < NB; ++b) {
++            if (std::fabs(mids[b]) > 1.5) continue;
++            const double f0 = normal_pdf(mids[b]);
++            if (f0 > 1e-12 && std::isfinite(fbins[b]))
++                ratios.push_back(fbins[b] / f0);
++        }
++        if (ratios.empty()) {
++            R.status = LindseyStatus::invalid_central_fit;
++            return R;
++        }
++        std::sort(ratios.begin(), ratios.end());
++        const std::size_t qindex = static_cast<std::size_t>(0.10 * (ratios.size() - 1));
++        pi0 = std::clamp(ratios[qindex], PI0MIN, 1.0);
++        d0 = 0.0;
++        s0 = 1.0;
++    } else {
++        if (!std::isfinite(a0) || !std::isfinite(a1) || !std::isfinite(a2)
++            || !(a2 < -1e-10)) {
++            R.status = LindseyStatus::invalid_central_fit;
++            return R;
++        }
+         // Ablation hooks: the [1,1.4] sigma0 box and the 0.5 pi0 floor are the
+         // least principled clamps in the pipeline; with a correctly calibrated
+         // candidate null they should not be load-bearing.
+-        // B3 diagnostic: once candidate-specific sandwich scaling has put the
+-        // exact score on a common null scale, allow central matching to measure
+-        // the remaining family-level fit-state contraction instead of forcing
+-        // sigma0 >= 1.  This is opt-in until the null regressions are frozen.
+         const double default_smin = free_empirical_null ? 0.35 : 1.0;
+         const double default_smax = free_empirical_null ? 3.0 : 1.4;
+-        // Only the scale box is released in B3.  Keep the conservative
+-        // location cap and pi0 floor: a coarse underfit can create widespread
+-        // same-sign signal, and the empirical null must not absorb that signal
+-        // by drifting its mean or declaring almost the whole family non-null.
+-        const double default_pi0min = 0.5;
+         const double default_dmax = 0.5;
+         const double S0MIN = std::getenv("DMESH_SIGMA0_MIN")
+             ? std::atof(std::getenv("DMESH_SIGMA0_MIN")) : default_smin;
+         const double S0MAX = std::getenv("DMESH_SIGMA0_MAX")
+             ? std::atof(std::getenv("DMESH_SIGMA0_MAX")) : default_smax;
+-        const double PI0MIN = std::getenv("DMESH_PI0_MIN")
+-            ? std::atof(std::getenv("DMESH_PI0_MIN")) : default_pi0min;
+         const double D0MAX = std::getenv("DMESH_DELTA0_MAX")
+             ? std::atof(std::getenv("DMESH_DELTA0_MAX")) : default_dmax;
+         s0 = std::clamp(std::sqrt(-1.0 / (2 * a2)), S0MIN, S0MAX);
+diff -ruN /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/lfdr.h /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/lfdr.h
+--- /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/lfdr.h	2026-07-28 23:33:58.000000000 +0000
++++ /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/lfdr.h	2026-08-01 19:14:19.228086142 +0000
+@@ -1,5 +1,6 @@
+ #pragma once
+ 
++#include <utility>
+ #include <vector>
+ 
+ enum class LindseyStatus {
+@@ -32,4 +33,11 @@
+ 
+ [[nodiscard]] double normal_survival(double z);
+ [[nodiscard]] LfdrResult lindsey_lfdr(std::vector<double> z,
+-                                      bool free_empirical_null = false);
++                                      bool free_empirical_null = false,
++                                      bool theoretical_null = false);
++
++// Fit the alternative/marginal density by Lindsey's method while fixing the
++// null component to N(0,1). Only pi0 is estimated from the central density.
++[[nodiscard]] inline LfdrResult lindsey_lfdr_theoretical(std::vector<double> z) {
++    return lindsey_lfdr(std::move(z), false, true);
++}
+diff -ruN /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/permutation_gate.cpp /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/permutation_gate.cpp
+--- /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/permutation_gate.cpp	1970-01-01 00:00:00.000000000 +0000
++++ /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/permutation_gate.cpp	2026-08-01 19:28:05.672062706 +0000
+@@ -0,0 +1,336 @@
++#include "permutation_gate.h"
++
++#include "face.h"
++#include "mesh.h"
++#include "observation.h"
++#include "units.h"
++#include "vertex.h"
++
++#include <algorithm>
++#include <cmath>
++#include <cstddef>
++#include <limits>
++#include <numeric>
++#include <random>
++#include <unordered_set>
++#include <vector>
++
++namespace {
++
++constexpr double kTiny = 1e-14;
++
++struct StarRows {
++    std::vector<double> a;
++    std::vector<double> g;
++    int unique_pools = 0;
++    bool repeated_pool_rows = false;
++};
++
++StarRows collect_star_rows(Vertex& candidate, double null_height_units) {
++    StarRows out;
++    auto faces = candidate.active ? candidate.get_faces(false)
++                                  : candidate.get_sim_faces(false);
++    if (faces.faces.empty() || candidate.mesh == nullptr ||
++        candidate.mesh->obs_store == nullptr) {
++        return out;
++    }
++
++    DecisionMesh& mesh = *candidate.mesh;
++    const auto& observations = *mesh.obs_store;
++    std::unordered_set<int> seen_rows;
++    std::unordered_set<int> seen_pools;
++
++    for (Face* face : faces.faces) {
++        if (face == nullptr || face->coords_indices.empty()) continue;
++        int slot = -1;
++        for (int j = 0; j < 3; ++j) {
++            if (face->vertices[j] == &candidate) {
++                slot = j;
++                break;
++            }
++        }
++        if (slot < 0) continue;
++
++        Vertex* v0 = face->vertices[0];
++        Vertex* v1 = face->vertices[1];
++        Vertex* v2 = face->vertices[2];
++        const double determinant =
++            (v1->x - v0->x) * (v2->y - v0->y) -
++            (v2->x - v0->x) * (v1->y - v0->y);
++        if (std::fabs(determinant) < kTiny) continue;
++
++        double heights[3] = {v0->height, v1->height, v2->height};
++        heights[slot] = null_height_units;
++
++        for (int row : face->coords_indices) {
++            if (row < 0 || row >= mesh.n_points ||
++                row >= static_cast<int>(observations.size())) {
++                continue;
++            }
++            if (!seen_rows.insert(row).second) continue;
++            const double weight = mesh.weights[row];
++            if (!(weight > 1e-9) || !std::isfinite(weight)) continue;
++
++            const double x = mesh.get_x(row, 0);
++            const double y = mesh.get_x(row, 1);
++            const double l0 =
++                ((v1->x - x) * (v2->y - y) -
++                 (v2->x - x) * (v1->y - y)) /
++                determinant;
++            const double l1 =
++                ((v2->x - x) * (v0->y - y) -
++                 (v0->x - x) * (v2->y - y)) /
++                determinant;
++            const double l2 = 1.0 - l0 - l1;
++            const double basis = slot == 0 ? l0 : slot == 1 ? l1 : l2;
++            if (!(basis > 1e-8) || !std::isfinite(basis)) continue;
++
++            const double prediction =
++                l0 * heights[0] + l1 * heights[1] + l2 * heights[2];
++            const double residual = mesh.values[row] - prediction;
++            // Preserve the slot-specific heteroskedastic variance and permute
++            // only standardized residual shape.  The original score is
++            //   sum a_i w_i e_i
++            // = sum [a_i w_i sqrt(v_i)] [e_i/sqrt(v_i)].
++            // This is essential on the Ginnie geometry, where exposure (and
++            // therefore sampling variance) is strongly spatially structured.
++            double pool_variance_logit = 0.0;
++            if (!mesh.gate_s2.empty()) {
++                pool_variance_logit = std::max(mesh.gate_s2[row], 0.0);
++            } else if (const char* extra = std::getenv("DMESH_GATE_EXTRA_VAR")) {
++                const double parsed = std::atof(extra);
++                if (std::isfinite(parsed) && parsed > 0.0)
++                    pool_variance_logit = parsed;
++            }
++            const double variance_units = 1.0 / weight
++                + pool_variance_logit * kVarianceScale;
++            if (!(variance_units > 0.0) || !std::isfinite(variance_units)) continue;
++            const double standard_deviation = std::sqrt(variance_units);
++            const double slot_coefficient = basis * weight * standard_deviation;
++            const double standardized_residual = residual / standard_deviation;
++            if (!std::isfinite(slot_coefficient) ||
++                !std::isfinite(standardized_residual)) continue;
++
++            out.a.push_back(slot_coefficient);
++            out.g.push_back(standardized_residual);
++            const int pool = observations[row].pool_id;
++            if (!seen_pools.insert(pool).second) out.repeated_pool_rows = true;
++        }
++    }
++    out.unique_pools = static_cast<int>(seen_pools.size());
++    return out;
++}
++
++struct ExactPermutationMoments {
++    bool ok = false;
++    double mean = 0.0;
++    double variance = 0.0;
++    double skewness = 0.0;
++    std::vector<double> centered_a;
++};
++
++ExactPermutationMoments exact_moments(const std::vector<double>& a,
++                                      const std::vector<double>& g) {
++    ExactPermutationMoments result;
++    const int m = static_cast<int>(a.size());
++    if (m < 6 || g.size() != a.size()) return result;
++
++    const double mean_a = std::accumulate(a.begin(), a.end(), 0.0) / m;
++    const double mean_g = std::accumulate(g.begin(), g.end(), 0.0) / m;
++    result.centered_a.resize(a.size());
++    double a2 = 0.0, a3 = 0.0, b2 = 0.0, b3 = 0.0;
++    for (int i = 0; i < m; ++i) {
++        const double ac = a[i] - mean_a;
++        const double gc = g[i] - mean_g;
++        result.centered_a[i] = ac;
++        a2 += ac * ac;
++        a3 += ac * ac * ac;
++        b2 += gc * gc;
++        b3 += gc * gc * gc;
++    }
++    const double variance = a2 * b2 / static_cast<double>(m - 1);
++    if (!(variance > kTiny) || !std::isfinite(variance)) return result;
++
++    const double third = a3 * b3 /
++        (static_cast<double>(m - 1) * static_cast<double>(m - 2));
++    result.mean = static_cast<double>(m) * mean_a * mean_g;
++    result.variance = variance;
++    result.skewness = third / std::pow(variance, 1.5);
++    if (!std::isfinite(result.skewness)) result.skewness = 0.0;
++    result.skewness = std::clamp(result.skewness, -2.5, 2.5);
++    result.ok = true;
++    return result;
++}
++
++double cornish_fisher_normal_score(double raw_z, double skewness) {
++    // First-order Edgeworth probability match. For a variable with standardized
++    // third cumulant gamma, F(z) ~= Phi(z) + gamma(1-z^2)phi(z)/6, hence the
++    // Gaussian-equivalent quantile is z + gamma(1-z^2)/6.
++    const double corrected = raw_z + skewness * (1.0 - raw_z * raw_z) / 6.0;
++    return std::clamp(corrected, -12.0, 12.0);
++}
++
++std::vector<double> reference_for_band(
++    const std::vector<std::vector<double>>& by_band,
++    int target_band,
++    int minimum_reference_size) {
++    std::vector<double> reference;
++    const int number_of_bands = static_cast<int>(by_band.size());
++    for (int radius = 0; radius < number_of_bands; ++radius) {
++        const int left = target_band - radius;
++        const int right = target_band + radius;
++        if (left >= 0) {
++            reference.insert(reference.end(), by_band[left].begin(), by_band[left].end());
++        }
++        if (radius > 0 && right < number_of_bands) {
++            reference.insert(reference.end(), by_band[right].begin(), by_band[right].end());
++        }
++        if (static_cast<int>(reference.size()) >= minimum_reference_size) break;
++    }
++    return reference;
++}
++
++}  // namespace
++
++int permutation_size_band(int rows) {
++    if (rows < 10) return 0;
++    if (rows < 20) return 1;
++    if (rows < 40) return 2;
++    if (rows < 80) return 3;
++    if (rows < 160) return 4;
++    if (rows < 320) return 5;
++    return 6;
++}
++
++PermutationStar build_permutation_star(Vertex& candidate,
++                                       double null_height_units,
++                                       int null_draws,
++                                       std::uint64_t seed,
++                                       bool allow_repeated_pool_rows) {
++    PermutationStar result;
++    const StarRows rows = collect_star_rows(candidate, null_height_units);
++    result.rows = static_cast<int>(rows.a.size());
++    result.unique_pools = rows.unique_pools;
++    result.size_band = permutation_size_band(result.rows);
++    if (result.rows < 6 || null_draws <= 0) return result;
++    if (rows.repeated_pool_rows && !allow_repeated_pool_rows) return result;
++
++    const ExactPermutationMoments moments = exact_moments(rows.a, rows.g);
++    if (!moments.ok) return result;
++
++    const double mean_g = std::accumulate(rows.g.begin(), rows.g.end(), 0.0) /
++                          static_cast<double>(result.rows);
++    double observed_centered = 0.0;
++    for (int i = 0; i < result.rows; ++i) {
++        observed_centered += moments.centered_a[i] * (rows.g[i] - mean_g);
++    }
++    result.raw_z = observed_centered / std::sqrt(moments.variance);
++    result.skewness = moments.skewness;
++    result.observed_z = cornish_fisher_normal_score(result.raw_z, result.skewness);
++
++    std::vector<int> order(result.rows);
++    std::iota(order.begin(), order.end(), 0);
++    std::mt19937_64 rng(seed);
++    result.null_z.reserve(null_draws);
++    for (int draw = 0; draw < null_draws; ++draw) {
++        std::shuffle(order.begin(), order.end(), rng);
++        double numerator = 0.0;
++        for (int i = 0; i < result.rows; ++i) {
++            numerator += moments.centered_a[i] * (rows.g[order[i]] - mean_g);
++        }
++        const double raw = numerator / std::sqrt(moments.variance);
++        result.null_z.push_back(cornish_fisher_normal_score(raw, result.skewness));
++    }
++    result.ok = std::isfinite(result.observed_z) && !result.null_z.empty();
++    return result;
++}
++
++PooledPermutationResult pool_permutation_null(
++    const std::vector<PermutationStar>& stars,
++    int minimum_reference_size) {
++    PooledPermutationResult result;
++    result.p_values.assign(stars.size(), 1.0);
++    result.gaussian_scores.assign(stars.size(), 0.0);
++    result.reference_sizes.assign(stars.size(), 0);
++
++    constexpr int kBands = 7;
++    std::vector<std::vector<double>> by_band(kBands);
++    for (const auto& star : stars) {
++        if (!star.ok) continue;
++        auto& band = by_band[std::clamp(star.size_band, 0, kBands - 1)];
++        for (double value : star.null_z) {
++            if (std::isfinite(value)) band.push_back(std::fabs(value));
++        }
++    }
++    for (auto& band : by_band) std::sort(band.begin(), band.end());
++
++    for (std::size_t i = 0; i < stars.size(); ++i) {
++        const auto& star = stars[i];
++        if (!star.ok) continue;
++        std::vector<double> reference = reference_for_band(
++            by_band, std::clamp(star.size_band, 0, kBands - 1),
++            minimum_reference_size);
++        if (reference.empty()) continue;
++        std::sort(reference.begin(), reference.end());
++        const double threshold = std::fabs(star.observed_z);
++        const auto first = std::lower_bound(reference.begin(), reference.end(), threshold);
++        const std::size_t exceedances = static_cast<std::size_t>(reference.end() - first);
++        const double p = (static_cast<double>(exceedances) + 1.0) /
++                         (static_cast<double>(reference.size()) + 1.0);
++        const double clipped_p = std::clamp(p, 1e-15, 1.0);
++        const double magnitude = inverse_standard_normal(1.0 - clipped_p / 2.0);
++        result.p_values[i] = clipped_p;
++        result.gaussian_scores[i] = star.observed_z < 0.0 ? -magnitude : magnitude;
++        result.reference_sizes[i] = static_cast<int>(reference.size());
++    }
++    return result;
++}
++
++double inverse_standard_normal(double probability) {
++    // Peter J. Acklam's rational approximation, with one Halley refinement.
++    const double p = std::clamp(probability, 1e-15, 1.0 - 1e-15);
++    constexpr double a1 = -3.969683028665376e+01;
++    constexpr double a2 =  2.209460984245205e+02;
++    constexpr double a3 = -2.759285104469687e+02;
++    constexpr double a4 =  1.383577518672690e+02;
++    constexpr double a5 = -3.066479806614716e+01;
++    constexpr double a6 =  2.506628277459239e+00;
++    constexpr double b1 = -5.447609879822406e+01;
++    constexpr double b2 =  1.615858368580409e+02;
++    constexpr double b3 = -1.556989798598866e+02;
++    constexpr double b4 =  6.680131188771972e+01;
++    constexpr double b5 = -1.328068155288572e+01;
++    constexpr double c1 = -7.784894002430293e-03;
++    constexpr double c2 = -3.223964580411365e-01;
++    constexpr double c3 = -2.400758277161838e+00;
++    constexpr double c4 = -2.549732539343734e+00;
++    constexpr double c5 =  4.374664141464968e+00;
++    constexpr double c6 =  2.938163982698783e+00;
++    constexpr double d1 =  7.784695709041462e-03;
++    constexpr double d2 =  3.224671290700398e-01;
++    constexpr double d3 =  2.445134137142996e+00;
++    constexpr double d4 =  3.754408661907416e+00;
++    constexpr double plow = 0.02425;
++    constexpr double phigh = 1.0 - plow;
++
++    double x;
++    if (p < plow) {
++        const double q = std::sqrt(-2.0 * std::log(p));
++        x = (((((c1*q+c2)*q+c3)*q+c4)*q+c5)*q+c6) /
++            ((((d1*q+d2)*q+d3)*q+d4)*q+1.0);
++    } else if (p > phigh) {
++        const double q = std::sqrt(-2.0 * std::log(1.0-p));
++        x = -(((((c1*q+c2)*q+c3)*q+c4)*q+c5)*q+c6) /
++             ((((d1*q+d2)*q+d3)*q+d4)*q+1.0);
++    } else {
++        const double q = p - 0.5;
++        const double r = q*q;
++        x = (((((a1*r+a2)*r+a3)*r+a4)*r+a5)*r+a6)*q /
++            (((((b1*r+b2)*r+b3)*r+b4)*r+b5)*r+1.0);
++    }
++    const double cdf = 0.5 * std::erfc(-x / std::sqrt(2.0));
++    const double pdf = std::exp(-0.5 * x * x) /
++                       std::sqrt(2.0 * 3.14159265358979323846);
++    x -= (cdf - p) / std::max(pdf, 1e-300);
++    return x;
++}
+diff -ruN /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/permutation_gate.h /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/permutation_gate.h
+--- /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/permutation_gate.h	1970-01-01 00:00:00.000000000 +0000
++++ /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/permutation_gate.h	2026-08-01 19:13:56.752086779 +0000
+@@ -0,0 +1,44 @@
++#pragma once
++
++#include <cstdint>
++#include <vector>
++
++struct Vertex;
++
++// Experimental pooled-permutation candidate calibration.
++//
++// Each star is standardized by its own exact finite-population permutation
++// moments. Null draws are then pooled across stars of similar row count. This
++// removes the per-star 1/choose(m,r) resolution floor while keeping the null
++// scale candidate-specific.
++struct PermutationStar {
++    bool ok = false;
++    int rows = 0;
++    int unique_pools = 0;
++    int size_band = 0;
++    double raw_z = 0.0;
++    double observed_z = 0.0;
++    double skewness = 0.0;
++    std::vector<double> null_z;
++};
++
++struct PooledPermutationResult {
++    std::vector<double> p_values;
++    std::vector<double> gaussian_scores;
++    std::vector<int> reference_sizes;
++};
++
++[[nodiscard]] int permutation_size_band(int rows);
++
++[[nodiscard]] PermutationStar build_permutation_star(
++    Vertex& candidate,
++    double null_height_units,
++    int null_draws,
++    std::uint64_t seed,
++    bool allow_repeated_pool_rows = false);
++
++[[nodiscard]] PooledPermutationResult pool_permutation_null(
++    const std::vector<PermutationStar>& stars,
++    int minimum_reference_size = 512);
++
++[[nodiscard]] double inverse_standard_normal(double probability);
+diff -ruN /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/pipeline.cpp /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/pipeline.cpp
+--- /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/pipeline.cpp	2026-08-01 15:04:44.000000000 +0000
++++ /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/pipeline.cpp	2026-08-01 19:20:11.824076143 +0000
+@@ -9,6 +9,7 @@
+ #include "mesh.h"
+ #include "observation.h"
+ #include "output.h"
++#include "permutation_gate.h"
+ #include "units.h"
+ #include "vertex.h"
+ 
+@@ -1568,6 +1569,27 @@
+             std::vector<double> sps;
+             std::vector<Vertex::ExactCandidateGain> exact_profiles;
+             std::vector<double> histogram_pvalues;
++            std::vector<PermutationStar> permutation_stars;
++            std::vector<double> permutation_pvalues;
++            std::vector<int> permutation_reference_sizes;
++
++            static const bool PERM_GATE = [] {
++                const char* e = std::getenv("DMESH_PERM_GATE");
++                return e != nullptr && std::atoi(e) != 0;
++            }();
++            static const int PERM_DRAWS = [] {
++                const char* e = std::getenv("DMESH_PERM_DRAWS");
++                return std::max(4, e ? std::atoi(e) : 32);
++            }();
++            static const double PERM_MIN_KEFF = [] {
++                const char* e = std::getenv("DMESH_PERM_MIN_KEFF");
++                const double value = e ? std::atof(e) : 4.0;
++                return std::isfinite(value) && value >= 0.0 ? value : 4.0;
++            }();
++            static const bool PERM_ALLOW_REPEATED = [] {
++                const char* e = std::getenv("DMESH_PERM_ALLOW_REPEATED_POOL_ROWS");
++                return e != nullptr && std::atoi(e) != 0;
++            }();
+ 
+             // Candidate family = new inactive edge midpoints plus conformity-only
+             // vertices that already exist geometrically but have zero surplus.
+@@ -1608,8 +1630,11 @@
+                 auto lr = v->loc_regress(false);
+                 const double candidate_keff = lr.xT2x > 0.0
+                     ? lr.xTx * lr.xTx / lr.xT2x : 0.0;
++                const double required_candidate_support = PERM_GATE
++                    ? std::max(Vertex::minimum_effective_support(), PERM_MIN_KEFF)
++                    : Vertex::minimum_effective_support();
+                 if (lr.xTx <= 0 || lr.fit_points < Vertex::kMinimumFitPoints ||
+-                    candidate_keff < Vertex::minimum_effective_support()) continue;
++                    candidate_keff < required_candidate_support) continue;
+                 double sp = 0;
+                 for (Vertex* p : {parent->vertex0, parent->vertex1})
+                     if (p->sigma_pooled < 1e290) sp += p->sigma_pooled;
+@@ -1669,6 +1694,19 @@
+                 // admit it while B2 calibration is still pending.
+                 if (!(exact.gain_nats > 1e-12)) continue;
+ 
++                PermutationStar permutation_star;
++                if (PERM_GATE) {
++                    std::uint64_t permutation_seed =
++                        (static_cast<std::uint64_t>(config.simulation.seed) << 32)
++                        ^ (static_cast<std::uint64_t>(stage + 1) << 24)
++                        ^ (static_cast<std::uint64_t>(rnd + 1) << 16)
++                        ^ static_cast<std::uint64_t>(v->_id + 1);
++                    permutation_star = build_permutation_star(
++                        *v, exact_null, PERM_DRAWS, permutation_seed,
++                        PERM_ALLOW_REPEATED);
++                    if (!permutation_star.ok) continue;
++                }
++
+                 const double regime_distance = std::hypot(
+                     v->x, v->y - 0.3750871809178406);
+                 if (regime_distance < g_b1_diag.nearest_regime_distance) {
+@@ -1788,11 +1826,13 @@
+                     const char* e = std::getenv("DMESH_B2_USE_SCORE");
+                     return e != nullptr && std::atoi(e) != 0;
+                 }();
+-                const double zc = HIST_NULL
+-                    ? histogram_null.gaussian_equivalent
+-                    : (B3_USE_SCORE
+-                        ? (b3_stage0_legacy ? legacy_zc : b3_calibrated_score)
+-                        : (B2_USE_SCORE ? exact.signed_root_gain : legacy_zc));
++                const double zc = PERM_GATE
++                    ? permutation_star.observed_z
++                    : (HIST_NULL
++                        ? histogram_null.gaussian_equivalent
++                        : (B3_USE_SCORE
++                            ? (b3_stage0_legacy ? legacy_zc : b3_calibrated_score)
++                            : (B2_USE_SCORE ? exact.signed_root_gain : legacy_zc)));
+                 if (std::isfinite(zc) && std::isfinite(legacy_zc)
+                     && std::isfinite(exact.signed_root_gain)) {
+                     cands.push_back(v);
+@@ -1801,6 +1841,7 @@
+                     sps.push_back(sp);
+                     exact_profiles.push_back(exact);
+                     histogram_pvalues.push_back(HIST_NULL ? histogram_null.p_value : 1.0);
++                    if (PERM_GATE) permutation_stars.push_back(std::move(permutation_star));
+                     auto& gain_dump = b1_gain_stream();
+                     if (gain_dump) {
+                         gain_dump << stage << ',' << rnd << ',' << v->_id << ','
+@@ -1844,8 +1885,31 @@
+                         }
+                 }
+             }
+-            // Retired: Monte Carlo null calibration (superseded by the
+-            // composite/one-law analytic null and the permutation gate).
++            if (PERM_GATE && !permutation_stars.empty()) {
++                const auto pooled = pool_permutation_null(permutation_stars);
++                if (pooled.gaussian_scores.size() != zs.size()) {
++                    throw std::runtime_error("pooled permutation result size mismatch");
++                }
++                zs = pooled.gaussian_scores;
++                permutation_pvalues = pooled.p_values;
++                permutation_reference_sizes = pooled.reference_sizes;
++                double minimum_p = 1.0;
++                int minimum_reference = std::numeric_limits<int>::max();
++                int maximum_reference = 0;
++                for (std::size_t i = 0; i < permutation_pvalues.size(); ++i) {
++                    minimum_p = std::min(minimum_p, permutation_pvalues[i]);
++                    minimum_reference = std::min(minimum_reference,
++                                                 permutation_reference_sizes[i]);
++                    maximum_reference = std::max(maximum_reference,
++                                                 permutation_reference_sizes[i]);
++                }
++                std::fprintf(stderr,
++                    "[permutation gate] stage %d round %d candidates %zu draws/star %d "
++                    "min-p %.6g reference %d--%d repeated-pool-rows %s\n",
++                    stage, rnd, zs.size(), PERM_DRAWS, minimum_p,
++                    minimum_reference == std::numeric_limits<int>::max() ? 0 : minimum_reference,
++                    maximum_reference, PERM_ALLOW_REPEATED ? "allowed" : "rejected");
++            }
+             timing.candidate_scoring_seconds += now_seconds() - _tsc;
+             if (cands.empty()) break;
+             const int oracle_vertex_budget = config.fit.oracle_vertex_budget;
+@@ -1899,12 +1963,17 @@
+                 const char* e = std::getenv("DMESH_CANDIDATE_BH");
+                 return e != nullptr && std::atoi(e) != 0;
+             }();
++            static const bool PERM_BH = [] {
++                const char* e = std::getenv("DMESH_PERM_BH");
++                return e != nullptr && std::atoi(e) != 0;
++            }();
+             auto run_direct_bh = [&]() {
+                 std::vector<int> op(zs.size());
+                 std::vector<double> pv(zs.size());
+                 for (size_t i = 0; i < zs.size(); ++i) {
+-                    pv[i] = HIST_NULL_GATE ? histogram_pvalues[i]
+-                                           : 2 * normal_survival(std::fabs(zs[i]));
++                    pv[i] = PERM_GATE ? permutation_pvalues[i]
++                                           : (HIST_NULL_GATE ? histogram_pvalues[i]
++                                               : 2 * normal_survival(std::fabs(zs[i])));
+                     op[i] = static_cast<int>(i);
+                 }
+                 std::sort(op.begin(), op.end(), [&](int a, int b) { return pv[a] < pv[b]; });
+@@ -1918,7 +1987,15 @@
+                 for (int i = 0; i < kbh; ++i) lf[direct_bh_order[i]] = 0.0;
+             };
+ 
+-            if (!HIST_NULL_GATE && !CANDIDATE_BH && zs.size() >= 50) {
++            if (PERM_GATE && !PERM_BH && zs.size() >= 50) {
++                lfdr_result = lindsey_lfdr_theoretical(zs);
++                if (lfdr_result.used_lindsey) {
++                    lf = lfdr_result.lfdr;
++                } else {
++                    lindsey_fallback = true;
++                    run_direct_bh();
++                }
++            } else if (!PERM_GATE && !HIST_NULL_GATE && !CANDIDATE_BH && zs.size() >= 50) {
+                 // B3 default: after the stage-0 legacy pilot, let central
+                 // matching estimate the residual family-level scale outside
+                 // the obsolete [1,1.4] box.  Candidate-specific sandwich
+@@ -1991,10 +2068,14 @@
+                     stage, rnd, zs.size(), zmean, zsd,
+                     lfdr_result.empirical_mean, lfdr_result.empirical_sd,
+                     lfdr_result.pi0,
+-                    HIST_NULL_GATE ? "histogram-BH"
+-                        : (CANDIDATE_BH ? "candidate-BH"
+-                            : (lfdr_result.used_lindsey ? "lindsey"
+-                                : (lindsey_fallback ? "BH-fallback" : "BH"))), kk,
++                    PERM_GATE
++                        ? (PERM_BH ? "permutation-BH"
++                            : (lfdr_result.used_lindsey ? "permutation-lfdr"
++                                : "permutation-BH-fallback"))
++                        : (HIST_NULL_GATE ? "histogram-BH"
++                            : (CANDIDATE_BH ? "candidate-BH"
++                                : (lfdr_result.used_lindsey ? "lindsey"
++                                    : (lindsey_fallback ? "BH-fallback" : "BH")))), kk,
+                     lindsey_status_name(lfdr_result.status),
+                     lfdr_result.iterations, lfdr_result.fitted_mass,
+                     lfdr_result.central_curvature);
+@@ -2040,6 +2121,20 @@
+                     v->activate(false);
+                 }
+ 
++                if (PERM_GATE) {
++                    const auto live_support = v->loc_regress(false);
++                    const double live_keff = live_support.xT2x > 0.0
++                        ? live_support.xTx * live_support.xTx / live_support.xT2x
++                        : 0.0;
++                    const double required_live_support =
++                        std::max(Vertex::minimum_effective_support(), PERM_MIN_KEFF);
++                    if (live_support.fit_points < Vertex::kMinimumFitPoints ||
++                        live_keff < required_live_support) {
++                        v->gate_admitted = false;
++                        continue;
++                    }
++                }
++
+                 // Candidates are scored as a batch, but commits are sequential.
+                 // Earlier admissions can move parents and predictors. Re-profile
+                 // at the actual commit state, after any conformity closure, so a
+@@ -2185,7 +2280,21 @@
+         // them here: a direct reset would again violate descendant constraints
+         // and would make the final model depend on cleanup order.
+         nv_final = 0;
+-        for (Vertex* v : mesh->vertices) if (v->active) nv_final++;
++        int gate_admitted_final = 0;
++        for (Vertex* v : mesh->vertices) {
++            if (v->active) ++nv_final;
++            if (v->gate_admitted) ++gate_admitted_final;
++        }
++        static const bool STOP_AFTER_GATE = [] {
++            const char* e = std::getenv("DMESH_STOP_AFTER_GATE");
++            return e != nullptr && std::atoi(e) != 0;
++        }();
++        if (STOP_AFTER_GATE) {
++            std::fprintf(stderr,
++                         "[gate-only stop] stage %d active %d gate-admitted %d\n",
++                         stage, nv_final, gate_admitted_final);
++            return 0;
++        }
+ 
+         // pairwise sigma_u^2 at this stage
+         std::vector<double> Sr(pid, 0), Sr2(pid, 0), Sw(pid, 0), Sw2(pid, 0);
+diff -ruN /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/tests/test_permutation_gate.cpp /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/tests/test_permutation_gate.cpp
+--- /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/core/tests/test_permutation_gate.cpp	1970-01-01 00:00:00.000000000 +0000
++++ /mnt/data/release_update_build/DecisionMesh_complete_release_updated_2026-08-01/experiments/pooled_permutation_gate/source/tests/test_permutation_gate.cpp	2026-08-01 19:15:18.336084466 +0000
+@@ -0,0 +1,63 @@
++#include "permutation_gate.h"
++
++#include <algorithm>
++#include <cmath>
++#include <cstdio>
++#include <random>
++#include <vector>
++
++namespace {
++
++bool nearly_equal(double a, double b, double tolerance) {
++    return std::fabs(a - b) <= tolerance;
++}
++
++}  // namespace
++
++int main() {
++    // Inverse-normal round trips at common quantiles.
++    if (!nearly_equal(inverse_standard_normal(0.5), 0.0, 1e-10) ||
++        !nearly_equal(inverse_standard_normal(0.975), 1.95996398454, 2e-7) ||
++        !nearly_equal(inverse_standard_normal(0.001), -3.09023230617, 2e-7)) {
++        std::fprintf(stderr, "inverse normal regression failed\n");
++        return 1;
++    }
++
++    // A pooled reference should remove the per-star resolution floor. Each
++    // candidate contributes only 16 draws, but 400 candidates give a reference
++    // of 6400 draws and therefore p-values well below 1/16.
++    std::mt19937_64 rng(12345);
++    std::normal_distribution<double> normal(0.0, 1.0);
++    std::vector<PermutationStar> stars(400);
++    for (auto& star : stars) {
++        star.ok = true;
++        star.rows = 24;
++        star.size_band = permutation_size_band(star.rows);
++        star.observed_z = normal(rng);
++        for (int draw = 0; draw < 16; ++draw) star.null_z.push_back(normal(rng));
++    }
++    // Plant one strong candidate.
++    stars[0].observed_z = 4.0;
++    const auto pooled = pool_permutation_null(stars, 512);
++    if (pooled.p_values.size() != stars.size() ||
++        pooled.reference_sizes[0] < 6000 ||
++        !(pooled.p_values[0] < 0.01) ||
++        !(pooled.gaussian_scores[0] > 2.5)) {
++        std::fprintf(stderr, "pooled calibration regression failed: p %.8g ref %d z %.8g\n",
++                     pooled.p_values[0], pooled.reference_sizes[0],
++                     pooled.gaussian_scores[0]);
++        return 1;
++    }
++
++    // Under a matched Gaussian null, pooled p-values should be approximately
++    // uniform. This is intentionally loose: it is a deterministic smoke test,
++    // not a stochastic certification.
++    int below_05 = 0;
++    for (double p : pooled.p_values) below_05 += p <= 0.05;
++    if (below_05 < 8 || below_05 > 35) {
++        std::fprintf(stderr, "null-size smoke test failed: %d/400\n", below_05);
++        return 1;
++    }
++
++    return 0;
++}

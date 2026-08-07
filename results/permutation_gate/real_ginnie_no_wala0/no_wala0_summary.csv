@@ -1,0 +1,5 @@
+analysis,mode,label,splits,mean_deviance,sd_deviance,mean_x2,sd_x2,mean_admissions,mean_faces,mean_max_depth,mean_runtime
+"Existing fit, rescore without WALA 0",baseline_q10,"Shipped gate, q=.10",10,6.55274737415575,0.2579657775900553,0.15078022545882666,0.008913094570811556,,,,
+"Existing fit, rescore without WALA 0",perm_bh_k4_q15,"Permutation BH, K_eff≥4, q=.15",10,6.867292976509051,0.24369717933448878,0.15650440800591445,0.006788087207046831,,,,
+Refit after removing WALA 0,baseline_q10,"Shipped gate, q=.10",10,6.496824132706449,0.2595487396037559,0.15236513281331648,0.011309108311975185,118.0,729.8,8.7,15.508
+Refit after removing WALA 0,perm_bh_k4_q15,"Permutation BH, K_eff≥4, q=.15",10,6.810834668057322,0.31152463770187766,0.15857022208282173,0.011220789312779538,136.1,885.9,6.1,11.362

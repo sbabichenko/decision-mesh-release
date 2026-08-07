@@ -1,0 +1,7 @@
+/mnt/data/coupled_penalty_audit_ginnie2/run_obs.csv: NLL all 2.9443 | ramp 2.203 | mid 3.489 | seasoned 2.555
+  base profile (law-marginal MLE dot | fit, law-weighted):
+    WALA 0-2: -7.95 | -7.00
+    WALA 2-4: -6.33 | -6.18
+    WALA 4-6: -5.33 | -5.03
+    WALA 6-8: -4.57 | -3.92
+    WALA 8-10: -3.28 | -3.03

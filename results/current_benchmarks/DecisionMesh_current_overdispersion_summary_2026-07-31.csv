@@ -1,0 +1,3 @@
+estimator,mean_sigma_u2,bias,rmse,seeds
+Naive in-sample moment,0.08712,-0.0028799999999999937,0.00447303029276574,5
+Leverage-corrected moment,0.08856,-0.0014399999999999968,0.0037735924528226397,5

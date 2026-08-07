@@ -1,0 +1,12 @@
+{
+  "v3_b3_reference_faces": 80,
+  "v3_hist_gaussian_035_faces": 80,
+  "v3_hist_measured_shape_035_faces": 40,
+  "v3_hist_full_law_faces": 35,
+  "v4_hist_measured_shape_point_variance_faces": 78,
+  "v3_marginal_mixture_score_faces": 311,
+  "real_full_law_nll": 2.962,
+  "real_full_law_boundary_wala_0_2": -5.68,
+  "v3_full_law_gate_admitted_depth_ge_8_in_window": 0,
+  "v4_hist_gate_admitted_depth_ge_8_in_window": 0
+}

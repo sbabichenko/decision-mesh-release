@@ -1,0 +1,761 @@
+--- /mnt/data/decision_mesh_phaseB3_work/observation.h	2026-07-28 14:09:18.010079417 +0000
++++ observation.h	2026-07-28 17:10:48.434007145 +0000
+@@ -11,4 +11,8 @@
+     double offset = 0.0;
+     double true_surface_scaled = 0.0;
+     double latent_effect = 0.0;
++    // Optional null-law metadata supplied by benchmark/production CSVs.
++    // pool_variance is logit^2. effective_exposure is diagnostic only.
++    double pool_variance = -1.0;
++    double effective_exposure = -1.0;
+ };
+--- /mnt/data/decision_mesh_phaseB3_work/dataset.cpp	2026-07-28 14:09:18.010079417 +0000
++++ dataset.cpp	2026-07-28 17:10:49.522007138 +0000
+@@ -28,7 +28,9 @@
+     // predictor offset (known structure fitted outside the mesh). The mesh
+     // then models only residual surface; gate and EB tax residual novelty.
+     const bool use_off5 = std::getenv("DMESH_OFFSET5") != nullptr;
+-    std::vector<std::array<double, 5>> rows;
++    const bool has_sigma2_pool = line.find("sigma2_pool") != std::string::npos;
++    const bool has_n_eff = line.find("n_eff") != std::string::npos;
++    std::vector<std::array<double, 7>> rows;
+     double total_events = 0.0;
+     double total_exposure = 0.0;
+     double min_wala = 1e9, max_wala = -1e9;
+@@ -40,6 +42,7 @@
+         std::replace(line.begin(), line.end(), ',', ' ');
+         std::istringstream parser(line);
+         double wala = 0.0, wac = 0.0, exposure = 0.0, events = 0.0, off5 = 0.0;
++        double sigma2_pool = -1.0, n_eff = -1.0;
+         if (!(parser >> wala >> wac >> exposure >> events)) {
+             throw std::runtime_error("invalid data row " + std::to_string(line_number) +
+                                      " in " + path);
+@@ -47,8 +50,15 @@
+         if (use_off5 && !(parser >> off5)) {
+             throw std::runtime_error("DMESH_OFFSET5 set but row " +
+                                      std::to_string(line_number) + " has no 5th column");
++        } else if (!use_off5 && has_sigma2_pool && !(parser >> sigma2_pool)) {
++            throw std::runtime_error("sigma2_pool header present but row " +
++                                     std::to_string(line_number) + " has no value");
+         }
+-        rows.push_back({wala, wac, exposure, events, off5});
++        if (!use_off5 && has_n_eff && !(parser >> n_eff)) {
++            throw std::runtime_error("n_eff header present but row " +
++                                     std::to_string(line_number) + " has no value");
++        }
++        rows.push_back({wala, wac, exposure, events, off5, sigma2_pool, n_eff});
+         total_events += events;
+         total_exposure += exposure;
+         min_wala = std::min(min_wala, wala);
+@@ -81,7 +91,8 @@
+         const double information = n * p0 * (1.0 - p0);
+         dataset.observations.push_back({x, y, information / kVarianceScale,
+                                         from_log_odds((k - n * p0) / information),
+-                                        k, n, dataset.pool_count++, obs_offset, 0.0, 0.0});
++                                        k, n, dataset.pool_count++, obs_offset, 0.0, 0.0,
++                                        row[5], row[6]});
+     }
+ 
+     std::fprintf(stderr,
+@@ -139,7 +150,7 @@
+                                             information / kVarianceScale,
+                                             (events - loans * offset_probability) / information * kHeightScale,
+                                             events, loans, dataset.pool_count, offset,
+-                                            systematic * kHeightScale, pool_effect});
++                                            systematic * kHeightScale, pool_effect, -1.0, -1.0});
+         }
+     }
+     return dataset;
+--- /mnt/data/decision_mesh_phaseB3_work/vertex.h	2026-07-28 15:33:20.382045954 +0000
++++ vertex.h	2026-07-28 17:11:44.958006770 +0000
+@@ -174,6 +174,26 @@
+                                              double prior_mean_units,
+                                              double lam_prec_units,
+                                              bool validate_grid = false) const;
++
++    // Deterministic candidatewise null based on the measured pool-effect law.
++    // The exact score column is used; each pool's binomial response is
++    // integrated over a size-stratified two-component approximation to the
++    // supplied effect histogram.  The few largest contributors are retained
++    // as an explicit Gaussian mixture and the remainder is moment-collapsed.
++    struct HistogramNullResult {
++        bool ok = false;
++        double p_value = 1.0;
++        double gaussian_equivalent = 0.0;
++        double observed_data_score = 0.0;
++        double null_mean = 0.0;
++        double null_sd = 0.0;
++        double tail_keff = 0.0;
++        int rows = 0;
++        int explicit_mixture_rows = 0;
++    };
++    HistogramNullResult histogram_null_score(
++        double null_units, double prior_mean_units,
++        double lam_prec_units, const ExactCandidateGain& exact) const;
+     // Profile a caller-supplied canonical hierarchical column.  This is used
+     // by the fixed-point audit after building the full active design once, so
+     // the audit and the exact stage solver evaluate literally the same sparse
+--- /mnt/data/decision_mesh_phaseB3_work/vertex.cpp	2026-07-28 15:37:53.714044140 +0000
++++ vertex.cpp	2026-07-28 17:26:37.762000845 +0000
+@@ -10,6 +10,9 @@
+ #include <limits>
+ #include <vector>
+ #include <algorithm>
++#include <cstdlib>
++#include <cstdio>
++#include <numeric>
+ #include "units.h"
+ 
+ // Propagate a committed height change through geometry-only descendants before
+@@ -778,6 +781,479 @@
+                                 validate_grid);
+ }
+ 
++
++namespace {
++
++struct HistogramLawConfig {
++    double total_variance[4] = {0.35, 0.35, 0.35, 0.35};
++    double mixture_weight[4] = {0.0, 0.0, 0.0, 0.0};
++    double variance_ratio[4] = {1.0, 1.0, 1.0, 1.0};
++    int explicit_rows = 8;
++    bool use_point_variance = true;
++};
++
++const HistogramLawConfig& histogram_law_config() {
++    static const HistogramLawConfig config = [] {
++        HistogramLawConfig out;
++        if (const char* gev = std::getenv("DMESH_GATE_EXTRA_VAR")) {
++            const double v = std::atof(gev);
++            if (std::isfinite(v) && v > 0.0)
++                for (double& x : out.total_variance) x = v;
++        }
++        if (const char* tv = std::getenv("DMESH_HIST_TOTAL_VAR")) {
++            double a, b, c, d;
++            if (std::sscanf(tv, "%lf,%lf,%lf,%lf", &a, &b, &c, &d) == 4) {
++                const double vals[4] = {a, b, c, d};
++                for (int i = 0; i < 4; ++i)
++                    if (std::isfinite(vals[i]) && vals[i] > 0.0)
++                        out.total_variance[i] = vals[i];
++            }
++        }
++        // Per stratum: mixture probability and wide/core variance ratio.
++        // Example: "0.27,5.85;0.16,5.92;0.07,7.79;0.10,91.6".
++        if (const char* mix = std::getenv("DMESH_HIST_MIX_SHAPE")) {
++            double p0, r0, p1, r1, p2, r2, p3, r3;
++            if (std::sscanf(mix,
++                    "%lf,%lf;%lf,%lf;%lf,%lf;%lf,%lf",
++                    &p0, &r0, &p1, &r1, &p2, &r2, &p3, &r3) == 8) {
++                const double ps[4] = {p0, p1, p2, p3};
++                const double rs[4] = {r0, r1, r2, r3};
++                for (int i = 0; i < 4; ++i) {
++                    out.mixture_weight[i] = std::clamp(ps[i], 0.0, 0.5);
++                    out.variance_ratio[i] = std::max(rs[i], 1.0);
++                }
++            }
++        }
++        if (const char* top = std::getenv("DMESH_HIST_TOP")) {
++            const int parsed = std::atoi(top);
++            if (parsed >= 0) out.explicit_rows = std::min(parsed, 14);
++        }
++        if (const char* ignore = std::getenv("DMESH_HIST_IGNORE_POINT_VAR")) {
++            out.use_point_variance = std::atoi(ignore) == 0;
++        }
++        return out;
++    }();
++    return config;
++}
++
++inline double stable_logistic(double x) {
++    if (x >= 0.0) return 1.0 / (1.0 + std::exp(-x));
++    const double ex = std::exp(x);
++    return ex / (1.0 + ex);
++}
++
++inline double normal_cdf_hist(double z) {
++    return 0.5 * std::erfc(-z / std::sqrt(2.0));
++}
++
++inline double upper_probit_hist(double p) {
++    p = std::clamp(p, 1e-300, 0.5);
++    const double t = std::sqrt(-2.0 * std::log(p));
++    return t - (2.515517 + 0.802853*t + 0.010328*t*t)
++             / (1.0 + 1.432788*t + 0.189269*t*t + 0.001308*t*t*t);
++}
++
++struct HistogramComponentMoment {
++    double mean = 0.0;
++    double variance = 0.0;
++};
++
++struct MarginalComponentDerivatives {
++    bool ok = false;
++    double log_marginal = 0.0;
++    double score = 0.0;
++    double second = 0.0;
++};
++
++inline double log1pexp_hist(double x) {
++    if (x > 0.0) return x + std::log1p(std::exp(-x));
++    return std::log1p(std::exp(x));
++}
++
++MarginalComponentDerivatives marginal_component_derivatives(
++        double eta, double events, double exposure, double effect_variance) {
++    MarginalComponentDerivatives out;
++    const double s2 = std::max(effect_variance, 1e-10);
++    // Posterior mode under the Gaussian component.  The score equation is
++    // k - n p(eta+u) - u/s2 = 0 and is globally monotone.
++    double u = 0.0;
++    const double empirical_p = std::clamp((events + 0.5) / (exposure + 1.0),
++                                          1e-10, 1.0 - 1e-10);
++    u = std::clamp(std::log(empirical_p / (1.0 - empirical_p)) - eta,
++                   -12.0, 12.0);
++    for (int it = 0; it < 40; ++it) {
++        const double p = stable_logistic(eta + u);
++        const double curvature = exposure * p * (1.0 - p) + 1.0 / s2;
++        const double gradient = events - exposure * p - u / s2;
++        const double step = std::clamp(gradient / std::max(curvature, 1e-12),
++                                       -2.0, 2.0);
++        u += step;
++        u = std::clamp(u, -20.0, 20.0);
++        if (std::fabs(step) < 1e-10) break;
++    }
++    const double p_mode = stable_logistic(eta + u);
++    const double curvature = exposure * p_mode * (1.0 - p_mode) + 1.0 / s2;
++    const double scale = 1.0 / std::sqrt(std::max(curvature, 1e-12));
++
++    // Nine-node mode-centered Gauss-Hermite integration.  These are the
++    // probabilists' nodes with weights normalized to E_{N(0,1)}.
++    static constexpr double nodes[9] = {
++        -4.5127458633997826, -3.2054290028564698,
++        -2.0768479786778302, -1.0232556637891326,
++         0.0,
++         1.0232556637891326,  2.0768479786778302,
++         3.2054290028564698,  4.5127458633997826
++    };
++    static constexpr double weights[9] = {
++        2.2345844007746607e-05, 0.0027891413212317692,
++        0.049916406765217823,  0.24409750289493953,
++        0.40634920634920635,
++        0.24409750289493953,  0.049916406765217823,
++        0.0027891413212317692, 2.2345844007746607e-05
++    };
++    double log_terms[9];
++    double d1[9], d2[9];
++    double max_log = -std::numeric_limits<double>::infinity();
++    for (int j = 0; j < 9; ++j) {
++        const double uj = u + scale * nodes[j];
++        const double theta = eta + uj;
++        const double pj = stable_logistic(theta);
++        const double log_kernel = events * theta
++            - exposure * log1pexp_hist(theta)
++            - 0.5 * uj * uj / s2;
++        // Change of variables around the posterior mode, with the x^2/2
++        // correction because the quadrature weights integrate against phi(x).
++        log_terms[j] = std::log(weights[j]) + 0.5 * nodes[j] * nodes[j]
++            + log_kernel + std::log(scale) - 0.5 * std::log(s2);
++        max_log = std::max(max_log, log_terms[j]);
++        d1[j] = events - exposure * pj;
++        d2[j] = -exposure * pj * (1.0 - pj);
++    }
++    double norm = 0.0, e1 = 0.0, e2 = 0.0, e11 = 0.0;
++    for (int j = 0; j < 9; ++j) {
++        const double w = std::exp(std::clamp(log_terms[j] - max_log,
++                                             -745.0, 0.0));
++        norm += w;
++        e1 += w * d1[j];
++        e2 += w * d2[j];
++        e11 += w * d1[j] * d1[j];
++    }
++    if (!(norm > 0.0) || !std::isfinite(max_log)) return out;
++    e1 /= norm;
++    e2 /= norm;
++    e11 /= norm;
++    out.ok = true;
++    out.log_marginal = max_log + std::log(norm);
++    out.score = e1;
++    out.second = e2 + e11 - e1 * e1;
++    return out;
++}
++
++HistogramComponentMoment score_component_moment(double eta_null,
++                                                 double p_null,
++                                                 double exposure,
++                                                 double score_loading,
++                                                 double effect_variance) {
++    // Five-node Gauss-Hermite rule for a standard normal expectation.
++    static constexpr double nodes[5] = {
++        -2.8569700138728056, -1.355626179974266,
++         0.0,
++         1.355626179974266,  2.8569700138728056
++    };
++    static constexpr double weights[5] = {
++        0.01125741132772069, 0.2220759220056126,
++        0.5333333333333333,
++        0.2220759220056126, 0.01125741132772069
++    };
++    const double sd = std::sqrt(std::max(effect_variance, 0.0));
++    double eq = 0.0, eq2 = 0.0;
++    if (sd <= 1e-14) {
++        eq = p_null;
++        eq2 = p_null * p_null;
++    } else {
++        for (int j = 0; j < 5; ++j) {
++            const double q = stable_logistic(eta_null + sd * nodes[j]);
++            eq += weights[j] * q;
++            eq2 += weights[j] * q * q;
++        }
++    }
++    const double mean_k = exposure * eq;
++    const double var_k = std::max(
++        exposure * (eq - eq2)
++        + exposure * exposure * (eq2 - eq * eq), 0.0);
++    HistogramComponentMoment out;
++    out.mean = score_loading * (mean_k - exposure * p_null);
++    out.variance = score_loading * score_loading * var_k;
++    return out;
++}
++
++}  // namespace
++
++Vertex::HistogramNullResult Vertex::histogram_null_score(
++    double null_units,
++    double prior_mean_units,
++    double lam_prec_units,
++    const ExactCandidateGain& exact) const {
++    (void)prior_mean_units;
++    (void)lam_prec_units;
++    HistogramNullResult out;
++    if (!exact.ok || mesh == nullptr || mesh->obs_store == nullptr) return out;
++
++    std::vector<std::pair<int, double>> column;
++    double current_units = null_units;
++    if (!active) {
++        if (parent_edge == nullptr) return out;
++        for (Face* face : parent_edge->faces) {
++            if (face == nullptr || face->coords_indices.empty()) continue;
++            int ia = -1, ib = -1;
++            for (int j = 0; j < 3; ++j) {
++                if (face->vertices[j] == parent_edge->vertex0) ia = j;
++                if (face->vertices[j] == parent_edge->vertex1) ib = j;
++            }
++            if (ia < 0 || ib < 0) continue;
++            for (int idx : face->coords_indices) {
++                if (idx < 0 || idx >= mesh->n_points ||
++                    mesh->point_face[idx] != face) continue;
++                const auto& bc = mesh->point_bary[idx];
++                const double value = 2.0 * std::min(bc[ia], bc[ib]);
++                if (std::fabs(value) > 1e-12) column.push_back({idx, value});
++            }
++        }
++    } else {
++        hierarchical_design::BuildOptions options;
++        options.training_only = false;
++        column = hierarchical_design::build_active_column(*mesh, this, options);
++        current_units = height;
++    }
++    if (column.empty()) return out;
++    std::sort(column.begin(), column.end(), [](const auto& a, const auto& b) {
++        return a.first < b.first;
++    });
++    std::vector<std::pair<int, double>> merged;
++    merged.reserve(column.size());
++    for (const auto& entry : column) {
++        if (!merged.empty() && merged.back().first == entry.first)
++            merged.back().second += entry.second;
++        else
++            merged.push_back(entry);
++    }
++
++    struct RowMoment {
++        double pi = 0.0;
++        HistogramComponentMoment core;
++        HistogramComponentMoment wide;
++        double mean = 0.0;
++        double variance = 0.0;
++        double importance = 0.0;
++    };
++    std::vector<RowMoment> moments;
++    moments.reserve(merged.size());
++    const auto& observations = *mesh->obs_store;
++    const auto& law = histogram_law_config();
++    const double active_height_adjustment = null_units - current_units;
++
++    static const bool MARGINAL_SCORE = [] {
++        const char* e = std::getenv("DMESH_HIST_MARGINAL");
++        return e != nullptr && std::atoi(e) != 0;
++    }();
++    if (MARGINAL_SCORE) {
++        double score = 0.0;
++        double information = 0.0;
++        double information_sq = 0.0;
++        int used = 0;
++        for (const auto& [idx, value] : merged) {
++            if (idx < 0 || idx >= mesh->n_points || std::fabs(value) <= 1e-12)
++                continue;
++            const double train_temper = (idx < (int)mesh->likelihood_temper.size())
++                ? mesh->likelihood_temper[idx] : 1.0;
++            // The marginal law already prices pool heterogeneity.  Tempering
++            // it again would double-discount the same nuisance variance; use
++            // the frozen temper only as the train/held-out indicator.
++            if (train_temper < 1e-8) continue;
++            const Observation& observation = observations[idx];
++            const double prediction_null = mesh->predict_index(idx)
++                + value * active_height_adjustment;
++            const double eta_null = observation.offset
++                + prediction_null / kHeightScale;
++            const double n = observation.exposure;
++            const int stratum = n < 128.0 ? 0 : n < 512.0 ? 1
++                                : n < 4096.0 ? 2 : 3;
++            double total_s2 = law.total_variance[stratum];
++            if (law.use_point_variance && observation.pool_variance > 0.0
++                && std::isfinite(observation.pool_variance))
++                total_s2 = observation.pool_variance;
++            total_s2 = std::max(total_s2, 1e-10);
++            const double pi = law.mixture_weight[stratum];
++            const double ratio = law.variance_ratio[stratum];
++            const double core_s2 = total_s2
++                / std::max((1.0 - pi) + pi * ratio, 1e-12);
++            const double wide_s2 = ratio * core_s2;
++            const auto core = marginal_component_derivatives(
++                eta_null, observation.events, observation.exposure, core_s2);
++            const auto wide = marginal_component_derivatives(
++                eta_null, observation.events, observation.exposure, wide_s2);
++            if (!core.ok || !wide.ok) continue;
++            const double la = std::log(std::max(1.0 - pi, 1e-300))
++                            + core.log_marginal;
++            const double lb = std::log(std::max(pi, 1e-300))
++                            + wide.log_marginal;
++            const double lm = std::max(la, lb);
++            const double wa = std::exp(la - lm);
++            const double wb = std::exp(lb - lm);
++            const double norm = wa + wb;
++            const double qa = wa / norm, qb = wb / norm;
++            const double d1 = qa * core.score + qb * wide.score;
++            const double d2 = qa * (core.second + core.score * core.score)
++                            + qb * (wide.second + wide.score * wide.score)
++                            - d1 * d1;
++            const double row_score = value * d1;
++            const double row_info = std::max(-value * value * d2, 0.0);
++            score += row_score;
++            information += row_info;
++            information_sq += row_info * row_info;
++            ++used;
++        }
++        if (!(information > 1e-12) || used == 0) return out;
++        const double z = score / std::sqrt(information);
++        const double p_value = std::clamp(
++            std::erfc(std::fabs(z) / std::sqrt(2.0)), 1e-300, 1.0);
++        out.ok = true;
++        out.p_value = p_value;
++        out.gaussian_equivalent = z;
++        out.observed_data_score = score;
++        out.null_mean = 0.0;
++        out.null_sd = std::sqrt(information);
++        out.tail_keff = information_sq > 0.0
++            ? information * information / information_sq : 0.0;
++        out.rows = used;
++        out.explicit_mixture_rows = 0;
++        return out;
++    }
++    double observed_data_score = 0.0;
++    double variance_sq_sum = 0.0;
++    double total_mean = 0.0;
++    double total_variance = 0.0;
++
++    for (const auto& [idx, value] : merged) {
++        if (idx < 0 || idx >= mesh->n_points || std::fabs(value) <= 1e-12)
++            continue;
++        const Observation& observation = observations[idx];
++        const double prediction_null = mesh->predict_index(idx)
++            + value * active_height_adjustment;
++        const double eta_null = observation.offset
++            + prediction_null / kHeightScale;
++        const double p_null = stable_logistic(eta_null);
++        const double information = observation.exposure * p_null * (1.0 - p_null);
++        if (!(information > 0.0)) continue;
++        const double temper = (idx < (int)mesh->likelihood_temper.size())
++            ? mesh->likelihood_temper[idx]
++            : std::clamp(mesh->weights[idx] * kVarianceScale / information,
++                         0.0, 1.0);
++        if (temper < 1e-8) continue;
++        const double loading = temper * value;
++        observed_data_score += loading
++            * (static_cast<double>(observation.events)
++               - observation.exposure * p_null);
++
++        const double n = observation.exposure;
++        const int stratum = n < 128.0 ? 0 : n < 512.0 ? 1
++                            : n < 4096.0 ? 2 : 3;
++        double total_s2 = law.total_variance[stratum];
++        if (law.use_point_variance && observation.pool_variance > 0.0
++            && std::isfinite(observation.pool_variance)) {
++            total_s2 = observation.pool_variance;
++        }
++        total_s2 = std::max(total_s2, 1e-10);
++        const double pi = law.mixture_weight[stratum];
++        const double ratio = law.variance_ratio[stratum];
++        const double core_s2 = total_s2
++            / std::max((1.0 - pi) + pi * ratio, 1e-12);
++        const double wide_s2 = ratio * core_s2;
++
++        RowMoment row;
++        row.pi = pi;
++        row.core = score_component_moment(
++            eta_null, p_null, observation.exposure, loading, core_s2);
++        row.wide = score_component_moment(
++            eta_null, p_null, observation.exposure, loading, wide_s2);
++        row.mean = (1.0 - pi) * row.core.mean + pi * row.wide.mean;
++        const double second = (1.0 - pi)
++            * (row.core.variance + row.core.mean * row.core.mean)
++            + pi * (row.wide.variance + row.wide.mean * row.wide.mean);
++        row.variance = std::max(second - row.mean * row.mean, 1e-18);
++        const double mean_gap = row.wide.mean - row.core.mean;
++        const double sd_gap = std::sqrt(std::max(row.wide.variance, 0.0))
++                            - std::sqrt(std::max(row.core.variance, 0.0));
++        row.importance = pi * (1.0 - pi)
++            * (mean_gap * mean_gap + sd_gap * sd_gap);
++        moments.push_back(row);
++        total_mean += row.mean;
++        total_variance += row.variance;
++        variance_sq_sum += row.variance * row.variance;
++    }
++    if (moments.empty() || !(total_variance > 0.0)) return out;
++
++    std::vector<int> order(moments.size());
++    std::iota(order.begin(), order.end(), 0);
++    std::sort(order.begin(), order.end(), [&](int a, int b) {
++        if (moments[a].importance != moments[b].importance)
++            return moments[a].importance > moments[b].importance;
++        return moments[a].variance > moments[b].variance;
++    });
++    std::vector<int> selected_rows;
++    selected_rows.reserve(std::min<int>(law.explicit_rows, order.size()));
++    for (int index : order) {
++        if ((int)selected_rows.size() >= law.explicit_rows) break;
++        const RowMoment& row = moments[index];
++        if (row.pi <= 1e-8 || row.importance <= 1e-18) continue;
++        selected_rows.push_back(index);
++    }
++    const int explicit_rows = static_cast<int>(selected_rows.size());
++
++    const std::size_t states = std::size_t{1} << explicit_rows;
++    double cdf = 0.0;
++    double weight_sum = 0.0;
++    for (std::size_t mask = 0; mask < states; ++mask) {
++        double state_weight = 1.0;
++        double state_mean = total_mean;
++        double state_variance = total_variance;
++        for (int j = 0; j < explicit_rows; ++j) {
++            const RowMoment& row = moments[selected_rows[j]];
++            const bool wide = ((mask >> j) & 1U) != 0;
++            const double component_weight = wide ? row.pi : (1.0 - row.pi);
++            const auto& component = wide ? row.wide : row.core;
++            state_weight *= component_weight;
++            state_mean += component.mean - row.mean;
++            state_variance += component.variance - row.variance;
++        }
++        if (!(state_weight > 0.0)) continue;
++        state_variance = std::max(state_variance, 1e-18);
++        const double z = (observed_data_score - state_mean)
++            / std::sqrt(state_variance);
++        cdf += state_weight * normal_cdf_hist(z);
++        weight_sum += state_weight;
++    }
++    if (!(weight_sum > 0.0)) return out;
++    cdf = std::clamp(cdf / weight_sum, 0.0, 1.0);
++    const double p_value = std::clamp(2.0 * std::min(cdf, 1.0 - cdf),
++                                      1e-300, 1.0);
++    const double centered = observed_data_score - total_mean;
++    const double z_equiv = centered == 0.0 ? 0.0
++        : (centered < 0.0 ? -1.0 : 1.0) * upper_probit_hist(0.5 * p_value);
++
++    out.ok = true;
++    out.p_value = p_value;
++    out.gaussian_equivalent = z_equiv;
++    out.observed_data_score = observed_data_score;
++    out.null_mean = total_mean;
++    out.null_sd = std::sqrt(total_variance);
++    out.tail_keff = variance_sq_sum > 0.0
++        ? total_variance * total_variance / variance_sq_sum : 0.0;
++    out.rows = static_cast<int>(moments.size());
++    out.explicit_mixture_rows = explicit_rows;
++    return out;
++}
++
+ Vertex::ExactCandidateGain Vertex::exact_gain_on_column(
+     const std::vector<std::pair<int, double>>& input_column,
+     double current_units,
+--- /mnt/data/decision_mesh_phaseB3_work/pipeline.cpp	2026-07-28 15:45:24.670041148 +0000
++++ pipeline.cpp	2026-07-28 17:18:40.278004014 +0000
+@@ -98,7 +98,8 @@
+                       "structural_points,training_structural_points,positive_information_points,"
+                       "fit_points,keff,min_eta_null,max_eta_null,min_p_null,max_p_null,"
+                       "phi_disp,gate_var,grid_excess,b3_null_scale,b3_calibrated_score,"
+-                      "b3_stage0_legacy\n";
++                      "b3_stage0_legacy,hist_p,hist_z,hist_score,hist_null_mean,"
++                      "hist_null_sd,hist_tail_keff,hist_rows,hist_explicit_rows\n";
+         }
+     }
+     return stream;
+@@ -1348,6 +1349,7 @@
+             std::vector<double> zsd;
+             std::vector<double> sps;
+             std::vector<Vertex::ExactCandidateGain> exact_profiles;
++            std::vector<double> histogram_pvalues;
+ 
+             // Candidate family = new inactive edge midpoints plus conformity-only
+             // vertices that already exist geometrically but have zero surplus.
+@@ -1547,15 +1549,31 @@
+                 const bool b3_stage0_legacy = B3_USE_SCORE && stage == 0
+                     && !B3_STAGE0_EXACT;
+ 
++                static const bool HIST_NULL = [] {
++                    const char* e = std::getenv("DMESH_HIST_NULL");
++                    return e != nullptr && std::atoi(e) != 0;
++                }();
++                Vertex::HistogramNullResult histogram_null;
++                if (HIST_NULL) {
++                    histogram_null = v->histogram_null_score(
++                        exact_null, candidate_prior, candidate_lambda, exact);
++                    if (!histogram_null.ok || !std::isfinite(histogram_null.p_value)
++                        || !std::isfinite(histogram_null.gaussian_equivalent)) {
++                        continue;
++                    }
++                }
++
+                 // B2's raw-score switch remains as a backwards-compatible
+                 // diagnostic.  B3 takes precedence when both are set.
+                 static const bool B2_USE_SCORE = [] {
+                     const char* e = std::getenv("DMESH_B2_USE_SCORE");
+                     return e != nullptr && std::atoi(e) != 0;
+                 }();
+-                const double zc = B3_USE_SCORE
+-                    ? (b3_stage0_legacy ? legacy_zc : b3_calibrated_score)
+-                    : (B2_USE_SCORE ? exact.signed_root_gain : legacy_zc);
++                const double zc = HIST_NULL
++                    ? histogram_null.gaussian_equivalent
++                    : (B3_USE_SCORE
++                        ? (b3_stage0_legacy ? legacy_zc : b3_calibrated_score)
++                        : (B2_USE_SCORE ? exact.signed_root_gain : legacy_zc));
+                 if (std::isfinite(zc) && std::isfinite(legacy_zc)
+                     && std::isfinite(exact.signed_root_gain)) {
+                     cands.push_back(v);
+@@ -1563,6 +1581,7 @@
+                     zsd.push_back(sd_cal);
+                     sps.push_back(sp);
+                     exact_profiles.push_back(exact);
++                    histogram_pvalues.push_back(HIST_NULL ? histogram_null.p_value : 1.0);
+                     auto& gain_dump = b1_gain_stream();
+                     if (gain_dump) {
+                         gain_dump << stage << ',' << rnd << ',' << v->_id << ','
+@@ -1588,7 +1607,16 @@
+                                   << phi_disp << ',' << gate_var << ','
+                                   << exact.max_grid_excess << ','
+                                   << b3_null_scale << ',' << b3_calibrated_score << ','
+-                                  << (b3_stage0_legacy ? 1 : 0) << '\n';
++                                  << (b3_stage0_legacy ? 1 : 0) << ','
++                                  << (HIST_NULL ? histogram_null.p_value : 1.0) << ','
++                                  << (HIST_NULL ? histogram_null.gaussian_equivalent : 0.0) << ','
++                                  << (HIST_NULL ? histogram_null.observed_data_score : 0.0) << ','
++                                  << (HIST_NULL ? histogram_null.null_mean : 0.0) << ','
++                                  << (HIST_NULL ? histogram_null.null_sd : 0.0) << ','
++                                  << (HIST_NULL ? histogram_null.tail_keff : 0.0) << ','
++                                  << (HIST_NULL ? histogram_null.rows : 0) << ','
++                                  << (HIST_NULL ? histogram_null.explicit_mixture_rows : 0)
++                                  << '\n';
+                     }
+                     if (config.diagnostics.dump_score_diagnostics)
+                         {
+@@ -1641,7 +1669,17 @@
+             }
+             std::vector<double> lf;
+             LfdrResult lfdr_result;
+-            if (zs.size() >= 50) {
++            std::vector<int> direct_bh_order;
++            int direct_bh_k = -1;
++            static const bool HIST_NULL_GATE = [] {
++                const char* e = std::getenv("DMESH_HIST_NULL");
++                return e != nullptr && std::atoi(e) != 0;
++            }();
++            static const bool CANDIDATE_BH = [] {
++                const char* e = std::getenv("DMESH_CANDIDATE_BH");
++                return e != nullptr && std::atoi(e) != 0;
++            }();
++            if (!HIST_NULL_GATE && !CANDIDATE_BH && zs.size() >= 50) {
+                 // B3 default: after the stage-0 legacy pilot, let central
+                 // matching estimate the residual family-level scale outside
+                 // the obsolete [1,1.4] box.  Candidate-specific sandwich
+@@ -1663,26 +1701,47 @@
+             } else {
+                 std::vector<int> op(zs.size());
+                 std::vector<double> pv(zs.size());
+-                for (size_t i = 0; i < zs.size(); ++i) { pv[i] = 2 * normal_survival(std::fabs(zs[i])); op[i] = (int)i; }
++                for (size_t i = 0; i < zs.size(); ++i) {
++                    pv[i] = HIST_NULL_GATE ? histogram_pvalues[i]
++                                           : 2 * normal_survival(std::fabs(zs[i]));
++                    op[i] = (int)i;
++                }
+                 std::sort(op.begin(), op.end(), [&](int a, int b) { return pv[a] < pv[b]; });
+                 int kbh = 0;
+                 for (size_t i = 0; i < op.size(); ++i)
+                     if (pv[op[i]] <= config.fit.fdr_level * (i + 1) / op.size()) kbh = (int)i + 1;
++                // This branch already performed a frequentist BH decision.
++                // Do not encode pass/fail as pseudo-lfdr values and then run
++                // the mean-lfdr prefix a second time: that would append about
++                // q/(1-q) arbitrary failed hypotheses after the BH discoveries.
++                direct_bh_order = std::move(op);
++                direct_bh_k = kbh;
+                 lf.assign(zs.size(), 1.0);
+-                for (int i = 0; i < kbh; ++i) lf[op[i]] = 0.0;
++                for (int i = 0; i < kbh; ++i) lf[direct_bh_order[i]] = 0.0;
+             }
+-            std::vector<int> order(lf.size());
+-            for (size_t i = 0; i < lf.size(); ++i) order[i] = (int)i;
+-            std::sort(order.begin(), order.end(), [&](int a, int b) { return lf[a] < lf[b]; });
+-            double cum = 0; int kk = 0;
++            std::vector<int> order;
++            int kk = 0;
+             static const bool ADMIT_ALL = std::getenv("DMESH_ADMIT_ALL") != nullptr;
+-            if (ADMIT_ALL) {
+-                // clean-measurement mode: refine everything scoreable; no selection
+-                kk = (int)order.size();
+-            } else
+-            for (size_t i = 0; i < order.size(); ++i) {
+-                cum += lf[order[i]];
+-                if (cum / (i + 1) <= config.fit.fdr_level) kk = (int)i + 1; else break;
++            if (direct_bh_k >= 0) {
++                order = direct_bh_order;
++                kk = ADMIT_ALL ? static_cast<int>(order.size()) : direct_bh_k;
++            } else {
++                order.resize(lf.size());
++                for (size_t i = 0; i < lf.size(); ++i) order[i] = (int)i;
++                std::sort(order.begin(), order.end(), [&](int a, int b) { return lf[a] < lf[b]; });
++                if (ADMIT_ALL) {
++                    // clean-measurement mode: refine everything scoreable; no selection
++                    kk = (int)order.size();
++                } else {
++                    double cum = 0.0;
++                    for (size_t i = 0; i < order.size(); ++i) {
++                        cum += lf[order[i]];
++                        if (cum / (i + 1) <= config.fit.fdr_level)
++                            kk = (int)i + 1;
++                        else
++                            break;
++                    }
++                }
+             }
+             {
+                 double zmean = 0.0, zsq = 0.0;
+@@ -1697,7 +1756,9 @@
+                     stage, rnd, zs.size(), zmean, zsd,
+                     lfdr_result.empirical_mean, lfdr_result.empirical_sd,
+                     lfdr_result.pi0,
+-                    lfdr_result.used_lindsey ? "lindsey" : "BH", kk);
++                    HIST_NULL_GATE ? "histogram-BH"
++                        : (CANDIDATE_BH ? "candidate-BH"
++                            : (lfdr_result.used_lindsey ? "lindsey" : "BH")), kk);
+             }
+             if (kk == 0) {
+                 stalls++;
