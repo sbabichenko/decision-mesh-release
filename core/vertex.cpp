@@ -1499,7 +1499,9 @@ Vertex::ExactCandidateGain Vertex::exact_gain_on_column(
 std::pair<double, double> Vertex::compute_eb_params(double xTx) const {
     if (parent_edge == nullptr || xTx <= 0) return {0.0, 0.0};
 
-    double tau = mesh->tau_for_depth(depth);
+    double tau = tau_override_sq > 0.0
+                     ? std::max(tau_override_sq, mesh->tau_floor_sq)
+                     : mesh->tau_for_depth(depth);
     // DMESH_EDGE_TAU_SCALE=<f>: vertices with boundary-clipped stars carry
     // one-sided (roughly halved) information, and their ancestral shrink
     // targets are themselves boundary-dragged; scaling tau up by f weakens

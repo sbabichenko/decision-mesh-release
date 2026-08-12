@@ -42,6 +42,8 @@ struct Vertex {
     bool conformity_origin = false;
     double admit_a = 0.0;         // selection threshold in delta-hat units (tau^2 truncation correction)
     double admit_sd = 0.0;        // calibrated candidate sd at admission (same scale as admit_a)
+    double tau_override_sq = 0.0; // per-vertex prior variance from the ladder variants
+                                  // (DMESH_RESHRINK_LADDER); 0 = use depth tau
     static int _seq;
 
     int _id;

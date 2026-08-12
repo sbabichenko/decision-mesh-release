@@ -2426,7 +2426,7 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
     // Raw-surplus variance omits the 0.25*sp parent term that admit_a includes,
     // which overstates alpha slightly and biases tau DOWN: conservative.
     if (std::getenv("DMESH_FINAL_RESHRINK")) {
-        struct RawSurplus { double draw, svar, athr; };
+        struct RawSurplus { double draw, svar, athr, keff; Vertex* v; };
         std::map<int, std::vector<RawSurplus>> by_depth;
         std::map<int, std::vector<double>> before_prof;
         for (Vertex* v : mesh->vertices) {
@@ -2438,7 +2438,8 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             // variance = admission-time calibrated sd^2: alpha(tau=0) is then the
             // actual selection cutoff, making the truncation term self-consistent
             by_depth[v->depth].push_back(
-                {lr.xTr / lr.xTx - v->mu_prior(), v->admit_sd * v->admit_sd, v->admit_a});
+                {lr.xTr / lr.xTx - v->mu_prior(), v->admit_sd * v->admit_sd,
+                 v->admit_a, v->current_keff, v});
         }
         auto kap = [](double alpha) {
             if (alpha <= 1e-12) return 1.0;
@@ -2447,30 +2448,37 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             if (Q < 1e-300) return alpha * alpha + 1.0;
             return 1.0 + alpha * ph / Q;
         };
-        std::map<int, double> tau_new;
-        for (auto& [d, rs] : by_depth) {
-            if ((int)rs.size() < 3) continue;
+        // Truncation-corrected moment solve; w = nullptr for the unweighted
+        // per-depth read, or per-surplus responsibilities for the two-groups
+        // M-step. Returns 0 when the (weighted) chi^2 sits below its
+        // selection-inflated null expectation.
+        auto solve_tau = [&](const std::vector<RawSurplus>& rs,
+                             const std::vector<double>* w) {
             double chi = 0.0;
-            for (auto& r : rs) chi += r.draw * r.draw / r.svar;
+            for (size_t i = 0; i < rs.size(); ++i)
+                chi += (w ? (*w)[i] : 1.0) * rs[i].draw * rs[i].draw / rs[i].svar;
             auto target = [&](double t2) {
                 double acc = 0.0;
-                for (auto& r : rs) {
+                for (size_t i = 0; i < rs.size(); ++i) {
+                    const auto& r = rs[i];
                     double al = r.athr > 0 ? r.athr / std::sqrt(t2 + r.svar) : 0.0;
-                    acc += kap(al) * (t2 + r.svar) / r.svar;
+                    acc += (w ? (*w)[i] : 1.0) * kap(al) * (t2 + r.svar) / r.svar;
                 }
                 return acc;
             };
-            double tau = 0.0;
-            if (chi > target(0.0)) {
-                double lo = 0.0, hi = 1.0;
-                while (target(hi) < chi && hi < 1e8) hi *= 2;
-                for (int it = 0; it < 60; ++it) {
-                    double mid = 0.5 * (lo + hi);
-                    if (target(mid) < chi) lo = mid; else hi = mid;
-                }
-                tau = 0.5 * (lo + hi);
+            if (chi <= target(0.0)) return 0.0;
+            double lo = 0.0, hi = 1.0;
+            while (target(hi) < chi && hi < 1e8) hi *= 2;
+            for (int it = 0; it < 60; ++it) {
+                double mid = 0.5 * (lo + hi);
+                if (target(mid) < chi) lo = mid; else hi = mid;
             }
-            tau_new[d] = tau;
+            return 0.5 * (lo + hi);
+        };
+        std::map<int, double> tau_new;
+        for (auto& [d, rs] : by_depth) {
+            if ((int)rs.size() < 3) continue;
+            tau_new[d] = solve_tau(rs, nullptr);
         }
         if (!tau_new.empty()) {
             for (auto& [d, rs] : by_depth) {
@@ -2493,6 +2501,120 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                 std::fprintf(stderr,
                              "[reshrink] depth %2d: m=%4zu tau %.1f -> %.1f  median|surplus| %.2f\n",
                              d, rs.size(), old_tau, tau_new[d], bp[bp.size() / 2]);
+            }
+            // --- Ladder variants (DMESH_RESHRINK_LADDER=cells|twogroups). ---
+            // Depth is the wrong exchangeability unit when one tier spans
+            // starved corridor vertices and well-supported workhorses: a
+            // single pooled moment read then shrinks the whole tier to one
+            // tau (writeup sec:aug6-ladder, EB audit defect 1). Both variants
+            // keep the truncation-corrected moment machinery and the
+            // improvement-only clamp against the loop tau, but assign
+            // per-vertex prior variances (Vertex::tau_override_sq) consumed
+            // by compute_eb_params in the fixed-topology re-solve below.
+            // Vertices outside the raw-surplus set keep the pooled depth tau.
+            const char* lme = std::getenv("DMESH_RESHRINK_LADDER");
+            const std::string ladder_mode = lme ? lme : "depth";
+            if (ladder_mode == "cells") {
+                // Evidence-geometry cells: split each depth at a K_eff
+                // threshold and give each side its own moment read, so a
+                // noise-dominated starved cell cannot weld the workhorse
+                // cell (and vice versa).
+                static const double KEFF_SPLIT = [] {
+                    const char* e = std::getenv("DMESH_TAU_CELL_KEFF");
+                    return e ? std::atof(e) : 1.0;
+                }();
+                for (auto& [d, rs] : by_depth) {
+                    std::vector<RawSurplus> lo_cell, hi_cell;
+                    for (auto& r : rs)
+                        (r.keff < KEFF_SPLIT ? lo_cell : hi_cell).push_back(r);
+                    const double pooled = std::max(tau_new[d], mesh->tau_floor_sq);
+                    double cell_tau[2];
+                    const std::vector<RawSurplus>* cells[2] = {&lo_cell, &hi_cell};
+                    for (int c = 0; c < 2; ++c) {
+                        if ((int)cells[c]->size() < 3) {
+                            cell_tau[c] = pooled;
+                            continue;
+                        }
+                        double t = std::min(solve_tau(*cells[c], nullptr),
+                                            mesh->tau_for_depth(d));
+                        cell_tau[c] = std::max(t, mesh->tau_floor_sq);
+                    }
+                    for (int c = 0; c < 2; ++c)
+                        for (auto& r : *cells[c])
+                            r.v->tau_override_sq = cell_tau[c];
+                    std::fprintf(stderr,
+                                 "[laddercells] depth %2d: keff<%.2f m=%zu tau %.1f | "
+                                 "keff>=%.2f m=%zu tau %.1f\n",
+                                 d, KEFF_SPLIT, lo_cell.size(), cell_tau[0],
+                                 KEFF_SPLIT, hi_cell.size(), cell_tau[1]);
+                }
+            } else if (ladder_mode == "twogroups") {
+                // Spike-and-slab: per depth, a two-component EM on the raw
+                // surpluses -- spike at the configured floor, slab variance
+                // from the responsibility-weighted truncation-corrected
+                // moment, selection entering each component's likelihood
+                // through the admission normalizer P(|draw| clears athr).
+                // Each coefficient gets the posterior-mixture prior variance
+                // gamma*tau1 + (1-gamma)*tau0: slab-probable coefficients
+                // keep their evidence, spike-probable ones shrink to the
+                // floor, and no single pooled read can weld a mixed tier.
+                const double t0 = std::max(mesh->tau_floor_sq, 1e-8);
+                auto logtrunc = [](double x, double v, double a) {
+                    double q = 0.5 * std::erfc((a > 0.0 ? a : 0.0) /
+                                               std::sqrt(v) / 1.4142135623730951);
+                    if (q < 1e-300) q = 1e-300;
+                    return -0.5 * std::log(v) - 0.5 * x * x / v - std::log(2.0 * q);
+                };
+                // DMESH_RESHRINK_2G_FREE=1 lifts the improvement-only cap on
+                // the slab variance: the responsibility-weighted moment may
+                // then exceed the loop tau, letting slab-probable
+                // coefficients shrink LESS than the loop did. The pooled
+                // clamp's rationale (the loop under-read is load-bearing at
+                // signal depths) was measured for the all-or-nothing pooled
+                // estimator; with per-coefficient responsibilities the spike
+                // still absorbs the noise mass.
+                static const bool TG_FREE =
+                    std::getenv("DMESH_RESHRINK_2G_FREE") != nullptr;
+                for (auto& [d, rs] : by_depth) {
+                    if ((int)rs.size() < 4) continue;  // depth tau stands
+                    const double old_tau = mesh->tau_for_depth(d);
+                    const double tau1_cap = TG_FREE ? 1e8 : old_tau;
+                    double mean_pos = 0.0;
+                    for (auto& r : rs)
+                        mean_pos += std::max(r.draw * r.draw - r.svar, 0.0);
+                    mean_pos /= rs.size();
+                    double tau1 = std::clamp(std::max(tau_new[d], mean_pos),
+                                             4.0 * t0, tau1_cap);
+                    if (tau1 <= 2.0 * t0) continue;  // no separable slab
+                    double pi = 0.5;
+                    std::vector<double> gam(rs.size(), 0.5);
+                    for (int it = 0; it < 30; ++it) {
+                        for (size_t i = 0; i < rs.size(); ++i) {
+                            const auto& r = rs[i];
+                            double ls = std::log(pi) +
+                                        logtrunc(r.draw, tau1 + r.svar, r.athr);
+                            double l0 = std::log(1.0 - pi) +
+                                        logtrunc(r.draw, t0 + r.svar, r.athr);
+                            double mx = std::max(ls, l0);
+                            gam[i] = std::exp(ls - mx) /
+                                     (std::exp(ls - mx) + std::exp(l0 - mx));
+                        }
+                        double s = 0.0;
+                        for (double g : gam) s += g;
+                        pi = std::clamp(s / rs.size(), 0.01, 0.99);
+                        tau1 = std::clamp(solve_tau(rs, &gam), 4.0 * t0, tau1_cap);
+                    }
+                    int nslab = 0;
+                    for (size_t i = 0; i < rs.size(); ++i) {
+                        double tv = gam[i] * tau1 + (1.0 - gam[i]) * t0;
+                        rs[i].v->tau_override_sq = std::max(tv, mesh->tau_floor_sq);
+                        if (gam[i] > 0.5) ++nslab;
+                    }
+                    std::fprintf(stderr,
+                                 "[ladder2g] depth %2d: m=%4zu pi=%.2f tau1=%.1f "
+                                 "slab(g>.5)=%d\n",
+                                 d, rs.size(), pi, tau1, nslab);
+                }
             }
             mesh->tau_sq = tau_new;
             // The configured floor (DMESH_TAU_FLOOR_LOGIT_SD) stays in force:
