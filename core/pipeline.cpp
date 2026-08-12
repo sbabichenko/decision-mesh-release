@@ -2651,15 +2651,36 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                 std::fprintf(stderr,
                              "[ladderebscale] tau0=%.1f rho=%.3f logL=%.1f\n",
                              best_tau0, best_rho, best);
+                // The fitted curve is the hyperprior MEAN, not a hard law: each
+                // depth's own MMLE borrows toward curve(d) by m/(m+kappa), so a
+                // depth with real structure can deviate (a rigid geometric law
+                // cannot crater a single deep noise tier -- measured seed 104,
+                // 1.130 -> 1.181). The improvement-only clamp (as in eb) keeps
+                // genuine noise tiers floored; the scale curve only improves
+                // WHERE the depths borrow, i.e. the sparse ones.
+                static const bool SCALE_FREE =
+                    std::getenv("DMESH_EB_FREE") != nullptr;
+                static const double SCALE_BORROW = [] {
+                    const char* e = std::getenv("DMESH_EB_BORROW");
+                    return e ? std::atof(e) : 8.0;
+                }();
                 for (auto& [d, rs] : by_depth) {
-                    double tau = best_tau0 * std::pow(best_rho, (double)d);
+                    const double curve = best_tau0 * std::pow(best_rho, (double)d);
+                    const double tau_mle = mle_tau(rs);
+                    const double m = (double)rs.size();
+                    double tau = (m * tau_mle + SCALE_BORROW * curve) / (m + SCALE_BORROW);
+                    if (!SCALE_FREE)
+                        tau = std::min(tau, std::max(mesh->tau_for_depth(d),
+                                                     mesh->tau_floor_sq));
                     tau = std::max(tau, mesh->tau_floor_sq);
                     for (auto& r : rs) {
                         double tv = tau / (1.0 + std::max(r.pratio, 0.0));
                         r.v->tau_override_sq = std::max(tv, mesh->tau_floor_sq);
                     }
-                    std::fprintf(stderr, "[ladderebscale] depth %2d: m=%4zu tau(d)=%.1f\n",
-                                 d, rs.size(), tau);
+                    std::fprintf(stderr,
+                                 "[ladderebscale] depth %2d: m=%4zu curve=%.1f "
+                                 "tau_mle=%.1f tau(d)=%.1f\n",
+                                 d, rs.size(), curve, tau_mle, tau);
                 }
             } else if (ladder_mode == "eb" || ladder_mode == "ebcell") {
                 // Principled empirical Bayes: the prior variance is chosen by
