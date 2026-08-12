@@ -3,3 +3,9 @@ __pycache__/
 .DS_Store
 *.egg-info/
 .venv/
+
+# Build and run outputs (not source; reproducible via scripts/build_release.sh)
+build/
+build-release/
+build-*/
+output/
