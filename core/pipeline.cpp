@@ -860,6 +860,103 @@ static int sc_upward_pass(DecisionMesh& mesh) {
     return moved;
 }
 
+// DMESH_SC_SMOOTH (self-child mode): Gaussian tree smoother over GATED
+// measurements. Each admission (and each base-fit coefficient) is recorded
+// as a noisy measurement (sc_obs, sc_obs_var) of that vertex's height. The
+// rendered field between rounds solves
+//   min_h  sum_v (h_v - obs_v)^2/(2 obsvar_v)
+//        + sum_v (h_v - target_v(h_parents))^2/(2 tau_v),
+// i.e. the posterior given the hierarchical prior and priced evidence only.
+// The grandparent prior pulls the parent (downward flow); a child's
+// measurement informs the parent through the prior coupling (upward flow,
+// discounted by the child slab); raw data moves values ONLY through gate
+// admissions. This distinguishes observation from prior residual - the
+// earlier upward-pass experiments treated the admitted surplus as a
+// residual to be zeroed and diverged. tau uses the empirical per-depth
+// deviation moment (the fitted ladder can collapse; see the wholesale-weld
+// disease), floored at 1 centi-logit^2.
+static int sc_measurement_smoother(DecisionMesh& mesh, int max_sweeps) {
+    std::vector<Vertex*> free_vs;
+    for (Vertex* v : mesh.vertices) {
+        if (v->active && v->free_coefficient && !v->retired_coefficient)
+            free_vs.push_back(v);
+    }
+    std::sort(free_vs.begin(), free_vs.end(),
+              [](const Vertex* a, const Vertex* b) { return a->_id < b->_id; });
+    // Empirical per-depth slab, estimated from the MEASUREMENTS (which do
+    // not move), never from the smoothed field: estimating from smoothed
+    // deviations is a ratchet (each pass shrinks deviations, which shrinks
+    // the slab, which smooths harder, toward interpolation).
+    std::map<int, double> slab;
+    {
+        std::map<int, std::pair<double, int>> acc;
+        for (Vertex* v : free_vs) {
+            if (v->parent_edge == nullptr || v->dormant_coefficient ||
+                !v->sc_has_obs) continue;
+            const double dev = v->sc_obs - v->mu_prior();
+            auto& a = acc[v->depth];
+            a.first += dev * dev;
+            a.second += 1;
+        }
+        for (auto& [d, a] : acc)
+            slab[d] = std::max(a.second > 0 ? a.first / a.second : 1.0, 1.0);
+    }
+    auto tau_of = [&](const Vertex* v) {
+        const auto found = slab.find(v->depth);
+        return found != slab.end() ? found->second : 1.0;
+    };
+    // Invert stencils: for each vertex, the free children whose prior
+    // targets it enters, with weights (the upward coupling).
+    std::unordered_map<const Vertex*, std::vector<std::pair<Vertex*, double>>>
+        coupled_children;
+    for (Vertex* c : free_vs) {
+        if (c->parent_edge == nullptr || c->dormant_coefficient) continue;
+        for (const auto& [sv, w] : c->prior_stencil())
+            if (std::fabs(w) > 1e-12)
+                coupled_children[sv].push_back({c, w});
+    }
+    int moved = 0;
+    for (int sweep = 0; sweep < max_sweeps; ++sweep) {
+        double max_move = 0.0;
+        for (Vertex* v : free_vs) {
+            double score = 0.0, precision = 0.0;
+            // measurement term
+            if (v->sc_has_obs && v->sc_obs_var > 0.0 && v->sc_obs_var < 1e290) {
+                score += (v->sc_obs - v->height) / v->sc_obs_var;
+                precision += 1.0 / v->sc_obs_var;
+            }
+            // own prior term (grandparent pull)
+            if (v->parent_edge != nullptr) {
+                const double tau = tau_of(v);
+                score += (v->mu_prior() - v->height) / tau;
+                precision += 1.0 / tau;
+            }
+            // children prior terms (upward flow)
+            const auto found = coupled_children.find(v);
+            if (found != coupled_children.end()) {
+                for (const auto& [c, w] : found->second) {
+                    if (c == v) continue;
+                    const double tau_c = tau_of(c);
+                    const double resid = c->height - c->mu_prior();
+                    score += w * resid / tau_c;
+                    precision += w * w / tau_c;
+                }
+            }
+            if (!(precision > 0.0)) continue;
+            const double delta = score / precision;
+            if (!std::isfinite(delta) || std::fabs(delta) < 1e-7) continue;
+            v->height += delta;
+            v->new_height = v->height;
+            v->clamp_height();
+            max_move = std::max(max_move, std::fabs(delta));
+            ++moved;
+        }
+        if (max_move < 0.01) break;
+    }
+    hierarchical_design::materialize_constraints(mesh);
+    return moved;
+}
+
 void run_height_sweeps(DecisionMesh& mesh,
                        double tolerance,
                        int maximum_sweeps,
@@ -1621,7 +1718,18 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             for (Vertex* v : mesh->vertices) {
                 v->sc_thawed = false;
                 v->sc_ref = v->height;
-                if (v->active && v->free_coefficient) ++frozen_free;
+                if (v->active && v->free_coefficient) {
+                    ++frozen_free;
+                    if (v->sigma_sq > 0.0 && v->sigma_sq < 1e290) {
+                        // Committed (penalized) height as measurement: the
+                        // algebraic un-shrink h + lambda*sigma2*(h-m) is
+                        // ill-conditioned at weak coordinates (measured
+                        // worse); accept mild double-shrink instead.
+                        v->sc_has_obs = true;
+                        v->sc_obs = v->height;
+                        v->sc_obs_var = v->sigma_sq;
+                    }
+                }
             }
             mesh->sc_frozen = true;
             std::printf("self-child mode: base level frozen (%d free coefficients); "
@@ -2276,6 +2384,11 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                         v->sc_thawed = true;
                         v->sc_ref = live_null;
                         v->prior_mean = live_prior;
+                        if (v->sigma_sq > 0.0 && v->sigma_sq < 1e290) {
+                            v->sc_has_obs = true;
+                            v->sc_obs = v->height;
+                            v->sc_obs_var = v->sigma_sq;
+                        }
                     }
                 } else if (sc_self_commit) {
                     // Rejected self-delta: the standing decision is untouched.
@@ -2433,6 +2546,20 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                     std::fprintf(stderr,
                                  "[self-child] stage %d round %d: %d deltas "
                                  "committed and frozen\n", stage, rnd, committed);
+                static const bool SC_SMOOTH = [] {
+                    const char* e = std::getenv("DMESH_SC_SMOOTH");
+                    return e != nullptr && std::atoi(e) != 0;
+                }();
+                if (SC_SMOOTH && committed > 0) {
+                    const int smoothed = sc_measurement_smoother(*mesh, 60);
+                    for (Vertex* v : mesh->vertices)
+                        if (v->active && v->free_coefficient)
+                            v->sc_ref = v->height;
+                    if (smoothed > 0)
+                        std::fprintf(stderr,
+                                     "[self-child] measurement smoother moved "
+                                     "%d coordinates\n", smoothed);
+                }
             }
             // DMESH_REFRESH_EVERY: IRLS relinearization cadence in rounds
             // (default 3, the historical constant).

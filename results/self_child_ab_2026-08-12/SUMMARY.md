@@ -184,3 +184,51 @@ formulation) or attach identity to something other than coordinate values -
 the innovation ledger (per-admission full-field deltas over a jointly
 solved state), which remains the designed next step alongside the gated
 group move.
+
+## Addendum 4: gated-measurement smoother (MEASURED, seed 7, +rf1)
+
+`DMESH_SC_SMOOTH`: between rounds, rendered heights solve the Gaussian
+system {hierarchical prior} + {gated measurements only} (each admission and
+base-fit coefficient recorded as a noisy observation of its height). This
+is the correctly-posed version of the upward-flow idea: grandparent prior
+pulls the parent, child MEASUREMENTS inform ancestors through the prior
+coupling, raw data enters only through the gate, and observations are
+distinguished from prior residuals (the defect that made the addendum-2
+upward passes diverge).
+
+| variant | held-out dev |
+|---|---|
+| strict freezing (+rf1) | 6.486 |
+| smoother v1 (penalized obs, slab from smoothed field) | 6.666 |
+| smoother v2 (algebraic un-shrunk obs, slab from measurements) | 6.716 |
+| smoother v3 (penalized obs, slab from measurements) | 6.558 |
+
+Isolations: estimating the slab from the smoothed field is a ratchet
+(shrink -> smaller slab -> more shrink; fixing it recovers 0.11); the
+algebraic un-shrink h + lambda*sigma2*(h - m) is ill-conditioned at weak
+coordinates and poisons the measurements (-0.16). Best smoother still
+loses to freezing by 0.07.
+
+## Synthesis: why value-side upward flow keeps losing
+
+Nine variants of "let information move frozen values outside the gate" are
+now measured (reneg x3, upward-BP x2, joint x2, smoother x3 minus overlap),
+every one worse than strict freezing. The pattern has one consistent
+reading: all of these channels move values through the PRIOR system, and
+the depth-tier exchangeable prior is not accurate enough to be load-bearing
+as an information channel - which is the writeup's own EB conceptual audit
+conclusion reached from an independent direction (depth is the wrong
+exchangeability unit; the learning signal is corrupted; one tau spans
+Keff-0.01 corridors and Keff-100 workhorses). The baseline's upward flow
+works because it flows through the joint DATA likelihood; the gate forbids
+frozen values from touching data outside admissions; so the self-child
+architecture's renegotiation debt (~+0.03) is, at current prior quality,
+irreducible by value-side mechanisms.
+
+Consequences for the roadmap, in order of leverage: (1) improve the prior
+itself - the spike-and-slab per (depth x evidence-geometry) cell from the
+writeup's EB endgame - and only then retry the measurement smoother, whose
+machinery is correct and in the tree; (2) gated group moves (data-driven
+renegotiation that pays FDR); (3) the innovation ledger (joint values,
+decision identity attached to per-admission full-field innovations rather
+than coordinates).

@@ -48,6 +48,14 @@ struct Vertex {
     // only ones the stage solver may move while the mesh is frozen.
     bool sc_thawed = false;
     double sc_ref = 0.0;
+    // DMESH_SC_SMOOTH: gated-measurement record. sc_obs is the height
+    // committed at this coefficient's last admission (or base fit) and
+    // sc_obs_var its data-only variance; the between-round Gaussian smoother
+    // relaxes rendered heights under the hierarchical prior plus these
+    // measurements only - raw data never moves values outside the gate.
+    bool sc_has_obs = false;
+    double sc_obs = 0.0;
+    double sc_obs_var = 1e300;
     static int _seq;
 
     int _id;
