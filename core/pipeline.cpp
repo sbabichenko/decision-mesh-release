@@ -2608,6 +2608,59 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                                  d, KEFF_SPLIT, lo_cell.size(), cell_tau[0],
                                  KEFF_SPLIT, hi_cell.size(), cell_tau[1]);
                 }
+            } else if (ladder_mode == "ebscale") {
+                // Exchangeable-on-scale prior: tau(d) = tau0 * rho^d, a single
+                // smooth per-scale decay fit by MMLE over ALL admitted
+                // coefficients jointly (maximal pooling). The prior sees only
+                // scale (depth); K_eff / pool support never enter it -- they
+                // enter through svar in the marginal and through the per-vertex
+                // /(1+r) posterior. This is the pure form of "the signal is
+                // exchangeable, K_eff is not": one scale law, factored.
+                auto logL_scale = [&](double tau0, double rho) {
+                    double s = 0.0;
+                    for (auto& [d, rs] : by_depth) {
+                        const double tau = tau0 * std::pow(rho, (double)d);
+                        for (const auto& r : rs) {
+                            const double T = tau + r.svar;
+                            if (T <= 0.0) return -1e300;
+                            double q = std::erfc((r.athr > 0.0 ? r.athr : 0.0) /
+                                                 std::sqrt(2.0 * T));
+                            if (q < 1e-300) q = 1e-300;
+                            s += -0.5 * std::log(T) - 0.5 * r.draw * r.draw / T -
+                                 std::log(q);
+                        }
+                    }
+                    return s;
+                };
+                // grid on rho (per-scale decay), golden section on tau0 within.
+                double best = -1e300, best_tau0 = mesh->tau_floor_sq, best_rho = 1.0;
+                for (int gi = 0; gi <= 24; ++gi) {
+                    const double rho = 0.12 + (0.98 - 0.12) * gi / 24.0;
+                    double a = mesh->tau_floor_sq, b = 1.0;
+                    while (b < 1e9 && logL_scale(2.0 * b, rho) > logL_scale(b, rho)) b *= 2.0;
+                    const double gr = 0.6180339887498949;
+                    double c = b - gr * (b - a), d = a + gr * (b - a);
+                    double fc = logL_scale(c, rho), fd = logL_scale(d, rho);
+                    for (int it = 0; it < 60; ++it) {
+                        if (fc < fd) { a = c; c = d; fc = fd; d = a + gr * (b - a); fd = logL_scale(d, rho); }
+                        else         { b = d; d = c; fd = fc; c = b - gr * (b - a); fc = logL_scale(c, rho); }
+                    }
+                    const double t0 = 0.5 * (a + b), L = logL_scale(t0, rho);
+                    if (L > best) { best = L; best_tau0 = t0; best_rho = rho; }
+                }
+                std::fprintf(stderr,
+                             "[ladderebscale] tau0=%.1f rho=%.3f logL=%.1f\n",
+                             best_tau0, best_rho, best);
+                for (auto& [d, rs] : by_depth) {
+                    double tau = best_tau0 * std::pow(best_rho, (double)d);
+                    tau = std::max(tau, mesh->tau_floor_sq);
+                    for (auto& r : rs) {
+                        double tv = tau / (1.0 + std::max(r.pratio, 0.0));
+                        r.v->tau_override_sq = std::max(tv, mesh->tau_floor_sq);
+                    }
+                    std::fprintf(stderr, "[ladderebscale] depth %2d: m=%4zu tau(d)=%.1f\n",
+                                 d, rs.size(), tau);
+                }
             } else if (ladder_mode == "eb" || ladder_mode == "ebcell") {
                 // Principled empirical Bayes: the prior variance is chosen by
                 // selection-corrected marginal maximum likelihood, and the
