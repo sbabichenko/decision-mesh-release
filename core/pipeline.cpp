@@ -236,11 +236,15 @@ void run(DecisionMesh& mesh, double tol_units, int max_sweeps) {
     auto& cols = design.columns;
     std::vector<double> pred = std::move(design.predictions);
 
+    // Self-child mode: while the mesh is frozen, only this round's admitted
+    // deltas are solver coordinates; everything else is a frozen increment.
+    const bool sc_restrict = self_child_mode() && mesh.sc_frozen;
     std::vector<Vertex*> free_vs;
     for (Vertex* v : vs) {
         const auto found = cols.find(v);
         if (v->free_coefficient && v->parent_edge != nullptr &&
             found != cols.end()) {
+            if (sc_restrict && !v->sc_thawed) continue;
             free_vs.push_back(v);
         }
     }
@@ -290,8 +294,11 @@ void run(DecisionMesh& mesh, double tol_units, int max_sweeps) {
     // the active vertex heights, so both admit the exact sparse coupled
     // penalty construction. Ghost-boundary targets are location-dependent
     // searches and retain their specialized diagonal treatment.
+    // Self-child mode: prior centers are frozen constants captured at commit
+    // time, not functions of live parent heights, so the penalty is exactly
+    // diagonal and the coupled stencil machinery does not apply.
     const bool coupled_stencil_prior =
-        std::getenv("DMESH_GHOST_BC") == nullptr;
+        std::getenv("DMESH_GHOST_BC") == nullptr && !sc_restrict;
     std::vector<CoupledPenalty> coupled_penalties;
     std::unordered_map<Vertex*, std::vector<CoupledPenaltyTerm>>
         penalty_terms_by_coordinate;
@@ -334,6 +341,9 @@ void run(DecisionMesh& mesh, double tol_units, int max_sweeps) {
                 return e ? std::atoi(e) : -1;
             }();
             auto [lv, mu_v] = v->compute_eb_params(1.0);
+            // Self-child mode: shrink the round's delta toward the commit-time
+            // prior center (a frozen constant recorded at admission).
+            if (sc_restrict) mu_v = v->prior_mean;
             const double lam_logit = std::max(lv, 0.0) * kVarianceScale;
             const double mu_l = mu_v / kHeightScale;
             double b = v->height / kHeightScale;
@@ -498,11 +508,13 @@ void run(DecisionMesh& mesh, double tol_units, int max_sweeps) {
             boundary_kkt_violations);
     }
 
-    for (Vertex* v : vs) {
-        if (v->parent_edge == nullptr && v->free_coefficient &&
-            v->current_fit_points < Vertex::kMinimumFitPoints) {
-            v->height = v->neighbor_mean_height();
-            v->new_height = v->height;
+    if (!sc_restrict) {
+        for (Vertex* v : vs) {
+            if (v->parent_edge == nullptr && v->free_coefficient &&
+                v->current_fit_points < Vertex::kMinimumFitPoints) {
+                v->height = v->neighbor_mean_height();
+                v->new_height = v->height;
+            }
         }
     }
     hierarchical_design::materialize_constraints(mesh);
@@ -795,6 +807,9 @@ void run_height_sweeps(DecisionMesh& mesh,
                 }
                 continue;
             }
+            // Self-child mode: frozen increments are not sweep coordinates.
+            if (self_child_mode() && mesh.sc_frozen && !vertex->sc_thawed)
+                continue;
             if (vertex->loss_reduction <= tolerance) continue;
             largest_gain = std::max(largest_gain, vertex->loss_reduction);
             const double old_h = vertex->height;
@@ -823,7 +838,7 @@ void run_height_sweeps(DecisionMesh& mesh,
     // training support continues the local field instead.
     static const bool CONTAIN_HEIGHT_R =
         std::getenv("DMESH_CONTAIN_HEIGHT") != nullptr;
-    if (!CONTAIN_HEIGHT_R) {
+    if (!CONTAIN_HEIGHT_R && !(self_child_mode() && mesh.sc_frozen)) {
         for (Vertex* vertex : mesh.vertices) {
             if (vertex->active && vertex->free_coefficient &&
                 vertex->parent_edge == nullptr &&
@@ -837,7 +852,8 @@ void run_height_sweeps(DecisionMesh& mesh,
         const char* e = std::getenv("DMESH_HIER_FIT");
         return e ? std::atoi(e) : 0;
     }();
-    if (HIER_FIT == 1) hier_fit::run(mesh, 0.5, 30);
+    if (HIER_FIT == 1 && !(self_child_mode() && mesh.sc_frozen))
+        hier_fit::run(mesh, 0.5, 30);
     timing.height_sweeps_seconds += now_seconds() - started;
 }
 
@@ -1494,6 +1510,20 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             std::printf("  [diag pre-rounds] active %d, with loss_red>tol %d, mean|h| %.2f, pred(0.5,0.5)=%.1f\n",
                         n_act, n_lr, mh / std::max(n_act, 1), mesh->predict(0.5, 0.5));
         }
+        // Self-child mode: the pre-round fit is the frozen base level.  From
+        // here on heights move only through gated per-round delta admissions
+        // (the vertex at round k+1 is a child of itself at round k).
+        if (self_child_mode()) {
+            int frozen_free = 0;
+            for (Vertex* v : mesh->vertices) {
+                v->sc_thawed = false;
+                v->sc_ref = v->height;
+                if (v->active && v->free_coefficient) ++frozen_free;
+            }
+            mesh->sc_frozen = true;
+            std::printf("self-child mode: base level frozen (%d free coefficients); "
+                        "per-round gated deltas from here\n", frozen_free);
+        }
         // Stage 0 needs only a rough sigma_u^2 (small cap). Later stages cap at a
         // data-density budget: ~1 face per 12 points prevents runaway refinement
         // when sigma_u is small (DL weights ~ binomial) without touching the fit
@@ -1595,6 +1625,15 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                         !vertex->free_coefficient && !vertex->retired_coefficient &&
                         !vertex->disqualified)
                         frontier_vertices.push_back(vertex);
+                    // Self-child mode: an existing free coefficient is a
+                    // candidate for a gated re-adjustment, priced from its
+                    // current frozen value exactly like any other child.
+                    else if (self_child_mode() && vertex->active &&
+                             vertex->parent_edge && vertex->free_coefficient &&
+                             !vertex->dormant_coefficient &&
+                             !vertex->retired_coefficient &&
+                             !vertex->disqualified)
+                        frontier_vertices.push_back(vertex);
                 }
             }
             std::sort(frontier_vertices.begin(), frontier_vertices.end(),
@@ -1607,8 +1646,12 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                                     frontier_vertices.end());
 
             for (Vertex* v : frontier_vertices) {
-                if (!v || v->retired_coefficient || v->disqualified ||
-                    (v->active && v->free_coefficient)) continue;
+                if (!v || v->retired_coefficient || v->disqualified) continue;
+                // Self-child mode admits active free coefficients as delta
+                // candidates; the baseline scores only new/weld geometry.
+                const bool sc_self = self_child_mode() &&
+                    v->active && v->free_coefficient;
+                if (v->active && v->free_coefficient && !sc_self) continue;
                 Edge* parent = v->parent_edge;
                 if (!parent) continue;
                 auto lr = v->loc_regress(false);
@@ -1637,9 +1680,15 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                 // P1-preserving null for every candidate.  The legacy gate
                 // statistic is deliberately left unchanged until B2, so its
                 // historical center remains separate from the exact null.
-                const double exact_null = v->mu_lin();
+                // Self-child null: the candidate's CURRENT rendered value
+                // ("this round changes nothing here"); the EB prior centers
+                // there too, so the priced and shrunk object is the delta.
+                // New midpoints and welds keep the configured prior target
+                // (a frozen constant at scoring time under self-child mode).
+                const double exact_null = sc_self ? v->height : v->mu_lin();
                 auto [candidate_lambda, candidate_prior] =
                     v->compute_eb_params(lr.xTx);
+                if (sc_self) candidate_prior = exact_null;
                 static const bool B1_VALIDATE = [] {
                     const char* e = std::getenv("DMESH_B1_VALIDATE");
                     return e != nullptr && std::atoi(e) != 0;
@@ -1689,8 +1738,10 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                     g_b1_diag.nearest_optimum = exact.optimum_units;
                 }
 
-                const double legacy_center = (v->active && !v->free_coefficient)
-                    ? v->mu_lin() : v->mu_prior();
+                const double legacy_center = sc_self
+                    ? v->height
+                    : ((v->active && !v->free_coefficient) ? v->mu_lin()
+                                                           : v->mu_prior());
                 double cand_disp = lr.xTr / lr.xTx - legacy_center;
                 // DMESH_EXACT_SCORE: replace the Wald displacement with the
                 // exact-likelihood profile MLE displacement when the quadratic
@@ -2023,8 +2074,11 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                 const int candidate_index = order[i];
                 Vertex* v = cands[candidate_index];
                 const auto& scored_exact = exact_profiles[candidate_index];
-                if (v->retired_coefficient || v->disqualified ||
-                    (v->active && v->free_coefficient)) continue;
+                if (v->retired_coefficient || v->disqualified) continue;
+                const bool sc_self_commit = self_child_mode() &&
+                    v->active && v->free_coefficient;
+                if (v->active && v->free_coefficient && !sc_self_commit)
+                    continue;
                 if (!scored_exact.ok || scored_exact.raw_gain_nats < -1e-8 ||
                     !(scored_exact.gain_nats > 1e-12)) {
                     // B1 invariant: no candidate without a positive exact
@@ -2052,8 +2106,10 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                 // stale positive batch score can never authorize a negative live
                 // coefficient.
                 ++g_b1_diag.live_reprofile_attempted;
-                const double live_null = v->mu_lin();
-                const auto [live_lambda, live_prior] = v->compute_eb_params(1.0);
+                const double live_null = sc_self_commit ? v->height
+                                                        : v->mu_lin();
+                auto [live_lambda, live_prior] = v->compute_eb_params(1.0);
+                if (sc_self_commit) live_prior = live_null;
                 const auto exact = v->exact_candidate_gain(
                     live_null, live_prior, live_lambda, false);
                 if (!exact.ok || exact.raw_gain_nats < -1e-8 ||
@@ -2098,13 +2154,27 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                     v->dormant_coefficient = false;
                     v->new_height = proposal;
                     v->update_height();
+                    if (self_child_mode()) {
+                        // Thaw for the within-round joint polish; the delta
+                        // reference and the commit-time prior center freeze
+                        // with the admission.
+                        v->sc_thawed = true;
+                        v->sc_ref = live_null;
+                        v->prior_mean = live_prior;
+                    }
+                } else if (sc_self_commit) {
+                    // Rejected self-delta: the standing decision is untouched.
+                    // Do not strip the coefficient's freedom or its
+                    // historical admission record.
+                    v->new_height = v->height;
+                    v->loss_reduction = 0.0;
                 } else {
                     v->free_coefficient = false;
                     v->new_height = v->height;
                     v->loss_reduction = 0.0;
                     mesh->heap_set(v, 0.0);
                 }
-                v->gate_admitted = accepted;
+                if (!(sc_self_commit && !accepted)) v->gate_admitted = accepted;
 
                 // Optional expensive regression invariant: after activation
                 // and its conformity cascade, rebuild the profile on the
@@ -2167,6 +2237,27 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                     v->admit_sd = zsd[candidate_index];
                 }
             }
+            if (self_child_mode()) {
+                // Within-round joint fit over this round's admissions only
+                // (diagonal prior at the commit-time centers), then re-freeze:
+                // every height is the sum of its gated, dated increments.
+                g_diag_phase = "self_child_polish";
+                run_height_sweeps(*mesh, 0.005, 20, timing);
+                int committed = 0;
+                for (Vertex* v : mesh->vertices) {
+                    if (!v->sc_thawed) continue;
+                    // Book the realized increment: the tau ladder learns from
+                    // round deltas, the exchangeable population in this mode.
+                    v->delta_pooled = v->height - v->sc_ref;
+                    v->sc_ref = v->height;
+                    v->sc_thawed = false;
+                    ++committed;
+                }
+                if (committed > 0)
+                    std::fprintf(stderr,
+                                 "[self-child] stage %d round %d: %d deltas "
+                                 "committed and frozen\n", stage, rnd, committed);
+            }
             if (rnd % 3 == 2) {   // periodic re-expansion: keep the target honest
                 g_diag_phase = "periodic_refresh";
                 refresh_irls_working_data(*mesh, obs, extra, heldout_split);
@@ -2182,7 +2273,7 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
         // turns that into Zeno's descent). The EB tax is then applied to the
         // converged proposal by the existing taxed sweeps.
         static const bool TAX_DEST = std::getenv("DMESH_TAX_DEST") != nullptr;
-        if (TAX_DEST && !config.fit.oracle_mode()) {
+        if (TAX_DEST && !config.fit.oracle_mode() && !self_child_mode()) {
             const bool eb_saved = mesh->use_eb;
             mesh->use_eb = false;
             for (int cyc = 0; cyc < 6; ++cyc) {
@@ -2193,7 +2284,8 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             refresh_irls_working_data(*mesh, obs, extra, heldout_split);
         }
         g_diag_phase = "final_sweeps";
-        if (!config.fit.oracle_mode()) run_height_sweeps(*mesh, 0.005, 15, timing);
+        if (!config.fit.oracle_mode() && !self_child_mode())
+            run_height_sweeps(*mesh, 0.005, 15, timing);
         // Unsupported free coefficients have already been frozen at their
         // last accepted value by Vertex::update_info().  Do not overwrite
         // them here: a direct reset would again violate descendant constraints
@@ -2422,7 +2514,7 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
     // (the C^2 surplus scaling), then re-sweep heights once at fixed topology.
     // Raw-surplus variance omits the 0.25*sp parent term that admit_a includes,
     // which overstates alpha slightly and biases tau DOWN: conservative.
-    if (std::getenv("DMESH_FINAL_RESHRINK")) {
+    if (std::getenv("DMESH_FINAL_RESHRINK") && !self_child_mode()) {
         struct RawSurplus { double draw, svar, athr; };
         std::map<int, std::vector<RawSurplus>> by_depth;
         std::map<int, std::vector<double>> before_prof;
@@ -2513,8 +2605,11 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
     // Finalize exact obsolescence only after all adaptive topology decisions
     // and optional fixed-topology re-shrinkage are complete. No admission or
     // refinement pass follows this cleanup.
-    if (!std::getenv("DMESH_DISABLE_FINAL_RETIREMENT")) {
+    if (!std::getenv("DMESH_DISABLE_FINAL_RETIREMENT") && !self_child_mode()) {
         retire_zero_support_at_fixed_topology(*mesh, config.fit.heldout_split, timing);
+    } else if (self_child_mode()) {
+        std::printf("self-child mode: final retirement skipped "
+                    "(frozen increments stand)\n");
     }
 
     {
@@ -2553,7 +2648,10 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             }
             const char* p = std::getenv("DMESH_PL_SOLVER");
             const bool exact_line = p != nullptr && std::atoi(p) != 0;
-            if (exact_line) {
+            if (self_child_mode()) {
+                std::printf("self-child mode: HIER_FIT=2 final refit skipped "
+                            "(frozen-increment surface is final)\n");
+            } else if (exact_line) {
                 int final_cycles = 30;
                 if (const char* fc = std::getenv("DMESH_B1_FINAL_CYCLES"))
                     final_cycles = std::max(1, std::atoi(fc));

@@ -42,6 +42,12 @@ struct Vertex {
     bool conformity_origin = false;
     double admit_a = 0.0;         // selection threshold in delta-hat units (tau^2 truncation correction)
     double admit_sd = 0.0;        // calibrated candidate sd at admission (same scale as admit_a)
+    // Self-child mode (DMESH_SELF_CHILD): frozen-increment bookkeeping.
+    // sc_ref is the frozen reference height (the delta's zero point);
+    // sc_thawed marks a coefficient admitted in the CURRENT gate round, the
+    // only ones the stage solver may move while the mesh is frozen.
+    bool sc_thawed = false;
+    double sc_ref = 0.0;
     static int _seq;
 
     int _id;

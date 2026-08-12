@@ -133,6 +133,11 @@ struct DecisionMesh {
 
     std::mt19937 rng;
 
+    // Self-child mode (DMESH_SELF_CHILD): true once the stage's base level
+    // has frozen; from then on solver sweeps may only move vertices with
+    // sc_thawed set (this round's gated delta admissions).
+    bool sc_frozen = false;
+
     // Empirical Bayes state
     std::map<int, double> tau_sq;       // depth -> tau_sq
     std::map<int, int> tau_sq_vertex_counts;  // depth -> count at last recomputation
