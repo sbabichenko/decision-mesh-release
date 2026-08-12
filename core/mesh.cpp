@@ -327,6 +327,60 @@ void DecisionMesh::recompute_tau_sq() {
     tau_sq.clear();
     tau_sq_vertex_counts.clear();
 
+    // DMESH_INLOOP_EB: use the principled-EB estimator (selection-corrected
+    // marginal maximum likelihood + hierarchical borrow toward a global fit)
+    // for the IN-LOOP prior, so it governs admission (the candidate exact gain
+    // is scored against prior precision 1/tau) and growth, not just the final
+    // reshrink pass. Zero-centered marginal N(0, tau + s) on the shrunk
+    // surplus delta_pooled, truncated to the admission region |delta| > a_v.
+    static const bool INLOOP_EB = std::getenv("DMESH_INLOOP_EB") != nullptr;
+    if (INLOOP_EB) {
+        auto mle_tau = [&](const std::vector<Vertex*>& vs) {
+            if (vs.size() < 3) return 0.0;
+            auto logL = [&](double t2) {
+                double s = 0.0;
+                for (Vertex* v : vs) {
+                    double T = t2 + v->sigma_sq;
+                    if (T <= 0.0) return -1e300;
+                    double q = std::erfc((v->admit_a > 0.0 ? v->admit_a : 0.0) /
+                                         std::sqrt(2.0 * T));
+                    if (q < 1e-300) q = 1e-300;
+                    s += -0.5 * std::log(T) -
+                         0.5 * v->delta_pooled * v->delta_pooled / T - std::log(q);
+                }
+                return s;
+            };
+            double l0 = logL(0.0), hi = 1.0;
+            while (hi < 1e8 && logL(2.0 * hi) > logL(hi)) hi *= 2.0;
+            double a = 0.0, b = hi;
+            const double gr = 0.6180339887498949;
+            double c = b - gr * (b - a), d2 = a + gr * (b - a);
+            double fc = logL(c), fd = logL(d2);
+            for (int it = 0; it < 70; ++it) {
+                if (fc < fd) { a = c; c = d2; fc = fd; d2 = a + gr * (b - a); fd = logL(d2); }
+                else         { b = d2; d2 = c; fd = fc; c = b - gr * (b - a); fc = logL(c); }
+            }
+            double t = 0.5 * (a + b);
+            return logL(t) > l0 ? t : 0.0;
+        };
+        static const double BORROW = [] {
+            const char* e = std::getenv("DMESH_EB_BORROW");
+            return e ? std::atof(e) : 8.0;
+        }();
+        std::vector<Vertex*> all;
+        for (auto& [d, verts] : by_depth) {
+            tau_sq_vertex_counts[d] = (int)verts.size();
+            for (Vertex* v : verts) all.push_back(v);
+        }
+        const double tau_g = mle_tau(all);
+        for (auto& [d, verts] : by_depth) {
+            if ((int)verts.size() < 3) continue;
+            const double td = mle_tau(verts);
+            const double m = (double)verts.size();
+            const double t = (m * td + BORROW * tau_g) / (m + BORROW);
+            tau_sq[d] = std::max(t, tau_floor_sq);
+        }
+    } else {
     for (auto& [d, verts] : by_depth) {
         int m = (int)verts.size();
         tau_sq_vertex_counts[d] = m;
@@ -390,6 +444,7 @@ void DecisionMesh::recompute_tau_sq() {
             }
         }
         tau_sq[d] = std::max(tau, tau_floor_sq);
+    }
     }
 
     // For depths with fewer than three discoveries, borrow from the nearest
