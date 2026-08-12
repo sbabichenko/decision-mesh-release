@@ -2426,7 +2426,7 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
     // Raw-surplus variance omits the 0.25*sp parent term that admit_a includes,
     // which overstates alpha slightly and biases tau DOWN: conservative.
     if (std::getenv("DMESH_FINAL_RESHRINK")) {
-        struct RawSurplus { double draw, svar, athr, keff; Vertex* v; };
+        struct RawSurplus { double draw, svar, athr, keff, pratio; Vertex* v; };
         std::map<int, std::vector<RawSurplus>> by_depth;
         std::map<int, std::vector<double>> before_prof;
         for (Vertex* v : mesh->vertices) {
@@ -2460,7 +2460,7 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             // actual selection cutoff, making the truncation term self-consistent
             by_depth[v->depth].push_back(
                 {lr.xTr / lr.xTx - v->mu_prior(), v->admit_sd * v->admit_sd,
-                 v->admit_a, keff_law, v});
+                 v->admit_a, keff_law, pool_ratio, v});
         }
         auto kap = [](double alpha) {
             if (alpha <= 1e-12) return 1.0;
@@ -2568,6 +2568,28 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                                  "keff_law>=%.2f m=%zu tau %.1f\n",
                                  d, KEFF_SPLIT, lo_cell.size(), cell_tau[0],
                                  KEFF_SPLIT, hi_cell.size(), cell_tau[1]);
+                }
+            } else if (ladder_mode == "keffcont") {
+                // Threshold-free continuous limit of "cells": no K_eff cut.
+                // Each vertex takes the honest per-depth tier tau divided by
+                // its own pool-effect contamination, tau_i = tau_depth /
+                // (1 + r_i), r_i = Var_pool/Var_binom (the same ratio that
+                // deflates keff_law). A pool-dominated vertex (large r) shrinks
+                // smoothly toward the floor; a clean surface witness (r ~ 0)
+                // keeps the full tier variance. This is the per-vertex, no-cut
+                // generalization of the cells split.
+                for (auto& [d, rs] : by_depth) {
+                    const double base = std::max(tau_new[d], mesh->tau_floor_sq);
+                    int hard = 0;
+                    for (auto& r : rs) {
+                        double tv = base / (1.0 + std::max(r.pratio, 0.0));
+                        r.v->tau_override_sq = std::max(tv, mesh->tau_floor_sq);
+                        if (r.pratio > 1.0) ++hard;  // pool var exceeds binomial
+                    }
+                    std::fprintf(stderr,
+                                 "[ladderkeffcont] depth %2d: m=%4zu base_tau=%.1f "
+                                 "pool-dominated(r>1)=%d\n",
+                                 d, rs.size(), base, hard);
                 }
             } else if (ladder_mode == "twogroups") {
                 // Spike-and-slab: per depth, a two-component EM on the raw
