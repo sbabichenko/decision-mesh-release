@@ -1,0 +1,35 @@
+loaded 183 admitted free coefficients from
+  results/permutation_gate/real_ginnie_unfiltered/baseline_q10__seed7/run_hier_vertices.csv
+
+Exchangeability problem -- shrinkage vs evidence WITHIN each depth
+(current rule gives every vertex at a depth the same tau):
+  depth   n        Keff min/med/max   stored shrink min/med/max
+      4  14  0.0134/ 0.679/  12.3  0.00895/  0.974/  0.999
+      5  31  0.00166/     1/  13.8   0.0166/  0.975/      1
+      6  38  0.00714/  1.46/    69   0.0541/  0.966/      1
+      7  28  0.0338/  2.46/  22.3    0.329/  0.987/  0.998
+      8  37  0.0942/  3.72/  11.2    0.361/  0.957/  0.993
+      9  32   0.188/  2.07/  6.94    0.339/  0.938/  0.992
+     10   3  0.00398/0.00692/0.0148   0.0205/ 0.0282/  0.137
+
+Held-out-vertices EB marginal log-likelihood (higher = better prior;
+mean over 200 random 50/50 splits of the admitted coefficients):
+  A  per-depth (current unit)          -643.207   (delta vs A:   +0.000)
+  B  depth x Keff cells                -710.132   (delta vs A:  -66.926)
+  C  cells + partial pooling           -690.688   (delta vs A:  -47.482)
+
+Deep well-supported vertices (depth>=8, Keff>=3): shrinkage toward parent
+  under A (per-depth) vs C (cells+pool). S->1 means fully pinned.
+      id depth    Keff        s      S_A     S_C   freed?
+    4532     8    11.2      136    0.994   0.983         
+    4802     8    10.3      205    0.991   0.974         
+    4614     8    10.3      226     0.99   0.972         
+    4630     8    8.68      259    0.988   0.989         
+    4803     8    8.28      208    0.991   0.992         
+    5271     8    8.09     54.6    0.998   0.998         
+    4932     8    7.96     90.2    0.996   0.996         
+    4688     8    7.78      192    0.991   0.992         
+    4534     8    7.25      227     0.99   0.991         
+    5156     8    7.04      102    0.995   0.996         
+    5288     9    6.94     57.5    0.998   0.998         
+    4643     8    6.86      401    0.982   0.984         

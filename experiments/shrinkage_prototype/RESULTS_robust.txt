@@ -1,0 +1,27 @@
+VALIDATION (first dump):
+  validation: offline per-depth ML tau vs C++ stored shrinkage
+    depth   n  S_offline_med  S_stored_med
+        4  14          0.995        0.9737
+        5  31         0.9893         0.975
+        6  38         0.9882        0.9662
+        7  28         0.9948        0.9872
+        8  37         0.9856        0.9569
+        9  32           0.98        0.9381
+       10   3         0.8035        0.0282
+
+HELD-OUT EB marginal log-lik, delta vs A (per-depth); mean over 200 splits
+
+   dump/seed    n |       A       B       C       Q       R |      B*      C*      Q*      R*   (* = 5%-trimmed)
+  baseline_q  183 |   +0.00  -66.93  -47.48  -40.13 -1058.32 |  -59.85  -42.19  -35.81 -822.27
+      seed11 1262 |   +0.00  +11.37  +11.30   +9.54 -5995.24 |   +6.82   +6.38   +6.51 -3832.50
+      seed13 1466 |   +0.00  +13.22  +18.25  +16.45 -7081.29 |   +4.62   +9.92  +12.43 -5505.62
+      seed21 1300 |   +0.00   +0.69   +6.09  +10.41 -6913.36 |   +2.08   +4.94   +5.52 -5091.69
+
+  MEAN delta vs A across dumps:
+    A per-depth             +0.00
+    B fixed bins           -10.41   trimmed -11.58
+    C bins+pool             -2.96   trimmed -5.24
+    Q tertiles+pool         -0.94   trimmed -2.84
+    R log-tau regress    -5262.05   trimmed -3813.02
+
+  (delta > 0 means the richer unit beats plain per-depth out of sample)
