@@ -2418,7 +2418,10 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
     // honest prior is safe. Recover RAW surpluses for admitted vertices from
     // local regressions at the final linearization (undoing shrinkage without a
     // global refit), re-estimate tau per depth with the truncation correction,
-    // zero-mean chi^2, and NO floor, decay-borrow sparse depths at 4^{-dd}
+    // zero-mean chi^2, floored at the configured tau floor (a tau = 0 moment
+    // read means "shrink hard", not "weld": the historical no-floor variant
+    // produced lambda_v = 1e8 wholesale welds at whole depths and is kept
+    // only under DMESH_RESHRINK_NO_FLOOR=1), decay-borrow sparse depths at 4^{-dd}
     // (the C^2 surplus scaling), then re-sweep heights once at fixed topology.
     // Raw-surplus variance omits the 0.25*sp parent term that admit_a includes,
     // which overstates alpha slightly and biases tau DOWN: conservative.
@@ -2492,7 +2495,14 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                              d, rs.size(), old_tau, tau_new[d], bp[bp.size() / 2]);
             }
             mesh->tau_sq = tau_new;
-            mesh->tau_floor_sq = 1e-8;
+            // The configured floor (DMESH_TAU_FLOOR_LOGIT_SD) stays in force:
+            // a depth whose truncation-corrected moment reads tau = 0 shrinks
+            // to the floor, not to a 1e-8 hard weld (lambda_v ~ 1e8, T = 0),
+            // which silently freezes every admitted coefficient at that depth
+            // regardless of its individual information. DMESH_RESHRINK_NO_FLOOR=1
+            // restores the historical no-floor behavior for reproducibility.
+            if (std::getenv("DMESH_RESHRINK_NO_FLOOR"))
+                mesh->tau_floor_sq = 1e-8;
             run_height_sweeps(*mesh, 0.0005, 120, timing);
             std::map<int, std::vector<double>> after_prof;
             for (Vertex* v : mesh->vertices)
