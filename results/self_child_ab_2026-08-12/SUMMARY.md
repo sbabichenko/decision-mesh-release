@@ -154,3 +154,33 @@ with a principled boundary remains the GATED group move: price a family's
 joint re-solve as one decision, so a renegotiation happens only when it
 pays for its own boundary damage on evidence. Both experimental flags are
 retained as measured negatives.
+
+## Addendum 3: joint solve + self-child composition (MEASURED, seed 7)
+
+`DMESH_SC_JOINT` decouples the self-child decision architecture (gated
+delta candidates) from the frozen-increment value semantics: candidates and
+gating unchanged, heights re-solved jointly every round as in the baseline.
+
+| variant | held-out dev |
+|---|---|
+| baseline | 6.455 |
+| frozen self-child + rf1 | 6.486 |
+| joint + self-child, no-change priors (`SC_JOINT=1`) | 6.659 |
+| joint + self-child, hierarchical priors (`SC_JOINT=2`) | 6.505 |
+
+Both outcomes were predicted before running and confirm a structural fact:
+a self-delta's evidence IS the coefficient's distance from the joint
+optimum. Under continuous joint re-solving that distance is consumed before
+the gate sees it - with hierarchical prior centers the self-deltas are
+near-vacuous and the mode reduces to the baseline plus interference (null
+population flooded with near-zero scores; tau contaminated by micro-deltas:
+the 0.05 residual); with no-change centers the only remaining "evidence" is
+prior tension, and the gate becomes a de-shrinkage pump (1,181 admissions,
+worst held-out of the structured variants). The self-child gate and the
+joint solve are complementary, not composable: the gate is only meaningful
+over values that are NOT continuously re-optimized. Decision-identity
+architectures must therefore either freeze values (the original
+formulation) or attach identity to something other than coordinate values -
+the innovation ledger (per-admission full-field deltas over a jointly
+solved state), which remains the designed next step alongside the gated
+group move.

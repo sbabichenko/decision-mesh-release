@@ -1614,7 +1614,9 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
         // Self-child mode: the pre-round fit is the frozen base level.  From
         // here on heights move only through gated per-round delta admissions
         // (the vertex at round k+1 is a child of itself at round k).
-        if (self_child_mode()) {
+        // Under DMESH_SC_JOINT the freezing is disabled: values stay on the
+        // joint solve; only the decision architecture remains.
+        if (self_child_frozen()) {
             int frozen_free = 0;
             for (Vertex* v : mesh->vertices) {
                 v->sc_thawed = false;
@@ -1789,7 +1791,8 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                 const double exact_null = sc_self ? v->height : v->mu_lin();
                 auto [candidate_lambda, candidate_prior] =
                     v->compute_eb_params(lr.xTx);
-                if (sc_self) candidate_prior = exact_null;
+                if (sc_self && self_child_joint_level() != 2)
+                    candidate_prior = exact_null;
                 static const bool B1_VALIDATE = [] {
                     const char* e = std::getenv("DMESH_B1_VALIDATE");
                     return e != nullptr && std::atoi(e) != 0;
@@ -2220,7 +2223,8 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                 const double live_null = sc_self_commit ? v->height
                                                         : v->mu_lin();
                 auto [live_lambda, live_prior] = v->compute_eb_params(1.0);
-                if (sc_self_commit) live_prior = live_null;
+                if (sc_self_commit && self_child_joint_level() != 2)
+                    live_prior = live_null;
                 const auto exact = v->exact_candidate_gain(
                     live_null, live_prior, live_lambda, false);
                 if (!exact.ok || exact.raw_gain_nats < -1e-8 ||
@@ -2452,7 +2456,7 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
         // turns that into Zeno's descent). The EB tax is then applied to the
         // converged proposal by the existing taxed sweeps.
         static const bool TAX_DEST = std::getenv("DMESH_TAX_DEST") != nullptr;
-        if (TAX_DEST && !config.fit.oracle_mode() && !self_child_mode()) {
+        if (TAX_DEST && !config.fit.oracle_mode() && !self_child_frozen()) {
             const bool eb_saved = mesh->use_eb;
             mesh->use_eb = false;
             for (int cyc = 0; cyc < 6; ++cyc) {
@@ -2463,7 +2467,7 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             refresh_irls_working_data(*mesh, obs, extra, heldout_split);
         }
         g_diag_phase = "final_sweeps";
-        if (!config.fit.oracle_mode() && !self_child_mode())
+        if (!config.fit.oracle_mode() && !self_child_frozen())
             run_height_sweeps(*mesh, 0.005, 15, timing);
         // Unsupported free coefficients have already been frozen at their
         // last accepted value by Vertex::update_info().  Do not overwrite
@@ -2693,7 +2697,7 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
     // (the C^2 surplus scaling), then re-sweep heights once at fixed topology.
     // Raw-surplus variance omits the 0.25*sp parent term that admit_a includes,
     // which overstates alpha slightly and biases tau DOWN: conservative.
-    if (std::getenv("DMESH_FINAL_RESHRINK") && !self_child_mode()) {
+    if (std::getenv("DMESH_FINAL_RESHRINK") && !self_child_frozen()) {
         struct RawSurplus { double draw, svar, athr; };
         std::map<int, std::vector<RawSurplus>> by_depth;
         std::map<int, std::vector<double>> before_prof;
@@ -2784,9 +2788,9 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
     // Finalize exact obsolescence only after all adaptive topology decisions
     // and optional fixed-topology re-shrinkage are complete. No admission or
     // refinement pass follows this cleanup.
-    if (!std::getenv("DMESH_DISABLE_FINAL_RETIREMENT") && !self_child_mode()) {
+    if (!std::getenv("DMESH_DISABLE_FINAL_RETIREMENT") && !self_child_frozen()) {
         retire_zero_support_at_fixed_topology(*mesh, config.fit.heldout_split, timing);
-    } else if (self_child_mode()) {
+    } else if (self_child_frozen()) {
         std::printf("self-child mode: final retirement skipped "
                     "(frozen increments stand)\n");
     }
@@ -2827,7 +2831,7 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             }
             const char* p = std::getenv("DMESH_PL_SOLVER");
             const bool exact_line = p != nullptr && std::atoi(p) != 0;
-            if (self_child_mode()) {
+            if (self_child_frozen()) {
                 std::printf("self-child mode: HIER_FIT=2 final refit skipped "
                             "(frozen-increment surface is final)\n");
             } else if (exact_line) {
