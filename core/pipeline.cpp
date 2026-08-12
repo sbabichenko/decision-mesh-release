@@ -2435,11 +2435,32 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             before_prof[v->depth].push_back(std::fabs(v->height - v->mu_prior()));
             auto lr = v->loc_regress(false);
             if (!(lr.xTx > 0) || !(v->admit_sd > 0)) continue;
+            // Law-aware effective count. current_keff = xTx^2/xT2x counts pools
+            // under binomial weights only; a tier of a few mega-pools reads as
+            // high support even though each mega-pool is one draw of its pool
+            // effect and a weak witness of the surface (writeup EB audit
+            // defect 2). Deflate by the same pool-effect variance inflation the
+            // admission gate prices: r = Var_pool / Var_binom, using the one-law
+            // per-pool variance (xT2xs) or the flat extra-variance model (xT2x),
+            // matching env_gate_extra_var / DMESH_ONELAW at the gate. keff_law =
+            // keff / (1 + r) is the effective number of independent pool-level
+            // observations after pool effects are accounted for first.
+            static const bool ONELAW_KEFF = std::getenv("DMESH_ONELAW") != nullptr;
+            const double gev_keff = env_gate_extra_var();
+            double pool_ratio =
+                ONELAW_KEFF ? kVarianceScale * lr.xT2xs / lr.xTx
+                            : gev_keff * kVarianceScale * lr.xT2x / lr.xTx;
+            if (!(pool_ratio > 0.0)) pool_ratio = 0.0;
+            // DMESH_TAU_CELL_RAWKEFF=1 keeps the binomial count for the cells
+            // split, isolating the value of the pool-effect deflation itself.
+            static const bool RAW_KEFF = std::getenv("DMESH_TAU_CELL_RAWKEFF") != nullptr;
+            const double keff_law =
+                RAW_KEFF ? v->current_keff : v->current_keff / (1.0 + pool_ratio);
             // variance = admission-time calibrated sd^2: alpha(tau=0) is then the
             // actual selection cutoff, making the truncation term self-consistent
             by_depth[v->depth].push_back(
                 {lr.xTr / lr.xTx - v->mu_prior(), v->admit_sd * v->admit_sd,
-                 v->admit_a, v->current_keff, v});
+                 v->admit_a, keff_law, v});
         }
         auto kap = [](double alpha) {
             if (alpha <= 1e-12) return 1.0;
@@ -2543,8 +2564,8 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                         for (auto& r : *cells[c])
                             r.v->tau_override_sq = cell_tau[c];
                     std::fprintf(stderr,
-                                 "[laddercells] depth %2d: keff<%.2f m=%zu tau %.1f | "
-                                 "keff>=%.2f m=%zu tau %.1f\n",
+                                 "[laddercells] depth %2d: keff_law<%.2f m=%zu tau %.1f | "
+                                 "keff_law>=%.2f m=%zu tau %.1f\n",
                                  d, KEFF_SPLIT, lo_cell.size(), cell_tau[0],
                                  KEFF_SPLIT, hi_cell.size(), cell_tau[1]);
                 }
