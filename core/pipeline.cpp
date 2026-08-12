@@ -2248,9 +2248,48 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                 }
             }
             if (self_child_mode()) {
-                // Within-round joint fit over this round's admissions only
-                // (diagonal prior at the commit-time centers), then re-freeze:
-                // every height is the sum of its gated, dated increments.
+                // DMESH_SC_RENEG: martingale renegotiation. A gate admission
+                // changes the model, and the admitted coefficient's family
+                // owes a conditional-expectation update (in Gauss-Seidel,
+                // child evidence flows upward to parents continuously; frozen
+                // increments accumulate that drift as sub-threshold debt).
+                // The renegotiation is a deterministic consequence of an
+                // admission that already cleared the gate, so it carries no
+                // separate FDR charge: thaw the admitted vertices' families
+                // into this round's polish, prior centered at "no change".
+                // 1 = parent-edge endpoints, 2 = full free one-ring.
+                static const int SC_RENEG = [] {
+                    const char* e = std::getenv("DMESH_SC_RENEG");
+                    return e ? std::atoi(e) : 0;
+                }();
+                if (SC_RENEG > 0) {
+                    std::vector<Vertex*> admitted_now;
+                    for (Vertex* v : mesh->vertices)
+                        if (v->sc_thawed) admitted_now.push_back(v);
+                    auto thaw_family = [&](Vertex* p) {
+                        if (!p || p->sc_thawed || !p->active ||
+                            !p->free_coefficient || p->retired_coefficient ||
+                            p->dormant_coefficient || p->parent_edge == nullptr)
+                            return;
+                        p->sc_thawed = true;
+                        p->sc_ref = p->height;
+                        p->prior_mean = p->height;
+                    };
+                    for (Vertex* v : admitted_now) {
+                        if (v->parent_edge) {
+                            thaw_family(v->parent_edge->vertex0);
+                            thaw_family(v->parent_edge->vertex1);
+                        }
+                        if (SC_RENEG >= 2) {
+                            auto fr = v->get_faces(true);
+                            for (Vertex* nb : fr.neighbors) thaw_family(nb);
+                        }
+                    }
+                }
+                // Within-round joint fit over this round's admissions (plus
+                // any renegotiation family, diagonal prior at the commit-time
+                // centers), then re-freeze: every height is the sum of its
+                // gated, dated increments.
                 g_diag_phase = "self_child_polish";
                 run_height_sweeps(*mesh, 0.005, 20, timing);
                 int committed = 0;

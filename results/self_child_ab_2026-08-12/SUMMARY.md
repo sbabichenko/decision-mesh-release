@@ -60,3 +60,60 @@ under-admission at depth); (3) self-child stalls out of rounds earlier
 unlock); (4) late-discovered coarse structure must be expressed as many
 small deltas (the diffuse-class channel). None of these are structural to
 the formulation; all four are measurable follow-ups.
+
+## Addendum (same day): gap diagnosis and the refresh-cadence fix
+
+The +0.0775 v1 deficit decomposes into three named parts (all MEASURED,
+seed 7 forensics + 10-seed confirmation):
+
+1. **Stale scoring linearization (~half the gap).** The baseline's per-round
+   joint sweeps double as relinearization for the candidate scorer; freezing
+   heights silently froze the scoring epoch. `DMESH_REFRESH_EVERY=1`
+   (relinearize every round, heights untouched) fixes it. Stall patience
+   alone (`DMESH_STALL_LIMIT`) recovers nothing: scores cannot change
+   without relinearization. 10-seed paired result with rf1:
+   all-pools +0.0369 (sd 0.071, se 0.023), vs +0.0775 (se 0.017) at v1
+   (`ginnie_10seed_rf1_heldout_dev.csv`). Null battery at rf1: still zero
+   admissions.
+
+2. **WALA-0 artifact chasing.** The seed-7 gap concentrated in the issuance
+   boundary at high coupon; 1,651 WALA-0 pools alone carry +0.81/pool - the
+   class the writeup's own audit excludes as proxy-unreliable. Under the
+   writeup's exclusion protocol the 10-seed rf1 gap is +0.0305 (se 0.011,
+   8/10 worse) - smaller and much lower-variance than the all-pools metric.
+
+3. **Renegotiation debt (the residual, concentrated in steep-gradient deep
+   refinement).** In Gauss-Seidel, child evidence flows upward: parents
+   track E[.|current model] continuously, so coefficient trajectories are
+   martingale-like and deep candidates are priced against a locally
+   re-optimized backdrop. Frozen increments accumulate the upward-flow
+   correction as predictable drift in sub-threshold pieces the gate never
+   books; the corner (a ~1 logit / 4 WALA-month ramp under huge per-pool
+   information) is where the debt compounds: SC final corner mesh has
+   d9:7-18/d10:0 vs baseline d9:34/d10:3. Refuted alternatives, each by
+   direct experiment: EB over-shrinkage (shrink factors 0.93-0.99),
+   tau-floor sensitivity (zero effect), stall budget alone (zero effect),
+   parent-variance null width (helps only under stale refresh; hurts with
+   rf1), quadratic prior target (removing it hurts).
+
+   **Naive repair refuted:** `DMESH_SC_RENEG` thaws admitted vertices'
+   parents (1) or free one-ring (2) into the round polish, un-gated, prior
+   centered at no-change. Both grades WORSEN seed 7 (6.595 / 6.533 vs 6.486
+   plain rf1): a parent renegotiating without its full co-support family in
+   the solve fixes the admitted child's room and silently damages the other
+   room - the constrained-closure compromise reproduced from the opposite
+   direction. The flag is retained as a measured-negative experiment.
+
+   The open repair is therefore closure-complete or gated: group-move
+   candidates (score the joint re-solve of a parent's full free family as
+   ONE gated decision - the aug6 five-height local release promoted to a
+   first-class candidate type), so renegotiations that matter clear the
+   bar as units and stay dated in the ledger.
+
+## Current recommended self-child configuration
+
+`DMESH_SELF_CHILD=1 DMESH_REFRESH_EVERY=1` (all other flags as shipped).
+State: -0.011 on the book excluding the issuance-boundary corner, +0.031
+overall under the writeup's WALA-0-exclusion protocol, zero null-battery
+admissions, no topology-collapse mode, ~4x wall-time, stable dated
+certificates. Remaining deficit is localized and mechanistically understood.
