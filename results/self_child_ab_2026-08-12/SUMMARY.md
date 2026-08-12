@@ -117,3 +117,40 @@ State: -0.011 on the book excluding the issuance-boundary corner, +0.031
 overall under the writeup's WALA-0-exclusion protocol, zero null-battery
 admissions, no topology-collapse mode, ~4x wall-time, stable dated
 certificates. Remaining deficit is localized and mechanistically understood.
+
+## Addendum 2: upward-flow experiments (all MEASURED, seed 7, all +rf1)
+
+Hypothesis (correct, per the corner evidence): the baseline's residual edge
+is Gauss-Seidel's upward information flow - child evidence continuously
+updates ancestors, keeping every coefficient near E[.|current model]
+(martingale property); freezing accumulates the upward correction as
+sub-threshold drift. Implementations tested:
+
+| variant | held-out dev | verdict |
+|---|---|---|
+| baseline joint solve | 6.455 | reference |
+| strict freezing (plain rf1) | 6.486 | best self-child |
+| reneg-1: parents thawed, prior at no-change | 6.595 | two-rooms damage |
+| reneg-1 + grandparent anchor (`DMESH_SC_RENEG_ANCHOR=1`) | 6.497 | anchor recovers 0.10; still no win |
+| reneg-2 (one-ring) + anchor | 6.586 | worse |
+| upward pass v1: prior-consensus BP, ladder tau (`DMESH_SC_UPWARD=1`) | 8.575 | tau collapse reads child signal as parent error |
+| upward pass v2: empirical slab, damped, consensus>=2 | 7.663 | no data term: pass fights the likelihood, never converges |
+
+Two mechanistic lessons, both now measured twice from different directions:
+(1) dropping the grandparent anchor from any renegotiation costs ~0.1
+(the hierarchical target IS load-bearing information about the parent);
+(2) an upward channel without the data term optimizes prior-consistency
+against the likelihood - where child deviations encode true surface shape,
+the "consensus" never re-centers and the pass drags ancestors away from the
+data. The exact version of upward flow (grandparent prior x own data x
+child messages) is Gaussian BP whose fixed point is the joint MAP - i.e.,
+the baseline. Partial upward channels inject inconsistency at their
+boundary that costs more than the drift they repair.
+
+Standing interpretation: full-joint (upward flow everywhere, no decision
+identity) and strict freezing (identity, pays ~+0.03 renegotiation debt)
+are the two coherent points measured so far. The one untested middle path
+with a principled boundary remains the GATED group move: price a family's
+joint re-solve as one decision, so a renegotiation happens only when it
+pays for its own boundary damage on evidence. Both experimental flags are
+retained as measured negatives.

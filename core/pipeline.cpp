@@ -759,6 +759,107 @@ void run(DecisionMesh& mesh, double tol_units, int max_sweeps) {
 
 }  // namespace hier_fit
 
+// DMESH_SC_UPWARD (self-child mode): model-based upward message passing.
+// Under the hierarchical prior, a child's fitted deviation from its prior
+// target is evidence about its ancestors: a SYSTEMATIC deviation shared
+// across a vertex's children is the ancestor's error, while an individually
+// large deviation is discounted by the slab (tau_child) as legitimate child
+// signal. Each free vertex is updated by the precision-weighted combination
+// of its own prior residual (anchored at ITS parents' target - the
+// grandparent information, resisting drift) and the pooled child-deviation
+// evidence through the prior stencil weights. Processing runs deepest-first
+// so corrections propagate transitively (grandparents see already-updated
+// parents). No raw-data refit occurs: welds contribute exactly zero evidence
+// (their deviation is identically zero), so hot constrained footprints
+// cannot vote - this is the upward half of Gaussian belief propagation on
+// the hierarchy, and it is a deterministic function of gated quantities.
+static int sc_upward_pass(DecisionMesh& mesh) {
+    // Invert the prior stencils: for each stencil vertex, the free children
+    // whose targets it participates in, with their stencil weights.
+    std::unordered_map<const Vertex*, std::vector<std::pair<Vertex*, double>>>
+        stencil_children;
+    for (Vertex* child : mesh.vertices) {
+        if (!child->active || !child->free_coefficient ||
+            child->dormant_coefficient || child->retired_coefficient ||
+            child->parent_edge == nullptr) continue;
+        for (const auto& [stencil_vertex, weight] : child->prior_stencil()) {
+            if (std::fabs(weight) <= 1e-12) continue;
+            stencil_children[stencil_vertex].push_back({child, weight});
+        }
+    }
+    std::map<int, std::vector<Vertex*>, std::greater<int>> by_depth;
+    for (Vertex* v : mesh.vertices) {
+        if (v->active && v->free_coefficient && !v->retired_coefficient &&
+            v->parent_edge != nullptr)
+            by_depth[v->depth].push_back(v);
+    }
+    // Honest per-depth slab for the evidence model: the EMPIRICAL second
+    // moment of current deviations at each depth. The fitted tau ladder can
+    // collapse toward the floor at sparse depths (the documented lambda=1e8
+    // wholesale-weld disease); a collapsed tau_c would read a child's
+    // legitimate slab-scale surplus as near-infinite-confidence evidence of
+    // parent error and yank ancestors toward their children's signal.  The
+    // empirical moment upper-bounds the true slab (it mixes signal and
+    // ancestor error), which makes the pass conservative in exactly the
+    // right direction.
+    std::map<int, double> empirical_slab;
+    {
+        std::map<int, std::pair<double, int>> acc;
+        for (auto& [depth, group] : by_depth)
+            for (Vertex* v : group) {
+                if (v->dormant_coefficient) continue;
+                const double dev = v->height - v->mu_prior();
+                auto& a = acc[depth];
+                a.first += dev * dev;
+                a.second += 1;
+            }
+        for (auto& [depth, a] : acc)
+            empirical_slab[depth] =
+                std::max(a.second > 0 ? a.first / a.second : 1.0, 1.0);
+    }
+    auto slab = [&](int depth) {
+        const auto found = empirical_slab.find(depth);
+        return found != empirical_slab.end() ? found->second : 1.0;
+    };
+    constexpr double kDamping = 0.5;
+    int moved = 0;
+    for (auto& [depth, group] : by_depth) {
+        std::sort(group.begin(), group.end(),
+                  [](const Vertex* a, const Vertex* b) { return a->_id < b->_id; });
+        for (Vertex* p : group) {
+            const auto found = stencil_children.find(p);
+            if (found == stencil_children.end()) continue;
+            const double tau_p = slab(p->depth);
+            double score = 0.0, info = 0.0;
+            int contributing = 0;
+            for (const auto& [child, weight] : found->second) {
+                if (child == p) continue;
+                const double noise_c =
+                    child->sigma_pooled < 1e290 ? child->sigma_pooled
+                    : (child->sigma_sq < 1e290 ? child->sigma_sq : 0.0);
+                const double var_c = slab(child->depth) + noise_c;
+                if (!(var_c > 0.0)) continue;
+                const double deviation = child->height - child->mu_prior();
+                score += weight * deviation / var_c;
+                info += weight * weight / var_c;
+                ++contributing;
+            }
+            // A single child is pure confounded signal, not consensus.
+            if (contributing < 2 || !(info > 0.0)) continue;
+            const double own_residual = p->height - p->mu_prior();
+            const double delta = kDamping *
+                (score - own_residual / tau_p) / (1.0 / tau_p + info);
+            if (!std::isfinite(delta) || std::fabs(delta) < 1e-9) continue;
+            p->height += delta;
+            p->new_height = p->height;
+            p->clamp_height();
+            ++moved;
+        }
+    }
+    hierarchical_design::materialize_constraints(mesh);
+    return moved;
+}
+
 void run_height_sweeps(DecisionMesh& mesh,
                        double tolerance,
                        int maximum_sweeps,
@@ -2266,6 +2367,15 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                     std::vector<Vertex*> admitted_now;
                     for (Vertex* v : mesh->vertices)
                         if (v->sc_thawed) admitted_now.push_back(v);
+                    // DMESH_SC_RENEG_ANCHOR=1: anchor the renegotiating
+                    // family's prior at the hierarchical target (grandparent
+                    // information) instead of "no change", so the polish is a
+                    // local Gaussian-BP update: own data + grandparent prior
+                    // + admitted children jointly in the solve.
+                    static const bool RENEG_ANCHOR = [] {
+                        const char* e = std::getenv("DMESH_SC_RENEG_ANCHOR");
+                        return e != nullptr && std::atoi(e) != 0;
+                    }();
                     auto thaw_family = [&](Vertex* p) {
                         if (!p || p->sc_thawed || !p->active ||
                             !p->free_coefficient || p->retired_coefficient ||
@@ -2273,7 +2383,8 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                             return;
                         p->sc_thawed = true;
                         p->sc_ref = p->height;
-                        p->prior_mean = p->height;
+                        p->prior_mean = RENEG_ANCHOR ? p->mu_prior()
+                                                     : p->height;
                     };
                     for (Vertex* v : admitted_now) {
                         if (v->parent_edge) {
@@ -2292,6 +2403,18 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                 // gated, dated increments.
                 g_diag_phase = "self_child_polish";
                 run_height_sweeps(*mesh, 0.005, 20, timing);
+                static const bool SC_UPWARD = [] {
+                    const char* e = std::getenv("DMESH_SC_UPWARD");
+                    return e != nullptr && std::atoi(e) != 0;
+                }();
+                if (SC_UPWARD) {
+                    const int ancestors_moved = sc_upward_pass(*mesh);
+                    if (ancestors_moved > 0)
+                        std::fprintf(stderr,
+                                     "[self-child] upward pass moved %d "
+                                     "ancestors (stage %d round %d)\n",
+                                     ancestors_moved, stage, rnd);
+                }
                 int committed = 0;
                 for (Vertex* v : mesh->vertices) {
                     if (!v->sc_thawed) continue;
