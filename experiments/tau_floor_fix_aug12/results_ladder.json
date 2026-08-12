@@ -1,0 +1,5481 @@
+[
+ {
+  "case": "smm_s7",
+  "arm": "off",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 2.3,
+  "heldout_dev": 1.189,
+  "x2_info": 0.7867,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0006102842882
+   },
+   "5": {
+    "n": 32,
+    "lam_max": 0.0005404919977
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.0002734337797
+   },
+   "7": {
+    "n": 43,
+    "lam_max": 0.0002734337797
+   }
+  },
+  "admitted": 142
+ },
+ {
+  "case": "smm_s7",
+  "arm": "depth",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 2.3,
+  "heldout_dev": 1.188,
+  "x2_info": 0.7853,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2041.2 -> 2041.2  median|surplus| 51.83",
+   "[reshrink] depth  5: m=  32 tau 2413.9 -> 2413.9  median|surplus| 40.99",
+   "[reshrink] depth  6: m=  46 tau 10971.0 -> 2671.7  median|surplus| 47.31",
+   "[reshrink] depth  7: m=  43 tau 5871.0 -> 5871.0  median|surplus| 56.85",
+   "[reshrink] depth  4: median|surplus| after 56.68",
+   "[reshrink] depth  5: median|surplus| after 42.33",
+   "[reshrink] depth  6: median|surplus| after 29.15",
+   "[reshrink] depth  7: median|surplus| after 57.79"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0006339779746
+   },
+   "5": {
+    "n": 32,
+    "lam_max": 0.0005557990885
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.0002734337797
+   },
+   "7": {
+    "n": 43,
+    "lam_max": 0.0002734337797
+   }
+  },
+  "admitted": 142
+ },
+ {
+  "case": "smm_s7",
+  "arm": "cells",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 2.4,
+  "heldout_dev": 1.188,
+  "x2_info": 0.7634,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2041.2 -> 2041.2  median|surplus| 51.83",
+   "[reshrink] depth  5: m=  32 tau 2413.9 -> 2413.9  median|surplus| 40.99",
+   "[reshrink] depth  6: m=  46 tau 10971.0 -> 2671.7  median|surplus| 47.31",
+   "[reshrink] depth  7: m=  43 tau 5871.0 -> 5871.0  median|surplus| 56.85",
+   "[laddercells] depth  4: keff_law<1.00 m=8 tau 2041.2 | keff_law>=1.00 m=13 tau 2041.2",
+   "[laddercells] depth  5: keff_law<1.00 m=14 tau 2413.9 | keff_law>=1.00 m=18 tau 2413.9",
+   "[laddercells] depth  6: keff_law<1.00 m=27 tau 248.4 | keff_law>=1.00 m=19 tau 5509.5",
+   "[laddercells] depth  7: keff_law<1.00 m=26 tau 4323.8 | keff_law>=1.00 m=17 tau 5871.0",
+   "[reshrink] depth  4: median|surplus| after 59.34",
+   "[reshrink] depth  5: median|surplus| after 39.00",
+   "[reshrink] depth  6: median|surplus| after 12.82",
+   "[reshrink] depth  7: median|surplus| after 53.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0004899134186
+   },
+   "5": {
+    "n": 32,
+    "lam_max": 0.0004142620104
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.004026399335
+   },
+   "7": {
+    "n": 43,
+    "lam_max": 0.0002734337797
+   }
+  },
+  "admitted": 142
+ },
+ {
+  "case": "smm_s7",
+  "arm": "cells_rawkeff",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 2.9,
+  "heldout_dev": 1.209,
+  "x2_info": 0.78,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2041.2 -> 2041.2  median|surplus| 51.83",
+   "[reshrink] depth  5: m=  32 tau 2413.9 -> 2413.9  median|surplus| 40.99",
+   "[reshrink] depth  6: m=  46 tau 10971.0 -> 2671.7  median|surplus| 47.31",
+   "[reshrink] depth  7: m=  43 tau 5871.0 -> 5871.0  median|surplus| 56.85",
+   "[laddercells] depth  4: keff_law<1.00 m=8 tau 2041.2 | keff_law>=1.00 m=13 tau 2041.2",
+   "[laddercells] depth  5: keff_law<1.00 m=12 tau 2413.9 | keff_law>=1.00 m=20 tau 2413.9",
+   "[laddercells] depth  6: keff_law<1.00 m=22 tau 0.2 | keff_law>=1.00 m=24 tau 4537.2",
+   "[laddercells] depth  7: keff_law<1.00 m=18 tau 2667.4 | keff_law>=1.00 m=25 tau 5871.0",
+   "[reshrink] depth  4: median|surplus| after 50.34",
+   "[reshrink] depth  5: median|surplus| after 30.94",
+   "[reshrink] depth  6: median|surplus| after 8.37",
+   "[reshrink] depth  7: median|surplus| after 40.31"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0004899134186
+   },
+   "5": {
+    "n": 32,
+    "lam_max": 0.0004142620104
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 43,
+    "lam_max": 0.0003748935294
+   }
+  },
+  "admitted": 142
+ },
+ {
+  "case": "smm_s7",
+  "arm": "twogroups",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 3.0,
+  "heldout_dev": 1.194,
+  "x2_info": 0.7803,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2041.2 -> 2041.2  median|surplus| 51.83",
+   "[reshrink] depth  5: m=  32 tau 2413.9 -> 2413.9  median|surplus| 40.99",
+   "[reshrink] depth  6: m=  46 tau 10971.0 -> 2671.7  median|surplus| 47.31",
+   "[reshrink] depth  7: m=  43 tau 5871.0 -> 5871.0  median|surplus| 56.85",
+   "[ladder2g] depth  4: m=  21 pi=0.83 tau1=2041.2 slab(g>.5)=17",
+   "[ladder2g] depth  5: m=  32 pi=0.58 tau1=2413.9 slab(g>.5)=18",
+   "[ladder2g] depth  6: m=  46 pi=0.32 tau1=8593.3 slab(g>.5)=14",
+   "[ladder2g] depth  7: m=  43 pi=0.39 tau1=5871.0 slab(g>.5)=15",
+   "[reshrink] depth  4: median|surplus| after 59.39",
+   "[reshrink] depth  5: median|surplus| after 28.27",
+   "[reshrink] depth  6: median|surplus| after 2.21",
+   "[reshrink] depth  7: median|surplus| after 17.25"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.08072414346
+   },
+   "5": {
+    "n": 32,
+    "lam_max": 1.753651466
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 1.877103995
+   },
+   "7": {
+    "n": 43,
+    "lam_max": 1.892736611
+   }
+  },
+  "admitted": 142
+ },
+ {
+  "case": "smm_s7",
+  "arm": "twogroups_free",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 3.0,
+  "heldout_dev": 1.192,
+  "x2_info": 0.7826,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2041.2 -> 2041.2  median|surplus| 51.83",
+   "[reshrink] depth  5: m=  32 tau 2413.9 -> 2413.9  median|surplus| 40.99",
+   "[reshrink] depth  6: m=  46 tau 10971.0 -> 2671.7  median|surplus| 47.31",
+   "[reshrink] depth  7: m=  43 tau 5871.0 -> 5871.0  median|surplus| 56.85",
+   "[ladder2g] depth  4: m=  21 pi=0.74 tau1=19497.7 slab(g>.5)=15",
+   "[ladder2g] depth  5: m=  32 pi=0.54 tau1=15068.4 slab(g>.5)=17",
+   "[ladder2g] depth  6: m=  46 pi=0.32 tau1=8593.3 slab(g>.5)=14",
+   "[ladder2g] depth  7: m=  43 pi=0.36 tau1=24645.1 slab(g>.5)=15",
+   "[reshrink] depth  4: median|surplus| after 65.22",
+   "[reshrink] depth  5: median|surplus| after 50.30",
+   "[reshrink] depth  6: median|surplus| after 2.23",
+   "[reshrink] depth  7: median|surplus| after 8.88"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.1982691445
+   },
+   "5": {
+    "n": 32,
+    "lam_max": 1.438879291
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 1.877103995
+   },
+   "7": {
+    "n": 43,
+    "lam_max": 1.716642398
+   }
+  },
+  "admitted": 142
+ },
+ {
+  "case": "smm_s101",
+  "arm": "off",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 2.3,
+  "heldout_dev": 1.102,
+  "x2_info": 0.6238,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.003495518879
+   },
+   "5": {
+    "n": 35,
+    "lam_max": 0.0003424699355
+   },
+   "6": {
+    "n": 44,
+    "lam_max": 0.0004055039356
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.0002272614584
+   },
+   "8": {
+    "n": 7,
+    "lam_max": 0.0007843889327
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s101",
+  "arm": "depth",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 2.5,
+  "heldout_dev": 1.102,
+  "x2_info": 0.6224,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 577.6 -> 577.6  median|surplus| 33.38",
+   "[reshrink] depth  5: m=  34 tau 4455.9 -> 4455.9  median|surplus| 49.26",
+   "[reshrink] depth  6: m=  44 tau 2600.7 -> 1259.6  median|surplus| 34.36",
+   "[reshrink] depth  7: m=  28 tau 6013.7 -> 2045.5  median|surplus| 59.97",
+   "[reshrink] depth  8: m=   7 tau 2228.0 -> 2228.0  median|surplus| 30.63",
+   "[reshrink] depth  4: median|surplus| after 32.45",
+   "[reshrink] depth  5: median|surplus| after 57.65",
+   "[reshrink] depth  6: median|surplus| after 27.06",
+   "[reshrink] depth  7: median|surplus| after 41.09",
+   "[reshrink] depth  8: median|surplus| after 33.90"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.00363671427
+   },
+   "5": {
+    "n": 35,
+    "lam_max": 0.0003424699355
+   },
+   "6": {
+    "n": 44,
+    "lam_max": 0.0005839507802
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.0002272614584
+   },
+   "8": {
+    "n": 7,
+    "lam_max": 0.0007843889327
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s101",
+  "arm": "cells",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 2.9,
+  "heldout_dev": 1.133,
+  "x2_info": 0.6231,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 577.6 -> 577.6  median|surplus| 33.38",
+   "[reshrink] depth  5: m=  34 tau 4455.9 -> 4455.9  median|surplus| 49.26",
+   "[reshrink] depth  6: m=  44 tau 2600.7 -> 1259.6  median|surplus| 34.36",
+   "[reshrink] depth  7: m=  28 tau 6013.7 -> 2045.5  median|surplus| 59.97",
+   "[reshrink] depth  8: m=   7 tau 2228.0 -> 2228.0  median|surplus| 30.63",
+   "[laddercells] depth  4: keff_law<1.00 m=10 tau 577.6 | keff_law>=1.00 m=10 tau 577.6",
+   "[laddercells] depth  5: keff_law<1.00 m=18 tau 4455.9 | keff_law>=1.00 m=16 tau 4455.9",
+   "[laddercells] depth  6: keff_law<1.00 m=26 tau 0.2 | keff_law>=1.00 m=18 tau 2600.7",
+   "[laddercells] depth  7: keff_law<1.00 m=19 tau 3696.4 | keff_law>=1.00 m=9 tau 0.2",
+   "[laddercells] depth  8: keff_law<1.00 m=4 tau 2228.0 | keff_law>=1.00 m=3 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 35.84",
+   "[reshrink] depth  5: median|surplus| after 64.71",
+   "[reshrink] depth  6: median|surplus| after 0.06",
+   "[reshrink] depth  7: median|surplus| after 27.45",
+   "[reshrink] depth  8: median|surplus| after 66.28"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.001731174193
+   },
+   "5": {
+    "n": 35,
+    "lam_max": 0.0003424699355
+   },
+   "6": {
+    "n": 44,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 4.0
+   },
+   "8": {
+    "n": 7,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s101",
+  "arm": "cells_rawkeff",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 3.2,
+  "heldout_dev": 1.115,
+  "x2_info": 0.6234,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 577.6 -> 577.6  median|surplus| 33.38",
+   "[reshrink] depth  5: m=  34 tau 4455.9 -> 4455.9  median|surplus| 49.26",
+   "[reshrink] depth  6: m=  44 tau 2600.7 -> 1259.6  median|surplus| 34.36",
+   "[reshrink] depth  7: m=  28 tau 6013.7 -> 2045.5  median|surplus| 59.97",
+   "[reshrink] depth  8: m=   7 tau 2228.0 -> 2228.0  median|surplus| 30.63",
+   "[laddercells] depth  4: keff_law<1.00 m=7 tau 577.6 | keff_law>=1.00 m=13 tau 577.6",
+   "[laddercells] depth  5: keff_law<1.00 m=12 tau 4455.9 | keff_law>=1.00 m=22 tau 4455.9",
+   "[laddercells] depth  6: keff_law<1.00 m=18 tau 0.2 | keff_law>=1.00 m=26 tau 2141.0",
+   "[laddercells] depth  7: keff_law<1.00 m=16 tau 3197.1 | keff_law>=1.00 m=12 tau 298.3",
+   "[laddercells] depth  8: keff_law<1.00 m=4 tau 2228.0 | keff_law>=1.00 m=3 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 34.59",
+   "[reshrink] depth  5: median|surplus| after 60.80",
+   "[reshrink] depth  6: median|surplus| after 13.86",
+   "[reshrink] depth  7: median|surplus| after 32.47",
+   "[reshrink] depth  8: median|surplus| after 31.11"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.001731174193
+   },
+   "5": {
+    "n": 35,
+    "lam_max": 0.0003424699355
+   },
+   "6": {
+    "n": 44,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.003352297498
+   },
+   "8": {
+    "n": 7,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s101",
+  "arm": "twogroups",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 3.1,
+  "heldout_dev": 1.122,
+  "x2_info": 0.6292,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 577.6 -> 577.6  median|surplus| 33.38",
+   "[reshrink] depth  5: m=  34 tau 4455.9 -> 4455.9  median|surplus| 49.26",
+   "[reshrink] depth  6: m=  44 tau 2600.7 -> 1259.6  median|surplus| 34.36",
+   "[reshrink] depth  7: m=  28 tau 6013.7 -> 2045.5  median|surplus| 59.97",
+   "[reshrink] depth  8: m=   7 tau 2228.0 -> 2228.0  median|surplus| 30.63",
+   "[ladder2g] depth  4: m=  20 pi=0.66 tau1=577.6 slab(g>.5)=13",
+   "[ladder2g] depth  5: m=  34 pi=0.48 tau1=4455.9 slab(g>.5)=16",
+   "[ladder2g] depth  6: m=  44 pi=0.29 tau1=2600.7 slab(g>.5)=13",
+   "[ladder2g] depth  7: m=  28 pi=0.29 tau1=6013.7 slab(g>.5)=8",
+   "[ladder2g] depth  8: m=   7 pi=0.18 tau1=2228.0 slab(g>.5)=1",
+   "[reshrink] depth  4: median|surplus| after 35.96",
+   "[reshrink] depth  5: median|surplus| after 32.54",
+   "[reshrink] depth  6: median|surplus| after 2.65",
+   "[reshrink] depth  7: median|surplus| after 0.77",
+   "[reshrink] depth  8: median|surplus| after 0.18"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.4314686933
+   },
+   "5": {
+    "n": 35,
+    "lam_max": 3.855149198
+   },
+   "6": {
+    "n": 44,
+    "lam_max": 3.958536424
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 3.847263322
+   },
+   "8": {
+    "n": 7,
+    "lam_max": 2.200927134
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s101",
+  "arm": "twogroups_free",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 3.1,
+  "heldout_dev": 1.116,
+  "x2_info": 0.6307,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 577.6 -> 577.6  median|surplus| 33.38",
+   "[reshrink] depth  5: m=  34 tau 4455.9 -> 4455.9  median|surplus| 49.26",
+   "[reshrink] depth  6: m=  44 tau 2600.7 -> 1259.6  median|surplus| 34.36",
+   "[reshrink] depth  7: m=  28 tau 6013.7 -> 2045.5  median|surplus| 59.97",
+   "[reshrink] depth  8: m=   7 tau 2228.0 -> 2228.0  median|surplus| 30.63",
+   "[ladder2g] depth  4: m=  20 pi=0.58 tau1=17211.5 slab(g>.5)=11",
+   "[ladder2g] depth  5: m=  34 pi=0.45 tau1=69189.9 slab(g>.5)=15",
+   "[ladder2g] depth  6: m=  44 pi=0.27 tau1=7517.6 slab(g>.5)=13",
+   "[ladder2g] depth  7: m=  28 pi=0.28 tau1=10282.4 slab(g>.5)=8",
+   "[ladder2g] depth  8: m=   7 pi=0.15 tau1=44622.5 slab(g>.5)=1",
+   "[reshrink] depth  4: median|surplus| after 43.41",
+   "[reshrink] depth  5: median|surplus| after 30.14",
+   "[reshrink] depth  6: median|surplus| after 1.22",
+   "[reshrink] depth  7: median|surplus| after 0.16",
+   "[reshrink] depth  8: median|surplus| after 0.54"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.2662259758
+   },
+   "5": {
+    "n": 35,
+    "lam_max": 3.734625117
+   },
+   "6": {
+    "n": 44,
+    "lam_max": 3.957107374
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 3.855983928
+   },
+   "8": {
+    "n": 7,
+    "lam_max": 1.869401524
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s102",
+  "arm": "off",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.1,
+  "heldout_dev": 1.115,
+  "x2_info": 0.6275,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0007797124704
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0004497080146
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.0003255108376
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 0.0004170412147
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 5,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 150
+ },
+ {
+  "case": "smm_s102",
+  "arm": "depth",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.2,
+  "heldout_dev": 1.11,
+  "x2_info": 0.6237,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1099.5 -> 1099.5  median|surplus| 45.88",
+   "[reshrink] depth  5: m=  34 tau 2419.8 -> 2419.8  median|surplus| 48.54",
+   "[reshrink] depth  6: m=  46 tau 4694.1 -> 2311.9  median|surplus| 49.37",
+   "[reshrink] depth  7: m=  33 tau 4785.4 -> 1218.6  median|surplus| 69.85",
+   "[reshrink] depth  8: m=   8 tau 23.7 -> 15.6  median|surplus| 4.42",
+   "[reshrink] depth  9: m=   5 tau 0.2 -> 0.0  median|surplus| 0.04",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.08",
+   "[reshrink] depth 11: m=   1 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[reshrink] depth  4: median|surplus| after 44.82",
+   "[reshrink] depth  5: median|surplus| after 52.10",
+   "[reshrink] depth  6: median|surplus| after 37.55",
+   "[reshrink] depth  7: median|surplus| after 53.61",
+   "[reshrink] depth  8: median|surplus| after 3.63",
+   "[reshrink] depth  9: median|surplus| after 0.04",
+   "[reshrink] depth 10: median|surplus| after 0.08",
+   "[reshrink] depth 11: median|surplus| after 0.02"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0008273818919
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0004497351819
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.0003255108376
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 0.0004170412147
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 5,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 150
+ },
+ {
+  "case": "smm_s102",
+  "arm": "cells",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.2,
+  "heldout_dev": 1.12,
+  "x2_info": 0.6142,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1099.5 -> 1099.5  median|surplus| 45.88",
+   "[reshrink] depth  5: m=  34 tau 2419.8 -> 2419.8  median|surplus| 48.54",
+   "[reshrink] depth  6: m=  46 tau 4694.1 -> 2311.9  median|surplus| 49.37",
+   "[reshrink] depth  7: m=  33 tau 4785.4 -> 1218.6  median|surplus| 69.85",
+   "[reshrink] depth  8: m=   8 tau 23.7 -> 15.6  median|surplus| 4.42",
+   "[reshrink] depth  9: m=   5 tau 0.2 -> 0.0  median|surplus| 0.04",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.08",
+   "[reshrink] depth 11: m=   1 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[laddercells] depth  4: keff_law<1.00 m=9 tau 1099.5 | keff_law>=1.00 m=10 tau 1099.5",
+   "[laddercells] depth  5: keff_law<1.00 m=16 tau 2419.8 | keff_law>=1.00 m=18 tau 2419.8",
+   "[laddercells] depth  6: keff_law<1.00 m=28 tau 2116.4 | keff_law>=1.00 m=18 tau 2709.1",
+   "[laddercells] depth  7: keff_law<1.00 m=20 tau 0.2 | keff_law>=1.00 m=13 tau 4785.4",
+   "[laddercells] depth  8: keff_law<1.00 m=3 tau 23.7 | keff_law>=1.00 m=5 tau 0.2",
+   "[laddercells] depth  9: keff_law<1.00 m=2 tau 0.2 | keff_law>=1.00 m=3 tau 0.2",
+   "[laddercells] depth 10: keff_law<1.00 m=2 tau 0.2 | keff_law>=1.00 m=1 tau 0.2",
+   "[laddercells] depth 11: keff_law<1.00 m=1 tau 0.2 | keff_law>=1.00 m=0 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 45.76",
+   "[reshrink] depth  5: median|surplus| after 59.65",
+   "[reshrink] depth  6: median|surplus| after 45.18",
+   "[reshrink] depth  7: median|surplus| after 0.05",
+   "[reshrink] depth  8: median|surplus| after 0.08",
+   "[reshrink] depth  9: median|surplus| after 0.01",
+   "[reshrink] depth 10: median|surplus| after 0.02",
+   "[reshrink] depth 11: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0009095389995
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0004132619552
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.0004724992918
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 4.0
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 5,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 150
+ },
+ {
+  "case": "smm_s102",
+  "arm": "cells_rawkeff",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.2,
+  "heldout_dev": 1.123,
+  "x2_info": 0.6134,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1099.5 -> 1099.5  median|surplus| 45.88",
+   "[reshrink] depth  5: m=  34 tau 2419.8 -> 2419.8  median|surplus| 48.54",
+   "[reshrink] depth  6: m=  46 tau 4694.1 -> 2311.9  median|surplus| 49.37",
+   "[reshrink] depth  7: m=  33 tau 4785.4 -> 1218.6  median|surplus| 69.85",
+   "[reshrink] depth  8: m=   8 tau 23.7 -> 15.6  median|surplus| 4.42",
+   "[reshrink] depth  9: m=   5 tau 0.2 -> 0.0  median|surplus| 0.04",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.08",
+   "[reshrink] depth 11: m=   1 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[laddercells] depth  4: keff_law<1.00 m=7 tau 1099.5 | keff_law>=1.00 m=12 tau 1099.5",
+   "[laddercells] depth  5: keff_law<1.00 m=13 tau 2419.8 | keff_law>=1.00 m=21 tau 2419.8",
+   "[laddercells] depth  6: keff_law<1.00 m=16 tau 4694.1 | keff_law>=1.00 m=30 tau 990.1",
+   "[laddercells] depth  7: keff_law<1.00 m=19 tau 42.3 | keff_law>=1.00 m=14 tau 4633.9",
+   "[laddercells] depth  8: keff_law<1.00 m=3 tau 23.7 | keff_law>=1.00 m=5 tau 0.2",
+   "[laddercells] depth  9: keff_law<1.00 m=2 tau 0.2 | keff_law>=1.00 m=3 tau 0.2",
+   "[laddercells] depth 10: keff_law<1.00 m=1 tau 0.2 | keff_law>=1.00 m=2 tau 0.2",
+   "[laddercells] depth 11: keff_law<1.00 m=1 tau 0.2 | keff_law>=1.00 m=0 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 44.88",
+   "[reshrink] depth  5: median|surplus| after 45.36",
+   "[reshrink] depth  6: median|surplus| after 39.55",
+   "[reshrink] depth  7: median|surplus| after 15.22",
+   "[reshrink] depth  8: median|surplus| after 0.15",
+   "[reshrink] depth  9: median|surplus| after 0.04",
+   "[reshrink] depth 10: median|surplus| after 0.03",
+   "[reshrink] depth 11: median|surplus| after 0.02"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0009095389995
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0004132619552
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.001009985476
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 0.02365279198
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 5,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 150
+ },
+ {
+  "case": "smm_s102",
+  "arm": "twogroups",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.4,
+  "heldout_dev": 1.143,
+  "x2_info": 0.6113,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1099.5 -> 1099.5  median|surplus| 45.88",
+   "[reshrink] depth  5: m=  34 tau 2419.8 -> 2419.8  median|surplus| 48.54",
+   "[reshrink] depth  6: m=  46 tau 4694.1 -> 2311.9  median|surplus| 49.37",
+   "[reshrink] depth  7: m=  33 tau 4785.4 -> 1218.6  median|surplus| 69.85",
+   "[reshrink] depth  8: m=   8 tau 23.7 -> 15.6  median|surplus| 4.42",
+   "[reshrink] depth  9: m=   5 tau 0.2 -> 0.0  median|surplus| 0.04",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.08",
+   "[reshrink] depth 11: m=   1 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[ladder2g] depth  4: m=  19 pi=0.56 tau1=1099.5 slab(g>.5)=11",
+   "[ladder2g] depth  5: m=  34 pi=0.45 tau1=2419.8 slab(g>.5)=15",
+   "[ladder2g] depth  6: m=  46 pi=0.33 tau1=4694.1 slab(g>.5)=15",
+   "[ladder2g] depth  7: m=  33 pi=0.33 tau1=4785.4 slab(g>.5)=11",
+   "[ladder2g] depth  8: m=   8 pi=0.01 tau1=23.7 slab(g>.5)=0",
+   "[reshrink] depth  4: median|surplus| after 26.85",
+   "[reshrink] depth  5: median|surplus| after 31.38",
+   "[reshrink] depth  6: median|surplus| after 3.26",
+   "[reshrink] depth  7: median|surplus| after 2.03",
+   "[reshrink] depth  8: median|surplus| after 0.04",
+   "[reshrink] depth  9: median|surplus| after 0.02",
+   "[reshrink] depth 10: median|surplus| after 0.02",
+   "[reshrink] depth 11: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 2.454960139
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 3.393811712
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 3.687054701
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 3.597970925
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 3.415544291
+   },
+   "9": {
+    "n": 5,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 150
+ },
+ {
+  "case": "smm_s102",
+  "arm": "twogroups_free",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.5,
+  "heldout_dev": 1.135,
+  "x2_info": 0.6267,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1099.5 -> 1099.5  median|surplus| 45.88",
+   "[reshrink] depth  5: m=  34 tau 2419.8 -> 2419.8  median|surplus| 48.54",
+   "[reshrink] depth  6: m=  46 tau 4694.1 -> 2311.9  median|surplus| 49.37",
+   "[reshrink] depth  7: m=  33 tau 4785.4 -> 1218.6  median|surplus| 69.85",
+   "[reshrink] depth  8: m=   8 tau 23.7 -> 15.6  median|surplus| 4.42",
+   "[reshrink] depth  9: m=   5 tau 0.2 -> 0.0  median|surplus| 0.04",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.08",
+   "[reshrink] depth 11: m=   1 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[ladder2g] depth  4: m=  19 pi=0.50 tau1=18683.2 slab(g>.5)=9",
+   "[ladder2g] depth  5: m=  34 pi=0.41 tau1=14839.5 slab(g>.5)=13",
+   "[ladder2g] depth  6: m=  46 pi=0.32 tau1=9992.4 slab(g>.5)=15",
+   "[ladder2g] depth  7: m=  33 pi=0.32 tau1=10957.6 slab(g>.5)=11",
+   "[ladder2g] depth  8: m=   8 pi=0.25 tau1=17400.3 slab(g>.5)=2",
+   "[ladder2g] depth  9: m=   5 pi=0.04 tau1=1.0 slab(g>.5)=0",
+   "[reshrink] depth  4: median|surplus| after 35.65",
+   "[reshrink] depth  5: median|surplus| after 19.74",
+   "[reshrink] depth  6: median|surplus| after 0.61",
+   "[reshrink] depth  7: median|surplus| after 1.13",
+   "[reshrink] depth  8: median|surplus| after 4.09",
+   "[reshrink] depth  9: median|surplus| after 0.04",
+   "[reshrink] depth 10: median|surplus| after 0.02",
+   "[reshrink] depth 11: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 2.857660508
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 3.299063829
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 3.636314183
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 3.573242754
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 3.356853856
+   },
+   "9": {
+    "n": 5,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 150
+ },
+ {
+  "case": "smm_s103",
+  "arm": "off",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 2.2,
+  "heldout_dev": 1.198,
+  "x2_info": 0.7291,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0006941156508
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0002790005613
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.0003694778566
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.0007756953994
+   },
+   "8": {
+    "n": 2,
+    "lam_max": 0.0007756953994
+   }
+  },
+  "admitted": 122
+ },
+ {
+  "case": "smm_s103",
+  "arm": "depth",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 2.8,
+  "heldout_dev": 1.205,
+  "x2_info": 0.692,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1635.5 -> 1635.5  median|surplus| 53.61",
+   "[reshrink] depth  5: m=  33 tau 4237.1 -> 4237.1  median|surplus| 46.67",
+   "[reshrink] depth  6: m=  40 tau 3253.8 -> 0.0  median|surplus| 43.33",
+   "[reshrink] depth  7: m=  28 tau 8666.6 -> 4720.9  median|surplus| 69.69",
+   "[reshrink] depth  8: m=   2 tau 8666.6 -> 1180.2  median|surplus| 67.06",
+   "[reshrink] depth  4: median|surplus| after 69.67",
+   "[reshrink] depth  5: median|surplus| after 48.52",
+   "[reshrink] depth  6: median|surplus| after 0.01",
+   "[reshrink] depth  7: median|surplus| after 69.13",
+   "[reshrink] depth  8: median|surplus| after 19.07"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0005184253844
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0002790005613
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.0007756953994
+   },
+   "8": {
+    "n": 2,
+    "lam_max": 0.0007756953994
+   }
+  },
+  "admitted": 122
+ },
+ {
+  "case": "smm_s103",
+  "arm": "cells",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 2.8,
+  "heldout_dev": 1.202,
+  "x2_info": 0.6898,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1635.5 -> 1635.5  median|surplus| 53.61",
+   "[reshrink] depth  5: m=  33 tau 4237.1 -> 4237.1  median|surplus| 46.67",
+   "[reshrink] depth  6: m=  40 tau 3253.8 -> 0.0  median|surplus| 43.33",
+   "[reshrink] depth  7: m=  28 tau 8666.6 -> 4720.9  median|surplus| 69.69",
+   "[reshrink] depth  8: m=   2 tau 8666.6 -> 1180.2  median|surplus| 67.06",
+   "[laddercells] depth  4: keff_law<1.00 m=7 tau 1635.5 | keff_law>=1.00 m=12 tau 1635.5",
+   "[laddercells] depth  5: keff_law<1.00 m=16 tau 4237.1 | keff_law>=1.00 m=17 tau 4237.1",
+   "[laddercells] depth  6: keff_law<1.00 m=26 tau 0.2 | keff_law>=1.00 m=14 tau 0.2",
+   "[laddercells] depth  7: keff_law<1.00 m=20 tau 5532.5 | keff_law>=1.00 m=8 tau 1694.5",
+   "[laddercells] depth  8: keff_law<1.00 m=1 tau 1180.2 | keff_law>=1.00 m=1 tau 1180.2",
+   "[reshrink] depth  4: median|surplus| after 69.51",
+   "[reshrink] depth  5: median|surplus| after 48.79",
+   "[reshrink] depth  6: median|surplus| after 0.01",
+   "[reshrink] depth  7: median|surplus| after 58.29",
+   "[reshrink] depth  8: median|surplus| after 19.18"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0006114444806
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0002790005613
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.0007756953994
+   },
+   "8": {
+    "n": 2,
+    "lam_max": 0.0008473004281
+   }
+  },
+  "admitted": 122
+ },
+ {
+  "case": "smm_s103",
+  "arm": "cells_rawkeff",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 2.9,
+  "heldout_dev": 1.213,
+  "x2_info": 0.7014,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1635.5 -> 1635.5  median|surplus| 53.61",
+   "[reshrink] depth  5: m=  33 tau 4237.1 -> 4237.1  median|surplus| 46.67",
+   "[reshrink] depth  6: m=  40 tau 3253.8 -> 0.0  median|surplus| 43.33",
+   "[reshrink] depth  7: m=  28 tau 8666.6 -> 4720.9  median|surplus| 69.69",
+   "[reshrink] depth  8: m=   2 tau 8666.6 -> 1180.2  median|surplus| 67.06",
+   "[laddercells] depth  4: keff_law<1.00 m=5 tau 1635.5 | keff_law>=1.00 m=14 tau 1635.5",
+   "[laddercells] depth  5: keff_law<1.00 m=14 tau 4237.1 | keff_law>=1.00 m=19 tau 4087.8",
+   "[laddercells] depth  6: keff_law<1.00 m=14 tau 0.2 | keff_law>=1.00 m=26 tau 0.2",
+   "[laddercells] depth  7: keff_law<1.00 m=17 tau 6996.4 | keff_law>=1.00 m=11 tau 0.2",
+   "[laddercells] depth  8: keff_law<1.00 m=1 tau 1180.2 | keff_law>=1.00 m=1 tau 1180.2",
+   "[reshrink] depth  4: median|surplus| after 71.48",
+   "[reshrink] depth  5: median|surplus| after 43.96",
+   "[reshrink] depth  6: median|surplus| after 0.01",
+   "[reshrink] depth  7: median|surplus| after 17.84",
+   "[reshrink] depth  8: median|surplus| after 19.09"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0006114444806
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0002790005613
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 4.0
+   },
+   "8": {
+    "n": 2,
+    "lam_max": 0.0008473004281
+   }
+  },
+  "admitted": 122
+ },
+ {
+  "case": "smm_s103",
+  "arm": "twogroups",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 2.8,
+  "heldout_dev": 1.211,
+  "x2_info": 0.7279,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1635.5 -> 1635.5  median|surplus| 53.61",
+   "[reshrink] depth  5: m=  33 tau 4237.1 -> 4237.1  median|surplus| 46.67",
+   "[reshrink] depth  6: m=  40 tau 3253.8 -> 0.0  median|surplus| 43.33",
+   "[reshrink] depth  7: m=  28 tau 8666.6 -> 4720.9  median|surplus| 69.69",
+   "[reshrink] depth  8: m=   2 tau 8666.6 -> 1180.2  median|surplus| 67.06",
+   "[ladder2g] depth  4: m=  19 pi=0.54 tau1=1635.5 slab(g>.5)=10",
+   "[ladder2g] depth  5: m=  33 pi=0.46 tau1=4237.1 slab(g>.5)=14",
+   "[ladder2g] depth  6: m=  40 pi=0.18 tau1=2442.6 slab(g>.5)=6",
+   "[ladder2g] depth  7: m=  28 pi=0.38 tau1=8666.6 slab(g>.5)=10",
+   "[reshrink] depth  4: median|surplus| after 39.53",
+   "[reshrink] depth  5: median|surplus| after 26.82",
+   "[reshrink] depth  6: median|surplus| after 1.51",
+   "[reshrink] depth  7: median|surplus| after 46.29",
+   "[reshrink] depth  8: median|surplus| after 11.25"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 2.952133912
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 3.881760607
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 3.86158579
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 3.685651515
+   },
+   "8": {
+    "n": 2,
+    "lam_max": 0.0007756953994
+   }
+  },
+  "admitted": 122
+ },
+ {
+  "case": "smm_s103",
+  "arm": "twogroups_free",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 2.8,
+  "heldout_dev": 1.22,
+  "x2_info": 0.7386,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1635.5 -> 1635.5  median|surplus| 53.61",
+   "[reshrink] depth  5: m=  33 tau 4237.1 -> 4237.1  median|surplus| 46.67",
+   "[reshrink] depth  6: m=  40 tau 3253.8 -> 0.0  median|surplus| 43.33",
+   "[reshrink] depth  7: m=  28 tau 8666.6 -> 4720.9  median|surplus| 69.69",
+   "[reshrink] depth  8: m=   2 tau 8666.6 -> 1180.2  median|surplus| 67.06",
+   "[ladder2g] depth  4: m=  19 pi=0.53 tau1=18838.3 slab(g>.5)=10",
+   "[ladder2g] depth  5: m=  33 pi=0.43 tau1=16551.0 slab(g>.5)=14",
+   "[ladder2g] depth  6: m=  40 pi=0.18 tau1=2442.6 slab(g>.5)=6",
+   "[ladder2g] depth  7: m=  28 pi=0.37 tau1=19367.9 slab(g>.5)=10",
+   "[reshrink] depth  4: median|surplus| after 48.18",
+   "[reshrink] depth  5: median|surplus| after 29.67",
+   "[reshrink] depth  6: median|surplus| after 1.29",
+   "[reshrink] depth  7: median|surplus| after 51.23",
+   "[reshrink] depth  8: median|surplus| after 11.21"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 2.419955025
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 3.866875222
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 3.86158579
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 3.690160464
+   },
+   "8": {
+    "n": 2,
+    "lam_max": 0.0007756953994
+   }
+  },
+  "admitted": 122
+ },
+ {
+  "case": "smm_s104",
+  "arm": "off",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 3.9,
+  "heldout_dev": 1.136,
+  "x2_info": 0.6577,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 25,
+    "lam_max": 0.00118974467
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0003734956604
+   },
+   "6": {
+    "n": 53,
+    "lam_max": 0.0001761191252
+   },
+   "7": {
+    "n": 51,
+    "lam_max": 0.0002648953488
+   },
+   "8": {
+    "n": 23,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 16,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 2,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 207
+ },
+ {
+  "case": "smm_s104",
+  "arm": "depth",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 4.3,
+  "heldout_dev": 1.133,
+  "x2_info": 0.6561,
+  "diag": [
+   "[reshrink] depth  4: m=  25 tau 1095.0 -> 1095.0  median|surplus| 34.13",
+   "[reshrink] depth  5: m=  37 tau 3025.8 -> 3025.8  median|surplus| 52.56",
+   "[reshrink] depth  6: m=  53 tau 7627.0 -> 7627.0  median|surplus| 55.27",
+   "[reshrink] depth  7: m=  51 tau 8568.9 -> 8568.9  median|surplus| 69.66",
+   "[reshrink] depth  8: m=  23 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth  9: m=  16 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   2 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth  4: median|surplus| after 34.15",
+   "[reshrink] depth  5: median|surplus| after 52.39",
+   "[reshrink] depth  6: median|surplus| after 58.97",
+   "[reshrink] depth  7: median|surplus| after 69.69",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 25,
+    "lam_max": 0.001234657368
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0003734956604
+   },
+   "6": {
+    "n": 53,
+    "lam_max": 0.0001822261363
+   },
+   "7": {
+    "n": 51,
+    "lam_max": 0.0002648953488
+   },
+   "8": {
+    "n": 23,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 16,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 2,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 207
+ },
+ {
+  "case": "smm_s104",
+  "arm": "cells",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 4.3,
+  "heldout_dev": 1.132,
+  "x2_info": 0.6561,
+  "diag": [
+   "[reshrink] depth  4: m=  25 tau 1095.0 -> 1095.0  median|surplus| 34.13",
+   "[reshrink] depth  5: m=  37 tau 3025.8 -> 3025.8  median|surplus| 52.56",
+   "[reshrink] depth  6: m=  53 tau 7627.0 -> 7627.0  median|surplus| 55.27",
+   "[reshrink] depth  7: m=  51 tau 8568.9 -> 8568.9  median|surplus| 69.66",
+   "[reshrink] depth  8: m=  23 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth  9: m=  16 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   2 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[laddercells] depth  4: keff_law<1.00 m=12 tau 1095.0 | keff_law>=1.00 m=13 tau 1095.0",
+   "[laddercells] depth  5: keff_law<1.00 m=15 tau 1944.4 | keff_law>=1.00 m=22 tau 3025.8",
+   "[laddercells] depth  6: keff_law<1.00 m=31 tau 4151.3 | keff_law>=1.00 m=22 tau 7627.0",
+   "[laddercells] depth  7: keff_law<1.00 m=29 tau 8568.9 | keff_law>=1.00 m=22 tau 4741.1",
+   "[laddercells] depth  8: keff_law<1.00 m=7 tau 0.2 | keff_law>=1.00 m=16 tau 0.2",
+   "[laddercells] depth  9: keff_law<1.00 m=5 tau 0.2 | keff_law>=1.00 m=11 tau 0.2",
+   "[laddercells] depth 10: keff_law<1.00 m=0 tau 0.2 | keff_law>=1.00 m=2 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 33.75",
+   "[reshrink] depth  5: median|surplus| after 45.77",
+   "[reshrink] depth  6: median|surplus| after 54.83",
+   "[reshrink] depth  7: median|surplus| after 64.86",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 25,
+    "lam_max": 0.0009132694877
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0005142995361
+   },
+   "6": {
+    "n": 53,
+    "lam_max": 0.0002408873716
+   },
+   "7": {
+    "n": 51,
+    "lam_max": 0.0002648953488
+   },
+   "8": {
+    "n": 23,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 16,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 2,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 207
+ },
+ {
+  "case": "smm_s104",
+  "arm": "cells_rawkeff",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 4.3,
+  "heldout_dev": 1.133,
+  "x2_info": 0.6562,
+  "diag": [
+   "[reshrink] depth  4: m=  25 tau 1095.0 -> 1095.0  median|surplus| 34.13",
+   "[reshrink] depth  5: m=  37 tau 3025.8 -> 3025.8  median|surplus| 52.56",
+   "[reshrink] depth  6: m=  53 tau 7627.0 -> 7627.0  median|surplus| 55.27",
+   "[reshrink] depth  7: m=  51 tau 8568.9 -> 8568.9  median|surplus| 69.66",
+   "[reshrink] depth  8: m=  23 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth  9: m=  16 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   2 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[laddercells] depth  4: keff_law<1.00 m=11 tau 1095.0 | keff_law>=1.00 m=14 tau 1095.0",
+   "[laddercells] depth  5: keff_law<1.00 m=11 tau 1833.1 | keff_law>=1.00 m=26 tau 3025.8",
+   "[laddercells] depth  6: keff_law<1.00 m=25 tau 6456.0 | keff_law>=1.00 m=28 tau 7627.0",
+   "[laddercells] depth  7: keff_law<1.00 m=25 tau 8568.9 | keff_law>=1.00 m=26 tau 6015.4",
+   "[laddercells] depth  8: keff_law<1.00 m=7 tau 0.2 | keff_law>=1.00 m=16 tau 0.2",
+   "[laddercells] depth  9: keff_law<1.00 m=5 tau 0.2 | keff_law>=1.00 m=11 tau 0.2",
+   "[laddercells] depth 10: keff_law<1.00 m=0 tau 0.2 | keff_law>=1.00 m=2 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 34.09",
+   "[reshrink] depth  5: median|surplus| after 47.26",
+   "[reshrink] depth  6: median|surplus| after 58.99",
+   "[reshrink] depth  7: median|surplus| after 69.13",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 25,
+    "lam_max": 0.0009132694877
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.000545538604
+   },
+   "6": {
+    "n": 53,
+    "lam_max": 0.0001548942834
+   },
+   "7": {
+    "n": 51,
+    "lam_max": 0.0002648953488
+   },
+   "8": {
+    "n": 23,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 16,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 2,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 207
+ },
+ {
+  "case": "smm_s104",
+  "arm": "twogroups",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 4.2,
+  "heldout_dev": 1.145,
+  "x2_info": 0.6587,
+  "diag": [
+   "[reshrink] depth  4: m=  25 tau 1095.0 -> 1095.0  median|surplus| 34.13",
+   "[reshrink] depth  5: m=  37 tau 3025.8 -> 3025.8  median|surplus| 52.56",
+   "[reshrink] depth  6: m=  53 tau 7627.0 -> 7627.0  median|surplus| 55.27",
+   "[reshrink] depth  7: m=  51 tau 8568.9 -> 8568.9  median|surplus| 69.66",
+   "[reshrink] depth  8: m=  23 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth  9: m=  16 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   2 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[ladder2g] depth  4: m=  25 pi=0.53 tau1=1095.0 slab(g>.5)=12",
+   "[ladder2g] depth  5: m=  37 pi=0.51 tau1=3025.8 slab(g>.5)=18",
+   "[ladder2g] depth  6: m=  53 pi=0.30 tau1=7627.0 slab(g>.5)=14",
+   "[ladder2g] depth  7: m=  51 pi=0.50 tau1=8568.9 slab(g>.5)=26",
+   "[reshrink] depth  4: median|surplus| after 25.36",
+   "[reshrink] depth  5: median|surplus| after 32.19",
+   "[reshrink] depth  6: median|surplus| after 2.20",
+   "[reshrink] depth  7: median|surplus| after 41.88",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 25,
+    "lam_max": 1.411868082
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 2.153007167
+   },
+   "6": {
+    "n": 53,
+    "lam_max": 3.171366471
+   },
+   "7": {
+    "n": 51,
+    "lam_max": 1.214874013
+   },
+   "8": {
+    "n": 23,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 16,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 2,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 207
+ },
+ {
+  "case": "smm_s104",
+  "arm": "twogroups_free",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 4.3,
+  "heldout_dev": 1.188,
+  "x2_info": 0.6951,
+  "diag": [
+   "[reshrink] depth  4: m=  25 tau 1095.0 -> 1095.0  median|surplus| 34.13",
+   "[reshrink] depth  5: m=  37 tau 3025.8 -> 3025.8  median|surplus| 52.56",
+   "[reshrink] depth  6: m=  53 tau 7627.0 -> 7627.0  median|surplus| 55.27",
+   "[reshrink] depth  7: m=  51 tau 8568.9 -> 8568.9  median|surplus| 69.66",
+   "[reshrink] depth  8: m=  23 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth  9: m=  16 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   2 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[ladder2g] depth  4: m=  25 pi=0.46 tau1=21807.4 slab(g>.5)=12",
+   "[ladder2g] depth  5: m=  37 pi=0.46 tau1=13978.7 slab(g>.5)=18",
+   "[ladder2g] depth  6: m=  53 pi=0.27 tau1=42564.8 slab(g>.5)=13",
+   "[ladder2g] depth  7: m=  51 pi=0.49 tau1=23714.8 slab(g>.5)=25",
+   "[ladder2g] depth  8: m=  23 pi=0.81 tau1=5396.0 slab(g>.5)=20",
+   "[ladder2g] depth  9: m=  16 pi=0.45 tau1=27273.7 slab(g>.5)=6",
+   "[reshrink] depth  4: median|surplus| after 22.75",
+   "[reshrink] depth  5: median|surplus| after 33.59",
+   "[reshrink] depth  6: median|surplus| after 1.03",
+   "[reshrink] depth  7: median|surplus| after 56.36",
+   "[reshrink] depth  8: median|surplus| after 22.32",
+   "[reshrink] depth  9: median|surplus| after 9.63",
+   "[reshrink] depth 10: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 25,
+    "lam_max": 1.656325601
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 2.332951348
+   },
+   "6": {
+    "n": 53,
+    "lam_max": 2.784267481
+   },
+   "7": {
+    "n": 51,
+    "lam_max": 0.9829646404
+   },
+   "8": {
+    "n": 23,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 16,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 2,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 207
+ },
+ {
+  "case": "smm_s105",
+  "arm": "off",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 3.3,
+  "heldout_dev": 1.19,
+  "x2_info": 0.7819,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0006174511354
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.0005775822714
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.0001461608674
+   },
+   "7": {
+    "n": 32,
+    "lam_max": 0.0001461608674
+   },
+   "8": {
+    "n": 6,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 139
+ },
+ {
+  "case": "smm_s105",
+  "arm": "depth",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 3.6,
+  "heldout_dev": 1.188,
+  "x2_info": 0.7771,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2285.3 -> 2285.3  median|surplus| 43.40",
+   "[reshrink] depth  5: m=  35 tau 1814.5 -> 1814.5  median|surplus| 22.88",
+   "[reshrink] depth  6: m=  43 tau 14088.6 -> 2661.3  median|surplus| 59.58",
+   "[reshrink] depth  7: m=  32 tau 8887.3 -> 8887.3  median|surplus| 112.69",
+   "[reshrink] depth  8: m=   6 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[reshrink] depth  9: m=   1 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth  4: median|surplus| after 43.37",
+   "[reshrink] depth  5: median|surplus| after 27.16",
+   "[reshrink] depth  6: median|surplus| after 35.95",
+   "[reshrink] depth  7: median|surplus| after 131.47",
+   "[reshrink] depth  8: median|surplus| after 0.01",
+   "[reshrink] depth  9: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0005597154285
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.000573111086
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.0001461608674
+   },
+   "7": {
+    "n": 32,
+    "lam_max": 0.0001461608674
+   },
+   "8": {
+    "n": 6,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 139
+ },
+ {
+  "case": "smm_s105",
+  "arm": "cells",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 3.5,
+  "heldout_dev": 1.191,
+  "x2_info": 0.753,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2285.3 -> 2285.3  median|surplus| 43.40",
+   "[reshrink] depth  5: m=  35 tau 1814.5 -> 1814.5  median|surplus| 22.88",
+   "[reshrink] depth  6: m=  43 tau 14088.6 -> 2661.3  median|surplus| 59.58",
+   "[reshrink] depth  7: m=  32 tau 8887.3 -> 8887.3  median|surplus| 112.69",
+   "[reshrink] depth  8: m=   6 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[reshrink] depth  9: m=   1 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[laddercells] depth  4: keff_law<1.00 m=11 tau 2285.3 | keff_law>=1.00 m=10 tau 2285.3",
+   "[laddercells] depth  5: keff_law<1.00 m=15 tau 1814.5 | keff_law>=1.00 m=20 tau 1814.5",
+   "[laddercells] depth  6: keff_law<1.00 m=27 tau 344.8 | keff_law>=1.00 m=16 tau 7082.0",
+   "[laddercells] depth  7: keff_law<1.00 m=21 tau 8887.3 | keff_law>=1.00 m=11 tau 7560.1",
+   "[laddercells] depth  8: keff_law<1.00 m=2 tau 0.2 | keff_law>=1.00 m=4 tau 0.2",
+   "[laddercells] depth  9: keff_law<1.00 m=1 tau 0.2 | keff_law>=1.00 m=0 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 53.15",
+   "[reshrink] depth  5: median|surplus| after 30.77",
+   "[reshrink] depth  6: median|surplus| after 19.58",
+   "[reshrink] depth  7: median|surplus| after 109.48",
+   "[reshrink] depth  8: median|surplus| after 0.01",
+   "[reshrink] depth  9: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0004919448328
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.0005511026817
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.002900478342
+   },
+   "7": {
+    "n": 32,
+    "lam_max": 0.0001461608674
+   },
+   "8": {
+    "n": 6,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 139
+ },
+ {
+  "case": "smm_s105",
+  "arm": "cells_rawkeff",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 3.6,
+  "heldout_dev": 1.189,
+  "x2_info": 0.7669,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2285.3 -> 2285.3  median|surplus| 43.40",
+   "[reshrink] depth  5: m=  35 tau 1814.5 -> 1814.5  median|surplus| 22.88",
+   "[reshrink] depth  6: m=  43 tau 14088.6 -> 2661.3  median|surplus| 59.58",
+   "[reshrink] depth  7: m=  32 tau 8887.3 -> 8887.3  median|surplus| 112.69",
+   "[reshrink] depth  8: m=   6 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[reshrink] depth  9: m=   1 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[laddercells] depth  4: keff_law<1.00 m=8 tau 2285.3 | keff_law>=1.00 m=13 tau 2285.3",
+   "[laddercells] depth  5: keff_law<1.00 m=15 tau 1814.5 | keff_law>=1.00 m=20 tau 1814.5",
+   "[laddercells] depth  6: keff_law<1.00 m=16 tau 1107.4 | keff_law>=1.00 m=27 tau 3116.3",
+   "[laddercells] depth  7: keff_law<1.00 m=20 tau 8887.3 | keff_law>=1.00 m=12 tau 8190.2",
+   "[laddercells] depth  8: keff_law<1.00 m=2 tau 0.2 | keff_law>=1.00 m=4 tau 0.2",
+   "[laddercells] depth  9: keff_law<1.00 m=1 tau 0.2 | keff_law>=1.00 m=0 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 43.38",
+   "[reshrink] depth  5: median|surplus| after 24.78",
+   "[reshrink] depth  6: median|surplus| after 30.01",
+   "[reshrink] depth  7: median|surplus| after 131.43",
+   "[reshrink] depth  8: median|surplus| after 0.01",
+   "[reshrink] depth  9: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0004919448328
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.0005511026817
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.0009029893547
+   },
+   "7": {
+    "n": 32,
+    "lam_max": 0.0001461608674
+   },
+   "8": {
+    "n": 6,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 139
+ },
+ {
+  "case": "smm_s105",
+  "arm": "twogroups",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 3.6,
+  "heldout_dev": 1.198,
+  "x2_info": 0.7714,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2285.3 -> 2285.3  median|surplus| 43.40",
+   "[reshrink] depth  5: m=  35 tau 1814.5 -> 1814.5  median|surplus| 22.88",
+   "[reshrink] depth  6: m=  43 tau 14088.6 -> 2661.3  median|surplus| 59.58",
+   "[reshrink] depth  7: m=  32 tau 8887.3 -> 8887.3  median|surplus| 112.69",
+   "[reshrink] depth  8: m=   6 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[reshrink] depth  9: m=   1 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[ladder2g] depth  4: m=  21 pi=0.57 tau1=2285.3 slab(g>.5)=10",
+   "[ladder2g] depth  5: m=  35 pi=0.42 tau1=1814.5 slab(g>.5)=14",
+   "[ladder2g] depth  6: m=  43 pi=0.35 tau1=10093.7 slab(g>.5)=14",
+   "[ladder2g] depth  7: m=  32 pi=0.56 tau1=8887.3 slab(g>.5)=18",
+   "[reshrink] depth  4: median|surplus| after 22.96",
+   "[reshrink] depth  5: median|surplus| after 2.11",
+   "[reshrink] depth  6: median|surplus| after 7.73",
+   "[reshrink] depth  7: median|surplus| after 89.98",
+   "[reshrink] depth  8: median|surplus| after 0.02",
+   "[reshrink] depth  9: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.3310005234
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 3.247019539
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 3.47672767
+   },
+   "7": {
+    "n": 32,
+    "lam_max": 1.701234673
+   },
+   "8": {
+    "n": 6,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 139
+ },
+ {
+  "case": "smm_s105",
+  "arm": "twogroups_free",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 3.5,
+  "heldout_dev": 1.203,
+  "x2_info": 0.7863,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2285.3 -> 2285.3  median|surplus| 43.40",
+   "[reshrink] depth  5: m=  35 tau 1814.5 -> 1814.5  median|surplus| 22.88",
+   "[reshrink] depth  6: m=  43 tau 14088.6 -> 2661.3  median|surplus| 59.58",
+   "[reshrink] depth  7: m=  32 tau 8887.3 -> 8887.3  median|surplus| 112.69",
+   "[reshrink] depth  8: m=   6 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[reshrink] depth  9: m=   1 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[ladder2g] depth  4: m=  21 pi=0.49 tau1=18437.9 slab(g>.5)=10",
+   "[ladder2g] depth  5: m=  35 pi=0.41 tau1=8716.8 slab(g>.5)=14",
+   "[ladder2g] depth  6: m=  43 pi=0.35 tau1=10093.7 slab(g>.5)=14",
+   "[ladder2g] depth  7: m=  32 pi=0.54 tau1=30465.8 slab(g>.5)=17",
+   "[ladder2g] depth  8: m=   6 pi=0.33 tau1=17620.7 slab(g>.5)=2",
+   "[reshrink] depth  4: median|surplus| after 17.16",
+   "[reshrink] depth  5: median|surplus| after 1.36",
+   "[reshrink] depth  6: median|surplus| after 9.86",
+   "[reshrink] depth  7: median|surplus| after 129.67",
+   "[reshrink] depth  8: median|surplus| after 5.74",
+   "[reshrink] depth  9: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.2127121551
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 3.121135316
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 3.47672767
+   },
+   "7": {
+    "n": 32,
+    "lam_max": 1.824191324
+   },
+   "8": {
+    "n": 6,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 139
+ },
+ {
+  "case": "smm_s106",
+  "arm": "off",
+  "seed": 106,
+  "exit": 0,
+  "wall_s": 4.5,
+  "heldout_dev": 1.197,
+  "x2_info": 0.6544,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.005028798841
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0003797747012
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.0001425555776
+   },
+   "7": {
+    "n": 34,
+    "lam_max": 0.000179483581
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 157
+ },
+ {
+  "case": "smm_s106",
+  "arm": "depth",
+  "seed": 106,
+  "exit": 0,
+  "wall_s": 4.8,
+  "heldout_dev": 1.193,
+  "x2_info": 0.6519,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 708.8 -> 708.8  median|surplus| 33.85",
+   "[reshrink] depth  5: m=  37 tau 2654.4 -> 2654.4  median|surplus| 50.51",
+   "[reshrink] depth  6: m=  47 tau 8475.4 -> 718.0  median|surplus| 49.72",
+   "[reshrink] depth  7: m=  34 tau 5899.1 -> 5899.1  median|surplus| 74.66",
+   "[reshrink] depth  8: m=   8 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth  9: m=   9 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth  4: median|surplus| after 40.51",
+   "[reshrink] depth  5: median|surplus| after 42.42",
+   "[reshrink] depth  6: median|surplus| after 17.51",
+   "[reshrink] depth  7: median|surplus| after 70.37",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.004072155366
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0004127929342
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.0001425555776
+   },
+   "7": {
+    "n": 34,
+    "lam_max": 0.000179483581
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 157
+ },
+ {
+  "case": "smm_s106",
+  "arm": "cells",
+  "seed": 106,
+  "exit": 0,
+  "wall_s": 4.8,
+  "heldout_dev": 1.197,
+  "x2_info": 0.627,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 708.8 -> 708.8  median|surplus| 33.85",
+   "[reshrink] depth  5: m=  37 tau 2654.4 -> 2654.4  median|surplus| 50.51",
+   "[reshrink] depth  6: m=  47 tau 8475.4 -> 718.0  median|surplus| 49.72",
+   "[reshrink] depth  7: m=  34 tau 5899.1 -> 5899.1  median|surplus| 74.66",
+   "[reshrink] depth  8: m=   8 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth  9: m=   9 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[laddercells] depth  4: keff_law<1.00 m=9 tau 708.8 | keff_law>=1.00 m=10 tau 708.8",
+   "[laddercells] depth  5: keff_law<1.00 m=19 tau 2654.4 | keff_law>=1.00 m=18 tau 1378.9",
+   "[laddercells] depth  6: keff_law<1.00 m=30 tau 0.2 | keff_law>=1.00 m=17 tau 2584.6",
+   "[laddercells] depth  7: keff_law<1.00 m=20 tau 5899.1 | keff_law>=1.00 m=14 tau 3605.2",
+   "[laddercells] depth  8: keff_law<1.00 m=1 tau 0.2 | keff_law>=1.00 m=7 tau 0.2",
+   "[laddercells] depth  9: keff_law<1.00 m=4 tau 0.2 | keff_law>=1.00 m=5 tau 0.2",
+   "[laddercells] depth 10: keff_law<1.00 m=3 tau 0.2 | keff_law>=1.00 m=0 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 81.56",
+   "[reshrink] depth  5: median|surplus| after 61.22",
+   "[reshrink] depth  6: median|surplus| after 0.03",
+   "[reshrink] depth  7: median|surplus| after 86.17",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.001410910233
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0007252187681
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 34,
+    "lam_max": 0.0002773809005
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 157
+ },
+ {
+  "case": "smm_s106",
+  "arm": "cells_rawkeff",
+  "seed": 106,
+  "exit": 0,
+  "wall_s": 4.9,
+  "heldout_dev": 1.19,
+  "x2_info": 0.6345,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 708.8 -> 708.8  median|surplus| 33.85",
+   "[reshrink] depth  5: m=  37 tau 2654.4 -> 2654.4  median|surplus| 50.51",
+   "[reshrink] depth  6: m=  47 tau 8475.4 -> 718.0  median|surplus| 49.72",
+   "[reshrink] depth  7: m=  34 tau 5899.1 -> 5899.1  median|surplus| 74.66",
+   "[reshrink] depth  8: m=   8 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth  9: m=   9 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[laddercells] depth  4: keff_law<1.00 m=8 tau 708.8 | keff_law>=1.00 m=11 tau 708.8",
+   "[laddercells] depth  5: keff_law<1.00 m=15 tau 2654.4 | keff_law>=1.00 m=22 tau 1456.7",
+   "[laddercells] depth  6: keff_law<1.00 m=20 tau 0.2 | keff_law>=1.00 m=27 tau 1636.0",
+   "[laddercells] depth  7: keff_law<1.00 m=19 tau 5899.1 | keff_law>=1.00 m=15 tau 3037.4",
+   "[laddercells] depth  8: keff_law<1.00 m=1 tau 0.2 | keff_law>=1.00 m=7 tau 0.2",
+   "[laddercells] depth  9: keff_law<1.00 m=3 tau 0.2 | keff_law>=1.00 m=6 tau 0.2",
+   "[laddercells] depth 10: keff_law<1.00 m=3 tau 0.2 | keff_law>=1.00 m=0 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 57.47",
+   "[reshrink] depth  5: median|surplus| after 46.59",
+   "[reshrink] depth  6: median|surplus| after 8.40",
+   "[reshrink] depth  7: median|surplus| after 78.28",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.001410910233
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0006864608391
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 34,
+    "lam_max": 0.0003292275608
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 157
+ },
+ {
+  "case": "smm_s106",
+  "arm": "twogroups",
+  "seed": 106,
+  "exit": 0,
+  "wall_s": 4.7,
+  "heldout_dev": 1.197,
+  "x2_info": 0.6455,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 708.8 -> 708.8  median|surplus| 33.85",
+   "[reshrink] depth  5: m=  37 tau 2654.4 -> 2654.4  median|surplus| 50.51",
+   "[reshrink] depth  6: m=  47 tau 8475.4 -> 718.0  median|surplus| 49.72",
+   "[reshrink] depth  7: m=  34 tau 5899.1 -> 5899.1  median|surplus| 74.66",
+   "[reshrink] depth  8: m=   8 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth  9: m=   9 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[ladder2g] depth  4: m=  19 pi=0.77 tau1=708.8 slab(g>.5)=14",
+   "[ladder2g] depth  5: m=  37 pi=0.48 tau1=2654.4 slab(g>.5)=17",
+   "[ladder2g] depth  6: m=  47 pi=0.29 tau1=6795.0 slab(g>.5)=12",
+   "[ladder2g] depth  7: m=  34 pi=0.49 tau1=5899.1 slab(g>.5)=17",
+   "[reshrink] depth  4: median|surplus| after 34.42",
+   "[reshrink] depth  5: median|surplus| after 18.70",
+   "[reshrink] depth  6: median|surplus| after 8.07",
+   "[reshrink] depth  7: median|surplus| after 47.17",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.06942204544
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 3.120611583
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 3.788413366
+   },
+   "7": {
+    "n": 34,
+    "lam_max": 3.865415081
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 157
+ },
+ {
+  "case": "smm_s106",
+  "arm": "twogroups_free",
+  "seed": 106,
+  "exit": 0,
+  "wall_s": 5.0,
+  "heldout_dev": 1.191,
+  "x2_info": 0.6515,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 708.8 -> 708.8  median|surplus| 33.85",
+   "[reshrink] depth  5: m=  37 tau 2654.4 -> 2654.4  median|surplus| 50.51",
+   "[reshrink] depth  6: m=  47 tau 8475.4 -> 718.0  median|surplus| 49.72",
+   "[reshrink] depth  7: m=  34 tau 5899.1 -> 5899.1  median|surplus| 74.66",
+   "[reshrink] depth  8: m=   8 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth  9: m=   9 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[ladder2g] depth  4: m=  19 pi=0.68 tau1=18646.9 slab(g>.5)=13",
+   "[ladder2g] depth  5: m=  37 pi=0.44 tau1=11415.5 slab(g>.5)=17",
+   "[ladder2g] depth  6: m=  47 pi=0.29 tau1=6795.0 slab(g>.5)=12",
+   "[ladder2g] depth  7: m=  34 pi=0.46 tau1=13407.9 slab(g>.5)=16",
+   "[ladder2g] depth  8: m=   8 pi=0.25 tau1=2319.2 slab(g>.5)=2",
+   "[ladder2g] depth  9: m=   9 pi=0.02 tau1=1.0 slab(g>.5)=0",
+   "[reshrink] depth  4: median|surplus| after 55.77",
+   "[reshrink] depth  5: median|surplus| after 15.43",
+   "[reshrink] depth  6: median|surplus| after 1.67",
+   "[reshrink] depth  7: median|surplus| after 47.78",
+   "[reshrink] depth  8: median|surplus| after 0.86",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.04025693718
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 3.079329577
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 3.788413366
+   },
+   "7": {
+    "n": 34,
+    "lam_max": 3.865512998
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 0.4478862642
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 157
+ },
+ {
+  "case": "smm_s107",
+  "arm": "off",
+  "seed": 107,
+  "exit": 0,
+  "wall_s": 3.9,
+  "heldout_dev": 1.124,
+  "x2_info": 0.6465,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.000916562812
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0003387233584
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.0006267369317
+   },
+   "7": {
+    "n": 36,
+    "lam_max": 0.0001484963931
+   },
+   "8": {
+    "n": 3,
+    "lam_max": 0.008566975189
+   },
+   "9": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 143
+ },
+ {
+  "case": "smm_s107",
+  "arm": "depth",
+  "seed": 107,
+  "exit": 0,
+  "wall_s": 4.5,
+  "heldout_dev": 1.139,
+  "x2_info": 0.6261,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 1350.0 -> 1350.0  median|surplus| 47.97",
+   "[reshrink] depth  5: m=  34 tau 3474.4 -> 3474.4  median|surplus| 47.42",
+   "[reshrink] depth  6: m=  47 tau 1446.0 -> 48.5  median|surplus| 32.61",
+   "[reshrink] depth  7: m=  36 tau 6885.6 -> 6328.6  median|surplus| 70.70",
+   "[reshrink] depth  8: m=   3 tau 85.5 -> 85.5  median|surplus| 9.66",
+   "[reshrink] depth  9: m=   3 tau 0.2 -> 0.0  median|surplus| 0.02",
+   "[reshrink] depth  4: median|surplus| after 44.32",
+   "[reshrink] depth  5: median|surplus| after 45.92",
+   "[reshrink] depth  6: median|surplus| after 2.58",
+   "[reshrink] depth  7: median|surplus| after 52.90",
+   "[reshrink] depth  8: median|surplus| after 17.33",
+   "[reshrink] depth  9: median|surplus| after 0.02"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.0008844570701
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0003387233584
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 36,
+    "lam_max": 0.0001498221261
+   },
+   "8": {
+    "n": 3,
+    "lam_max": 0.008226107822
+   },
+   "9": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 143
+ },
+ {
+  "case": "smm_s107",
+  "arm": "cells",
+  "seed": 107,
+  "exit": 0,
+  "wall_s": 4.5,
+  "heldout_dev": 1.14,
+  "x2_info": 0.6168,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 1350.0 -> 1350.0  median|surplus| 47.97",
+   "[reshrink] depth  5: m=  34 tau 3474.4 -> 3474.4  median|surplus| 47.42",
+   "[reshrink] depth  6: m=  47 tau 1446.0 -> 48.5  median|surplus| 32.61",
+   "[reshrink] depth  7: m=  36 tau 6885.6 -> 6328.6  median|surplus| 70.70",
+   "[reshrink] depth  8: m=   3 tau 85.5 -> 85.5  median|surplus| 9.66",
+   "[reshrink] depth  9: m=   3 tau 0.2 -> 0.0  median|surplus| 0.02",
+   "[laddercells] depth  4: keff_law<1.00 m=13 tau 1350.0 | keff_law>=1.00 m=7 tau 1350.0",
+   "[laddercells] depth  5: keff_law<1.00 m=17 tau 3474.4 | keff_law>=1.00 m=17 tau 3074.8",
+   "[laddercells] depth  6: keff_law<1.00 m=30 tau 0.2 | keff_law>=1.00 m=17 tau 1446.0",
+   "[laddercells] depth  7: keff_law<1.00 m=20 tau 4060.1 | keff_law>=1.00 m=16 tau 6885.6",
+   "[laddercells] depth  8: keff_law<1.00 m=2 tau 85.5 | keff_law>=1.00 m=1 tau 85.5",
+   "[laddercells] depth  9: keff_law<1.00 m=3 tau 0.2 | keff_law>=1.00 m=0 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 64.59",
+   "[reshrink] depth  5: median|surplus| after 59.65",
+   "[reshrink] depth  6: median|surplus| after 0.03",
+   "[reshrink] depth  7: median|surplus| after 60.94",
+   "[reshrink] depth  8: median|surplus| after 18.88",
+   "[reshrink] depth  9: median|surplus| after 0.02"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.0007407322397
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0003387233584
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 36,
+    "lam_max": 0.0002462980144
+   },
+   "8": {
+    "n": 3,
+    "lam_max": 0.01169918357
+   },
+   "9": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 143
+ },
+ {
+  "case": "smm_s107",
+  "arm": "cells_rawkeff",
+  "seed": 107,
+  "exit": 0,
+  "wall_s": 4.3,
+  "heldout_dev": 1.122,
+  "x2_info": 0.6146,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 1350.0 -> 1350.0  median|surplus| 47.97",
+   "[reshrink] depth  5: m=  34 tau 3474.4 -> 3474.4  median|surplus| 47.42",
+   "[reshrink] depth  6: m=  47 tau 1446.0 -> 48.5  median|surplus| 32.61",
+   "[reshrink] depth  7: m=  36 tau 6885.6 -> 6328.6  median|surplus| 70.70",
+   "[reshrink] depth  8: m=   3 tau 85.5 -> 85.5  median|surplus| 9.66",
+   "[reshrink] depth  9: m=   3 tau 0.2 -> 0.0  median|surplus| 0.02",
+   "[laddercells] depth  4: keff_law<1.00 m=9 tau 1350.0 | keff_law>=1.00 m=11 tau 1350.0",
+   "[laddercells] depth  5: keff_law<1.00 m=12 tau 3474.4 | keff_law>=1.00 m=22 tau 2292.2",
+   "[laddercells] depth  6: keff_law<1.00 m=20 tau 0.2 | keff_law>=1.00 m=27 tau 917.8",
+   "[laddercells] depth  7: keff_law<1.00 m=17 tau 5350.4 | keff_law>=1.00 m=19 tau 6885.6",
+   "[laddercells] depth  8: keff_law<1.00 m=2 tau 85.5 | keff_law>=1.00 m=1 tau 85.5",
+   "[laddercells] depth  9: keff_law<1.00 m=3 tau 0.2 | keff_law>=1.00 m=0 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 63.82",
+   "[reshrink] depth  5: median|surplus| after 48.84",
+   "[reshrink] depth  6: median|surplus| after 4.27",
+   "[reshrink] depth  7: median|surplus| after 34.63",
+   "[reshrink] depth  8: median|surplus| after 18.86",
+   "[reshrink] depth  9: median|surplus| after 0.02"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.0007407322397
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0004362663855
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 36,
+    "lam_max": 0.0001869027646
+   },
+   "8": {
+    "n": 3,
+    "lam_max": 0.01169918357
+   },
+   "9": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 143
+ },
+ {
+  "case": "smm_s107",
+  "arm": "twogroups",
+  "seed": 107,
+  "exit": 0,
+  "wall_s": 4.4,
+  "heldout_dev": 1.142,
+  "x2_info": 0.6478,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 1350.0 -> 1350.0  median|surplus| 47.97",
+   "[reshrink] depth  5: m=  34 tau 3474.4 -> 3474.4  median|surplus| 47.42",
+   "[reshrink] depth  6: m=  47 tau 1446.0 -> 48.5  median|surplus| 32.61",
+   "[reshrink] depth  7: m=  36 tau 6885.6 -> 6328.6  median|surplus| 70.70",
+   "[reshrink] depth  8: m=   3 tau 85.5 -> 85.5  median|surplus| 9.66",
+   "[reshrink] depth  9: m=   3 tau 0.2 -> 0.0  median|surplus| 0.02",
+   "[ladder2g] depth  4: m=  20 pi=0.62 tau1=1350.0 slab(g>.5)=12",
+   "[ladder2g] depth  5: m=  34 pi=0.40 tau1=3474.4 slab(g>.5)=13",
+   "[ladder2g] depth  6: m=  47 pi=0.32 tau1=1446.0 slab(g>.5)=15",
+   "[ladder2g] depth  7: m=  36 pi=0.43 tau1=6885.6 slab(g>.5)=15",
+   "[reshrink] depth  4: median|surplus| after 65.76",
+   "[reshrink] depth  5: median|surplus| after 11.13",
+   "[reshrink] depth  6: median|surplus| after 3.26",
+   "[reshrink] depth  7: median|surplus| after 19.97",
+   "[reshrink] depth  8: median|surplus| after 14.75",
+   "[reshrink] depth  9: median|surplus| after 0.02"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.1136229769
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 1.869275732
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 2.867945806
+   },
+   "7": {
+    "n": 36,
+    "lam_max": 2.54251291
+   },
+   "8": {
+    "n": 3,
+    "lam_max": 0.009280575039
+   },
+   "9": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 143
+ },
+ {
+  "case": "smm_s107",
+  "arm": "twogroups_free",
+  "seed": 107,
+  "exit": 0,
+  "wall_s": 4.3,
+  "heldout_dev": 1.145,
+  "x2_info": 0.657,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 1350.0 -> 1350.0  median|surplus| 47.97",
+   "[reshrink] depth  5: m=  34 tau 3474.4 -> 3474.4  median|surplus| 47.42",
+   "[reshrink] depth  6: m=  47 tau 1446.0 -> 48.5  median|surplus| 32.61",
+   "[reshrink] depth  7: m=  36 tau 6885.6 -> 6328.6  median|surplus| 70.70",
+   "[reshrink] depth  8: m=   3 tau 85.5 -> 85.5  median|surplus| 9.66",
+   "[reshrink] depth  9: m=   3 tau 0.2 -> 0.0  median|surplus| 0.02",
+   "[ladder2g] depth  4: m=  20 pi=0.57 tau1=18572.2 slab(g>.5)=11",
+   "[ladder2g] depth  5: m=  34 pi=0.38 tau1=11798.8 slab(g>.5)=13",
+   "[ladder2g] depth  6: m=  47 pi=0.30 tau1=4377.1 slab(g>.5)=15",
+   "[ladder2g] depth  7: m=  36 pi=0.42 tau1=19795.8 slab(g>.5)=15",
+   "[reshrink] depth  4: median|surplus| after 87.02",
+   "[reshrink] depth  5: median|surplus| after 5.86",
+   "[reshrink] depth  6: median|surplus| after 2.26",
+   "[reshrink] depth  7: median|surplus| after 28.54",
+   "[reshrink] depth  8: median|surplus| after 14.69",
+   "[reshrink] depth  9: median|surplus| after 0.02"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.06982269992
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 1.935111957
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 3.069951985
+   },
+   "7": {
+    "n": 36,
+    "lam_max": 2.284731094
+   },
+   "8": {
+    "n": 3,
+    "lam_max": 0.009232709819
+   },
+   "9": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 143
+ },
+ {
+  "case": "smm_s108",
+  "arm": "off",
+  "seed": 108,
+  "exit": 0,
+  "wall_s": 2.9,
+  "heldout_dev": 1.121,
+  "x2_info": 0.6537,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 18,
+    "lam_max": 0.0008515858414
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0002888447507
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.000215989161
+   },
+   "7": {
+    "n": 37,
+    "lam_max": 0.000215989161
+   },
+   "8": {
+    "n": 4,
+    "lam_max": 0.03519102773
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s108",
+  "arm": "depth",
+  "seed": 108,
+  "exit": 0,
+  "wall_s": 3.4,
+  "heldout_dev": 1.121,
+  "x2_info": 0.6543,
+  "diag": [
+   "[reshrink] depth  4: m=  18 tau 1405.8 -> 1405.8  median|surplus| 55.23",
+   "[reshrink] depth  5: m=  32 tau 3174.8 -> 2409.0  median|surplus| 56.49",
+   "[reshrink] depth  6: m=  42 tau 11597.8 -> 3663.3  median|surplus| 48.71",
+   "[reshrink] depth  7: m=  37 tau 7885.9 -> 7885.9  median|surplus| 83.73",
+   "[reshrink] depth  8: m=   4 tau 32.6 -> 0.0  median|surplus| 1.54",
+   "[reshrink] depth  4: median|surplus| after 55.21",
+   "[reshrink] depth  5: median|surplus| after 56.43",
+   "[reshrink] depth  6: median|surplus| after 40.51",
+   "[reshrink] depth  7: median|surplus| after 84.91",
+   "[reshrink] depth  8: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 18,
+    "lam_max": 0.0008417691092
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0002974720524
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.000215989161
+   },
+   "7": {
+    "n": 37,
+    "lam_max": 0.000215989161
+   },
+   "8": {
+    "n": 4,
+    "lam_max": 0.03781445608
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s108",
+  "arm": "cells",
+  "seed": 108,
+  "exit": 0,
+  "wall_s": 3.6,
+  "heldout_dev": 1.131,
+  "x2_info": 0.6413,
+  "diag": [
+   "[reshrink] depth  4: m=  18 tau 1405.8 -> 1405.8  median|surplus| 55.23",
+   "[reshrink] depth  5: m=  32 tau 3174.8 -> 2409.0  median|surplus| 56.49",
+   "[reshrink] depth  6: m=  42 tau 11597.8 -> 3663.3  median|surplus| 48.71",
+   "[reshrink] depth  7: m=  37 tau 7885.9 -> 7885.9  median|surplus| 83.73",
+   "[reshrink] depth  8: m=   4 tau 32.6 -> 0.0  median|surplus| 1.54",
+   "[laddercells] depth  4: keff_law<1.00 m=8 tau 1405.8 | keff_law>=1.00 m=10 tau 1405.8",
+   "[laddercells] depth  5: keff_law<1.00 m=14 tau 725.1 | keff_law>=1.00 m=18 tau 3174.8",
+   "[laddercells] depth  6: keff_law<1.00 m=25 tau 0.2 | keff_law>=1.00 m=17 tau 11597.8",
+   "[laddercells] depth  7: keff_law<1.00 m=21 tau 6075.1 | keff_law>=1.00 m=16 tau 7885.9",
+   "[laddercells] depth  8: keff_law<1.00 m=3 tau 0.2 | keff_law>=1.00 m=1 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 97.62",
+   "[reshrink] depth  5: median|surplus| after 27.52",
+   "[reshrink] depth  6: median|surplus| after 0.08",
+   "[reshrink] depth  7: median|surplus| after 68.41",
+   "[reshrink] depth  8: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 18,
+    "lam_max": 0.0007113589007
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.001379202227
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 37,
+    "lam_max": 0.000215989161
+   },
+   "8": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s108",
+  "arm": "cells_rawkeff",
+  "seed": 108,
+  "exit": 0,
+  "wall_s": 3.7,
+  "heldout_dev": 1.13,
+  "x2_info": 0.6391,
+  "diag": [
+   "[reshrink] depth  4: m=  18 tau 1405.8 -> 1405.8  median|surplus| 55.23",
+   "[reshrink] depth  5: m=  32 tau 3174.8 -> 2409.0  median|surplus| 56.49",
+   "[reshrink] depth  6: m=  42 tau 11597.8 -> 3663.3  median|surplus| 48.71",
+   "[reshrink] depth  7: m=  37 tau 7885.9 -> 7885.9  median|surplus| 83.73",
+   "[reshrink] depth  8: m=   4 tau 32.6 -> 0.0  median|surplus| 1.54",
+   "[laddercells] depth  4: keff_law<1.00 m=5 tau 1405.8 | keff_law>=1.00 m=13 tau 1405.8",
+   "[laddercells] depth  5: keff_law<1.00 m=10 tau 1784.4 | keff_law>=1.00 m=22 tau 2700.0",
+   "[laddercells] depth  6: keff_law<1.00 m=18 tau 0.2 | keff_law>=1.00 m=24 tau 8926.5",
+   "[laddercells] depth  7: keff_law<1.00 m=20 tau 6273.5 | keff_law>=1.00 m=17 tau 7885.9",
+   "[laddercells] depth  8: keff_law<1.00 m=3 tau 0.2 | keff_law>=1.00 m=1 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 70.73",
+   "[reshrink] depth  5: median|surplus| after 37.09",
+   "[reshrink] depth  6: median|surplus| after 16.73",
+   "[reshrink] depth  7: median|surplus| after 83.53",
+   "[reshrink] depth  8: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 18,
+    "lam_max": 0.0007113589007
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0005604252564
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 37,
+    "lam_max": 0.000215989161
+   },
+   "8": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s108",
+  "arm": "twogroups",
+  "seed": 108,
+  "exit": 0,
+  "wall_s": 3.5,
+  "heldout_dev": 1.122,
+  "x2_info": 0.6497,
+  "diag": [
+   "[reshrink] depth  4: m=  18 tau 1405.8 -> 1405.8  median|surplus| 55.23",
+   "[reshrink] depth  5: m=  32 tau 3174.8 -> 2409.0  median|surplus| 56.49",
+   "[reshrink] depth  6: m=  42 tau 11597.8 -> 3663.3  median|surplus| 48.71",
+   "[reshrink] depth  7: m=  37 tau 7885.9 -> 7885.9  median|surplus| 83.73",
+   "[reshrink] depth  8: m=   4 tau 32.6 -> 0.0  median|surplus| 1.54",
+   "[ladder2g] depth  4: m=  18 pi=0.56 tau1=1405.8 slab(g>.5)=9",
+   "[ladder2g] depth  5: m=  32 pi=0.50 tau1=3174.8 slab(g>.5)=15",
+   "[ladder2g] depth  6: m=  42 pi=0.28 tau1=11597.8 slab(g>.5)=11",
+   "[ladder2g] depth  7: m=  37 pi=0.43 tau1=7885.9 slab(g>.5)=15",
+   "[ladder2g] depth  8: m=   4 pi=0.36 tau1=32.6 slab(g>.5)=1",
+   "[reshrink] depth  4: median|surplus| after 54.57",
+   "[reshrink] depth  5: median|surplus| after 44.88",
+   "[reshrink] depth  6: median|surplus| after 0.28",
+   "[reshrink] depth  7: median|surplus| after 42.44",
+   "[reshrink] depth  8: median|surplus| after 0.92"
+  ],
+  "ladder": {
+   "4": {
+    "n": 18,
+    "lam_max": 0.7285599994
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 3.159414057
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 3.543503274
+   },
+   "7": {
+    "n": 37,
+    "lam_max": 3.594766524
+   },
+   "8": {
+    "n": 4,
+    "lam_max": 0.06817443444
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s108",
+  "arm": "twogroups_free",
+  "seed": 108,
+  "exit": 0,
+  "wall_s": 3.6,
+  "heldout_dev": 1.127,
+  "x2_info": 0.673,
+  "diag": [
+   "[reshrink] depth  4: m=  18 tau 1405.8 -> 1405.8  median|surplus| 55.23",
+   "[reshrink] depth  5: m=  32 tau 3174.8 -> 2409.0  median|surplus| 56.49",
+   "[reshrink] depth  6: m=  42 tau 11597.8 -> 3663.3  median|surplus| 48.71",
+   "[reshrink] depth  7: m=  37 tau 7885.9 -> 7885.9  median|surplus| 83.73",
+   "[reshrink] depth  8: m=   4 tau 32.6 -> 0.0  median|surplus| 1.54",
+   "[ladder2g] depth  4: m=  18 pi=0.51 tau1=31147.4 slab(g>.5)=9",
+   "[ladder2g] depth  5: m=  32 pi=0.47 tau1=6494.6 slab(g>.5)=15",
+   "[ladder2g] depth  6: m=  42 pi=0.27 tau1=31411.8 slab(g>.5)=11",
+   "[ladder2g] depth  7: m=  37 pi=0.41 tau1=25528.8 slab(g>.5)=14",
+   "[ladder2g] depth  8: m=   4 pi=0.49 tau1=1688.8 slab(g>.5)=2",
+   "[reshrink] depth  4: median|surplus| after 49.96",
+   "[reshrink] depth  5: median|surplus| after 35.60",
+   "[reshrink] depth  6: median|surplus| after 0.19",
+   "[reshrink] depth  7: median|surplus| after 39.49",
+   "[reshrink] depth  8: median|surplus| after 61.69"
+  ],
+  "ladder": {
+   "4": {
+    "n": 18,
+    "lam_max": 0.683274564
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 3.278277078
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 3.498814858
+   },
+   "7": {
+    "n": 37,
+    "lam_max": 3.531443912
+   },
+   "8": {
+    "n": 4,
+    "lam_max": 0.000614226472
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s109",
+  "arm": "off",
+  "seed": 109,
+  "exit": 0,
+  "wall_s": 4.0,
+  "heldout_dev": 1.133,
+  "x2_info": 0.6509,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0006532376801
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0003413232148
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.0006225402229
+   },
+   "7": {
+    "n": 31,
+    "lam_max": 0.0001866634242
+   },
+   "8": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 137
+ },
+ {
+  "case": "smm_s109",
+  "arm": "depth",
+  "seed": 109,
+  "exit": 0,
+  "wall_s": 4.2,
+  "heldout_dev": 1.133,
+  "x2_info": 0.6499,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1501.9 -> 1501.9  median|surplus| 58.14",
+   "[reshrink] depth  5: m=  33 tau 4039.6 -> 4039.6  median|surplus| 51.86",
+   "[reshrink] depth  6: m=  40 tau 1739.1 -> 995.4  median|surplus| 26.36",
+   "[reshrink] depth  7: m=  31 tau 8288.7 -> 5799.6  median|surplus| 73.66",
+   "[reshrink] depth  8: m=   9 tau 69.9 -> 0.0  median|surplus| 5.31",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth 10: m=   1 tau 0.2 -> 0.2  median|surplus| 0.19",
+   "[reshrink] depth  4: median|surplus| after 58.44",
+   "[reshrink] depth  5: median|surplus| after 53.37",
+   "[reshrink] depth  6: median|surplus| after 18.67",
+   "[reshrink] depth  7: median|surplus| after 69.32",
+   "[reshrink] depth  8: median|surplus| after 0.01",
+   "[reshrink] depth  9: median|surplus| after 0.01",
+   "[reshrink] depth 10: median|surplus| after 0.27"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0006532376801
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0003413232148
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.0008418288094
+   },
+   "7": {
+    "n": 31,
+    "lam_max": 0.0001866634242
+   },
+   "8": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 137
+ },
+ {
+  "case": "smm_s109",
+  "arm": "cells",
+  "seed": 109,
+  "exit": 0,
+  "wall_s": 4.3,
+  "heldout_dev": 1.129,
+  "x2_info": 0.6469,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1501.9 -> 1501.9  median|surplus| 58.14",
+   "[reshrink] depth  5: m=  33 tau 4039.6 -> 4039.6  median|surplus| 51.86",
+   "[reshrink] depth  6: m=  40 tau 1739.1 -> 995.4  median|surplus| 26.36",
+   "[reshrink] depth  7: m=  31 tau 8288.7 -> 5799.6  median|surplus| 73.66",
+   "[reshrink] depth  8: m=   9 tau 69.9 -> 0.0  median|surplus| 5.31",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth 10: m=   1 tau 0.2 -> 0.2  median|surplus| 0.19",
+   "[laddercells] depth  4: keff_law<1.00 m=7 tau 1501.9 | keff_law>=1.00 m=12 tau 1501.9",
+   "[laddercells] depth  5: keff_law<1.00 m=15 tau 4039.6 | keff_law>=1.00 m=18 tau 4039.6",
+   "[laddercells] depth  6: keff_law<1.00 m=25 tau 1244.7 | keff_law>=1.00 m=15 tau 348.6",
+   "[laddercells] depth  7: keff_law<1.00 m=16 tau 5740.6 | keff_law>=1.00 m=15 tau 5940.7",
+   "[laddercells] depth  8: keff_law<1.00 m=6 tau 69.9 | keff_law>=1.00 m=3 tau 0.2",
+   "[laddercells] depth  9: keff_law<1.00 m=3 tau 0.2 | keff_law>=1.00 m=1 tau 0.2",
+   "[laddercells] depth 10: keff_law<1.00 m=1 tau 0.2 | keff_law>=1.00 m=0 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 58.14",
+   "[reshrink] depth  5: median|surplus| after 56.23",
+   "[reshrink] depth  6: median|surplus| after 19.45",
+   "[reshrink] depth  7: median|surplus| after 59.91",
+   "[reshrink] depth  8: median|surplus| after 5.42",
+   "[reshrink] depth  9: median|surplus| after 0.01",
+   "[reshrink] depth 10: median|surplus| after 0.20"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0006658436757
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0003413232148
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.002868209357
+   },
+   "7": {
+    "n": 31,
+    "lam_max": 0.0001866634242
+   },
+   "8": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 137
+ },
+ {
+  "case": "smm_s109",
+  "arm": "cells_rawkeff",
+  "seed": 109,
+  "exit": 0,
+  "wall_s": 4.5,
+  "heldout_dev": 1.151,
+  "x2_info": 0.6502,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1501.9 -> 1501.9  median|surplus| 58.14",
+   "[reshrink] depth  5: m=  33 tau 4039.6 -> 4039.6  median|surplus| 51.86",
+   "[reshrink] depth  6: m=  40 tau 1739.1 -> 995.4  median|surplus| 26.36",
+   "[reshrink] depth  7: m=  31 tau 8288.7 -> 5799.6  median|surplus| 73.66",
+   "[reshrink] depth  8: m=   9 tau 69.9 -> 0.0  median|surplus| 5.31",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth 10: m=   1 tau 0.2 -> 0.2  median|surplus| 0.19",
+   "[laddercells] depth  4: keff_law<1.00 m=7 tau 1501.9 | keff_law>=1.00 m=12 tau 1501.9",
+   "[laddercells] depth  5: keff_law<1.00 m=12 tau 4039.6 | keff_law>=1.00 m=21 tau 3984.0",
+   "[laddercells] depth  6: keff_law<1.00 m=17 tau 1739.1 | keff_law>=1.00 m=23 tau 0.2",
+   "[laddercells] depth  7: keff_law<1.00 m=14 tau 6055.8 | keff_law>=1.00 m=17 tau 5246.3",
+   "[laddercells] depth  8: keff_law<1.00 m=4 tau 0.2 | keff_law>=1.00 m=5 tau 69.9",
+   "[laddercells] depth  9: keff_law<1.00 m=3 tau 0.2 | keff_law>=1.00 m=1 tau 0.2",
+   "[laddercells] depth 10: keff_law<1.00 m=1 tau 0.2 | keff_law>=1.00 m=0 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 64.65",
+   "[reshrink] depth  5: median|surplus| after 50.66",
+   "[reshrink] depth  6: median|surplus| after 0.07",
+   "[reshrink] depth  7: median|surplus| after 54.95",
+   "[reshrink] depth  8: median|surplus| after 0.33",
+   "[reshrink] depth  9: median|surplus| after 0.01",
+   "[reshrink] depth 10: median|surplus| after 0.31"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0006658436757
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0003413232148
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 31,
+    "lam_max": 0.0001906111494
+   },
+   "8": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 137
+ },
+ {
+  "case": "smm_s109",
+  "arm": "twogroups",
+  "seed": 109,
+  "exit": 0,
+  "wall_s": 4.3,
+  "heldout_dev": 1.166,
+  "x2_info": 0.6657,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1501.9 -> 1501.9  median|surplus| 58.14",
+   "[reshrink] depth  5: m=  33 tau 4039.6 -> 4039.6  median|surplus| 51.86",
+   "[reshrink] depth  6: m=  40 tau 1739.1 -> 995.4  median|surplus| 26.36",
+   "[reshrink] depth  7: m=  31 tau 8288.7 -> 5799.6  median|surplus| 73.66",
+   "[reshrink] depth  8: m=   9 tau 69.9 -> 0.0  median|surplus| 5.31",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth 10: m=   1 tau 0.2 -> 0.2  median|surplus| 0.19",
+   "[ladder2g] depth  4: m=  19 pi=0.92 tau1=1501.9 slab(g>.5)=18",
+   "[ladder2g] depth  5: m=  33 pi=0.60 tau1=4039.6 slab(g>.5)=18",
+   "[ladder2g] depth  6: m=  40 pi=0.16 tau1=1739.1 slab(g>.5)=6",
+   "[ladder2g] depth  7: m=  31 pi=0.39 tau1=8288.7 slab(g>.5)=12",
+   "[ladder2g] depth  8: m=   9 pi=0.41 tau1=69.9 slab(g>.5)=2",
+   "[reshrink] depth  4: median|surplus| after 44.25",
+   "[reshrink] depth  5: median|surplus| after 40.94",
+   "[reshrink] depth  6: median|surplus| after 1.15",
+   "[reshrink] depth  7: median|surplus| after 8.14",
+   "[reshrink] depth  8: median|surplus| after 1.13",
+   "[reshrink] depth  9: median|surplus| after 0.01",
+   "[reshrink] depth 10: median|surplus| after 0.25"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.00202081741
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 1.094205074
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 3.981433683
+   },
+   "7": {
+    "n": 31,
+    "lam_max": 3.412621977
+   },
+   "8": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 137
+ },
+ {
+  "case": "smm_s109",
+  "arm": "twogroups_free",
+  "seed": 109,
+  "exit": 0,
+  "wall_s": 4.3,
+  "heldout_dev": 1.159,
+  "x2_info": 0.6654,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1501.9 -> 1501.9  median|surplus| 58.14",
+   "[reshrink] depth  5: m=  33 tau 4039.6 -> 4039.6  median|surplus| 51.86",
+   "[reshrink] depth  6: m=  40 tau 1739.1 -> 995.4  median|surplus| 26.36",
+   "[reshrink] depth  7: m=  31 tau 8288.7 -> 5799.6  median|surplus| 73.66",
+   "[reshrink] depth  8: m=   9 tau 69.9 -> 0.0  median|surplus| 5.31",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth 10: m=   1 tau 0.2 -> 0.2  median|surplus| 0.19",
+   "[ladder2g] depth  4: m=  19 pi=0.80 tau1=18934.2 slab(g>.5)=16",
+   "[ladder2g] depth  5: m=  33 pi=0.56 tau1=10241.1 slab(g>.5)=18",
+   "[ladder2g] depth  6: m=  40 pi=0.14 tau1=25895.0 slab(g>.5)=6",
+   "[ladder2g] depth  7: m=  31 pi=0.38 tau1=16096.5 slab(g>.5)=12",
+   "[ladder2g] depth  8: m=   9 pi=0.28 tau1=3818.6 slab(g>.5)=3",
+   "[ladder2g] depth  9: m=   4 pi=0.56 tau1=8337.7 slab(g>.5)=2",
+   "[reshrink] depth  4: median|surplus| after 58.15",
+   "[reshrink] depth  5: median|surplus| after 58.99",
+   "[reshrink] depth  6: median|surplus| after 0.13",
+   "[reshrink] depth  7: median|surplus| after 8.04",
+   "[reshrink] depth  8: median|surplus| after 0.28",
+   "[reshrink] depth  9: median|surplus| after 18.00",
+   "[reshrink] depth 10: median|surplus| after 0.09"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.001312436077
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 1.261036278
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 3.979174083
+   },
+   "7": {
+    "n": 31,
+    "lam_max": 3.556600378
+   },
+   "8": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 137
+ },
+ {
+  "case": "smm_s110",
+  "arm": "off",
+  "seed": 110,
+  "exit": 0,
+  "wall_s": 2.6,
+  "heldout_dev": 1.195,
+  "x2_info": 0.703,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0009266490783
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.0004825299929
+   },
+   "6": {
+    "n": 45,
+    "lam_max": 0.0002002960867
+   },
+   "7": {
+    "n": 46,
+    "lam_max": 0.000473568208
+   },
+   "8": {
+    "n": 10,
+    "lam_max": 0.000473568208
+   },
+   "9": {
+    "n": 2,
+    "lam_max": 0.000410366141
+   }
+  },
+  "admitted": 160
+ },
+ {
+  "case": "smm_s110",
+  "arm": "depth",
+  "seed": 110,
+  "exit": 0,
+  "wall_s": 2.7,
+  "heldout_dev": 1.195,
+  "x2_info": 0.7027,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 1250.6 -> 1250.6  median|surplus| 48.76",
+   "[reshrink] depth  5: m=  35 tau 2749.9 -> 2749.9  median|surplus| 43.80",
+   "[reshrink] depth  6: m=  45 tau 5226.3 -> 3796.7  median|surplus| 37.60",
+   "[reshrink] depth  7: m=  46 tau 4431.2 -> 3222.0  median|surplus| 47.08",
+   "[reshrink] depth  8: m=  10 tau 2477.8 -> 2477.8  median|surplus| 40.24",
+   "[reshrink] depth  9: m=   2 tau 2477.8 -> 842.4  median|surplus| 118.15",
+   "[reshrink] depth  4: median|surplus| after 49.52",
+   "[reshrink] depth  5: median|surplus| after 43.57",
+   "[reshrink] depth  6: median|surplus| after 32.64",
+   "[reshrink] depth  7: median|surplus| after 41.83",
+   "[reshrink] depth  8: median|surplus| after 40.45",
+   "[reshrink] depth  9: median|surplus| after 93.21"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0009266490783
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.0004825299929
+   },
+   "6": {
+    "n": 45,
+    "lam_max": 0.0002088630977
+   },
+   "7": {
+    "n": 46,
+    "lam_max": 0.000473568208
+   },
+   "8": {
+    "n": 10,
+    "lam_max": 0.000473568208
+   },
+   "9": {
+    "n": 2,
+    "lam_max": 0.0003921361994
+   }
+  },
+  "admitted": 160
+ },
+ {
+  "case": "smm_s110",
+  "arm": "cells",
+  "seed": 110,
+  "exit": 0,
+  "wall_s": 2.7,
+  "heldout_dev": 1.191,
+  "x2_info": 0.696,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 1250.6 -> 1250.6  median|surplus| 48.76",
+   "[reshrink] depth  5: m=  35 tau 2749.9 -> 2749.9  median|surplus| 43.80",
+   "[reshrink] depth  6: m=  45 tau 5226.3 -> 3796.7  median|surplus| 37.60",
+   "[reshrink] depth  7: m=  46 tau 4431.2 -> 3222.0  median|surplus| 47.08",
+   "[reshrink] depth  8: m=  10 tau 2477.8 -> 2477.8  median|surplus| 40.24",
+   "[reshrink] depth  9: m=   2 tau 2477.8 -> 842.4  median|surplus| 118.15",
+   "[laddercells] depth  4: keff_law<1.00 m=10 tau 1250.6 | keff_law>=1.00 m=11 tau 1250.6",
+   "[laddercells] depth  5: keff_law<1.00 m=16 tau 2749.9 | keff_law>=1.00 m=19 tau 2749.9",
+   "[laddercells] depth  6: keff_law<1.00 m=30 tau 1262.9 | keff_law>=1.00 m=15 tau 5226.3",
+   "[laddercells] depth  7: keff_law<1.00 m=32 tau 2903.7 | keff_law>=1.00 m=14 tau 4229.0",
+   "[laddercells] depth  8: keff_law<1.00 m=4 tau 2477.8 | keff_law>=1.00 m=6 tau 2477.8",
+   "[laddercells] depth  9: keff_law<1.00 m=2 tau 842.4 | keff_law>=1.00 m=0 tau 842.4",
+   "[reshrink] depth  4: median|surplus| after 53.01",
+   "[reshrink] depth  5: median|surplus| after 41.25",
+   "[reshrink] depth  6: median|surplus| after 27.64",
+   "[reshrink] depth  7: median|surplus| after 40.07",
+   "[reshrink] depth  8: median|surplus| after 40.48",
+   "[reshrink] depth  9: median|surplus| after 93.62"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0009266490783
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.0004825299929
+   },
+   "6": {
+    "n": 45,
+    "lam_max": 0.0007918258802
+   },
+   "7": {
+    "n": 46,
+    "lam_max": 0.000473568208
+   },
+   "8": {
+    "n": 10,
+    "lam_max": 0.000473568208
+   },
+   "9": {
+    "n": 2,
+    "lam_max": 0.00118703478
+   }
+  },
+  "admitted": 160
+ },
+ {
+  "case": "smm_s110",
+  "arm": "cells_rawkeff",
+  "seed": 110,
+  "exit": 0,
+  "wall_s": 2.7,
+  "heldout_dev": 1.192,
+  "x2_info": 0.7003,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 1250.6 -> 1250.6  median|surplus| 48.76",
+   "[reshrink] depth  5: m=  35 tau 2749.9 -> 2749.9  median|surplus| 43.80",
+   "[reshrink] depth  6: m=  45 tau 5226.3 -> 3796.7  median|surplus| 37.60",
+   "[reshrink] depth  7: m=  46 tau 4431.2 -> 3222.0  median|surplus| 47.08",
+   "[reshrink] depth  8: m=  10 tau 2477.8 -> 2477.8  median|surplus| 40.24",
+   "[reshrink] depth  9: m=   2 tau 2477.8 -> 842.4  median|surplus| 118.15",
+   "[laddercells] depth  4: keff_law<1.00 m=6 tau 1250.6 | keff_law>=1.00 m=15 tau 1250.6",
+   "[laddercells] depth  5: keff_law<1.00 m=11 tau 2749.9 | keff_law>=1.00 m=24 tau 2749.9",
+   "[laddercells] depth  6: keff_law<1.00 m=20 tau 1826.9 | keff_law>=1.00 m=25 tau 5226.3",
+   "[laddercells] depth  7: keff_law<1.00 m=27 tau 3538.8 | keff_law>=1.00 m=19 tau 2664.2",
+   "[laddercells] depth  8: keff_law<1.00 m=3 tau 1451.1 | keff_law>=1.00 m=7 tau 2477.8",
+   "[laddercells] depth  9: keff_law<1.00 m=2 tau 842.4 | keff_law>=1.00 m=0 tau 842.4",
+   "[reshrink] depth  4: median|surplus| after 47.80",
+   "[reshrink] depth  5: median|surplus| after 44.62",
+   "[reshrink] depth  6: median|surplus| after 34.90",
+   "[reshrink] depth  7: median|surplus| after 41.09",
+   "[reshrink] depth  8: median|surplus| after 29.86",
+   "[reshrink] depth  9: median|surplus| after 93.48"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0009266490783
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.0004825299929
+   },
+   "6": {
+    "n": 45,
+    "lam_max": 0.0005473728116
+   },
+   "7": {
+    "n": 46,
+    "lam_max": 0.000473568208
+   },
+   "8": {
+    "n": 10,
+    "lam_max": 0.000473568208
+   },
+   "9": {
+    "n": 2,
+    "lam_max": 0.00118703478
+   }
+  },
+  "admitted": 160
+ },
+ {
+  "case": "smm_s110",
+  "arm": "twogroups",
+  "seed": 110,
+  "exit": 0,
+  "wall_s": 3.3,
+  "heldout_dev": 1.198,
+  "x2_info": 0.6948,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 1250.6 -> 1250.6  median|surplus| 48.76",
+   "[reshrink] depth  5: m=  35 tau 2749.9 -> 2749.9  median|surplus| 43.80",
+   "[reshrink] depth  6: m=  45 tau 5226.3 -> 3796.7  median|surplus| 37.60",
+   "[reshrink] depth  7: m=  46 tau 4431.2 -> 3222.0  median|surplus| 47.08",
+   "[reshrink] depth  8: m=  10 tau 2477.8 -> 2477.8  median|surplus| 40.24",
+   "[reshrink] depth  9: m=   2 tau 2477.8 -> 842.4  median|surplus| 118.15",
+   "[ladder2g] depth  4: m=  21 pi=0.57 tau1=1250.6 slab(g>.5)=11",
+   "[ladder2g] depth  5: m=  35 pi=0.55 tau1=2749.9 slab(g>.5)=18",
+   "[ladder2g] depth  6: m=  45 pi=0.32 tau1=5226.3 slab(g>.5)=14",
+   "[ladder2g] depth  7: m=  46 pi=0.40 tau1=4431.2 slab(g>.5)=17",
+   "[ladder2g] depth  8: m=  10 pi=0.87 tau1=2477.8 slab(g>.5)=9",
+   "[reshrink] depth  4: median|surplus| after 39.97",
+   "[reshrink] depth  5: median|surplus| after 31.86",
+   "[reshrink] depth  6: median|surplus| after 2.74",
+   "[reshrink] depth  7: median|surplus| after 6.59",
+   "[reshrink] depth  8: median|surplus| after 58.19",
+   "[reshrink] depth  9: median|surplus| after 100.63"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 1.030373719
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.5601095927
+   },
+   "6": {
+    "n": 45,
+    "lam_max": 2.094485277
+   },
+   "7": {
+    "n": 46,
+    "lam_max": 2.885117347
+   },
+   "8": {
+    "n": 10,
+    "lam_max": 0.0006196333519
+   },
+   "9": {
+    "n": 2,
+    "lam_max": 0.0004486435731
+   }
+  },
+  "admitted": 160
+ },
+ {
+  "case": "smm_s110",
+  "arm": "twogroups_free",
+  "seed": 110,
+  "exit": 0,
+  "wall_s": 3.3,
+  "heldout_dev": 1.201,
+  "x2_info": 0.7041,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 1250.6 -> 1250.6  median|surplus| 48.76",
+   "[reshrink] depth  5: m=  35 tau 2749.9 -> 2749.9  median|surplus| 43.80",
+   "[reshrink] depth  6: m=  45 tau 5226.3 -> 3796.7  median|surplus| 37.60",
+   "[reshrink] depth  7: m=  46 tau 4431.2 -> 3222.0  median|surplus| 47.08",
+   "[reshrink] depth  8: m=  10 tau 2477.8 -> 2477.8  median|surplus| 40.24",
+   "[reshrink] depth  9: m=   2 tau 2477.8 -> 842.4  median|surplus| 118.15",
+   "[ladder2g] depth  4: m=  21 pi=0.50 tau1=33627.1 slab(g>.5)=10",
+   "[ladder2g] depth  5: m=  35 pi=0.51 tau1=10942.9 slab(g>.5)=18",
+   "[ladder2g] depth  6: m=  45 pi=0.30 tau1=14145.9 slab(g>.5)=13",
+   "[ladder2g] depth  7: m=  46 pi=0.40 tau1=13989.2 slab(g>.5)=17",
+   "[ladder2g] depth  8: m=  10 pi=0.86 tau1=4302.1 slab(g>.5)=9",
+   "[reshrink] depth  4: median|surplus| after 56.33",
+   "[reshrink] depth  5: median|surplus| after 28.44",
+   "[reshrink] depth  6: median|surplus| after 3.11",
+   "[reshrink] depth  7: median|surplus| after 5.34",
+   "[reshrink] depth  8: median|surplus| after 73.24",
+   "[reshrink] depth  9: median|surplus| after 91.97"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.5368653168
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.627730222
+   },
+   "6": {
+    "n": 45,
+    "lam_max": 1.949614645
+   },
+   "7": {
+    "n": 46,
+    "lam_max": 2.685847493
+   },
+   "8": {
+    "n": 10,
+    "lam_max": 0.000473568208
+   },
+   "9": {
+    "n": 2,
+    "lam_max": 0.0003531957296
+   }
+  },
+  "admitted": 160
+ },
+ {
+  "case": "april_s7",
+  "arm": "off",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 22.4,
+  "heldout_dev": 6.455,
+  "x2_info": 0.1443,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001832803562
+   },
+   "5": {
+    "n": 31,
+    "lam_max": 6.97780782e-05
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.0001272519148
+   },
+   "7": {
+    "n": 38,
+    "lam_max": 0.0006918858589
+   },
+   "8": {
+    "n": 38,
+    "lam_max": 0.0001566098394
+   },
+   "9": {
+    "n": 34,
+    "lam_max": 0.0003209715162
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 198
+ },
+ {
+  "case": "april_s7",
+  "arm": "depth",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 31.5,
+  "heldout_dev": 6.455,
+  "x2_info": 0.1443,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 155353.4 -> 81625.9  median|surplus| 321.08",
+   "[reshrink] depth  5: m=  31 tau 29010.5 -> 29010.5  median|surplus| 149.81",
+   "[reshrink] depth  6: m=  42 tau 17194.6 -> 17194.6  median|surplus| 118.40",
+   "[reshrink] depth  7: m=  38 tau 13978.2 -> 7824.8  median|surplus| 109.86",
+   "[reshrink] depth  8: m=  38 tau 6384.7 -> 6384.7  median|surplus| 100.30",
+   "[reshrink] depth  9: m=  34 tau 8338.8 -> 8338.8  median|surplus| 128.78",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth  4: median|surplus| after 298.21",
+   "[reshrink] depth  5: median|surplus| after 150.41",
+   "[reshrink] depth  6: median|surplus| after 118.43",
+   "[reshrink] depth  7: median|surplus| after 99.04",
+   "[reshrink] depth  8: median|surplus| after 98.53",
+   "[reshrink] depth  9: median|surplus| after 128.76",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001832803562
+   },
+   "5": {
+    "n": 31,
+    "lam_max": 6.976133662e-05
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.0001272519148
+   },
+   "7": {
+    "n": 38,
+    "lam_max": 0.0006918858589
+   },
+   "8": {
+    "n": 38,
+    "lam_max": 0.0001567764707
+   },
+   "9": {
+    "n": 34,
+    "lam_max": 0.0003209715162
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 198
+ },
+ {
+  "case": "april_s7",
+  "arm": "cells",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 21.3,
+  "heldout_dev": 6.458,
+  "x2_info": 0.1446,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 155353.4 -> 81625.9  median|surplus| 321.08",
+   "[reshrink] depth  5: m=  31 tau 29010.5 -> 29010.5  median|surplus| 149.81",
+   "[reshrink] depth  6: m=  42 tau 17194.6 -> 17194.6  median|surplus| 118.40",
+   "[reshrink] depth  7: m=  38 tau 13978.2 -> 7824.8  median|surplus| 109.86",
+   "[reshrink] depth  8: m=  38 tau 6384.7 -> 6384.7  median|surplus| 100.30",
+   "[reshrink] depth  9: m=  34 tau 8338.8 -> 8338.8  median|surplus| 128.78",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[laddercells] depth  4: keff_law<1.00 m=10 tau 91594.8 | keff_law>=1.00 m=2 tau 81625.9",
+   "[laddercells] depth  5: keff_law<1.00 m=23 tau 29010.5 | keff_law>=1.00 m=8 tau 20135.4",
+   "[laddercells] depth  6: keff_law<1.00 m=25 tau 17194.6 | keff_law>=1.00 m=17 tau 13835.9",
+   "[laddercells] depth  7: keff_law<1.00 m=22 tau 13978.2 | keff_law>=1.00 m=16 tau 1143.5",
+   "[laddercells] depth  8: keff_law<1.00 m=20 tau 6384.7 | keff_law>=1.00 m=18 tau 3975.3",
+   "[laddercells] depth  9: keff_law<1.00 m=30 tau 8338.8 | keff_law>=1.00 m=4 tau 2694.8",
+   "[laddercells] depth 10: keff_law<1.00 m=3 tau 0.2 | keff_law>=1.00 m=0 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 314.12",
+   "[reshrink] depth  5: median|surplus| after 150.26",
+   "[reshrink] depth  6: median|surplus| after 118.60",
+   "[reshrink] depth  7: median|surplus| after 99.83",
+   "[reshrink] depth  8: median|surplus| after 96.37",
+   "[reshrink] depth  9: median|surplus| after 118.07",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001832803562
+   },
+   "5": {
+    "n": 31,
+    "lam_max": 4.966380886e-05
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.0001272519148
+   },
+   "7": {
+    "n": 38,
+    "lam_max": 0.0008745152119
+   },
+   "8": {
+    "n": 38,
+    "lam_max": 0.0002515503782
+   },
+   "9": {
+    "n": 34,
+    "lam_max": 0.0003710887348
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 198
+ },
+ {
+  "case": "april_s7",
+  "arm": "cells_rawkeff",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 21.7,
+  "heldout_dev": 6.461,
+  "x2_info": 0.1446,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 155353.4 -> 81625.9  median|surplus| 321.08",
+   "[reshrink] depth  5: m=  31 tau 29010.5 -> 29010.5  median|surplus| 149.81",
+   "[reshrink] depth  6: m=  42 tau 17194.6 -> 17194.6  median|surplus| 118.40",
+   "[reshrink] depth  7: m=  38 tau 13978.2 -> 7824.8  median|surplus| 109.86",
+   "[reshrink] depth  8: m=  38 tau 6384.7 -> 6384.7  median|surplus| 100.30",
+   "[reshrink] depth  9: m=  34 tau 8338.8 -> 8338.8  median|surplus| 128.78",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[laddercells] depth  4: keff_law<1.00 m=9 tau 96680.1 | keff_law>=1.00 m=3 tau 56315.4",
+   "[laddercells] depth  5: keff_law<1.00 m=14 tau 29010.5 | keff_law>=1.00 m=17 tau 21372.6",
+   "[laddercells] depth  6: keff_law<1.00 m=16 tau 17194.6 | keff_law>=1.00 m=26 tau 11063.6",
+   "[laddercells] depth  7: keff_law<1.00 m=5 tau 13978.2 | keff_law>=1.00 m=33 tau 5467.1",
+   "[laddercells] depth  8: keff_law<1.00 m=6 tau 6384.7 | keff_law>=1.00 m=32 tau 6384.7",
+   "[laddercells] depth  9: keff_law<1.00 m=11 tau 8023.3 | keff_law>=1.00 m=23 tau 8338.8",
+   "[laddercells] depth 10: keff_law<1.00 m=2 tau 0.2 | keff_law>=1.00 m=1 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 321.65",
+   "[reshrink] depth  5: median|surplus| after 152.09",
+   "[reshrink] depth  6: median|surplus| after 118.38",
+   "[reshrink] depth  7: median|surplus| after 93.36",
+   "[reshrink] depth  8: median|surplus| after 97.29",
+   "[reshrink] depth  9: median|surplus| after 128.32",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001832803562
+   },
+   "5": {
+    "n": 31,
+    "lam_max": 4.678893195e-05
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.0001272519148
+   },
+   "7": {
+    "n": 38,
+    "lam_max": 0.0006918858589
+   },
+   "8": {
+    "n": 38,
+    "lam_max": 0.0001566253075
+   },
+   "9": {
+    "n": 34,
+    "lam_max": 0.0003209715162
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 198
+ },
+ {
+  "case": "april_s7",
+  "arm": "twogroups",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 20.9,
+  "heldout_dev": 6.459,
+  "x2_info": 0.1446,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 155353.4 -> 81625.9  median|surplus| 321.08",
+   "[reshrink] depth  5: m=  31 tau 29010.5 -> 29010.5  median|surplus| 149.81",
+   "[reshrink] depth  6: m=  42 tau 17194.6 -> 17194.6  median|surplus| 118.40",
+   "[reshrink] depth  7: m=  38 tau 13978.2 -> 7824.8  median|surplus| 109.86",
+   "[reshrink] depth  8: m=  38 tau 6384.7 -> 6384.7  median|surplus| 100.30",
+   "[reshrink] depth  9: m=  34 tau 8338.8 -> 8338.8  median|surplus| 128.78",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[ladder2g] depth  4: m=  12 pi=0.83 tau1=88072.4 slab(g>.5)=10",
+   "[ladder2g] depth  5: m=  31 pi=0.70 tau1=29010.5 slab(g>.5)=22",
+   "[ladder2g] depth  6: m=  42 pi=0.72 tau1=17194.6 slab(g>.5)=29",
+   "[ladder2g] depth  7: m=  38 pi=0.58 tau1=13978.2 slab(g>.5)=21",
+   "[ladder2g] depth  8: m=  38 pi=0.63 tau1=6384.7 slab(g>.5)=25",
+   "[ladder2g] depth  9: m=  34 pi=0.68 tau1=8338.8 slab(g>.5)=22",
+   "[reshrink] depth  4: median|surplus| after 305.44",
+   "[reshrink] depth  5: median|surplus| after 118.06",
+   "[reshrink] depth  6: median|surplus| after 105.18",
+   "[reshrink] depth  7: median|surplus| after 91.15",
+   "[reshrink] depth  8: median|surplus| after 98.66",
+   "[reshrink] depth  9: median|surplus| after 112.28",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0270818285
+   },
+   "5": {
+    "n": 31,
+    "lam_max": 0.2079681413
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.2002664388
+   },
+   "7": {
+    "n": 38,
+    "lam_max": 1.444792468
+   },
+   "8": {
+    "n": 38,
+    "lam_max": 0.4026366499
+   },
+   "9": {
+    "n": 34,
+    "lam_max": 0.4185043639
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 198
+ },
+ {
+  "case": "april_s7",
+  "arm": "twogroups_free",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 21.8,
+  "heldout_dev": 6.459,
+  "x2_info": 0.1446,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 155353.4 -> 81625.9  median|surplus| 321.08",
+   "[reshrink] depth  5: m=  31 tau 29010.5 -> 29010.5  median|surplus| 149.81",
+   "[reshrink] depth  6: m=  42 tau 17194.6 -> 17194.6  median|surplus| 118.40",
+   "[reshrink] depth  7: m=  38 tau 13978.2 -> 7824.8  median|surplus| 109.86",
+   "[reshrink] depth  8: m=  38 tau 6384.7 -> 6384.7  median|surplus| 100.30",
+   "[reshrink] depth  9: m=  34 tau 8338.8 -> 8338.8  median|surplus| 128.78",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[ladder2g] depth  4: m=  12 pi=0.83 tau1=88072.4 slab(g>.5)=10",
+   "[ladder2g] depth  5: m=  31 pi=0.69 tau1=123197.9 slab(g>.5)=21",
+   "[ladder2g] depth  6: m=  42 pi=0.71 tau1=29796.5 slab(g>.5)=28",
+   "[ladder2g] depth  7: m=  38 pi=0.57 tau1=17858.9 slab(g>.5)=21",
+   "[ladder2g] depth  8: m=  38 pi=0.62 tau1=14368.4 slab(g>.5)=24",
+   "[ladder2g] depth  9: m=  34 pi=0.66 tau1=19257.6 slab(g>.5)=22",
+   "[reshrink] depth  4: median|surplus| after 306.50",
+   "[reshrink] depth  5: median|surplus| after 115.29",
+   "[reshrink] depth  6: median|surplus| after 115.64",
+   "[reshrink] depth  7: median|surplus| after 91.88",
+   "[reshrink] depth  8: median|surplus| after 106.38",
+   "[reshrink] depth  9: median|surplus| after 131.55",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0270818285
+   },
+   "5": {
+    "n": 31,
+    "lam_max": 0.1259818725
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.1928412788
+   },
+   "7": {
+    "n": 38,
+    "lam_max": 1.371735121
+   },
+   "8": {
+    "n": 38,
+    "lam_max": 0.4362978083
+   },
+   "9": {
+    "n": 34,
+    "lam_max": 0.4033458879
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 198
+ },
+ {
+  "case": "april_s101",
+  "arm": "off",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 32.7,
+  "heldout_dev": 7.005,
+  "x2_info": 0.1659,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 13,
+    "lam_max": 0.0002061408153
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 6.202374868e-05
+   },
+   "6": {
+    "n": 50,
+    "lam_max": 0.0002199231774
+   },
+   "7": {
+    "n": 55,
+    "lam_max": 0.0004281710728
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.0004281710728
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 189
+ },
+ {
+  "case": "april_s101",
+  "arm": "depth",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 34.5,
+  "heldout_dev": 7.005,
+  "x2_info": 0.1659,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 59806.7 -> 59806.7  median|surplus| 104.97",
+   "[reshrink] depth  5: m=  26 tau 25398.5 -> 22271.8  median|surplus| 106.03",
+   "[reshrink] depth  6: m=  50 tau 20734.4 -> 20734.4  median|surplus| 100.77",
+   "[reshrink] depth  7: m=  55 tau 6639.3 -> 3202.0  median|surplus| 75.63",
+   "[reshrink] depth  8: m=  41 tau 7257.6 -> 5473.8  median|surplus| 72.00",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.0  median|surplus| 0.01",
+   "[reshrink] depth  4: median|surplus| after 107.17",
+   "[reshrink] depth  5: median|surplus| after 105.68",
+   "[reshrink] depth  6: median|surplus| after 100.77",
+   "[reshrink] depth  7: median|surplus| after 67.94",
+   "[reshrink] depth  8: median|surplus| after 71.86",
+   "[reshrink] depth  9: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 13,
+    "lam_max": 0.0002046965976
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 6.201797925e-05
+   },
+   "6": {
+    "n": 50,
+    "lam_max": 0.0002199231774
+   },
+   "7": {
+    "n": 55,
+    "lam_max": 0.0004281710728
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.0004281710728
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 189
+ },
+ {
+  "case": "april_s101",
+  "arm": "cells",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 34.7,
+  "heldout_dev": 7.004,
+  "x2_info": 0.1664,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 59806.7 -> 59806.7  median|surplus| 104.97",
+   "[reshrink] depth  5: m=  26 tau 25398.5 -> 22271.8  median|surplus| 106.03",
+   "[reshrink] depth  6: m=  50 tau 20734.4 -> 20734.4  median|surplus| 100.77",
+   "[reshrink] depth  7: m=  55 tau 6639.3 -> 3202.0  median|surplus| 75.63",
+   "[reshrink] depth  8: m=  41 tau 7257.6 -> 5473.8  median|surplus| 72.00",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.0  median|surplus| 0.01",
+   "[laddercells] depth  4: keff_law<1.00 m=9 tau 59806.7 | keff_law>=1.00 m=3 tau 0.2",
+   "[laddercells] depth  5: keff_law<1.00 m=18 tau 25398.5 | keff_law>=1.00 m=8 tau 4150.3",
+   "[laddercells] depth  6: keff_law<1.00 m=26 tau 20734.4 | keff_law>=1.00 m=24 tau 9277.0",
+   "[laddercells] depth  7: keff_law<1.00 m=25 tau 4302.1 | keff_law>=1.00 m=30 tau 2807.1",
+   "[laddercells] depth  8: keff_law<1.00 m=22 tau 6502.1 | keff_law>=1.00 m=19 tau 4718.5",
+   "[laddercells] depth  9: keff_law<1.00 m=4 tau 0.2 | keff_law>=1.00 m=0 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 79.18",
+   "[reshrink] depth  5: median|surplus| after 106.07",
+   "[reshrink] depth  6: median|surplus| after 100.92",
+   "[reshrink] depth  7: median|surplus| after 68.60",
+   "[reshrink] depth  8: median|surplus| after 76.43",
+   "[reshrink] depth  9: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 13,
+    "lam_max": 4.0
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 0.0002409485014
+   },
+   "6": {
+    "n": 50,
+    "lam_max": 0.0002199231774
+   },
+   "7": {
+    "n": 55,
+    "lam_max": 0.0004281710728
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.0004281710728
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 189
+ },
+ {
+  "case": "april_s101",
+  "arm": "cells_rawkeff",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 33.5,
+  "heldout_dev": 7.012,
+  "x2_info": 0.1667,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 59806.7 -> 59806.7  median|surplus| 104.97",
+   "[reshrink] depth  5: m=  26 tau 25398.5 -> 22271.8  median|surplus| 106.03",
+   "[reshrink] depth  6: m=  50 tau 20734.4 -> 20734.4  median|surplus| 100.77",
+   "[reshrink] depth  7: m=  55 tau 6639.3 -> 3202.0  median|surplus| 75.63",
+   "[reshrink] depth  8: m=  41 tau 7257.6 -> 5473.8  median|surplus| 72.00",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.0  median|surplus| 0.01",
+   "[laddercells] depth  4: keff_law<1.00 m=8 tau 59806.7 | keff_law>=1.00 m=4 tau 59806.7",
+   "[laddercells] depth  5: keff_law<1.00 m=12 tau 25398.5 | keff_law>=1.00 m=14 tau 4863.5",
+   "[laddercells] depth  6: keff_law<1.00 m=17 tau 20734.4 | keff_law>=1.00 m=33 tau 8523.7",
+   "[laddercells] depth  7: keff_law<1.00 m=2 tau 3202.0 | keff_law>=1.00 m=53 tau 2934.9",
+   "[laddercells] depth  8: keff_law<1.00 m=6 tau 7257.6 | keff_law>=1.00 m=35 tau 3373.1",
+   "[laddercells] depth  9: keff_law<1.00 m=2 tau 0.2 | keff_law>=1.00 m=2 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 103.04",
+   "[reshrink] depth  5: median|surplus| after 106.05",
+   "[reshrink] depth  6: median|surplus| after 99.65",
+   "[reshrink] depth  7: median|surplus| after 66.10",
+   "[reshrink] depth  8: median|surplus| after 71.05",
+   "[reshrink] depth  9: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 13,
+    "lam_max": 0.0001
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 0.0002056136159
+   },
+   "6": {
+    "n": 50,
+    "lam_max": 0.0002199231774
+   },
+   "7": {
+    "n": 55,
+    "lam_max": 0.0004281710728
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.0004281710728
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 189
+ },
+ {
+  "case": "april_s101",
+  "arm": "twogroups",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 33.4,
+  "heldout_dev": 7.038,
+  "x2_info": 0.1677,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 59806.7 -> 59806.7  median|surplus| 104.97",
+   "[reshrink] depth  5: m=  26 tau 25398.5 -> 22271.8  median|surplus| 106.03",
+   "[reshrink] depth  6: m=  50 tau 20734.4 -> 20734.4  median|surplus| 100.77",
+   "[reshrink] depth  7: m=  55 tau 6639.3 -> 3202.0  median|surplus| 75.63",
+   "[reshrink] depth  8: m=  41 tau 7257.6 -> 5473.8  median|surplus| 72.00",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.0  median|surplus| 0.01",
+   "[ladder2g] depth  4: m=  12 pi=0.44 tau1=59806.7 slab(g>.5)=5",
+   "[ladder2g] depth  5: m=  26 pi=0.66 tau1=25398.5 slab(g>.5)=17",
+   "[ladder2g] depth  6: m=  50 pi=0.57 tau1=20734.4 slab(g>.5)=28",
+   "[ladder2g] depth  7: m=  55 pi=0.64 tau1=5055.0 slab(g>.5)=35",
+   "[ladder2g] depth  8: m=  41 pi=0.52 tau1=7257.6 slab(g>.5)=22",
+   "[reshrink] depth  4: median|surplus| after 87.13",
+   "[reshrink] depth  5: median|surplus| after 106.34",
+   "[reshrink] depth  6: median|surplus| after 93.94",
+   "[reshrink] depth  7: median|surplus| after 58.74",
+   "[reshrink] depth  8: median|surplus| after 58.62",
+   "[reshrink] depth  9: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 13,
+    "lam_max": 0.4202087087
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 0.1748448315
+   },
+   "6": {
+    "n": 50,
+    "lam_max": 0.08041485979
+   },
+   "7": {
+    "n": 55,
+    "lam_max": 0.1156063682
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.5194509482
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 189
+ },
+ {
+  "case": "april_s101",
+  "arm": "twogroups_free",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 18.7,
+  "heldout_dev": 7.048,
+  "x2_info": 0.2058,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 59806.7 -> 59806.7  median|surplus| 104.97",
+   "[reshrink] depth  5: m=  26 tau 25398.5 -> 22271.8  median|surplus| 106.03",
+   "[reshrink] depth  6: m=  50 tau 20734.4 -> 20734.4  median|surplus| 100.77",
+   "[reshrink] depth  7: m=  55 tau 6639.3 -> 3202.0  median|surplus| 75.63",
+   "[reshrink] depth  8: m=  41 tau 7257.6 -> 5473.8  median|surplus| 72.00",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.0  median|surplus| 0.01",
+   "[ladder2g] depth  4: m=  12 pi=0.42 tau1=430488.0 slab(g>.5)=5",
+   "[ladder2g] depth  5: m=  26 pi=0.65 tau1=38586.5 slab(g>.5)=17",
+   "[ladder2g] depth  6: m=  50 pi=0.57 tau1=40563.8 slab(g>.5)=28",
+   "[ladder2g] depth  7: m=  55 pi=0.64 tau1=5055.0 slab(g>.5)=35",
+   "[ladder2g] depth  8: m=  41 pi=0.50 tau1=16708.1 slab(g>.5)=20",
+   "[ladder2g] depth  9: m=   4 pi=0.13 tau1=2275.5 slab(g>.5)=0",
+   "[reshrink] depth  4: median|surplus| after 94.23",
+   "[reshrink] depth  5: median|surplus| after 105.95",
+   "[reshrink] depth  6: median|surplus| after 97.57",
+   "[reshrink] depth  7: median|surplus| after 58.55",
+   "[reshrink] depth  8: median|surplus| after 60.79",
+   "[reshrink] depth  9: median|surplus| after 10.26"
+  ],
+  "ladder": {
+   "4": {
+    "n": 13,
+    "lam_max": 0.2003218771
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 0.1636691074
+   },
+   "6": {
+    "n": 50,
+    "lam_max": 0.06716206433
+   },
+   "7": {
+    "n": 55,
+    "lam_max": 0.1156063682
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.4647877437
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 189
+ },
+ {
+  "case": "april_s103",
+  "arm": "off",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 9.1,
+  "heldout_dev": 6.759,
+  "x2_info": 0.1511,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001
+   },
+   "5": {
+    "n": 18,
+    "lam_max": 0.0004522844606
+   },
+   "6": {
+    "n": 31,
+    "lam_max": 7.964063407e-05
+   },
+   "7": {
+    "n": 30,
+    "lam_max": 0.0004026901789
+   },
+   "8": {
+    "n": 26,
+    "lam_max": 9.972537172e-05
+   },
+   "9": {
+    "n": 13,
+    "lam_max": 8.937825433e-05
+   }
+  },
+  "admitted": 130
+ },
+ {
+  "case": "april_s103",
+  "arm": "depth",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 9.2,
+  "heldout_dev": 6.759,
+  "x2_info": 0.1511,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 94883.7 -> 94883.7  median|surplus| 300.35",
+   "[reshrink] depth  5: m=  18 tau 4496.0 -> 4496.0  median|surplus| 71.10",
+   "[reshrink] depth  6: m=  31 tau 19828.4 -> 19828.4  median|surplus| 153.46",
+   "[reshrink] depth  7: m=  30 tau 8785.0 -> 6856.1  median|surplus| 100.69",
+   "[reshrink] depth  8: m=  26 tau 9771.8 -> 7357.2  median|surplus| 105.00",
+   "[reshrink] depth  9: m=  13 tau 12596.3 -> 12259.3  median|surplus| 177.30",
+   "[reshrink] depth  4: median|surplus| after 300.36",
+   "[reshrink] depth  5: median|surplus| after 70.94",
+   "[reshrink] depth  6: median|surplus| after 153.86",
+   "[reshrink] depth  7: median|surplus| after 99.70",
+   "[reshrink] depth  8: median|surplus| after 102.08",
+   "[reshrink] depth  9: median|surplus| after 176.29"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001
+   },
+   "5": {
+    "n": 18,
+    "lam_max": 0.0004512702504
+   },
+   "6": {
+    "n": 31,
+    "lam_max": 7.964063407e-05
+   },
+   "7": {
+    "n": 30,
+    "lam_max": 0.0004026901789
+   },
+   "8": {
+    "n": 26,
+    "lam_max": 0.0001021309946
+   },
+   "9": {
+    "n": 13,
+    "lam_max": 8.937825433e-05
+   }
+  },
+  "admitted": 130
+ },
+ {
+  "case": "april_s103",
+  "arm": "cells",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 9.2,
+  "heldout_dev": 6.762,
+  "x2_info": 0.1512,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 94883.7 -> 94883.7  median|surplus| 300.35",
+   "[reshrink] depth  5: m=  18 tau 4496.0 -> 4496.0  median|surplus| 71.10",
+   "[reshrink] depth  6: m=  31 tau 19828.4 -> 19828.4  median|surplus| 153.46",
+   "[reshrink] depth  7: m=  30 tau 8785.0 -> 6856.1  median|surplus| 100.69",
+   "[reshrink] depth  8: m=  26 tau 9771.8 -> 7357.2  median|surplus| 105.00",
+   "[reshrink] depth  9: m=  13 tau 12596.3 -> 12259.3  median|surplus| 177.30",
+   "[laddercells] depth  4: keff_law<1.00 m=9 tau 94883.7 | keff_law>=1.00 m=3 tau 14917.3",
+   "[laddercells] depth  5: keff_law<1.00 m=12 tau 4496.0 | keff_law>=1.00 m=6 tau 272.3",
+   "[laddercells] depth  6: keff_law<1.00 m=16 tau 19828.4 | keff_law>=1.00 m=15 tau 9201.5",
+   "[laddercells] depth  7: keff_law<1.00 m=12 tau 8785.0 | keff_law>=1.00 m=18 tau 5343.3",
+   "[laddercells] depth  8: keff_law<1.00 m=15 tau 9771.8 | keff_law>=1.00 m=11 tau 5520.3",
+   "[laddercells] depth  9: keff_law<1.00 m=11 tau 12596.3 | keff_law>=1.00 m=2 tau 12259.3",
+   "[reshrink] depth  4: median|surplus| after 291.78",
+   "[reshrink] depth  5: median|surplus| after 84.58",
+   "[reshrink] depth  6: median|surplus| after 150.19",
+   "[reshrink] depth  7: median|surplus| after 99.80",
+   "[reshrink] depth  8: median|surplus| after 105.68",
+   "[reshrink] depth  9: median|surplus| after 178.85"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001
+   },
+   "5": {
+    "n": 18,
+    "lam_max": 0.003672985616
+   },
+   "6": {
+    "n": 31,
+    "lam_max": 0.0001086775259
+   },
+   "7": {
+    "n": 30,
+    "lam_max": 0.0004026901789
+   },
+   "8": {
+    "n": 26,
+    "lam_max": 0.0001811485814
+   },
+   "9": {
+    "n": 13,
+    "lam_max": 8.937825433e-05
+   }
+  },
+  "admitted": 130
+ },
+ {
+  "case": "april_s103",
+  "arm": "cells_rawkeff",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 9.0,
+  "heldout_dev": 6.763,
+  "x2_info": 0.1513,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 94883.7 -> 94883.7  median|surplus| 300.35",
+   "[reshrink] depth  5: m=  18 tau 4496.0 -> 4496.0  median|surplus| 71.10",
+   "[reshrink] depth  6: m=  31 tau 19828.4 -> 19828.4  median|surplus| 153.46",
+   "[reshrink] depth  7: m=  30 tau 8785.0 -> 6856.1  median|surplus| 100.69",
+   "[reshrink] depth  8: m=  26 tau 9771.8 -> 7357.2  median|surplus| 105.00",
+   "[reshrink] depth  9: m=  13 tau 12596.3 -> 12259.3  median|surplus| 177.30",
+   "[laddercells] depth  4: keff_law<1.00 m=6 tau 94883.7 | keff_law>=1.00 m=6 tau 4036.0",
+   "[laddercells] depth  5: keff_law<1.00 m=5 tau 4496.0 | keff_law>=1.00 m=13 tau 4496.0",
+   "[laddercells] depth  6: keff_law<1.00 m=5 tau 19828.4 | keff_law>=1.00 m=26 tau 11509.2",
+   "[laddercells] depth  7: keff_law<1.00 m=3 tau 8785.0 | keff_law>=1.00 m=27 tau 6623.3",
+   "[laddercells] depth  8: keff_law<1.00 m=4 tau 9771.8 | keff_law>=1.00 m=22 tau 6318.3",
+   "[laddercells] depth  9: keff_law<1.00 m=7 tau 12596.3 | keff_law>=1.00 m=6 tau 10756.2",
+   "[reshrink] depth  4: median|surplus| after 106.04",
+   "[reshrink] depth  5: median|surplus| after 70.74",
+   "[reshrink] depth  6: median|surplus| after 153.78",
+   "[reshrink] depth  7: median|surplus| after 98.61",
+   "[reshrink] depth  8: median|surplus| after 100.82",
+   "[reshrink] depth  9: median|surplus| after 177.63"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.000247771745
+   },
+   "5": {
+    "n": 18,
+    "lam_max": 0.0003911332713
+   },
+   "6": {
+    "n": 31,
+    "lam_max": 8.688734883e-05
+   },
+   "7": {
+    "n": 30,
+    "lam_max": 0.0004026901789
+   },
+   "8": {
+    "n": 26,
+    "lam_max": 0.0001582714929
+   },
+   "9": {
+    "n": 13,
+    "lam_max": 9.296963894e-05
+   }
+  },
+  "admitted": 130
+ },
+ {
+  "case": "april_s103",
+  "arm": "twogroups",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 10.8,
+  "heldout_dev": 6.761,
+  "x2_info": 0.1512,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 94883.7 -> 94883.7  median|surplus| 300.35",
+   "[reshrink] depth  5: m=  18 tau 4496.0 -> 4496.0  median|surplus| 71.10",
+   "[reshrink] depth  6: m=  31 tau 19828.4 -> 19828.4  median|surplus| 153.46",
+   "[reshrink] depth  7: m=  30 tau 8785.0 -> 6856.1  median|surplus| 100.69",
+   "[reshrink] depth  8: m=  26 tau 9771.8 -> 7357.2  median|surplus| 105.00",
+   "[reshrink] depth  9: m=  13 tau 12596.3 -> 12259.3  median|surplus| 177.30",
+   "[ladder2g] depth  4: m=  12 pi=0.54 tau1=94883.7 slab(g>.5)=6",
+   "[ladder2g] depth  5: m=  18 pi=0.62 tau1=4496.0 slab(g>.5)=11",
+   "[ladder2g] depth  6: m=  31 pi=0.79 tau1=19828.4 slab(g>.5)=25",
+   "[ladder2g] depth  7: m=  30 pi=0.80 tau1=8785.0 slab(g>.5)=24",
+   "[ladder2g] depth  8: m=  26 pi=0.66 tau1=9771.8 slab(g>.5)=17",
+   "[ladder2g] depth  9: m=  13 pi=0.79 tau1=12596.3 slab(g>.5)=10",
+   "[reshrink] depth  4: median|surplus| after 287.24",
+   "[reshrink] depth  5: median|surplus| after 68.86",
+   "[reshrink] depth  6: median|surplus| after 146.55",
+   "[reshrink] depth  7: median|surplus| after 99.86",
+   "[reshrink] depth  8: median|surplus| after 107.82",
+   "[reshrink] depth  9: median|surplus| after 185.10"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.01864878173
+   },
+   "5": {
+    "n": 18,
+    "lam_max": 0.235155227
+   },
+   "6": {
+    "n": 31,
+    "lam_max": 0.08050216498
+   },
+   "7": {
+    "n": 30,
+    "lam_max": 0.07683016693
+   },
+   "8": {
+    "n": 26,
+    "lam_max": 1.326117134
+   },
+   "9": {
+    "n": 13,
+    "lam_max": 0.06385055763
+   }
+  },
+  "admitted": 130
+ },
+ {
+  "case": "april_s103",
+  "arm": "twogroups_free",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 11.5,
+  "heldout_dev": 6.765,
+  "x2_info": 0.1516,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 94883.7 -> 94883.7  median|surplus| 300.35",
+   "[reshrink] depth  5: m=  18 tau 4496.0 -> 4496.0  median|surplus| 71.10",
+   "[reshrink] depth  6: m=  31 tau 19828.4 -> 19828.4  median|surplus| 153.46",
+   "[reshrink] depth  7: m=  30 tau 8785.0 -> 6856.1  median|surplus| 100.69",
+   "[reshrink] depth  8: m=  26 tau 9771.8 -> 7357.2  median|surplus| 105.00",
+   "[reshrink] depth  9: m=  13 tau 12596.3 -> 12259.3  median|surplus| 177.30",
+   "[ladder2g] depth  4: m=  12 pi=0.53 tau1=280877.5 slab(g>.5)=6",
+   "[ladder2g] depth  5: m=  18 pi=0.55 tau1=72707.4 slab(g>.5)=10",
+   "[ladder2g] depth  6: m=  31 pi=0.79 tau1=40774.4 slab(g>.5)=25",
+   "[ladder2g] depth  7: m=  30 pi=0.79 tau1=9336.4 slab(g>.5)=24",
+   "[ladder2g] depth  8: m=  26 pi=0.66 tau1=15616.2 slab(g>.5)=17",
+   "[ladder2g] depth  9: m=  13 pi=0.78 tau1=20508.1 slab(g>.5)=10",
+   "[reshrink] depth  4: median|surplus| after 301.94",
+   "[reshrink] depth  5: median|surplus| after 116.06",
+   "[reshrink] depth  6: median|surplus| after 196.02",
+   "[reshrink] depth  7: median|surplus| after 101.69",
+   "[reshrink] depth  8: median|surplus| after 114.20",
+   "[reshrink] depth  9: median|surplus| after 191.50"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.01267839589
+   },
+   "5": {
+    "n": 18,
+    "lam_max": 0.5600875826
+   },
+   "6": {
+    "n": 31,
+    "lam_max": 0.08638549488
+   },
+   "7": {
+    "n": 30,
+    "lam_max": 0.07867407517
+   },
+   "8": {
+    "n": 26,
+    "lam_max": 1.237862806
+   },
+   "9": {
+    "n": 13,
+    "lam_max": 0.05851821454
+   }
+  },
+  "admitted": 130
+ },
+ {
+  "case": "aprilnull_s7",
+  "arm": "off",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 6.7,
+  "heldout_dev": 1.014,
+  "x2_info": 0.0146,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 123,
+    "lam_max": 4.0
+   },
+   "5": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 127
+ },
+ {
+  "case": "aprilnull_s7",
+  "arm": "depth",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 6.7,
+  "heldout_dev": 1.014,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 123 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[reshrink] depth  5: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth  4: median|surplus| after 0.06",
+   "[reshrink] depth  5: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 123,
+    "lam_max": 4.0
+   },
+   "5": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 127
+ },
+ {
+  "case": "aprilnull_s7",
+  "arm": "cells",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 6.5,
+  "heldout_dev": 1.014,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 123 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[reshrink] depth  5: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[laddercells] depth  4: keff_law<1.00 m=119 tau 0.2 | keff_law>=1.00 m=4 tau 0.2",
+   "[laddercells] depth  5: keff_law<1.00 m=2 tau 0.2 | keff_law>=1.00 m=2 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 0.06",
+   "[reshrink] depth  5: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 123,
+    "lam_max": 4.0
+   },
+   "5": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 127
+ },
+ {
+  "case": "aprilnull_s7",
+  "arm": "cells_rawkeff",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 6.8,
+  "heldout_dev": 1.014,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 123 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[reshrink] depth  5: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[laddercells] depth  4: keff_law<1.00 m=21 tau 0.2 | keff_law>=1.00 m=102 tau 0.2",
+   "[laddercells] depth  5: keff_law<1.00 m=2 tau 0.2 | keff_law>=1.00 m=2 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 0.06",
+   "[reshrink] depth  5: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 123,
+    "lam_max": 4.0
+   },
+   "5": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 127
+ },
+ {
+  "case": "aprilnull_s7",
+  "arm": "twogroups",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 6.7,
+  "heldout_dev": 1.014,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 123 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[reshrink] depth  5: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth  4: median|surplus| after 0.06",
+   "[reshrink] depth  5: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 123,
+    "lam_max": 4.0
+   },
+   "5": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 127
+ },
+ {
+  "case": "aprilnull_s7",
+  "arm": "twogroups_free",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 5.8,
+  "heldout_dev": 1.016,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 123 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[reshrink] depth  5: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[ladder2g] depth  4: m= 123 pi=0.02 tau1=31965.3 slab(g>.5)=2",
+   "[ladder2g] depth  5: m=   4 pi=0.31 tau1=12523.7 slab(g>.5)=1",
+   "[reshrink] depth  4: median|surplus| after 1.29",
+   "[reshrink] depth  5: median|surplus| after 11.28"
+  ],
+  "ladder": {
+   "4": {
+    "n": 123,
+    "lam_max": 0.05041961451
+   },
+   "5": {
+    "n": 4,
+    "lam_max": 0.001968228783
+   }
+  },
+  "admitted": 127
+ },
+ {
+  "case": "aprilnull_s103",
+  "arm": "off",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 7.4,
+  "heldout_dev": 1.021,
+  "x2_info": 0.0146,
+  "diag": [],
+  "ladder": {
+   "4": {
+    "n": 126,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 126
+ },
+ {
+  "case": "aprilnull_s103",
+  "arm": "depth",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 7.1,
+  "heldout_dev": 1.021,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 126 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[reshrink] depth  4: median|surplus| after 0.06"
+  ],
+  "ladder": {
+   "4": {
+    "n": 126,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 126
+ },
+ {
+  "case": "aprilnull_s103",
+  "arm": "cells",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 7.7,
+  "heldout_dev": 1.021,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 126 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[laddercells] depth  4: keff_law<1.00 m=123 tau 0.2 | keff_law>=1.00 m=3 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 0.06"
+  ],
+  "ladder": {
+   "4": {
+    "n": 126,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 126
+ },
+ {
+  "case": "aprilnull_s103",
+  "arm": "cells_rawkeff",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 7.9,
+  "heldout_dev": 1.021,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 126 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[laddercells] depth  4: keff_law<1.00 m=27 tau 0.2 | keff_law>=1.00 m=99 tau 0.2",
+   "[reshrink] depth  4: median|surplus| after 0.06"
+  ],
+  "ladder": {
+   "4": {
+    "n": 126,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 126
+ },
+ {
+  "case": "aprilnull_s103",
+  "arm": "twogroups",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 7.3,
+  "heldout_dev": 1.021,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 126 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[reshrink] depth  4: median|surplus| after 0.06"
+  ],
+  "ladder": {
+   "4": {
+    "n": 126,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 126
+ },
+ {
+  "case": "aprilnull_s103",
+  "arm": "twogroups_free",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 7.0,
+  "heldout_dev": 1.023,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 126 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[ladder2g] depth  4: m= 126 pi=0.03 tau1=25589.1 slab(g>.5)=3",
+   "[reshrink] depth  4: median|surplus| after 1.46"
+  ],
+  "ladder": {
+   "4": {
+    "n": 126,
+    "lam_max": 0.0338426945
+   }
+  },
+  "admitted": 126
+ },
+ {
+  "case": "smm_s7",
+  "arm": "keffcont",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 2.4,
+  "heldout_dev": 1.185,
+  "x2_info": 0.7575,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2041.2 -> 2041.2  median|surplus| 51.83",
+   "[reshrink] depth  5: m=  32 tau 2413.9 -> 2413.9  median|surplus| 40.99",
+   "[reshrink] depth  6: m=  46 tau 10971.0 -> 2671.7  median|surplus| 47.31",
+   "[reshrink] depth  7: m=  43 tau 5871.0 -> 5871.0  median|surplus| 56.85",
+   "[ladderkeffcont] depth  4: m=  21 base_tau=2041.2 pool-dominated(r>1)=2",
+   "[ladderkeffcont] depth  5: m=  32 base_tau=2413.9 pool-dominated(r>1)=2",
+   "[ladderkeffcont] depth  6: m=  46 base_tau=2671.7 pool-dominated(r>1)=9",
+   "[ladderkeffcont] depth  7: m=  43 base_tau=5871.0 pool-dominated(r>1)=7",
+   "[reshrink] depth  4: median|surplus| after 45.27",
+   "[reshrink] depth  5: median|surplus| after 35.79",
+   "[reshrink] depth  6: median|surplus| after 28.98",
+   "[reshrink] depth  7: median|surplus| after 56.30"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.001256124792
+   },
+   "5": {
+    "n": 32,
+    "lam_max": 0.001016507256
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.001669169964
+   },
+   "7": {
+    "n": 43,
+    "lam_max": 0.0006210476655
+   }
+  },
+  "admitted": 142
+ },
+ {
+  "case": "smm_s101",
+  "arm": "keffcont",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 2.4,
+  "heldout_dev": 1.101,
+  "x2_info": 0.6142,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 577.6 -> 577.6  median|surplus| 33.38",
+   "[reshrink] depth  5: m=  34 tau 4455.9 -> 4455.9  median|surplus| 49.26",
+   "[reshrink] depth  6: m=  44 tau 2600.7 -> 1259.6  median|surplus| 34.36",
+   "[reshrink] depth  7: m=  28 tau 6013.7 -> 2045.5  median|surplus| 59.97",
+   "[reshrink] depth  8: m=   7 tau 2228.0 -> 2228.0  median|surplus| 30.63",
+   "[ladderkeffcont] depth  4: m=  20 base_tau=577.6 pool-dominated(r>1)=1",
+   "[ladderkeffcont] depth  5: m=  34 base_tau=4455.9 pool-dominated(r>1)=4",
+   "[ladderkeffcont] depth  6: m=  44 base_tau=1259.6 pool-dominated(r>1)=5",
+   "[ladderkeffcont] depth  7: m=  28 base_tau=2045.5 pool-dominated(r>1)=6",
+   "[ladderkeffcont] depth  8: m=   7 base_tau=2228.0 pool-dominated(r>1)=2",
+   "[reshrink] depth  4: median|surplus| after 27.94",
+   "[reshrink] depth  5: median|surplus| after 60.78",
+   "[reshrink] depth  6: median|surplus| after 26.11",
+   "[reshrink] depth  7: median|surplus| after 30.47",
+   "[reshrink] depth  8: median|surplus| after 23.33"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.004773017297
+   },
+   "5": {
+    "n": 35,
+    "lam_max": 0.000939961614
+   },
+   "6": {
+    "n": 44,
+    "lam_max": 0.003950413659
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.001843611696
+   },
+   "8": {
+    "n": 7,
+    "lam_max": 0.0007843889327
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s102",
+  "arm": "keffcont",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.3,
+  "heldout_dev": 1.109,
+  "x2_info": 0.6149,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1099.5 -> 1099.5  median|surplus| 45.88",
+   "[reshrink] depth  5: m=  34 tau 2419.8 -> 2419.8  median|surplus| 48.54",
+   "[reshrink] depth  6: m=  46 tau 4694.1 -> 2311.9  median|surplus| 49.37",
+   "[reshrink] depth  7: m=  33 tau 4785.4 -> 1218.6  median|surplus| 69.85",
+   "[reshrink] depth  8: m=   8 tau 23.7 -> 15.6  median|surplus| 4.42",
+   "[reshrink] depth  9: m=   5 tau 0.2 -> 0.0  median|surplus| 0.04",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.08",
+   "[reshrink] depth 11: m=   1 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[ladderkeffcont] depth  4: m=  19 base_tau=1099.5 pool-dominated(r>1)=3",
+   "[ladderkeffcont] depth  5: m=  34 base_tau=2419.8 pool-dominated(r>1)=1",
+   "[ladderkeffcont] depth  6: m=  46 base_tau=2311.9 pool-dominated(r>1)=9",
+   "[ladderkeffcont] depth  7: m=  33 base_tau=1218.6 pool-dominated(r>1)=6",
+   "[ladderkeffcont] depth  8: m=   8 base_tau=15.6 pool-dominated(r>1)=1",
+   "[ladderkeffcont] depth  9: m=   5 base_tau=0.2 pool-dominated(r>1)=1",
+   "[ladderkeffcont] depth 10: m=   3 base_tau=0.2 pool-dominated(r>1)=2",
+   "[ladderkeffcont] depth 11: m=   1 base_tau=0.2 pool-dominated(r>1)=1",
+   "[reshrink] depth  4: median|surplus| after 32.80",
+   "[reshrink] depth  5: median|surplus| after 48.89",
+   "[reshrink] depth  6: median|surplus| after 32.97",
+   "[reshrink] depth  7: median|surplus| after 31.21",
+   "[reshrink] depth  8: median|surplus| after 2.20",
+   "[reshrink] depth  9: median|surplus| after 0.04",
+   "[reshrink] depth 10: median|surplus| after 0.08",
+   "[reshrink] depth 11: median|surplus| after 0.02"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.00302023875
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0009297007085
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.001685363466
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 0.00291857205
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 0.1208934454
+   },
+   "9": {
+    "n": 5,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 150
+ },
+ {
+  "case": "smm_s103",
+  "arm": "keffcont",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 2.8,
+  "heldout_dev": 1.201,
+  "x2_info": 0.6857,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1635.5 -> 1635.5  median|surplus| 53.61",
+   "[reshrink] depth  5: m=  33 tau 4237.1 -> 4237.1  median|surplus| 46.67",
+   "[reshrink] depth  6: m=  40 tau 3253.8 -> 0.0  median|surplus| 43.33",
+   "[reshrink] depth  7: m=  28 tau 8666.6 -> 4720.9  median|surplus| 69.69",
+   "[reshrink] depth  8: m=   2 tau 8666.6 -> 1180.2  median|surplus| 67.06",
+   "[ladderkeffcont] depth  4: m=  19 base_tau=1635.5 pool-dominated(r>1)=2",
+   "[ladderkeffcont] depth  5: m=  33 base_tau=4237.1 pool-dominated(r>1)=1",
+   "[ladderkeffcont] depth  6: m=  40 base_tau=0.2 pool-dominated(r>1)=10",
+   "[ladderkeffcont] depth  7: m=  28 base_tau=4720.9 pool-dominated(r>1)=5",
+   "[ladderkeffcont] depth  8: m=   2 base_tau=1180.2 pool-dominated(r>1)=0",
+   "[reshrink] depth  4: median|surplus| after 54.98",
+   "[reshrink] depth  5: median|surplus| after 49.64",
+   "[reshrink] depth  6: median|surplus| after 0.01",
+   "[reshrink] depth  7: median|surplus| after 66.01",
+   "[reshrink] depth  8: median|surplus| after 14.26"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.00178205171
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0005367129848
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 4.0
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.001154015902
+   },
+   "8": {
+    "n": 2,
+    "lam_max": 0.0008578082949
+   }
+  },
+  "admitted": 122
+ },
+ {
+  "case": "smm_s104",
+  "arm": "keffcont",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 4.4,
+  "heldout_dev": 1.132,
+  "x2_info": 0.6559,
+  "diag": [
+   "[reshrink] depth  4: m=  25 tau 1095.0 -> 1095.0  median|surplus| 34.13",
+   "[reshrink] depth  5: m=  37 tau 3025.8 -> 3025.8  median|surplus| 52.56",
+   "[reshrink] depth  6: m=  53 tau 7627.0 -> 7627.0  median|surplus| 55.27",
+   "[reshrink] depth  7: m=  51 tau 8568.9 -> 8568.9  median|surplus| 69.66",
+   "[reshrink] depth  8: m=  23 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth  9: m=  16 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   2 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[ladderkeffcont] depth  4: m=  25 base_tau=1095.0 pool-dominated(r>1)=1",
+   "[ladderkeffcont] depth  5: m=  37 base_tau=3025.8 pool-dominated(r>1)=2",
+   "[ladderkeffcont] depth  6: m=  53 base_tau=7627.0 pool-dominated(r>1)=7",
+   "[ladderkeffcont] depth  7: m=  51 base_tau=8568.9 pool-dominated(r>1)=7",
+   "[ladderkeffcont] depth  8: m=  23 base_tau=0.2 pool-dominated(r>1)=1",
+   "[ladderkeffcont] depth  9: m=  16 base_tau=0.2 pool-dominated(r>1)=0",
+   "[ladderkeffcont] depth 10: m=   2 base_tau=0.2 pool-dominated(r>1)=0",
+   "[reshrink] depth  4: median|surplus| after 28.62",
+   "[reshrink] depth  5: median|surplus| after 50.58",
+   "[reshrink] depth  6: median|surplus| after 56.64",
+   "[reshrink] depth  7: median|surplus| after 66.37",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 25,
+    "lam_max": 0.001883640762
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.00141398188
+   },
+   "6": {
+    "n": 53,
+    "lam_max": 0.0004150650136
+   },
+   "7": {
+    "n": 51,
+    "lam_max": 0.0003642630397
+   },
+   "8": {
+    "n": 23,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 16,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 2,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 207
+ },
+ {
+  "case": "smm_s105",
+  "arm": "keffcont",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 3.6,
+  "heldout_dev": 1.179,
+  "x2_info": 0.73,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2285.3 -> 2285.3  median|surplus| 43.40",
+   "[reshrink] depth  5: m=  35 tau 1814.5 -> 1814.5  median|surplus| 22.88",
+   "[reshrink] depth  6: m=  43 tau 14088.6 -> 2661.3  median|surplus| 59.58",
+   "[reshrink] depth  7: m=  32 tau 8887.3 -> 8887.3  median|surplus| 112.69",
+   "[reshrink] depth  8: m=   6 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[reshrink] depth  9: m=   1 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[ladderkeffcont] depth  4: m=  21 base_tau=2285.3 pool-dominated(r>1)=2",
+   "[ladderkeffcont] depth  5: m=  35 base_tau=1814.5 pool-dominated(r>1)=0",
+   "[ladderkeffcont] depth  6: m=  43 base_tau=2661.3 pool-dominated(r>1)=5",
+   "[ladderkeffcont] depth  7: m=  32 base_tau=8887.3 pool-dominated(r>1)=9",
+   "[ladderkeffcont] depth  8: m=   6 base_tau=0.2 pool-dominated(r>1)=1",
+   "[ladderkeffcont] depth  9: m=   1 base_tau=0.2 pool-dominated(r>1)=0",
+   "[reshrink] depth  4: median|surplus| after 44.22",
+   "[reshrink] depth  5: median|surplus| after 29.25",
+   "[reshrink] depth  6: median|surplus| after 32.81",
+   "[reshrink] depth  7: median|surplus| after 110.62",
+   "[reshrink] depth  8: median|surplus| after 0.01",
+   "[reshrink] depth  9: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.001728305228
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.001071604082
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.00110614961
+   },
+   "7": {
+    "n": 32,
+    "lam_max": 0.0003851694209
+   },
+   "8": {
+    "n": 6,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 139
+ },
+ {
+  "case": "smm_s106",
+  "arm": "keffcont",
+  "seed": 106,
+  "exit": 0,
+  "wall_s": 5.1,
+  "heldout_dev": 1.195,
+  "x2_info": 0.6343,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 708.8 -> 708.8  median|surplus| 33.85",
+   "[reshrink] depth  5: m=  37 tau 2654.4 -> 2654.4  median|surplus| 50.51",
+   "[reshrink] depth  6: m=  47 tau 8475.4 -> 718.0  median|surplus| 49.72",
+   "[reshrink] depth  7: m=  34 tau 5899.1 -> 5899.1  median|surplus| 74.66",
+   "[reshrink] depth  8: m=   8 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth  9: m=   9 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[ladderkeffcont] depth  4: m=  19 base_tau=708.8 pool-dominated(r>1)=1",
+   "[ladderkeffcont] depth  5: m=  37 base_tau=2654.4 pool-dominated(r>1)=4",
+   "[ladderkeffcont] depth  6: m=  47 base_tau=718.0 pool-dominated(r>1)=8",
+   "[ladderkeffcont] depth  7: m=  34 base_tau=5899.1 pool-dominated(r>1)=8",
+   "[ladderkeffcont] depth  8: m=   8 base_tau=0.2 pool-dominated(r>1)=0",
+   "[ladderkeffcont] depth  9: m=   9 base_tau=0.2 pool-dominated(r>1)=1",
+   "[ladderkeffcont] depth 10: m=   3 base_tau=0.2 pool-dominated(r>1)=1",
+   "[reshrink] depth  4: median|surplus| after 32.17",
+   "[reshrink] depth  5: median|surplus| after 37.47",
+   "[reshrink] depth  6: median|surplus| after 16.04",
+   "[reshrink] depth  7: median|surplus| after 78.78",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.003937479135
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.001643054337
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.005941337419
+   },
+   "7": {
+    "n": 34,
+    "lam_max": 0.0005498717829
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 157
+ },
+ {
+  "case": "smm_s107",
+  "arm": "keffcont",
+  "seed": 107,
+  "exit": 0,
+  "wall_s": 4.2,
+  "heldout_dev": 1.141,
+  "x2_info": 0.6279,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 1350.0 -> 1350.0  median|surplus| 47.97",
+   "[reshrink] depth  5: m=  34 tau 3474.4 -> 3474.4  median|surplus| 47.42",
+   "[reshrink] depth  6: m=  47 tau 1446.0 -> 48.5  median|surplus| 32.61",
+   "[reshrink] depth  7: m=  36 tau 6885.6 -> 6328.6  median|surplus| 70.70",
+   "[reshrink] depth  8: m=   3 tau 85.5 -> 85.5  median|surplus| 9.66",
+   "[reshrink] depth  9: m=   3 tau 0.2 -> 0.0  median|surplus| 0.02",
+   "[ladderkeffcont] depth  4: m=  20 base_tau=1350.0 pool-dominated(r>1)=1",
+   "[ladderkeffcont] depth  5: m=  34 base_tau=3474.4 pool-dominated(r>1)=2",
+   "[ladderkeffcont] depth  6: m=  47 base_tau=48.5 pool-dominated(r>1)=6",
+   "[ladderkeffcont] depth  7: m=  36 base_tau=6328.6 pool-dominated(r>1)=7",
+   "[ladderkeffcont] depth  8: m=   3 base_tau=85.5 pool-dominated(r>1)=1",
+   "[ladderkeffcont] depth  9: m=   3 base_tau=0.2 pool-dominated(r>1)=1",
+   "[reshrink] depth  4: median|surplus| after 55.69",
+   "[reshrink] depth  5: median|surplus| after 38.00",
+   "[reshrink] depth  6: median|surplus| after 1.33",
+   "[reshrink] depth  7: median|surplus| after 47.17",
+   "[reshrink] depth  8: median|surplus| after 14.29",
+   "[reshrink] depth  9: median|surplus| after 0.02"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.002171979915
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.001242180526
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.1060499445
+   },
+   "7": {
+    "n": 36,
+    "lam_max": 0.0005253520713
+   },
+   "8": {
+    "n": 3,
+    "lam_max": 0.0184618888
+   },
+   "9": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 143
+ },
+ {
+  "case": "smm_s108",
+  "arm": "keffcont",
+  "seed": 108,
+  "exit": 0,
+  "wall_s": 3.4,
+  "heldout_dev": 1.114,
+  "x2_info": 0.6259,
+  "diag": [
+   "[reshrink] depth  4: m=  18 tau 1405.8 -> 1405.8  median|surplus| 55.23",
+   "[reshrink] depth  5: m=  32 tau 3174.8 -> 2409.0  median|surplus| 56.49",
+   "[reshrink] depth  6: m=  42 tau 11597.8 -> 3663.3  median|surplus| 48.71",
+   "[reshrink] depth  7: m=  37 tau 7885.9 -> 7885.9  median|surplus| 83.73",
+   "[reshrink] depth  8: m=   4 tau 32.6 -> 0.0  median|surplus| 1.54",
+   "[ladderkeffcont] depth  4: m=  18 base_tau=1405.8 pool-dominated(r>1)=2",
+   "[ladderkeffcont] depth  5: m=  32 base_tau=2409.0 pool-dominated(r>1)=4",
+   "[ladderkeffcont] depth  6: m=  42 base_tau=3663.3 pool-dominated(r>1)=7",
+   "[ladderkeffcont] depth  7: m=  37 base_tau=7885.9 pool-dominated(r>1)=5",
+   "[ladderkeffcont] depth  8: m=   4 base_tau=0.2 pool-dominated(r>1)=1",
+   "[reshrink] depth  4: median|surplus| after 42.56",
+   "[reshrink] depth  5: median|surplus| after 61.07",
+   "[reshrink] depth  6: median|surplus| after 40.04",
+   "[reshrink] depth  7: median|surplus| after 85.75",
+   "[reshrink] depth  8: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 18,
+    "lam_max": 0.001915309386
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.001513573239
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.000752222192
+   },
+   "7": {
+    "n": 37,
+    "lam_max": 0.000482224044
+   },
+   "8": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s109",
+  "arm": "keffcont",
+  "seed": 109,
+  "exit": 0,
+  "wall_s": 4.4,
+  "heldout_dev": 1.136,
+  "x2_info": 0.6466,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1501.9 -> 1501.9  median|surplus| 58.14",
+   "[reshrink] depth  5: m=  33 tau 4039.6 -> 4039.6  median|surplus| 51.86",
+   "[reshrink] depth  6: m=  40 tau 1739.1 -> 995.4  median|surplus| 26.36",
+   "[reshrink] depth  7: m=  31 tau 8288.7 -> 5799.6  median|surplus| 73.66",
+   "[reshrink] depth  8: m=   9 tau 69.9 -> 0.0  median|surplus| 5.31",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth 10: m=   1 tau 0.2 -> 0.2  median|surplus| 0.19",
+   "[ladderkeffcont] depth  4: m=  19 base_tau=1501.9 pool-dominated(r>1)=3",
+   "[ladderkeffcont] depth  5: m=  33 base_tau=4039.6 pool-dominated(r>1)=2",
+   "[ladderkeffcont] depth  6: m=  40 base_tau=995.4 pool-dominated(r>1)=6",
+   "[ladderkeffcont] depth  7: m=  31 base_tau=5799.6 pool-dominated(r>1)=4",
+   "[ladderkeffcont] depth  8: m=   9 base_tau=0.2 pool-dominated(r>1)=2",
+   "[ladderkeffcont] depth  9: m=   4 base_tau=0.2 pool-dominated(r>1)=1",
+   "[ladderkeffcont] depth 10: m=   1 base_tau=0.2 pool-dominated(r>1)=1",
+   "[reshrink] depth  4: median|surplus| after 47.69",
+   "[reshrink] depth  5: median|surplus| after 52.88",
+   "[reshrink] depth  6: median|surplus| after 16.17",
+   "[reshrink] depth  7: median|surplus| after 64.91",
+   "[reshrink] depth  8: median|surplus| after 0.01",
+   "[reshrink] depth  9: median|surplus| after 0.01",
+   "[reshrink] depth 10: median|surplus| after 0.28"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.001656058014
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0005537930993
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.002865397901
+   },
+   "7": {
+    "n": 31,
+    "lam_max": 0.0005550591454
+   },
+   "8": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 137
+ },
+ {
+  "case": "smm_s110",
+  "arm": "keffcont",
+  "seed": 110,
+  "exit": 0,
+  "wall_s": 2.8,
+  "heldout_dev": 1.194,
+  "x2_info": 0.6947,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 1250.6 -> 1250.6  median|surplus| 48.76",
+   "[reshrink] depth  5: m=  35 tau 2749.9 -> 2749.9  median|surplus| 43.80",
+   "[reshrink] depth  6: m=  45 tau 5226.3 -> 3796.7  median|surplus| 37.60",
+   "[reshrink] depth  7: m=  46 tau 4431.2 -> 3222.0  median|surplus| 47.08",
+   "[reshrink] depth  8: m=  10 tau 2477.8 -> 2477.8  median|surplus| 40.24",
+   "[reshrink] depth  9: m=   2 tau 2477.8 -> 842.4  median|surplus| 118.15",
+   "[ladderkeffcont] depth  4: m=  21 base_tau=1250.6 pool-dominated(r>1)=3",
+   "[ladderkeffcont] depth  5: m=  35 base_tau=2749.9 pool-dominated(r>1)=2",
+   "[ladderkeffcont] depth  6: m=  45 base_tau=3796.7 pool-dominated(r>1)=7",
+   "[ladderkeffcont] depth  7: m=  46 base_tau=3222.0 pool-dominated(r>1)=9",
+   "[ladderkeffcont] depth  8: m=  10 base_tau=2477.8 pool-dominated(r>1)=0",
+   "[ladderkeffcont] depth  9: m=   2 base_tau=842.4 pool-dominated(r>1)=1",
+   "[reshrink] depth  4: median|surplus| after 44.17",
+   "[reshrink] depth  5: median|surplus| after 36.37",
+   "[reshrink] depth  6: median|surplus| after 31.43",
+   "[reshrink] depth  7: median|surplus| after 37.62",
+   "[reshrink] depth  8: median|surplus| after 41.68",
+   "[reshrink] depth  9: median|surplus| after 59.78"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.001990673714
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.001317336242
+   },
+   "6": {
+    "n": 45,
+    "lam_max": 0.0008916956212
+   },
+   "7": {
+    "n": 46,
+    "lam_max": 0.001237332376
+   },
+   "8": {
+    "n": 10,
+    "lam_max": 0.0005292719258
+   },
+   "9": {
+    "n": 2,
+    "lam_max": 0.003848244532
+   }
+  },
+  "admitted": 160
+ },
+ {
+  "case": "april_s7",
+  "arm": "keffcont",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 18.8,
+  "heldout_dev": 6.475,
+  "x2_info": 0.1446,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 155353.4 -> 81625.9  median|surplus| 321.08",
+   "[reshrink] depth  5: m=  31 tau 29010.5 -> 29010.5  median|surplus| 149.81",
+   "[reshrink] depth  6: m=  42 tau 17194.6 -> 17194.6  median|surplus| 118.40",
+   "[reshrink] depth  7: m=  38 tau 13978.2 -> 7824.8  median|surplus| 109.86",
+   "[reshrink] depth  8: m=  38 tau 6384.7 -> 6384.7  median|surplus| 100.30",
+   "[reshrink] depth  9: m=  34 tau 8338.8 -> 8338.8  median|surplus| 128.78",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[ladderkeffcont] depth  4: m=  12 base_tau=81625.9 pool-dominated(r>1)=8",
+   "[ladderkeffcont] depth  5: m=  31 base_tau=29010.5 pool-dominated(r>1)=22",
+   "[ladderkeffcont] depth  6: m=  42 base_tau=17194.6 pool-dominated(r>1)=27",
+   "[ladderkeffcont] depth  7: m=  38 base_tau=7824.8 pool-dominated(r>1)=33",
+   "[ladderkeffcont] depth  8: m=  38 base_tau=6384.7 pool-dominated(r>1)=35",
+   "[ladderkeffcont] depth  9: m=  34 base_tau=8338.8 pool-dominated(r>1)=34",
+   "[ladderkeffcont] depth 10: m=   3 base_tau=0.2 pool-dominated(r>1)=3",
+   "[reshrink] depth  4: median|surplus| after 151.70",
+   "[reshrink] depth  5: median|surplus| after 126.75",
+   "[reshrink] depth  6: median|surplus| after 82.71",
+   "[reshrink] depth  7: median|surplus| after 72.37",
+   "[reshrink] depth  8: median|surplus| after 82.98",
+   "[reshrink] depth  9: median|surplus| after 83.41",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0008099372432
+   },
+   "5": {
+    "n": 31,
+    "lam_max": 0.01125363821
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.001234801773
+   },
+   "7": {
+    "n": 38,
+    "lam_max": 0.003232268789
+   },
+   "8": {
+    "n": 38,
+    "lam_max": 0.001482710465
+   },
+   "9": {
+    "n": 34,
+    "lam_max": 0.001435336934
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 198
+ },
+ {
+  "case": "april_s101",
+  "arm": "keffcont",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 29.6,
+  "heldout_dev": 7.016,
+  "x2_info": 0.166,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 59806.7 -> 59806.7  median|surplus| 104.97",
+   "[reshrink] depth  5: m=  26 tau 25398.5 -> 22271.8  median|surplus| 106.03",
+   "[reshrink] depth  6: m=  50 tau 20734.4 -> 20734.4  median|surplus| 100.77",
+   "[reshrink] depth  7: m=  55 tau 6639.3 -> 3202.0  median|surplus| 75.63",
+   "[reshrink] depth  8: m=  41 tau 7257.6 -> 5473.8  median|surplus| 72.00",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.0  median|surplus| 0.01",
+   "[ladderkeffcont] depth  4: m=  12 base_tau=59806.7 pool-dominated(r>1)=6",
+   "[ladderkeffcont] depth  5: m=  26 base_tau=22271.8 pool-dominated(r>1)=23",
+   "[ladderkeffcont] depth  6: m=  50 base_tau=20734.4 pool-dominated(r>1)=33",
+   "[ladderkeffcont] depth  7: m=  55 base_tau=3202.0 pool-dominated(r>1)=49",
+   "[ladderkeffcont] depth  8: m=  41 base_tau=5473.8 pool-dominated(r>1)=39",
+   "[ladderkeffcont] depth  9: m=   4 base_tau=0.2 pool-dominated(r>1)=4",
+   "[reshrink] depth  4: median|surplus| after 83.47",
+   "[reshrink] depth  5: median|surplus| after 100.29",
+   "[reshrink] depth  6: median|surplus| after 85.92",
+   "[reshrink] depth  7: median|surplus| after 55.10",
+   "[reshrink] depth  8: median|surplus| after 56.14",
+   "[reshrink] depth  9: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 13,
+    "lam_max": 0.000120029505
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 0.01339021393
+   },
+   "6": {
+    "n": 50,
+    "lam_max": 0.001236348488
+   },
+   "7": {
+    "n": 55,
+    "lam_max": 0.04549061889
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.001459924479
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 189
+ },
+ {
+  "case": "april_s103",
+  "arm": "keffcont",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 10.3,
+  "heldout_dev": 6.762,
+  "x2_info": 0.151,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 94883.7 -> 94883.7  median|surplus| 300.35",
+   "[reshrink] depth  5: m=  18 tau 4496.0 -> 4496.0  median|surplus| 71.10",
+   "[reshrink] depth  6: m=  31 tau 19828.4 -> 19828.4  median|surplus| 153.46",
+   "[reshrink] depth  7: m=  30 tau 8785.0 -> 6856.1  median|surplus| 100.69",
+   "[reshrink] depth  8: m=  26 tau 9771.8 -> 7357.2  median|surplus| 105.00",
+   "[reshrink] depth  9: m=  13 tau 12596.3 -> 12259.3  median|surplus| 177.30",
+   "[ladderkeffcont] depth  4: m=  12 base_tau=94883.7 pool-dominated(r>1)=8",
+   "[ladderkeffcont] depth  5: m=  18 base_tau=4496.0 pool-dominated(r>1)=13",
+   "[ladderkeffcont] depth  6: m=  31 base_tau=19828.4 pool-dominated(r>1)=20",
+   "[ladderkeffcont] depth  7: m=  30 base_tau=6856.1 pool-dominated(r>1)=24",
+   "[ladderkeffcont] depth  8: m=  26 base_tau=7357.2 pool-dominated(r>1)=25",
+   "[ladderkeffcont] depth  9: m=  13 base_tau=12259.3 pool-dominated(r>1)=13",
+   "[reshrink] depth  4: median|surplus| after 84.68",
+   "[reshrink] depth  5: median|surplus| after 52.91",
+   "[reshrink] depth  6: median|surplus| after 131.49",
+   "[reshrink] depth  7: median|surplus| after 73.88",
+   "[reshrink] depth  8: median|surplus| after 80.72",
+   "[reshrink] depth  9: median|surplus| after 108.58"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001965132314
+   },
+   "5": {
+    "n": 18,
+    "lam_max": 0.2338319507
+   },
+   "6": {
+    "n": 31,
+    "lam_max": 0.001620863575
+   },
+   "7": {
+    "n": 30,
+    "lam_max": 0.001060995214
+   },
+   "8": {
+    "n": 26,
+    "lam_max": 0.001064380851
+   },
+   "9": {
+    "n": 13,
+    "lam_max": 0.0008267692286
+   }
+  },
+  "admitted": 130
+ },
+ {
+  "case": "aprilnull_s7",
+  "arm": "keffcont",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 7.1,
+  "heldout_dev": 1.014,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 123 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[reshrink] depth  5: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[ladderkeffcont] depth  4: m= 123 base_tau=0.2 pool-dominated(r>1)=123",
+   "[ladderkeffcont] depth  5: m=   4 base_tau=0.2 pool-dominated(r>1)=4",
+   "[reshrink] depth  4: median|surplus| after 0.06",
+   "[reshrink] depth  5: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 123,
+    "lam_max": 4.0
+   },
+   "5": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 127
+ },
+ {
+  "case": "aprilnull_s103",
+  "arm": "keffcont",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 7.6,
+  "heldout_dev": 1.021,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 126 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[ladderkeffcont] depth  4: m= 126 base_tau=0.2 pool-dominated(r>1)=126",
+   "[reshrink] depth  4: median|surplus| after 0.06"
+  ],
+  "ladder": {
+   "4": {
+    "n": 126,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 126
+ }
+]

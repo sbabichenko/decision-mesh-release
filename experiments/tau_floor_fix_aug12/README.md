@@ -19,3 +19,18 @@ Equivalence checks (both byte-identical on all dump files): modified
 binary vs pre-fix build with `DMESH_FINAL_RESHRINK` unset (frozen lindsey
 benchmark, seed 7), and legacy arm vs pre-fix build with reshrink on (SMM
 design, seed 7).
+
+## Ladder variants (2026-08-12, follow-on)
+
+Findings: `docs/HIERARCHICAL_SHRINKAGE_LADDER_2026-08-12.md`.
+
+- `sweep2.py`: 6-arm ladder sweep (off, depth, cells, cells_rawkeff,
+  twogroups, twogroups_free) over SMM 11 seeds + April + shipped null.
+  Uses a snapshotted binary (`dm_snapshot2`) so a concurrent rebuild
+  cannot swap the executable mid-run.
+- `sweep_kc.py`: appends the threshold-free `keffcont` arm to
+  `results_ladder.json` (adding a mode leaves the other arms numerically
+  identical, so they are not re-run).
+- `analyze2.py`: renders the per-seed table and two-groups EM diagnostics.
+- `results_ladder.json` / `analysis_ladder.txt`: raw records and rendered
+  tables for all seven arms.
