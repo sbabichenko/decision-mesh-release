@@ -2058,7 +2058,17 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             }
             if (kk == 0) {
                 stalls++;
-                if (stalls >= 3) break;
+                // DMESH_STALL_LIMIT: consecutive zero-admission rounds before
+                // the stage ends (default 3, the historical constant).  Under
+                // self-child mode a stalled round is nearly free (no sweeps),
+                // and deep candidates only exist after their parents' rounds,
+                // so a larger budget lets refinement reach full depth.
+                static const int STALL_LIMIT = [] {
+                    const char* e = std::getenv("DMESH_STALL_LIMIT");
+                    const int v = e ? std::atoi(e) : 3;
+                    return v > 0 ? v : 3;
+                }();
+                if (stalls >= STALL_LIMIT) break;
                 if (stalls == 1) { g_diag_phase = "stall_sweeps"; run_height_sweeps(*mesh, 0.003, 25, timing); continue; }
                 // Outer IRLS refresh at the current fit.
                 g_diag_phase = "stall_refresh";
@@ -2258,7 +2268,14 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                                  "[self-child] stage %d round %d: %d deltas "
                                  "committed and frozen\n", stage, rnd, committed);
             }
-            if (rnd % 3 == 2) {   // periodic re-expansion: keep the target honest
+            // DMESH_REFRESH_EVERY: IRLS relinearization cadence in rounds
+            // (default 3, the historical constant).
+            static const int REFRESH_EVERY = [] {
+                const char* e = std::getenv("DMESH_REFRESH_EVERY");
+                const int v = e ? std::atoi(e) : 3;
+                return v > 0 ? v : 3;
+            }();
+            if (rnd % REFRESH_EVERY == REFRESH_EVERY - 1) {   // periodic re-expansion: keep the target honest
                 g_diag_phase = "periodic_refresh";
                 refresh_irls_working_data(*mesh, obs, extra, heldout_split);
                 run_height_sweeps(*mesh, 0.005, 20, timing);
