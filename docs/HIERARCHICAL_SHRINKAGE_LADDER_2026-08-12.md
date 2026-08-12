@@ -161,3 +161,74 @@ principled-EB variance-estimation half of that target on the current
 configuration; `twogroups` is a first, not-yet-paying increment toward the
 spike-and-slab half, and `ebcell` shows the cell hierarchy is already
 subsumed by the MMLE + law-aware posterior for point prediction.
+
+## Scale-exchangeable prior and honest per-pool variance (follow-on)
+
+Two refinements motivated by the observation that K_eff measures *data
+support*, not *signal*: the prior should be exchangeable over signal
+coordinates (scale) and factor K_eff out through the likelihood, and the
+per-pool variance `v_i` that carries all the measurement/pool information
+should be honest. Harness and raw records in
+`experiments/tau_floor_fix_aug12/` (`sweep_scale2.py`, `gen_pointvar.py`,
+`results_scale2.json`, `analysis_scale.txt`).
+
+- **`ebscale`** (`DMESH_RESHRINK_LADDER=ebscale`): one smooth per-scale law
+  `tau(d) = tau0*rho^d` fit by MMLE over all admitted coefficients jointly,
+  used as the hyperprior MEAN that each depth's own MMLE borrows toward; the
+  prior never sees K_eff (it enters only through `v_i` and the `/(1+r)`
+  posterior). `DMESH_EB_FREE` lifts the improvement-only clamp.
+- **Honest `v_i`** via `DMESH_POINT_VAR`: replaces the shipped 4-bucket
+  size-stratified pool variance (an 8.5x step at n0=512) with a smooth
+  log-log interpolation in pool size (`gen_pointvar.py`), applied fleet-wide
+  so it feeds both the gate null and the reshrink `r`. Pure size covariate,
+  no residual conditioning, so no surface-error absorption.
+
+Held-out deviance/pool, June 2026 SMM design, 11 seeds:
+
+| arm             | mean   | sd     | notes                                  |
+|-----------------|--------|--------|----------------------------------------|
+| off             | 1.1545 | 0.039  | no reshrink                            |
+| eb              | 1.1502 | 0.038  | per-depth MMLE (robust default)        |
+| eb_pv           | 1.1488 | 0.040  | eb + honest v_i                        |
+| ebscale         | 1.1508 | 0.036  | scale prior, clamped (tightest spread) |
+| ebscale_free    | 1.1486 | 0.039  | scale prior, clamp lifted              |
+| ebscale_free_pv | 1.1421 | 0.041  | scale prior + honest v_i, clamp lifted |
+
+Reading:
+
+1. **Confirms the exchangeability principle.** Clamped `ebscale` matches
+   `eb` on mean with the tightest spread of any arm (sd 0.036): the scale
+   prior's safe contribution is stability -- it stops the prior chasing
+   per-depth sampling noise. Combined with the earlier result that `ebcell`
+   (K_eff *in* the prior) did not pay, this is direct evidence that K_eff
+   belongs in the likelihood, not the prior.
+2. **Honest `v_i` is a real but modest, not-free win.** De-bucketing the
+   pool variance helps the mean wherever applied (+0.0014 on `eb`, +0.0065
+   on the aggressive scale prior -- more when the prior is thinner and `v_i`
+   carries more weight), confirming the measurement model was costing us. It
+   also lifts sd and can regress a fragile seed (s104: 1.130 -> 1.154), and
+   this is only the crudest de-bucketing; per-pool predictive `E[u^2|data]`
+   is the deeper version, deferred.
+3. **The best mean (1.1421, +0.0125 over off) is aggressive-only.** It
+   requires lifting the improvement-only clamp, which carries a tail (s104,
+   1.156). Diagnosed: the admitted-only selection-corrected MMLE over-reads
+   a pure-spike deep tier as signal (`tau_mle` 6428/13191 at depths 8-9
+   where held-out wants the floor), and only the clamp catches it. This is
+   the signature of fitting `tau` on selected coefficients and re-motivates
+   the full-ensemble spike-and-slab (which would estimate the null fraction
+   pi directly and not need the clamp).
+
+### Recommended default and next direction
+
+`eb` remains the robust default; `ebscale` is available where lower
+cross-seed variance is worth more than the last hundredth of mean, and the
+aggressive `ebscale_free_pv` is the measured ceiling (1.1421) but not yet
+bankable. The clamp-vs-free tension should not be resolved by tuning the
+clamp. The planned next step is an **EB tau multiplier**: replace the hard
+`min(tau_reshrink, tau_loop)` with a continuous factor `c` (per tier)
+applied to the loop tau, estimated by marginal likelihood and regularized
+toward 1, so the data chooses how far to move off the in-loop
+regularization and the s104-style over-read is damped by the pull toward 1
+rather than caught by a kink. That, together with fitting the prior on the
+full candidate ensemble (refusals included) rather than admitted-only,
+is the route to capturing the aggressive gains safely.

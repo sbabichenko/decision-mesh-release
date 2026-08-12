@@ -42,3 +42,14 @@ Findings: `docs/HIERARCHICAL_SHRINKAGE_LADDER_2026-08-12.md`.
   a snapshotted binary. `analysis_ladder.txt` / `analyze2.py` render all
   arms; the recommended arm is `eb` (selection-corrected MMLE tau with a
   hierarchical global-borrow, per-vertex law-aware posterior).
+
+## Scale prior + honest v_i (2026-08-12, follow-on)
+
+- `sweep_scale2.py`: crosses {eb, ebscale} x {stratum v_i, smooth POINT_VAR}
+  over the SMM design, plus the aggressive (DMESH_EB_FREE) ebscale arms.
+- `gen_pointvar.py`: writes `pointvar_smooth_smm.txt`, a smooth log-log
+  interpolation of the 4-stratum pool variance in pool size (de-bucketing),
+  for DMESH_POINT_VAR.
+- `results_scale2.json` / `analysis_scale.txt`: records and rendered table.
+Findings and the recommended default (eb) plus the planned EB tau-multiplier
+next step are in `docs/HIERARCHICAL_SHRINKAGE_LADDER_2026-08-12.md`.
