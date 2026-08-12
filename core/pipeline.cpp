@@ -2492,7 +2492,31 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                              d, rs.size(), old_tau, tau_new[d], bp[bp.size() / 2]);
             }
             mesh->tau_sq = tau_new;
-            mesh->tau_floor_sq = 1e-8;
+            // Keep a real floor on the re-shrunk prior. The honest per-depth
+            // moment legitimately returns tau=0 for any depth whose admitted
+            // raw surpluses do not exceed selection noise (chi <= target(0)
+            // above). With the floor removed, tau=0 welds every coefficient at
+            // that depth: lambda_v = 1/tau -> 1e8, T=0, rendered surplus ~ 0,
+            // overriding the gate that admitted them and pinning even
+            // individually well-supported vertices (the depth-8/9 "soft weld").
+            // Default to the configured floor so a depth with no slab evidence
+            // maps to the weak prior, not an infinite-precision weld;
+            // DMESH_RESHRINK_FLOOR_SD is an explicit opt-in for the intended
+            // sub-floor experiment. (Previously hard-coded to 1e-8, which also
+            // silently overrode DMESH_TAU_FLOOR_LOGIT_SD and, because it was
+            // never restored, leaked past this pass into the final HIER_FIT=2
+            // refit, the reported shrinkage column, and sigma_pooled.)
+            double reshrink_floor_sq = mesh->tau_floor_sq;
+            if (const char* rf = std::getenv("DMESH_RESHRINK_FLOOR_SD")) {
+                const double sd = std::atof(rf);
+                if (std::isfinite(sd) && sd > 0.0) reshrink_floor_sq = 1.0e4 * sd * sd;
+            }
+            mesh->tau_floor_sq = reshrink_floor_sq;
+            std::fprintf(stderr,
+                "[reshrink] prior floor held at sd=%.4g logit (lambda_v <= %.4g); "
+                "override with DMESH_RESHRINK_FLOOR_SD\n",
+                std::sqrt(reshrink_floor_sq) / kHeightScale,
+                reshrink_floor_sq > 0.0 ? 1.0 / reshrink_floor_sq : 0.0);
             run_height_sweeps(*mesh, 0.0005, 120, timing);
             std::map<int, std::vector<double>> after_prof;
             for (Vertex* v : mesh->vertices)
