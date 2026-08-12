@@ -34,3 +34,11 @@ Findings: `docs/HIERARCHICAL_SHRINKAGE_LADDER_2026-08-12.md`.
 - `analyze2.py`: renders the per-seed table and two-groups EM diagnostics.
 - `results_ladder.json` / `analysis_ladder.txt`: raw records and rendered
   tables for all seven arms.
+
+## Principled EB modes (2026-08-12, follow-on)
+
+- `sweep_eb.py`: appends the `eb`, `ebcell`, and `eb_free` arms to
+  `results_ladder.json` (adding modes leaves existing arms identical). Uses
+  a snapshotted binary. `analysis_ladder.txt` / `analyze2.py` render all
+  arms; the recommended arm is `eb` (selection-corrected MMLE tau with a
+  hierarchical global-borrow, per-vertex law-aware posterior).

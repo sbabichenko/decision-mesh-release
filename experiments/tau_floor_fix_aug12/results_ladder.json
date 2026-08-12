@@ -5477,5 +5477,2525 @@
    }
   },
   "admitted": 126
+ },
+ {
+  "case": "smm_s7",
+  "arm": "eb",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 2.5,
+  "heldout_dev": 1.184,
+  "x2_info": 0.7576,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2041.2 -> 2041.2  median|surplus| 51.83",
+   "[reshrink] depth  5: m=  32 tau 2413.9 -> 2413.9  median|surplus| 40.99",
+   "[reshrink] depth  6: m=  46 tau 10971.0 -> 2671.7  median|surplus| 47.31",
+   "[reshrink] depth  7: m=  43 tau 5871.0 -> 5871.0  median|surplus| 56.85",
+   "[laddereb] depth  4: m=  21 tau_mle=16384.0 tau_global=6890.4 tau*=2041.2",
+   "[laddereb] depth  5: m=  32 tau_mle=8192.0 tau_global=6890.4 tau*=2413.9",
+   "[laddereb] depth  6: m=  46 tau_mle=2048.0 tau_global=6890.4 tau*=2765.4",
+   "[laddereb] depth  7: m=  43 tau_mle=5825.1 tau_global=6890.4 tau*=5871.0",
+   "[reshrink] depth  4: median|surplus| after 45.26",
+   "[reshrink] depth  5: median|surplus| after 35.98",
+   "[reshrink] depth  6: median|surplus| after 29.55",
+   "[reshrink] depth  7: median|surplus| after 56.28"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.001256124792
+   },
+   "5": {
+    "n": 32,
+    "lam_max": 0.001016507256
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.001612627965
+   },
+   "7": {
+    "n": 43,
+    "lam_max": 0.0006210476655
+   }
+  },
+  "admitted": 142
+ },
+ {
+  "case": "smm_s7",
+  "arm": "ebcell",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 2.4,
+  "heldout_dev": 1.186,
+  "x2_info": 0.7531,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2041.2 -> 2041.2  median|surplus| 51.83",
+   "[reshrink] depth  5: m=  32 tau 2413.9 -> 2413.9  median|surplus| 40.99",
+   "[reshrink] depth  6: m=  46 tau 10971.0 -> 2671.7  median|surplus| 47.31",
+   "[reshrink] depth  7: m=  43 tau 5871.0 -> 5871.0  median|surplus| 56.85",
+   "[ladderebcell] depth  4: tau_d=2041.2 | lo m=8 tau=2041.2 | hi m=13 tau=2041.2",
+   "[ladderebcell] depth  5: tau_d=2413.9 | lo m=14 tau=2413.9 | hi m=18 tau=2413.9",
+   "[ladderebcell] depth  6: tau_d=2765.4 | lo m=27 tau=1027.1 | hi m=19 tau=4891.6",
+   "[ladderebcell] depth  7: tau_d=5871.0 | lo m=26 tau=4513.7 | hi m=17 tau=5871.0",
+   "[reshrink] depth  4: median|surplus| after 45.43",
+   "[reshrink] depth  5: median|surplus| after 35.32",
+   "[reshrink] depth  6: median|surplus| after 19.98",
+   "[reshrink] depth  7: median|surplus| after 51.77"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.001256124792
+   },
+   "5": {
+    "n": 32,
+    "lam_max": 0.001016507256
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.004342048276
+   },
+   "7": {
+    "n": 43,
+    "lam_max": 0.0008078121789
+   }
+  },
+  "admitted": 142
+ },
+ {
+  "case": "smm_s7",
+  "arm": "eb_free",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 2.4,
+  "heldout_dev": 1.18,
+  "x2_info": 0.7605,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2041.2 -> 2041.2  median|surplus| 51.83",
+   "[reshrink] depth  5: m=  32 tau 2413.9 -> 2413.9  median|surplus| 40.99",
+   "[reshrink] depth  6: m=  46 tau 10971.0 -> 2671.7  median|surplus| 47.31",
+   "[reshrink] depth  7: m=  43 tau 5871.0 -> 5871.0  median|surplus| 56.85",
+   "[laddereb] depth  4: m=  21 tau_mle=16384.0 tau_global=6890.4 tau*=13765.1",
+   "[laddereb] depth  5: m=  32 tau_mle=8192.0 tau_global=6890.4 tau*=7931.7",
+   "[laddereb] depth  6: m=  46 tau_mle=2048.0 tau_global=6890.4 tau*=2765.4",
+   "[laddereb] depth  7: m=  43 tau_mle=5825.1 tau_global=6890.4 tau*=5992.2",
+   "[reshrink] depth  4: median|surplus| after 74.45",
+   "[reshrink] depth  5: median|surplus| after 45.10",
+   "[reshrink] depth  6: median|surplus| after 28.14",
+   "[reshrink] depth  7: median|surplus| after 53.78"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0004435285453
+   },
+   "5": {
+    "n": 32,
+    "lam_max": 0.0003093643192
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.001612627965
+   },
+   "7": {
+    "n": 43,
+    "lam_max": 0.0006084882559
+   }
+  },
+  "admitted": 142
+ },
+ {
+  "case": "smm_s101",
+  "arm": "eb",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 2.6,
+  "heldout_dev": 1.101,
+  "x2_info": 0.6153,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 577.6 -> 577.6  median|surplus| 33.38",
+   "[reshrink] depth  5: m=  34 tau 4455.9 -> 4455.9  median|surplus| 49.26",
+   "[reshrink] depth  6: m=  44 tau 2600.7 -> 1259.6  median|surplus| 34.36",
+   "[reshrink] depth  7: m=  28 tau 6013.7 -> 2045.5  median|surplus| 59.97",
+   "[reshrink] depth  8: m=   7 tau 2228.0 -> 2228.0  median|surplus| 30.63",
+   "[laddereb] depth  4: m=  20 tau_mle=14451.0 tau_global=6273.9 tau*=577.6",
+   "[laddereb] depth  5: m=  34 tau_mle=16384.0 tau_global=6273.9 tau*=4455.9",
+   "[laddereb] depth  6: m=  44 tau_mle=1024.0 tau_global=6273.9 tau*=1831.7",
+   "[laddereb] depth  7: m=  28 tau_mle=780.9 tau_global=6273.9 tau*=2001.6",
+   "[laddereb] depth  8: m=   7 tau_mle=4096.0 tau_global=6273.9 tau*=2228.0",
+   "[reshrink] depth  4: median|surplus| after 27.32",
+   "[reshrink] depth  5: median|surplus| after 60.12",
+   "[reshrink] depth  6: median|surplus| after 30.27",
+   "[reshrink] depth  7: median|surplus| after 32.52",
+   "[reshrink] depth  8: median|surplus| after 24.06"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.004773017297
+   },
+   "5": {
+    "n": 35,
+    "lam_max": 0.000939961614
+   },
+   "6": {
+    "n": 44,
+    "lam_max": 0.00271669689
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.00188405433
+   },
+   "8": {
+    "n": 7,
+    "lam_max": 0.0007843889327
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s101",
+  "arm": "ebcell",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 2.5,
+  "heldout_dev": 1.103,
+  "x2_info": 0.6153,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 577.6 -> 577.6  median|surplus| 33.38",
+   "[reshrink] depth  5: m=  34 tau 4455.9 -> 4455.9  median|surplus| 49.26",
+   "[reshrink] depth  6: m=  44 tau 2600.7 -> 1259.6  median|surplus| 34.36",
+   "[reshrink] depth  7: m=  28 tau 6013.7 -> 2045.5  median|surplus| 59.97",
+   "[reshrink] depth  8: m=   7 tau 2228.0 -> 2228.0  median|surplus| 30.63",
+   "[ladderebcell] depth  4: tau_d=577.6 | lo m=10 tau=577.6 | hi m=10 tau=577.6",
+   "[ladderebcell] depth  5: tau_d=4455.9 | lo m=18 tau=4455.9 | hi m=16 tau=2850.6",
+   "[ladderebcell] depth  6: tau_d=1831.7 | lo m=26 tau=528.9 | hi m=18 tau=1981.4",
+   "[ladderebcell] depth  7: tau_d=2001.6 | lo m=19 tau=1288.8 | hi m=9 tau=941.9",
+   "[ladderebcell] depth  8: tau_d=2228.0 | lo m=4 tau=2228.0 | hi m=3 tau=1620.4",
+   "[reshrink] depth  4: median|surplus| after 28.72",
+   "[reshrink] depth  5: median|surplus| after 52.41",
+   "[reshrink] depth  6: median|surplus| after 22.50",
+   "[reshrink] depth  7: median|surplus| after 21.87",
+   "[reshrink] depth  8: median|surplus| after 31.75"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.004773017297
+   },
+   "5": {
+    "n": 35,
+    "lam_max": 0.000939961614
+   },
+   "6": {
+    "n": 44,
+    "lam_max": 0.009409031555
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.002926092928
+   },
+   "8": {
+    "n": 7,
+    "lam_max": 0.0007843889327
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s101",
+  "arm": "eb_free",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 2.7,
+  "heldout_dev": 1.094,
+  "x2_info": 0.6175,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 577.6 -> 577.6  median|surplus| 33.38",
+   "[reshrink] depth  5: m=  34 tau 4455.9 -> 4455.9  median|surplus| 49.26",
+   "[reshrink] depth  6: m=  44 tau 2600.7 -> 1259.6  median|surplus| 34.36",
+   "[reshrink] depth  7: m=  28 tau 6013.7 -> 2045.5  median|surplus| 59.97",
+   "[reshrink] depth  8: m=   7 tau 2228.0 -> 2228.0  median|surplus| 30.63",
+   "[laddereb] depth  4: m=  20 tau_mle=14451.0 tau_global=6273.9 tau*=12114.6",
+   "[laddereb] depth  5: m=  34 tau_mle=16384.0 tau_global=6273.9 tau*=14458.3",
+   "[laddereb] depth  6: m=  44 tau_mle=1024.0 tau_global=6273.9 tau*=1831.7",
+   "[laddereb] depth  7: m=  28 tau_mle=780.9 tau_global=6273.9 tau*=2001.6",
+   "[laddereb] depth  8: m=   7 tau_mle=4096.0 tau_global=6273.9 tau*=5257.5",
+   "[reshrink] depth  4: median|surplus| after 64.37",
+   "[reshrink] depth  5: median|surplus| after 80.44",
+   "[reshrink] depth  6: median|surplus| after 27.80",
+   "[reshrink] depth  7: median|surplus| after 30.56",
+   "[reshrink] depth  8: median|surplus| after 32.81"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.0008150559703
+   },
+   "5": {
+    "n": 35,
+    "lam_max": 0.0003424699355
+   },
+   "6": {
+    "n": 44,
+    "lam_max": 0.00271669689
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.00188405433
+   },
+   "8": {
+    "n": 7,
+    "lam_max": 0.0007843889327
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s102",
+  "arm": "eb",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.5,
+  "heldout_dev": 1.108,
+  "x2_info": 0.6149,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1099.5 -> 1099.5  median|surplus| 45.88",
+   "[reshrink] depth  5: m=  34 tau 2419.8 -> 2419.8  median|surplus| 48.54",
+   "[reshrink] depth  6: m=  46 tau 4694.1 -> 2311.9  median|surplus| 49.37",
+   "[reshrink] depth  7: m=  33 tau 4785.4 -> 1218.6  median|surplus| 69.85",
+   "[reshrink] depth  8: m=   8 tau 23.7 -> 15.6  median|surplus| 4.42",
+   "[reshrink] depth  9: m=   5 tau 0.2 -> 0.0  median|surplus| 0.04",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.08",
+   "[reshrink] depth 11: m=   1 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[laddereb] depth  4: m=  19 tau_mle=11891.7 tau_global=3619.4 tau*=1099.5",
+   "[laddereb] depth  5: m=  34 tau_mle=5977.6 tau_global=3619.4 tau*=2419.8",
+   "[laddereb] depth  6: m=  46 tau_mle=2048.0 tau_global=3619.4 tau*=2280.8",
+   "[laddereb] depth  7: m=  33 tau_mle=1006.8 tau_global=3619.4 tau*=1516.6",
+   "[laddereb] depth  8: m=   8 tau_mle=0.0 tau_global=3619.4 tau*=23.7",
+   "[laddereb] depth  9: m=   5 tau_mle=0.0 tau_global=3619.4 tau*=0.2",
+   "[laddereb] depth 10: m=   3 tau_mle=4096.0 tau_global=3619.4 tau*=0.2",
+   "[laddereb] depth 11: m=   1 tau_mle=0.0 tau_global=3619.4 tau*=0.2",
+   "[reshrink] depth  4: median|surplus| after 32.73",
+   "[reshrink] depth  5: median|surplus| after 48.07",
+   "[reshrink] depth  6: median|surplus| after 32.57",
+   "[reshrink] depth  7: median|surplus| after 35.66",
+   "[reshrink] depth  8: median|surplus| after 3.10",
+   "[reshrink] depth  9: median|surplus| after 0.04",
+   "[reshrink] depth 10: median|surplus| after 0.08",
+   "[reshrink] depth 11: median|surplus| after 0.02"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.00302023875
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0009297007085
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.001708364363
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 0.002345142658
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 0.07942379733
+   },
+   "9": {
+    "n": 5,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 150
+ },
+ {
+  "case": "smm_s102",
+  "arm": "ebcell",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.5,
+  "heldout_dev": 1.113,
+  "x2_info": 0.6142,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1099.5 -> 1099.5  median|surplus| 45.88",
+   "[reshrink] depth  5: m=  34 tau 2419.8 -> 2419.8  median|surplus| 48.54",
+   "[reshrink] depth  6: m=  46 tau 4694.1 -> 2311.9  median|surplus| 49.37",
+   "[reshrink] depth  7: m=  33 tau 4785.4 -> 1218.6  median|surplus| 69.85",
+   "[reshrink] depth  8: m=   8 tau 23.7 -> 15.6  median|surplus| 4.42",
+   "[reshrink] depth  9: m=   5 tau 0.2 -> 0.0  median|surplus| 0.04",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.08",
+   "[reshrink] depth 11: m=   1 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[ladderebcell] depth  4: tau_d=1099.5 | lo m=9 tau=1099.5 | hi m=10 tau=1099.5",
+   "[ladderebcell] depth  5: tau_d=2419.8 | lo m=16 tau=2419.8 | hi m=18 tau=2419.8",
+   "[ladderebcell] depth  6: tau_d=2280.8 | lo m=28 tau=3200.7 | hi m=18 tau=1895.0",
+   "[ladderebcell] depth  7: tau_d=1516.6 | lo m=20 tau=433.3 | hi m=13 tau=1845.6",
+   "[ladderebcell] depth  8: tau_d=23.7 | lo m=3 tau=17.2 | hi m=5 tau=14.6",
+   "[ladderebcell] depth  9: tau_d=0.2 | lo m=2 tau=0.2 | hi m=3 tau=0.2",
+   "[ladderebcell] depth 10: tau_d=0.2 | lo m=2 tau=0.2 | hi m=1 tau=0.2",
+   "[ladderebcell] depth 11: tau_d=0.2 | lo m=1 tau=0.2 | hi m=0 tau=0.2",
+   "[reshrink] depth  4: median|surplus| after 33.32",
+   "[reshrink] depth  5: median|surplus| after 50.82",
+   "[reshrink] depth  6: median|surplus| after 35.47",
+   "[reshrink] depth  7: median|surplus| after 24.40",
+   "[reshrink] depth  8: median|surplus| after 2.43",
+   "[reshrink] depth  9: median|surplus| after 0.04",
+   "[reshrink] depth 10: median|surplus| after 0.06",
+   "[reshrink] depth 11: median|surplus| after 0.02"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.00302023875
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0009297007085
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.001217385626
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 0.008207999303
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 0.1135114754
+   },
+   "9": {
+    "n": 5,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 150
+ },
+ {
+  "case": "smm_s102",
+  "arm": "eb_free",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.4,
+  "heldout_dev": 1.101,
+  "x2_info": 0.6329,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1099.5 -> 1099.5  median|surplus| 45.88",
+   "[reshrink] depth  5: m=  34 tau 2419.8 -> 2419.8  median|surplus| 48.54",
+   "[reshrink] depth  6: m=  46 tau 4694.1 -> 2311.9  median|surplus| 49.37",
+   "[reshrink] depth  7: m=  33 tau 4785.4 -> 1218.6  median|surplus| 69.85",
+   "[reshrink] depth  8: m=   8 tau 23.7 -> 15.6  median|surplus| 4.42",
+   "[reshrink] depth  9: m=   5 tau 0.2 -> 0.0  median|surplus| 0.04",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.08",
+   "[reshrink] depth 11: m=   1 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[laddereb] depth  4: m=  19 tau_mle=11891.7 tau_global=3619.4 tau*=9440.6",
+   "[laddereb] depth  5: m=  34 tau_mle=5977.6 tau_global=3619.4 tau*=5528.4",
+   "[laddereb] depth  6: m=  46 tau_mle=2048.0 tau_global=3619.4 tau*=2280.8",
+   "[laddereb] depth  7: m=  33 tau_mle=1006.8 tau_global=3619.4 tau*=1516.6",
+   "[laddereb] depth  8: m=   8 tau_mle=0.0 tau_global=3619.4 tau*=1809.7",
+   "[laddereb] depth  9: m=   5 tau_mle=0.0 tau_global=3619.4 tau*=2227.3",
+   "[laddereb] depth 10: m=   3 tau_mle=4096.0 tau_global=3619.4 tau*=3749.4",
+   "[laddereb] depth 11: m=   1 tau_mle=0.0 tau_global=3619.4 tau*=3217.2",
+   "[reshrink] depth  4: median|surplus| after 58.95",
+   "[reshrink] depth  5: median|surplus| after 58.53",
+   "[reshrink] depth  6: median|surplus| after 33.24",
+   "[reshrink] depth  7: median|surplus| after 35.51",
+   "[reshrink] depth  8: median|surplus| after 32.99",
+   "[reshrink] depth  9: median|surplus| after 42.69",
+   "[reshrink] depth 10: median|surplus| after 84.62",
+   "[reshrink] depth 11: median|surplus| after 26.47"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.000485416022
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0004069271156
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.001708364363
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 0.002345142658
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 0.001039387614
+   },
+   "9": {
+    "n": 5,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 150
+ },
+ {
+  "case": "smm_s103",
+  "arm": "eb",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 2.3,
+  "heldout_dev": 1.19,
+  "x2_info": 0.6998,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1635.5 -> 1635.5  median|surplus| 53.61",
+   "[reshrink] depth  5: m=  33 tau 4237.1 -> 4237.1  median|surplus| 46.67",
+   "[reshrink] depth  6: m=  40 tau 3253.8 -> 0.0  median|surplus| 43.33",
+   "[reshrink] depth  7: m=  28 tau 8666.6 -> 4720.9  median|surplus| 69.69",
+   "[reshrink] depth  8: m=   2 tau 8666.6 -> 1180.2  median|surplus| 67.06",
+   "[laddereb] depth  4: m=  19 tau_mle=11468.8 tau_global=3488.1 tau*=1635.5",
+   "[laddereb] depth  5: m=  33 tau_mle=6059.6 tau_global=3488.1 tau*=4237.1",
+   "[laddereb] depth  6: m=  40 tau_mle=64.0 tau_global=3488.1 tau*=634.7",
+   "[laddereb] depth  7: m=  28 tau_mle=2048.0 tau_global=3488.1 tau*=2368.0",
+   "[laddereb] depth  8: m=   2 tau_mle=0.0 tau_global=3488.1 tau*=2790.5",
+   "[reshrink] depth  4: median|surplus| after 37.34",
+   "[reshrink] depth  5: median|surplus| after 49.67",
+   "[reshrink] depth  6: median|surplus| after 13.96",
+   "[reshrink] depth  7: median|surplus| after 31.43",
+   "[reshrink] depth  8: median|surplus| after 27.35"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.00178205171
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0005367129848
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.004611817489
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.002300646227
+   },
+   "8": {
+    "n": 2,
+    "lam_max": 0.0007756953994
+   }
+  },
+  "admitted": 122
+ },
+ {
+  "case": "smm_s103",
+  "arm": "ebcell",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 2.4,
+  "heldout_dev": 1.192,
+  "x2_info": 0.6954,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1635.5 -> 1635.5  median|surplus| 53.61",
+   "[reshrink] depth  5: m=  33 tau 4237.1 -> 4237.1  median|surplus| 46.67",
+   "[reshrink] depth  6: m=  40 tau 3253.8 -> 0.0  median|surplus| 43.33",
+   "[reshrink] depth  7: m=  28 tau 8666.6 -> 4720.9  median|surplus| 69.69",
+   "[reshrink] depth  8: m=   2 tau 8666.6 -> 1180.2  median|surplus| 67.06",
+   "[ladderebcell] depth  4: tau_d=1635.5 | lo m=7 tau=872.3 | hi m=12 tau=1635.5",
+   "[ladderebcell] depth  5: tau_d=4237.1 | lo m=16 tau=4237.1 | hi m=17 tau=2748.5",
+   "[ladderebcell] depth  6: tau_d=634.7 | lo m=26 tau=247.2 | hi m=14 tau=230.8",
+   "[ladderebcell] depth  7: tau_d=2368.0 | lo m=20 tau=3419.9 | hi m=8 tau=1692.3",
+   "[ladderebcell] depth  8: tau_d=2790.5 | lo m=1 tau=2480.4 | hi m=1 tau=2480.4",
+   "[reshrink] depth  4: median|surplus| after 32.72",
+   "[reshrink] depth  5: median|surplus| after 43.63",
+   "[reshrink] depth  6: median|surplus| after 5.90",
+   "[reshrink] depth  7: median|surplus| after 33.71",
+   "[reshrink] depth  8: median|surplus| after 25.87"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.003341346956
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0006120555726
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.01183981456
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.001593017668
+   },
+   "8": {
+    "n": 2,
+    "lam_max": 0.0007756953994
+   }
+  },
+  "admitted": 122
+ },
+ {
+  "case": "smm_s103",
+  "arm": "eb_free",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 2.4,
+  "heldout_dev": 1.19,
+  "x2_info": 0.7028,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1635.5 -> 1635.5  median|surplus| 53.61",
+   "[reshrink] depth  5: m=  33 tau 4237.1 -> 4237.1  median|surplus| 46.67",
+   "[reshrink] depth  6: m=  40 tau 3253.8 -> 0.0  median|surplus| 43.33",
+   "[reshrink] depth  7: m=  28 tau 8666.6 -> 4720.9  median|surplus| 69.69",
+   "[reshrink] depth  8: m=   2 tau 8666.6 -> 1180.2  median|surplus| 67.06",
+   "[laddereb] depth  4: m=  19 tau_mle=11468.8 tau_global=3488.1 tau*=9104.1",
+   "[laddereb] depth  5: m=  33 tau_mle=6059.6 tau_global=3488.1 tau*=5557.8",
+   "[laddereb] depth  6: m=  40 tau_mle=64.0 tau_global=3488.1 tau*=634.7",
+   "[laddereb] depth  7: m=  28 tau_mle=2048.0 tau_global=3488.1 tau*=2368.0",
+   "[laddereb] depth  8: m=   2 tau_mle=0.0 tau_global=3488.1 tau*=2790.5",
+   "[reshrink] depth  4: median|surplus| after 63.65",
+   "[reshrink] depth  5: median|surplus| after 56.66",
+   "[reshrink] depth  6: median|surplus| after 15.99",
+   "[reshrink] depth  7: median|surplus| after 30.41",
+   "[reshrink] depth  8: median|surplus| after 27.27"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0004316434484
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0004091738581
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.004611817489
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.002300646227
+   },
+   "8": {
+    "n": 2,
+    "lam_max": 0.0007756953994
+   }
+  },
+  "admitted": 122
+ },
+ {
+  "case": "smm_s104",
+  "arm": "eb",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 4.5,
+  "heldout_dev": 1.13,
+  "x2_info": 0.6545,
+  "diag": [
+   "[reshrink] depth  4: m=  25 tau 1095.0 -> 1095.0  median|surplus| 34.13",
+   "[reshrink] depth  5: m=  37 tau 3025.8 -> 3025.8  median|surplus| 52.56",
+   "[reshrink] depth  6: m=  53 tau 7627.0 -> 7627.0  median|surplus| 55.27",
+   "[reshrink] depth  7: m=  51 tau 8568.9 -> 8568.9  median|surplus| 69.66",
+   "[reshrink] depth  8: m=  23 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth  9: m=  16 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   2 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[laddereb] depth  4: m=  25 tau_mle=8192.0 tau_global=7309.0 tau*=1095.0",
+   "[laddereb] depth  5: m=  37 tau_mle=4096.0 tau_global=7309.0 tau*=3025.8",
+   "[laddereb] depth  6: m=  53 tau_mle=4096.0 tau_global=7309.0 tau*=4517.4",
+   "[laddereb] depth  7: m=  51 tau_mle=8192.0 tau_global=7309.0 tau*=8072.3",
+   "[laddereb] depth  8: m=  23 tau_mle=6428.7 tau_global=7309.0 tau*=0.2",
+   "[laddereb] depth  9: m=  16 tau_mle=13191.1 tau_global=7309.0 tau*=0.2",
+   "[laddereb] depth 10: m=   2 tau_mle=0.0 tau_global=7309.0 tau*=0.2",
+   "[reshrink] depth  4: median|surplus| after 28.51",
+   "[reshrink] depth  5: median|surplus| after 50.51",
+   "[reshrink] depth  6: median|surplus| after 43.21",
+   "[reshrink] depth  7: median|surplus| after 63.71",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 25,
+    "lam_max": 0.001883640762
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.00141398188
+   },
+   "6": {
+    "n": 53,
+    "lam_max": 0.0007007849126
+   },
+   "7": {
+    "n": 51,
+    "lam_max": 0.0003866721639
+   },
+   "8": {
+    "n": 23,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 16,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 2,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 207
+ },
+ {
+  "case": "smm_s104",
+  "arm": "ebcell",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 4.4,
+  "heldout_dev": 1.129,
+  "x2_info": 0.6543,
+  "diag": [
+   "[reshrink] depth  4: m=  25 tau 1095.0 -> 1095.0  median|surplus| 34.13",
+   "[reshrink] depth  5: m=  37 tau 3025.8 -> 3025.8  median|surplus| 52.56",
+   "[reshrink] depth  6: m=  53 tau 7627.0 -> 7627.0  median|surplus| 55.27",
+   "[reshrink] depth  7: m=  51 tau 8568.9 -> 8568.9  median|surplus| 69.66",
+   "[reshrink] depth  8: m=  23 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth  9: m=  16 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   2 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[ladderebcell] depth  4: tau_d=1095.0 | lo m=12 tau=1095.0 | hi m=13 tau=1095.0",
+   "[ladderebcell] depth  5: tau_d=3025.8 | lo m=15 tau=3025.8 | hi m=22 tau=3025.8",
+   "[ladderebcell] depth  6: tau_d=4517.4 | lo m=31 tau=4182.4 | hi m=22 tau=5389.8",
+   "[ladderebcell] depth  7: tau_d=8072.3 | lo m=29 tau=8568.9 | hi m=22 tau=5115.8",
+   "[ladderebcell] depth  8: tau_d=0.2 | lo m=7 tau=0.2 | hi m=16 tau=0.2",
+   "[ladderebcell] depth  9: tau_d=0.2 | lo m=5 tau=0.2 | hi m=11 tau=0.2",
+   "[ladderebcell] depth 10: tau_d=0.2 | lo m=0 tau=0.2 | hi m=2 tau=0.2",
+   "[reshrink] depth  4: median|surplus| after 28.63",
+   "[reshrink] depth  5: median|surplus| after 50.53",
+   "[reshrink] depth  6: median|surplus| after 46.44",
+   "[reshrink] depth  7: median|surplus| after 58.27",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 25,
+    "lam_max": 0.001883640762
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.00141398188
+   },
+   "6": {
+    "n": 53,
+    "lam_max": 0.0007569061237
+   },
+   "7": {
+    "n": 51,
+    "lam_max": 0.0003642630397
+   },
+   "8": {
+    "n": 23,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 16,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 2,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 207
+ },
+ {
+  "case": "smm_s104",
+  "arm": "eb_free",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 3.7,
+  "heldout_dev": 1.179,
+  "x2_info": 0.6808,
+  "diag": [
+   "[reshrink] depth  4: m=  25 tau 1095.0 -> 1095.0  median|surplus| 34.13",
+   "[reshrink] depth  5: m=  37 tau 3025.8 -> 3025.8  median|surplus| 52.56",
+   "[reshrink] depth  6: m=  53 tau 7627.0 -> 7627.0  median|surplus| 55.27",
+   "[reshrink] depth  7: m=  51 tau 8568.9 -> 8568.9  median|surplus| 69.66",
+   "[reshrink] depth  8: m=  23 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth  9: m=  16 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   2 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[laddereb] depth  4: m=  25 tau_mle=8192.0 tau_global=7309.0 tau*=7977.9",
+   "[laddereb] depth  5: m=  37 tau_mle=4096.0 tau_global=7309.0 tau*=4667.2",
+   "[laddereb] depth  6: m=  53 tau_mle=4096.0 tau_global=7309.0 tau*=4517.4",
+   "[laddereb] depth  7: m=  51 tau_mle=8192.0 tau_global=7309.0 tau*=8072.3",
+   "[laddereb] depth  8: m=  23 tau_mle=6428.7 tau_global=7309.0 tau*=6655.9",
+   "[laddereb] depth  9: m=  16 tau_mle=13191.1 tau_global=7309.0 tau*=11230.4",
+   "[laddereb] depth 10: m=   2 tau_mle=0.0 tau_global=7309.0 tau*=5847.2",
+   "[reshrink] depth  4: median|surplus| after 80.44",
+   "[reshrink] depth  5: median|surplus| after 43.13",
+   "[reshrink] depth  6: median|surplus| after 33.96",
+   "[reshrink] depth  7: median|surplus| after 59.70",
+   "[reshrink] depth  8: median|surplus| after 28.71",
+   "[reshrink] depth  9: median|surplus| after 18.17",
+   "[reshrink] depth 10: median|surplus| after 50.47"
+  ],
+  "ladder": {
+   "4": {
+    "n": 25,
+    "lam_max": 0.0005328162126
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0009166908138
+   },
+   "6": {
+    "n": 53,
+    "lam_max": 0.0007007849126
+   },
+   "7": {
+    "n": 51,
+    "lam_max": 0.0003866721639
+   },
+   "8": {
+    "n": 23,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 16,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 2,
+    "lam_max": 0.0001785274211
+   }
+  },
+  "admitted": 207
+ },
+ {
+  "case": "smm_s105",
+  "arm": "eb",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 3.6,
+  "heldout_dev": 1.179,
+  "x2_info": 0.73,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2285.3 -> 2285.3  median|surplus| 43.40",
+   "[reshrink] depth  5: m=  35 tau 1814.5 -> 1814.5  median|surplus| 22.88",
+   "[reshrink] depth  6: m=  43 tau 14088.6 -> 2661.3  median|surplus| 59.58",
+   "[reshrink] depth  7: m=  32 tau 8887.3 -> 8887.3  median|surplus| 112.69",
+   "[reshrink] depth  8: m=   6 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[reshrink] depth  9: m=   1 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[laddereb] depth  4: m=  21 tau_mle=11392.2 tau_global=5859.8 tau*=2285.3",
+   "[laddereb] depth  5: m=  35 tau_mle=2048.0 tau_global=5859.8 tau*=1814.5",
+   "[laddereb] depth  6: m=  43 tau_mle=2048.0 tau_global=5859.8 tau*=2645.9",
+   "[laddereb] depth  7: m=  32 tau_mle=12757.1 tau_global=5859.8 tau*=8887.3",
+   "[laddereb] depth  8: m=   6 tau_mle=2048.0 tau_global=5859.8 tau*=0.2",
+   "[laddereb] depth  9: m=   1 tau_mle=0.0 tau_global=5859.8 tau*=0.2",
+   "[reshrink] depth  4: median|surplus| after 44.20",
+   "[reshrink] depth  5: median|surplus| after 29.33",
+   "[reshrink] depth  6: median|surplus| after 32.75",
+   "[reshrink] depth  7: median|surplus| after 110.62",
+   "[reshrink] depth  8: median|surplus| after 0.01",
+   "[reshrink] depth  9: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.001728305228
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.001071604082
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.001112582741
+   },
+   "7": {
+    "n": 32,
+    "lam_max": 0.0003851694209
+   },
+   "8": {
+    "n": 6,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 139
+ },
+ {
+  "case": "smm_s105",
+  "arm": "ebcell",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 3.6,
+  "heldout_dev": 1.181,
+  "x2_info": 0.7318,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2285.3 -> 2285.3  median|surplus| 43.40",
+   "[reshrink] depth  5: m=  35 tau 1814.5 -> 1814.5  median|surplus| 22.88",
+   "[reshrink] depth  6: m=  43 tau 14088.6 -> 2661.3  median|surplus| 59.58",
+   "[reshrink] depth  7: m=  32 tau 8887.3 -> 8887.3  median|surplus| 112.69",
+   "[reshrink] depth  8: m=   6 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[reshrink] depth  9: m=   1 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[ladderebcell] depth  4: tau_d=2285.3 | lo m=11 tau=2285.3 | hi m=10 tau=2285.3",
+   "[ladderebcell] depth  5: tau_d=1814.5 | lo m=15 tau=1814.5 | hi m=20 tau=1619.2",
+   "[ladderebcell] depth  6: tau_d=2645.9 | lo m=27 tau=1220.1 | hi m=16 tau=5056.8",
+   "[ladderebcell] depth  7: tau_d=8887.3 | lo m=21 tau=8887.3 | hi m=11 tau=7802.5",
+   "[ladderebcell] depth  8: tau_d=0.2 | lo m=2 tau=0.2 | hi m=4 tau=0.2",
+   "[ladderebcell] depth  9: tau_d=0.2 | lo m=1 tau=0.2 | hi m=0 tau=0.2",
+   "[reshrink] depth  4: median|surplus| after 45.28",
+   "[reshrink] depth  5: median|surplus| after 26.15",
+   "[reshrink] depth  6: median|surplus| after 25.27",
+   "[reshrink] depth  7: median|surplus| after 108.28",
+   "[reshrink] depth  8: median|surplus| after 0.01",
+   "[reshrink] depth  9: median|surplus| after 0.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.001728305228
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.001071604082
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.002412683015
+   },
+   "7": {
+    "n": 32,
+    "lam_max": 0.0003851694209
+   },
+   "8": {
+    "n": 6,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 139
+ },
+ {
+  "case": "smm_s105",
+  "arm": "eb_free",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 3.2,
+  "heldout_dev": 1.188,
+  "x2_info": 0.7489,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 2285.3 -> 2285.3  median|surplus| 43.40",
+   "[reshrink] depth  5: m=  35 tau 1814.5 -> 1814.5  median|surplus| 22.88",
+   "[reshrink] depth  6: m=  43 tau 14088.6 -> 2661.3  median|surplus| 59.58",
+   "[reshrink] depth  7: m=  32 tau 8887.3 -> 8887.3  median|surplus| 112.69",
+   "[reshrink] depth  8: m=   6 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[reshrink] depth  9: m=   1 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[laddereb] depth  4: m=  21 tau_mle=11392.2 tau_global=5859.8 tau*=9866.0",
+   "[laddereb] depth  5: m=  35 tau_mle=2048.0 tau_global=5859.8 tau*=2757.2",
+   "[laddereb] depth  6: m=  43 tau_mle=2048.0 tau_global=5859.8 tau*=2645.9",
+   "[laddereb] depth  7: m=  32 tau_mle=12757.1 tau_global=5859.8 tau*=11377.6",
+   "[laddereb] depth  8: m=   6 tau_mle=2048.0 tau_global=5859.8 tau*=4226.2",
+   "[laddereb] depth  9: m=   1 tau_mle=0.0 tau_global=5859.8 tau*=5208.7",
+   "[reshrink] depth  4: median|surplus| after 63.85",
+   "[reshrink] depth  5: median|surplus| after 27.24",
+   "[reshrink] depth  6: median|surplus| after 31.34",
+   "[reshrink] depth  7: median|surplus| after 116.50",
+   "[reshrink] depth  8: median|surplus| after 46.93",
+   "[reshrink] depth  9: median|surplus| after 59.70"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0004919448328
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.0007052430148
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.001112582741
+   },
+   "7": {
+    "n": 32,
+    "lam_max": 0.0003008625275
+   },
+   "8": {
+    "n": 6,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 1,
+    "lam_max": 0.0002202196657
+   }
+  },
+  "admitted": 139
+ },
+ {
+  "case": "smm_s106",
+  "arm": "eb",
+  "seed": 106,
+  "exit": 0,
+  "wall_s": 4.9,
+  "heldout_dev": 1.193,
+  "x2_info": 0.6313,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 708.8 -> 708.8  median|surplus| 33.85",
+   "[reshrink] depth  5: m=  37 tau 2654.4 -> 2654.4  median|surplus| 50.51",
+   "[reshrink] depth  6: m=  47 tau 8475.4 -> 718.0  median|surplus| 49.72",
+   "[reshrink] depth  7: m=  34 tau 5899.1 -> 5899.1  median|surplus| 74.66",
+   "[reshrink] depth  8: m=   8 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth  9: m=   9 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[laddereb] depth  4: m=  19 tau_mle=16384.0 tau_global=4096.0 tau*=708.8",
+   "[laddereb] depth  5: m=  37 tau_mle=4096.0 tau_global=4096.0 tau*=2654.4",
+   "[laddereb] depth  6: m=  47 tau_mle=512.0 tau_global=4096.0 tau*=1033.3",
+   "[laddereb] depth  7: m=  34 tau_mle=4096.0 tau_global=4096.0 tau*=4096.0",
+   "[laddereb] depth  8: m=   8 tau_mle=16.0 tau_global=4096.0 tau*=0.2",
+   "[laddereb] depth  9: m=   9 tau_mle=0.0 tau_global=4096.0 tau*=0.2",
+   "[laddereb] depth 10: m=   3 tau_mle=56250.8 tau_global=4096.0 tau*=0.2",
+   "[reshrink] depth  4: median|surplus| after 32.48",
+   "[reshrink] depth  5: median|surplus| after 37.22",
+   "[reshrink] depth  6: median|surplus| after 18.86",
+   "[reshrink] depth  7: median|surplus| after 63.46",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.003937479135
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.001643054337
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.00412864344
+   },
+   "7": {
+    "n": 34,
+    "lam_max": 0.0007919282548
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 157
+ },
+ {
+  "case": "smm_s106",
+  "arm": "ebcell",
+  "seed": 106,
+  "exit": 0,
+  "wall_s": 5.0,
+  "heldout_dev": 1.197,
+  "x2_info": 0.6278,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 708.8 -> 708.8  median|surplus| 33.85",
+   "[reshrink] depth  5: m=  37 tau 2654.4 -> 2654.4  median|surplus| 50.51",
+   "[reshrink] depth  6: m=  47 tau 8475.4 -> 718.0  median|surplus| 49.72",
+   "[reshrink] depth  7: m=  34 tau 5899.1 -> 5899.1  median|surplus| 74.66",
+   "[reshrink] depth  8: m=   8 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth  9: m=   9 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[ladderebcell] depth  4: tau_d=708.8 | lo m=9 tau=708.8 | hi m=10 tau=708.8",
+   "[ladderebcell] depth  5: tau_d=2654.4 | lo m=19 tau=2654.4 | hi m=18 tau=1525.7",
+   "[ladderebcell] depth  6: tau_d=1033.3 | lo m=30 tau=217.5 | hi m=17 tau=2347.8",
+   "[ladderebcell] depth  7: tau_d=4096.0 | lo m=20 tau=3282.0 | hi m=14 tau=5156.2",
+   "[ladderebcell] depth  8: tau_d=0.2 | lo m=1 tau=0.2 | hi m=7 tau=0.2",
+   "[ladderebcell] depth  9: tau_d=0.2 | lo m=4 tau=0.2 | hi m=5 tau=0.2",
+   "[ladderebcell] depth 10: tau_d=0.2 | lo m=3 tau=0.2 | hi m=0 tau=0.2",
+   "[reshrink] depth  4: median|surplus| after 31.78",
+   "[reshrink] depth  5: median|surplus| after 35.36",
+   "[reshrink] depth  6: median|surplus| after 9.62",
+   "[reshrink] depth  7: median|surplus| after 67.74",
+   "[reshrink] depth  8: median|surplus| after 0.00",
+   "[reshrink] depth  9: median|surplus| after 0.00",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.003937479135
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.001643054337
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.01961105634
+   },
+   "7": {
+    "n": 34,
+    "lam_max": 0.0009883408688
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 157
+ },
+ {
+  "case": "smm_s106",
+  "arm": "eb_free",
+  "seed": 106,
+  "exit": 0,
+  "wall_s": 4.6,
+  "heldout_dev": 1.154,
+  "x2_info": 0.621,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 708.8 -> 708.8  median|surplus| 33.85",
+   "[reshrink] depth  5: m=  37 tau 2654.4 -> 2654.4  median|surplus| 50.51",
+   "[reshrink] depth  6: m=  47 tau 8475.4 -> 718.0  median|surplus| 49.72",
+   "[reshrink] depth  7: m=  34 tau 5899.1 -> 5899.1  median|surplus| 74.66",
+   "[reshrink] depth  8: m=   8 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth  9: m=   9 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[laddereb] depth  4: m=  19 tau_mle=16384.0 tau_global=4096.0 tau*=12743.1",
+   "[laddereb] depth  5: m=  37 tau_mle=4096.0 tau_global=4096.0 tau*=4096.0",
+   "[laddereb] depth  6: m=  47 tau_mle=512.0 tau_global=4096.0 tau*=1033.3",
+   "[laddereb] depth  7: m=  34 tau_mle=4096.0 tau_global=4096.0 tau*=4096.0",
+   "[laddereb] depth  8: m=   8 tau_mle=16.0 tau_global=4096.0 tau*=2056.0",
+   "[laddereb] depth  9: m=   9 tau_mle=0.0 tau_global=4096.0 tau*=1927.5",
+   "[laddereb] depth 10: m=   3 tau_mle=56250.8 tau_global=4096.0 tau*=18320.0",
+   "[reshrink] depth  4: median|surplus| after 64.80",
+   "[reshrink] depth  5: median|surplus| after 38.91",
+   "[reshrink] depth  6: median|surplus| after 17.22",
+   "[reshrink] depth  7: median|surplus| after 55.79",
+   "[reshrink] depth  8: median|surplus| after 10.18",
+   "[reshrink] depth  9: median|surplus| after 7.33",
+   "[reshrink] depth 10: median|surplus| after 88.00"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0004779185549
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.001064784595
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.00412864344
+   },
+   "7": {
+    "n": 34,
+    "lam_max": 0.0007919282548
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 0.000607697982
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 157
+ },
+ {
+  "case": "smm_s107",
+  "arm": "eb",
+  "seed": 107,
+  "exit": 0,
+  "wall_s": 4.3,
+  "heldout_dev": 1.132,
+  "x2_info": 0.6386,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 1350.0 -> 1350.0  median|surplus| 47.97",
+   "[reshrink] depth  5: m=  34 tau 3474.4 -> 3474.4  median|surplus| 47.42",
+   "[reshrink] depth  6: m=  47 tau 1446.0 -> 48.5  median|surplus| 32.61",
+   "[reshrink] depth  7: m=  36 tau 6885.6 -> 6328.6  median|surplus| 70.70",
+   "[reshrink] depth  8: m=   3 tau 85.5 -> 85.5  median|surplus| 9.66",
+   "[reshrink] depth  9: m=   3 tau 0.2 -> 0.0  median|surplus| 0.02",
+   "[laddereb] depth  4: m=  20 tau_mle=16384.0 tau_global=4096.0 tau*=1350.0",
+   "[laddereb] depth  5: m=  34 tau_mle=2048.0 tau_global=4096.0 tau*=2438.1",
+   "[laddereb] depth  6: m=  47 tau_mle=256.0 tau_global=4096.0 tau*=814.5",
+   "[laddereb] depth  7: m=  36 tau_mle=8192.0 tau_global=4096.0 tau*=6885.6",
+   "[laddereb] depth  8: m=   3 tau_mle=5708.3 tau_global=4096.0 tau*=85.5",
+   "[laddereb] depth  9: m=   3 tau_mle=0.0 tau_global=4096.0 tau*=0.2",
+   "[reshrink] depth  4: median|surplus| after 49.73",
+   "[reshrink] depth  5: median|surplus| after 43.88",
+   "[reshrink] depth  6: median|surplus| after 19.33",
+   "[reshrink] depth  7: median|surplus| after 51.68",
+   "[reshrink] depth  8: median|surplus| after 9.54",
+   "[reshrink] depth  9: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.002171979915
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.00177015131
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.006311324695
+   },
+   "7": {
+    "n": 36,
+    "lam_max": 0.0004828523237
+   },
+   "8": {
+    "n": 3,
+    "lam_max": 0.0184618888
+   },
+   "9": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 143
+ },
+ {
+  "case": "smm_s107",
+  "arm": "ebcell",
+  "seed": 107,
+  "exit": 0,
+  "wall_s": 4.4,
+  "heldout_dev": 1.135,
+  "x2_info": 0.6317,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 1350.0 -> 1350.0  median|surplus| 47.97",
+   "[reshrink] depth  5: m=  34 tau 3474.4 -> 3474.4  median|surplus| 47.42",
+   "[reshrink] depth  6: m=  47 tau 1446.0 -> 48.5  median|surplus| 32.61",
+   "[reshrink] depth  7: m=  36 tau 6885.6 -> 6328.6  median|surplus| 70.70",
+   "[reshrink] depth  8: m=   3 tau 85.5 -> 85.5  median|surplus| 9.66",
+   "[reshrink] depth  9: m=   3 tau 0.2 -> 0.0  median|surplus| 0.02",
+   "[ladderebcell] depth  4: tau_d=1350.0 | lo m=13 tau=1350.0 | hi m=7 tau=1350.0",
+   "[ladderebcell] depth  5: tau_d=2438.1 | lo m=17 tau=3474.4 | hi m=17 tau=1476.5",
+   "[ladderebcell] depth  6: tau_d=814.5 | lo m=30 tau=196.7 | hi m=17 tau=1446.0",
+   "[ladderebcell] depth  7: tau_d=6885.6 | lo m=20 tau=4759.9 | hi m=16 tau=6885.6",
+   "[ladderebcell] depth  8: tau_d=85.5 | lo m=2 tau=68.4 | hi m=1 tau=76.0",
+   "[ladderebcell] depth  9: tau_d=0.2 | lo m=3 tau=0.2 | hi m=0 tau=0.2",
+   "[reshrink] depth  4: median|surplus| after 45.06",
+   "[reshrink] depth  5: median|surplus| after 45.98",
+   "[reshrink] depth  6: median|surplus| after 11.44",
+   "[reshrink] depth  7: median|surplus| after 47.98",
+   "[reshrink] depth  8: median|surplus| after 10.82",
+   "[reshrink] depth  9: median|surplus| after 0.02"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.002171979915
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.001242180526
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.02612937539
+   },
+   "7": {
+    "n": 36,
+    "lam_max": 0.0006984817953
+   },
+   "8": {
+    "n": 3,
+    "lam_max": 0.02076962489
+   },
+   "9": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 143
+ },
+ {
+  "case": "smm_s107",
+  "arm": "eb_free",
+  "seed": 107,
+  "exit": 0,
+  "wall_s": 3.8,
+  "heldout_dev": 1.132,
+  "x2_info": 0.6553,
+  "diag": [
+   "[reshrink] depth  4: m=  20 tau 1350.0 -> 1350.0  median|surplus| 47.97",
+   "[reshrink] depth  5: m=  34 tau 3474.4 -> 3474.4  median|surplus| 47.42",
+   "[reshrink] depth  6: m=  47 tau 1446.0 -> 48.5  median|surplus| 32.61",
+   "[reshrink] depth  7: m=  36 tau 6885.6 -> 6328.6  median|surplus| 70.70",
+   "[reshrink] depth  8: m=   3 tau 85.5 -> 85.5  median|surplus| 9.66",
+   "[reshrink] depth  9: m=   3 tau 0.2 -> 0.0  median|surplus| 0.02",
+   "[laddereb] depth  4: m=  20 tau_mle=16384.0 tau_global=4096.0 tau*=12873.1",
+   "[laddereb] depth  5: m=  34 tau_mle=2048.0 tau_global=4096.0 tau*=2438.1",
+   "[laddereb] depth  6: m=  47 tau_mle=256.0 tau_global=4096.0 tau*=814.5",
+   "[laddereb] depth  7: m=  36 tau_mle=8192.0 tau_global=4096.0 tau*=7447.3",
+   "[laddereb] depth  8: m=   3 tau_mle=5708.3 tau_global=4096.0 tau*=4535.7",
+   "[laddereb] depth  9: m=   3 tau_mle=0.0 tau_global=4096.0 tau*=2978.9",
+   "[reshrink] depth  4: median|surplus| after 82.59",
+   "[reshrink] depth  5: median|surplus| after 33.07",
+   "[reshrink] depth  6: median|surplus| after 17.99",
+   "[reshrink] depth  7: median|surplus| after 51.80",
+   "[reshrink] depth  8: median|surplus| after 102.35",
+   "[reshrink] depth  9: median|surplus| after 26.36"
+  ],
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.0004161528802
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.00177015131
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.006311324695
+   },
+   "7": {
+    "n": 36,
+    "lam_max": 0.0004464364394
+   },
+   "8": {
+    "n": 3,
+    "lam_max": 0.00034791602
+   },
+   "9": {
+    "n": 3,
+    "lam_max": 0.007480960077
+   }
+  },
+  "admitted": 143
+ },
+ {
+  "case": "smm_s108",
+  "arm": "eb",
+  "seed": 108,
+  "exit": 0,
+  "wall_s": 3.0,
+  "heldout_dev": 1.112,
+  "x2_info": 0.6233,
+  "diag": [
+   "[reshrink] depth  4: m=  18 tau 1405.8 -> 1405.8  median|surplus| 55.23",
+   "[reshrink] depth  5: m=  32 tau 3174.8 -> 2409.0  median|surplus| 56.49",
+   "[reshrink] depth  6: m=  42 tau 11597.8 -> 3663.3  median|surplus| 48.71",
+   "[reshrink] depth  7: m=  37 tau 7885.9 -> 7885.9  median|surplus| 83.73",
+   "[reshrink] depth  8: m=   4 tau 32.6 -> 0.0  median|surplus| 1.54",
+   "[laddereb] depth  4: m=  18 tau_mle=12880.0 tau_global=4096.0 tau*=1405.8",
+   "[laddereb] depth  5: m=  32 tau_mle=1857.3 tau_global=4096.0 tau*=2305.0",
+   "[laddereb] depth  6: m=  42 tau_mle=2952.8 tau_global=4096.0 tau*=3135.7",
+   "[laddereb] depth  7: m=  37 tau_mle=7742.7 tau_global=4096.0 tau*=7094.4",
+   "[laddereb] depth  8: m=   4 tau_mle=0.0 tau_global=4096.0 tau*=32.6",
+   "[reshrink] depth  4: median|surplus| after 42.88",
+   "[reshrink] depth  5: median|surplus| after 62.03",
+   "[reshrink] depth  6: median|surplus| after 37.86",
+   "[reshrink] depth  7: median|surplus| after 83.97",
+   "[reshrink] depth  8: median|surplus| after 1.07"
+  ],
+  "ladder": {
+   "4": {
+    "n": 18,
+    "lam_max": 0.001915309386
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.001581849106
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.0008787730909
+   },
+   "7": {
+    "n": 37,
+    "lam_max": 0.0005360235107
+   },
+   "8": {
+    "n": 4,
+    "lam_max": 0.045783677
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s108",
+  "arm": "ebcell",
+  "seed": 108,
+  "exit": 0,
+  "wall_s": 3.1,
+  "heldout_dev": 1.112,
+  "x2_info": 0.6224,
+  "diag": [
+   "[reshrink] depth  4: m=  18 tau 1405.8 -> 1405.8  median|surplus| 55.23",
+   "[reshrink] depth  5: m=  32 tau 3174.8 -> 2409.0  median|surplus| 56.49",
+   "[reshrink] depth  6: m=  42 tau 11597.8 -> 3663.3  median|surplus| 48.71",
+   "[reshrink] depth  7: m=  37 tau 7885.9 -> 7885.9  median|surplus| 83.73",
+   "[reshrink] depth  8: m=   4 tau 32.6 -> 0.0  median|surplus| 1.54",
+   "[ladderebcell] depth  4: tau_d=1405.8 | lo m=8 tau=1405.8 | hi m=10 tau=1405.8",
+   "[ladderebcell] depth  5: tau_d=2305.0 | lo m=14 tau=1489.8 | hi m=18 tau=2127.1",
+   "[ladderebcell] depth  6: tau_d=3135.7 | lo m=25 tau=760.2 | hi m=17 tau=9707.0",
+   "[ladderebcell] depth  7: tau_d=7094.4 | lo m=21 tau=6244.7 | hi m=16 tau=7826.1",
+   "[ladderebcell] depth  8: tau_d=32.6 | lo m=3 tau=23.7 | hi m=1 tau=29.0",
+   "[reshrink] depth  4: median|surplus| after 57.52",
+   "[reshrink] depth  5: median|surplus| after 53.54",
+   "[reshrink] depth  6: median|surplus| after 26.73",
+   "[reshrink] depth  7: median|surplus| after 90.45",
+   "[reshrink] depth  8: median|surplus| after 1.17"
+  ],
+  "ladder": {
+   "4": {
+    "n": 18,
+    "lam_max": 0.001915309386
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.002447399291
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.003624939
+   },
+   "7": {
+    "n": 37,
+    "lam_max": 0.000608957108
+   },
+   "8": {
+    "n": 4,
+    "lam_max": 0.05150663663
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s108",
+  "arm": "eb_free",
+  "seed": 108,
+  "exit": 0,
+  "wall_s": 2.9,
+  "heldout_dev": 1.104,
+  "x2_info": 0.6283,
+  "diag": [
+   "[reshrink] depth  4: m=  18 tau 1405.8 -> 1405.8  median|surplus| 55.23",
+   "[reshrink] depth  5: m=  32 tau 3174.8 -> 2409.0  median|surplus| 56.49",
+   "[reshrink] depth  6: m=  42 tau 11597.8 -> 3663.3  median|surplus| 48.71",
+   "[reshrink] depth  7: m=  37 tau 7885.9 -> 7885.9  median|surplus| 83.73",
+   "[reshrink] depth  8: m=   4 tau 32.6 -> 0.0  median|surplus| 1.54",
+   "[laddereb] depth  4: m=  18 tau_mle=12880.0 tau_global=4096.0 tau*=10177.2",
+   "[laddereb] depth  5: m=  32 tau_mle=1857.3 tau_global=4096.0 tau*=2305.0",
+   "[laddereb] depth  6: m=  42 tau_mle=2952.8 tau_global=4096.0 tau*=3135.7",
+   "[laddereb] depth  7: m=  37 tau_mle=7742.7 tau_global=4096.0 tau*=7094.4",
+   "[laddereb] depth  8: m=   4 tau_mle=0.0 tau_global=4096.0 tau*=2730.7",
+   "[reshrink] depth  4: median|surplus| after 92.83",
+   "[reshrink] depth  5: median|surplus| after 51.43",
+   "[reshrink] depth  6: median|surplus| after 33.60",
+   "[reshrink] depth  7: median|surplus| after 86.93",
+   "[reshrink] depth  8: median|surplus| after 56.11"
+  ],
+  "ladder": {
+   "4": {
+    "n": 18,
+    "lam_max": 0.0003670474666
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.001581849106
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.0008787730909
+   },
+   "7": {
+    "n": 37,
+    "lam_max": 0.0005360235107
+   },
+   "8": {
+    "n": 4,
+    "lam_max": 0.0005470131016
+   }
+  },
+  "admitted": 134
+ },
+ {
+  "case": "smm_s109",
+  "arm": "eb",
+  "seed": 109,
+  "exit": 0,
+  "wall_s": 4.5,
+  "heldout_dev": 1.13,
+  "x2_info": 0.6441,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1501.9 -> 1501.9  median|surplus| 58.14",
+   "[reshrink] depth  5: m=  33 tau 4039.6 -> 4039.6  median|surplus| 51.86",
+   "[reshrink] depth  6: m=  40 tau 1739.1 -> 995.4  median|surplus| 26.36",
+   "[reshrink] depth  7: m=  31 tau 8288.7 -> 5799.6  median|surplus| 73.66",
+   "[reshrink] depth  8: m=   9 tau 69.9 -> 0.0  median|surplus| 5.31",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth 10: m=   1 tau 0.2 -> 0.2  median|surplus| 0.19",
+   "[laddereb] depth  4: m=  19 tau_mle=16384.0 tau_global=4096.0 tau*=1501.9",
+   "[laddereb] depth  5: m=  33 tau_mle=4096.0 tau_global=4096.0 tau*=4039.6",
+   "[laddereb] depth  6: m=  40 tau_mle=1024.0 tau_global=4096.0 tau*=1536.0",
+   "[laddereb] depth  7: m=  31 tau_mle=3506.9 tau_global=4096.0 tau*=3627.7",
+   "[laddereb] depth  8: m=   9 tau_mle=128.0 tau_global=4096.0 tau*=69.9",
+   "[laddereb] depth  9: m=   4 tau_mle=23776.3 tau_global=4096.0 tau*=0.2",
+   "[laddereb] depth 10: m=   1 tau_mle=0.0 tau_global=4096.0 tau*=0.2",
+   "[reshrink] depth  4: median|surplus| after 46.18",
+   "[reshrink] depth  5: median|surplus| after 50.61",
+   "[reshrink] depth  6: median|surplus| after 21.19",
+   "[reshrink] depth  7: median|surplus| after 51.10",
+   "[reshrink] depth  8: median|surplus| after 3.08",
+   "[reshrink] depth  9: median|surplus| after 0.01",
+   "[reshrink] depth 10: median|surplus| after 0.25"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.001656058014
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0005537930993
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.001856864846
+   },
+   "7": {
+    "n": 31,
+    "lam_max": 0.0008873604542
+   },
+   "8": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 137
+ },
+ {
+  "case": "smm_s109",
+  "arm": "ebcell",
+  "seed": 109,
+  "exit": 0,
+  "wall_s": 4.4,
+  "heldout_dev": 1.13,
+  "x2_info": 0.6433,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1501.9 -> 1501.9  median|surplus| 58.14",
+   "[reshrink] depth  5: m=  33 tau 4039.6 -> 4039.6  median|surplus| 51.86",
+   "[reshrink] depth  6: m=  40 tau 1739.1 -> 995.4  median|surplus| 26.36",
+   "[reshrink] depth  7: m=  31 tau 8288.7 -> 5799.6  median|surplus| 73.66",
+   "[reshrink] depth  8: m=   9 tau 69.9 -> 0.0  median|surplus| 5.31",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth 10: m=   1 tau 0.2 -> 0.2  median|surplus| 0.19",
+   "[ladderebcell] depth  4: tau_d=1501.9 | lo m=7 tau=1501.9 | hi m=12 tau=1501.9",
+   "[ladderebcell] depth  5: tau_d=4039.6 | lo m=15 tau=4039.6 | hi m=18 tau=3374.3",
+   "[ladderebcell] depth  6: tau_d=1536.0 | lo m=25 tau=1739.1 | hi m=15 tau=868.2",
+   "[ladderebcell] depth  7: tau_d=3627.7 | lo m=16 tau=2574.6 | hi m=15 tau=3933.1",
+   "[ladderebcell] depth  8: tau_d=69.9 | lo m=6 tau=69.9 | hi m=3 tau=50.8",
+   "[ladderebcell] depth  9: tau_d=0.2 | lo m=3 tau=0.2 | hi m=1 tau=0.2",
+   "[ladderebcell] depth 10: tau_d=0.2 | lo m=1 tau=0.2 | hi m=0 tau=0.2",
+   "[reshrink] depth  4: median|surplus| after 45.91",
+   "[reshrink] depth  5: median|surplus| after 51.56",
+   "[reshrink] depth  6: median|surplus| after 20.86",
+   "[reshrink] depth  7: median|surplus| after 46.94",
+   "[reshrink] depth  8: median|surplus| after 3.03",
+   "[reshrink] depth  9: median|surplus| after 0.01",
+   "[reshrink] depth 10: median|surplus| after 0.26"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.001656058014
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0006629831872
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.002167567833
+   },
+   "7": {
+    "n": 31,
+    "lam_max": 0.001250344025
+   },
+   "8": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 137
+ },
+ {
+  "case": "smm_s109",
+  "arm": "eb_free",
+  "seed": 109,
+  "exit": 0,
+  "wall_s": 3.8,
+  "heldout_dev": 1.125,
+  "x2_info": 0.6413,
+  "diag": [
+   "[reshrink] depth  4: m=  19 tau 1501.9 -> 1501.9  median|surplus| 58.14",
+   "[reshrink] depth  5: m=  33 tau 4039.6 -> 4039.6  median|surplus| 51.86",
+   "[reshrink] depth  6: m=  40 tau 1739.1 -> 995.4  median|surplus| 26.36",
+   "[reshrink] depth  7: m=  31 tau 8288.7 -> 5799.6  median|surplus| 73.66",
+   "[reshrink] depth  8: m=   9 tau 69.9 -> 0.0  median|surplus| 5.31",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth 10: m=   1 tau 0.2 -> 0.2  median|surplus| 0.19",
+   "[laddereb] depth  4: m=  19 tau_mle=16384.0 tau_global=4096.0 tau*=12743.1",
+   "[laddereb] depth  5: m=  33 tau_mle=4096.0 tau_global=4096.0 tau*=4096.0",
+   "[laddereb] depth  6: m=  40 tau_mle=1024.0 tau_global=4096.0 tau*=1536.0",
+   "[laddereb] depth  7: m=  31 tau_mle=3506.9 tau_global=4096.0 tau*=3627.7",
+   "[laddereb] depth  8: m=   9 tau_mle=128.0 tau_global=4096.0 tau*=1995.3",
+   "[laddereb] depth  9: m=   4 tau_mle=23776.3 tau_global=4096.0 tau*=10656.1",
+   "[laddereb] depth 10: m=   1 tau_mle=0.0 tau_global=4096.0 tau*=3640.9",
+   "[reshrink] depth  4: median|surplus| after 80.86",
+   "[reshrink] depth  5: median|surplus| after 50.01",
+   "[reshrink] depth  6: median|surplus| after 22.61",
+   "[reshrink] depth  7: median|surplus| after 50.46",
+   "[reshrink] depth  8: median|surplus| after 46.93",
+   "[reshrink] depth  9: median|surplus| after 22.12",
+   "[reshrink] depth 10: median|surplus| after 123.47"
+  ],
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0006532376801
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.000546172332
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.001856864846
+   },
+   "7": {
+    "n": 31,
+    "lam_max": 0.0008873604542
+   },
+   "8": {
+    "n": 9,
+    "lam_max": 4.0
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 137
+ },
+ {
+  "case": "smm_s110",
+  "arm": "eb",
+  "seed": 110,
+  "exit": 0,
+  "wall_s": 2.8,
+  "heldout_dev": 1.193,
+  "x2_info": 0.6945,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 1250.6 -> 1250.6  median|surplus| 48.76",
+   "[reshrink] depth  5: m=  35 tau 2749.9 -> 2749.9  median|surplus| 43.80",
+   "[reshrink] depth  6: m=  45 tau 5226.3 -> 3796.7  median|surplus| 37.60",
+   "[reshrink] depth  7: m=  46 tau 4431.2 -> 3222.0  median|surplus| 47.08",
+   "[reshrink] depth  8: m=  10 tau 2477.8 -> 2477.8  median|surplus| 40.24",
+   "[reshrink] depth  9: m=   2 tau 2477.8 -> 842.4  median|surplus| 118.15",
+   "[laddereb] depth  4: m=  21 tau_mle=32768.0 tau_global=8192.0 tau*=1250.6",
+   "[laddereb] depth  5: m=  35 tau_mle=6390.6 tau_global=8192.0 tau*=2749.9",
+   "[laddereb] depth  6: m=  45 tau_mle=1886.5 tau_global=8192.0 tau*=2838.3",
+   "[laddereb] depth  7: m=  46 tau_mle=4096.0 tau_global=8192.0 tau*=4431.2",
+   "[laddereb] depth  8: m=  10 tau_mle=4096.0 tau_global=8192.0 tau*=2477.8",
+   "[laddereb] depth  9: m=   2 tau_mle=0.0 tau_global=8192.0 tau*=2477.8",
+   "[reshrink] depth  4: median|surplus| after 45.65",
+   "[reshrink] depth  5: median|surplus| after 37.12",
+   "[reshrink] depth  6: median|surplus| after 28.63",
+   "[reshrink] depth  7: median|surplus| after 48.31",
+   "[reshrink] depth  8: median|surplus| after 39.57",
+   "[reshrink] depth  9: median|surplus| after 93.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.001990673714
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.001317336242
+   },
+   "6": {
+    "n": 45,
+    "lam_max": 0.001192799151
+   },
+   "7": {
+    "n": 46,
+    "lam_max": 0.0008996810536
+   },
+   "8": {
+    "n": 10,
+    "lam_max": 0.0005292719258
+   },
+   "9": {
+    "n": 2,
+    "lam_max": 0.001308385353
+   }
+  },
+  "admitted": 160
+ },
+ {
+  "case": "smm_s110",
+  "arm": "ebcell",
+  "seed": 110,
+  "exit": 0,
+  "wall_s": 2.8,
+  "heldout_dev": 1.193,
+  "x2_info": 0.6931,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 1250.6 -> 1250.6  median|surplus| 48.76",
+   "[reshrink] depth  5: m=  35 tau 2749.9 -> 2749.9  median|surplus| 43.80",
+   "[reshrink] depth  6: m=  45 tau 5226.3 -> 3796.7  median|surplus| 37.60",
+   "[reshrink] depth  7: m=  46 tau 4431.2 -> 3222.0  median|surplus| 47.08",
+   "[reshrink] depth  8: m=  10 tau 2477.8 -> 2477.8  median|surplus| 40.24",
+   "[reshrink] depth  9: m=   2 tau 2477.8 -> 842.4  median|surplus| 118.15",
+   "[ladderebcell] depth  4: tau_d=1250.6 | lo m=10 tau=1250.6 | hi m=11 tau=1250.6",
+   "[ladderebcell] depth  5: tau_d=2749.9 | lo m=16 tau=2749.9 | hi m=19 tau=2749.9",
+   "[ladderebcell] depth  6: tau_d=2838.3 | lo m=30 tau=1001.7 | hi m=15 tau=3658.5",
+   "[ladderebcell] depth  7: tau_d=4431.2 | lo m=32 tau=4163.0 | hi m=14 tau=2914.6",
+   "[ladderebcell] depth  8: tau_d=2477.8 | lo m=4 tau=2477.8 | hi m=6 tau=2477.8",
+   "[ladderebcell] depth  9: tau_d=2477.8 | lo m=2 tau=1982.2 | hi m=0 tau=2477.8",
+   "[reshrink] depth  4: median|surplus| after 43.26",
+   "[reshrink] depth  5: median|surplus| after 40.36",
+   "[reshrink] depth  6: median|surplus| after 24.02",
+   "[reshrink] depth  7: median|surplus| after 47.41",
+   "[reshrink] depth  8: median|surplus| after 49.98",
+   "[reshrink] depth  9: median|surplus| after 86.77"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.001990673714
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.001317336242
+   },
+   "6": {
+    "n": 45,
+    "lam_max": 0.003379616788
+   },
+   "7": {
+    "n": 46,
+    "lam_max": 0.0009576284379
+   },
+   "8": {
+    "n": 10,
+    "lam_max": 0.0005292719258
+   },
+   "9": {
+    "n": 2,
+    "lam_max": 0.001635481691
+   }
+  },
+  "admitted": 160
+ },
+ {
+  "case": "smm_s110",
+  "arm": "eb_free",
+  "seed": 110,
+  "exit": 0,
+  "wall_s": 2.8,
+  "heldout_dev": 1.192,
+  "x2_info": 0.7024,
+  "diag": [
+   "[reshrink] depth  4: m=  21 tau 1250.6 -> 1250.6  median|surplus| 48.76",
+   "[reshrink] depth  5: m=  35 tau 2749.9 -> 2749.9  median|surplus| 43.80",
+   "[reshrink] depth  6: m=  45 tau 5226.3 -> 3796.7  median|surplus| 37.60",
+   "[reshrink] depth  7: m=  46 tau 4431.2 -> 3222.0  median|surplus| 47.08",
+   "[reshrink] depth  8: m=  10 tau 2477.8 -> 2477.8  median|surplus| 40.24",
+   "[reshrink] depth  9: m=   2 tau 2477.8 -> 842.4  median|surplus| 118.15",
+   "[laddereb] depth  4: m=  21 tau_mle=32768.0 tau_global=8192.0 tau*=25988.4",
+   "[laddereb] depth  5: m=  35 tau_mle=6390.6 tau_global=8192.0 tau*=6725.7",
+   "[laddereb] depth  6: m=  45 tau_mle=1886.5 tau_global=8192.0 tau*=2838.3",
+   "[laddereb] depth  7: m=  46 tau_mle=4096.0 tau_global=8192.0 tau*=4702.8",
+   "[laddereb] depth  8: m=  10 tau_mle=4096.0 tau_global=8192.0 tau*=5916.4",
+   "[laddereb] depth  9: m=   2 tau_mle=0.0 tau_global=8192.0 tau*=6553.6",
+   "[reshrink] depth  4: median|surplus| after 78.81",
+   "[reshrink] depth  5: median|surplus| after 37.73",
+   "[reshrink] depth  6: median|surplus| after 26.00",
+   "[reshrink] depth  7: median|surplus| after 37.90",
+   "[reshrink] depth  8: median|surplus| after 68.30",
+   "[reshrink] depth  9: median|surplus| after 114.57"
+  ],
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0009266490783
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.0005386152419
+   },
+   "6": {
+    "n": 45,
+    "lam_max": 0.001192799151
+   },
+   "7": {
+    "n": 46,
+    "lam_max": 0.0008477135327
+   },
+   "8": {
+    "n": 10,
+    "lam_max": 0.000473568208
+   },
+   "9": {
+    "n": 2,
+    "lam_max": 0.0004946742299
+   }
+  },
+  "admitted": 160
+ },
+ {
+  "case": "april_s7",
+  "arm": "eb",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 20.3,
+  "heldout_dev": 6.474,
+  "x2_info": 0.1446,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 155353.4 -> 81625.9  median|surplus| 321.08",
+   "[reshrink] depth  5: m=  31 tau 29010.5 -> 29010.5  median|surplus| 149.81",
+   "[reshrink] depth  6: m=  42 tau 17194.6 -> 17194.6  median|surplus| 118.40",
+   "[reshrink] depth  7: m=  38 tau 13978.2 -> 7824.8  median|surplus| 109.86",
+   "[reshrink] depth  8: m=  38 tau 6384.7 -> 6384.7  median|surplus| 100.30",
+   "[reshrink] depth  9: m=  34 tau 8338.8 -> 8338.8  median|surplus| 128.78",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[laddereb] depth  4: m=  12 tau_mle=65536.0 tau_global=65536.0 tau*=65536.0",
+   "[laddereb] depth  5: m=  31 tau_mle=248792.5 tau_global=65536.0 tau*=29010.5",
+   "[laddereb] depth  6: m=  42 tau_mle=57005.5 tau_global=65536.0 tau*=17194.6",
+   "[laddereb] depth  7: m=  38 tau_mle=24366.1 tau_global=65536.0 tau*=13978.2",
+   "[laddereb] depth  8: m=  38 tau_mle=12545.4 tau_global=65536.0 tau*=6384.7",
+   "[laddereb] depth  9: m=  34 tau_mle=12153.2 tau_global=65536.0 tau*=8338.8",
+   "[laddereb] depth 10: m=   3 tau_mle=524288.0 tau_global=65536.0 tau*=0.2",
+   "[reshrink] depth  4: median|surplus| after 149.74",
+   "[reshrink] depth  5: median|surplus| after 126.03",
+   "[reshrink] depth  6: median|surplus| after 82.76",
+   "[reshrink] depth  7: median|surplus| after 77.07",
+   "[reshrink] depth  8: median|surplus| after 83.79",
+   "[reshrink] depth  9: median|surplus| after 83.48",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.001008786328
+   },
+   "5": {
+    "n": 31,
+    "lam_max": 0.01125363821
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.001234801773
+   },
+   "7": {
+    "n": 38,
+    "lam_max": 0.00180937973
+   },
+   "8": {
+    "n": 38,
+    "lam_max": 0.001482710465
+   },
+   "9": {
+    "n": 34,
+    "lam_max": 0.001435336934
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 198
+ },
+ {
+  "case": "april_s7",
+  "arm": "ebcell",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 20.4,
+  "heldout_dev": 6.473,
+  "x2_info": 0.1446,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 155353.4 -> 81625.9  median|surplus| 321.08",
+   "[reshrink] depth  5: m=  31 tau 29010.5 -> 29010.5  median|surplus| 149.81",
+   "[reshrink] depth  6: m=  42 tau 17194.6 -> 17194.6  median|surplus| 118.40",
+   "[reshrink] depth  7: m=  38 tau 13978.2 -> 7824.8  median|surplus| 109.86",
+   "[reshrink] depth  8: m=  38 tau 6384.7 -> 6384.7  median|surplus| 100.30",
+   "[reshrink] depth  9: m=  34 tau 8338.8 -> 8338.8  median|surplus| 128.78",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[ladderebcell] depth  4: tau_d=65536.0 | lo m=10 tau=59967.0 | hi m=2 tau=52428.8",
+   "[ladderebcell] depth  5: tau_d=29010.5 | lo m=23 tau=29010.5 | hi m=8 tau=27108.8",
+   "[ladderebcell] depth  6: tau_d=17194.6 | lo m=25 tau=17194.6 | hi m=17 tau=16643.4",
+   "[ladderebcell] depth  7: tau_d=13978.2 | lo m=22 tau=13978.2 | hi m=16 tau=6648.8",
+   "[ladderebcell] depth  8: tau_d=6384.7 | lo m=20 tau=6384.7 | hi m=18 tau=4800.2",
+   "[ladderebcell] depth  9: tau_d=8338.8 | lo m=30 tau=8338.8 | hi m=4 tau=6241.9",
+   "[ladderebcell] depth 10: tau_d=0.2 | lo m=3 tau=0.2 | hi m=0 tau=0.2",
+   "[reshrink] depth  4: median|surplus| after 148.63",
+   "[reshrink] depth  5: median|surplus| after 125.86",
+   "[reshrink] depth  6: median|surplus| after 82.90",
+   "[reshrink] depth  7: median|surplus| after 72.26",
+   "[reshrink] depth  8: median|surplus| after 83.86",
+   "[reshrink] depth  9: median|surplus| after 83.54",
+   "[reshrink] depth 10: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.001102469324
+   },
+   "5": {
+    "n": 31,
+    "lam_max": 0.01125363821
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.001234801773
+   },
+   "7": {
+    "n": 38,
+    "lam_max": 0.00180937973
+   },
+   "8": {
+    "n": 38,
+    "lam_max": 0.001482710465
+   },
+   "9": {
+    "n": 34,
+    "lam_max": 0.001435336934
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 198
+ },
+ {
+  "case": "april_s7",
+  "arm": "eb_free",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 14.6,
+  "heldout_dev": 6.446,
+  "x2_info": 0.144,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 155353.4 -> 81625.9  median|surplus| 321.08",
+   "[reshrink] depth  5: m=  31 tau 29010.5 -> 29010.5  median|surplus| 149.81",
+   "[reshrink] depth  6: m=  42 tau 17194.6 -> 17194.6  median|surplus| 118.40",
+   "[reshrink] depth  7: m=  38 tau 13978.2 -> 7824.8  median|surplus| 109.86",
+   "[reshrink] depth  8: m=  38 tau 6384.7 -> 6384.7  median|surplus| 100.30",
+   "[reshrink] depth  9: m=  34 tau 8338.8 -> 8338.8  median|surplus| 128.78",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[laddereb] depth  4: m=  12 tau_mle=65536.0 tau_global=65536.0 tau*=65536.0",
+   "[laddereb] depth  5: m=  31 tau_mle=248792.5 tau_global=65536.0 tau*=211201.4",
+   "[laddereb] depth  6: m=  42 tau_mle=57005.5 tau_global=65536.0 tau*=58370.4",
+   "[laddereb] depth  7: m=  38 tau_mle=24366.1 tau_global=65536.0 tau*=31526.1",
+   "[laddereb] depth  8: m=  38 tau_mle=12545.4 tau_global=65536.0 tau*=21761.2",
+   "[laddereb] depth  9: m=  34 tau_mle=12153.2 tau_global=65536.0 tau*=22321.4",
+   "[laddereb] depth 10: m=   3 tau_mle=524288.0 tau_global=65536.0 tau*=190650.2",
+   "[reshrink] depth  4: median|surplus| after 147.36",
+   "[reshrink] depth  5: median|surplus| after 158.56",
+   "[reshrink] depth  6: median|surplus| after 105.26",
+   "[reshrink] depth  7: median|surplus| after 96.33",
+   "[reshrink] depth  8: median|surplus| after 97.78",
+   "[reshrink] depth  9: median|surplus| after 109.68",
+   "[reshrink] depth 10: median|surplus| after 221.85"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.001008786328
+   },
+   "5": {
+    "n": 31,
+    "lam_max": 0.001545790353
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.0003637437081
+   },
+   "7": {
+    "n": 38,
+    "lam_max": 0.0008022491226
+   },
+   "8": {
+    "n": 38,
+    "lam_max": 0.0004350232037
+   },
+   "9": {
+    "n": 34,
+    "lam_max": 0.0005362133111
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 0.0002016716458
+   }
+  },
+  "admitted": 198
+ },
+ {
+  "case": "april_s101",
+  "arm": "eb",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 34.6,
+  "heldout_dev": 7.02,
+  "x2_info": 0.1661,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 59806.7 -> 59806.7  median|surplus| 104.97",
+   "[reshrink] depth  5: m=  26 tau 25398.5 -> 22271.8  median|surplus| 106.03",
+   "[reshrink] depth  6: m=  50 tau 20734.4 -> 20734.4  median|surplus| 100.77",
+   "[reshrink] depth  7: m=  55 tau 6639.3 -> 3202.0  median|surplus| 75.63",
+   "[reshrink] depth  8: m=  41 tau 7257.6 -> 5473.8  median|surplus| 72.00",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.0  median|surplus| 0.01",
+   "[laddereb] depth  4: m=  12 tau_mle=131072.0 tau_global=27832.9 tau*=59806.7",
+   "[laddereb] depth  5: m=  26 tau_mle=65536.0 tau_global=27832.9 tau*=25398.5",
+   "[laddereb] depth  6: m=  50 tau_mle=23514.0 tau_global=27832.9 tau*=20734.4",
+   "[laddereb] depth  7: m=  55 tau_mle=4096.0 tau_global=27832.9 tau*=6639.3",
+   "[laddereb] depth  8: m=  41 tau_mle=7716.9 tau_global=27832.9 tau*=7257.6",
+   "[laddereb] depth  9: m=   4 tau_mle=0.0 tau_global=27832.9 tau*=0.2",
+   "[reshrink] depth  4: median|surplus| after 82.79",
+   "[reshrink] depth  5: median|surplus| after 101.43",
+   "[reshrink] depth  6: median|surplus| after 77.71",
+   "[reshrink] depth  7: median|surplus| after 67.27",
+   "[reshrink] depth  8: median|surplus| after 58.57",
+   "[reshrink] depth  9: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 13,
+    "lam_max": 0.000120029505
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 0.01174180797
+   },
+   "6": {
+    "n": 50,
+    "lam_max": 0.001236348488
+   },
+   "7": {
+    "n": 55,
+    "lam_max": 0.02193881437
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.001101108774
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 189
+ },
+ {
+  "case": "april_s101",
+  "arm": "ebcell",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 32.2,
+  "heldout_dev": 7.019,
+  "x2_info": 0.1661,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 59806.7 -> 59806.7  median|surplus| 104.97",
+   "[reshrink] depth  5: m=  26 tau 25398.5 -> 22271.8  median|surplus| 106.03",
+   "[reshrink] depth  6: m=  50 tau 20734.4 -> 20734.4  median|surplus| 100.77",
+   "[reshrink] depth  7: m=  55 tau 6639.3 -> 3202.0  median|surplus| 75.63",
+   "[reshrink] depth  8: m=  41 tau 7257.6 -> 5473.8  median|surplus| 72.00",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.0  median|surplus| 0.01",
+   "[ladderebcell] depth  4: tau_d=59806.7 | lo m=9 tau=59806.7 | hi m=3 tau=43495.8",
+   "[ladderebcell] depth  5: tau_d=25398.5 | lo m=18 tau=25398.5 | hi m=8 tau=20891.2",
+   "[ladderebcell] depth  6: tau_d=20734.4 | lo m=26 tau=20734.4 | hi m=24 tau=11327.6",
+   "[ladderebcell] depth  7: tau_d=6639.3 | lo m=25 tau=6639.3 | hi m=30 tau=3014.6",
+   "[ladderebcell] depth  8: tau_d=7257.6 | lo m=22 tau=7257.6 | hi m=19 tau=4770.7",
+   "[ladderebcell] depth  9: tau_d=0.2 | lo m=4 tau=0.2 | hi m=0 tau=0.2",
+   "[reshrink] depth  4: median|surplus| after 88.19",
+   "[reshrink] depth  5: median|surplus| after 101.39",
+   "[reshrink] depth  6: median|surplus| after 77.71",
+   "[reshrink] depth  7: median|surplus| after 63.99",
+   "[reshrink] depth  8: median|surplus| after 59.93",
+   "[reshrink] depth  9: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 13,
+    "lam_max": 0.000120029505
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 0.01174180797
+   },
+   "6": {
+    "n": 50,
+    "lam_max": 0.001236348488
+   },
+   "7": {
+    "n": 55,
+    "lam_max": 0.02193881437
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.001444784427
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 189
+ },
+ {
+  "case": "april_s101",
+  "arm": "eb_free",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 12.2,
+  "heldout_dev": 7.016,
+  "x2_info": 0.1661,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 59806.7 -> 59806.7  median|surplus| 104.97",
+   "[reshrink] depth  5: m=  26 tau 25398.5 -> 22271.8  median|surplus| 106.03",
+   "[reshrink] depth  6: m=  50 tau 20734.4 -> 20734.4  median|surplus| 100.77",
+   "[reshrink] depth  7: m=  55 tau 6639.3 -> 3202.0  median|surplus| 75.63",
+   "[reshrink] depth  8: m=  41 tau 7257.6 -> 5473.8  median|surplus| 72.00",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.0  median|surplus| 0.01",
+   "[laddereb] depth  4: m=  12 tau_mle=131072.0 tau_global=27832.9 tau*=89776.4",
+   "[laddereb] depth  5: m=  26 tau_mle=65536.0 tau_global=27832.9 tau*=56664.7",
+   "[laddereb] depth  6: m=  50 tau_mle=23514.0 tau_global=27832.9 tau*=24109.7",
+   "[laddereb] depth  7: m=  55 tau_mle=4096.0 tau_global=27832.9 tau*=7110.2",
+   "[laddereb] depth  8: m=  41 tau_mle=7716.9 tau_global=27832.9 tau*=11001.2",
+   "[laddereb] depth  9: m=   4 tau_mle=0.0 tau_global=27832.9 tau*=18555.3",
+   "[reshrink] depth  4: median|surplus| after 91.48",
+   "[reshrink] depth  5: median|surplus| after 105.48",
+   "[reshrink] depth  6: median|surplus| after 83.27",
+   "[reshrink] depth  7: median|surplus| after 68.33",
+   "[reshrink] depth  8: median|surplus| after 64.79",
+   "[reshrink] depth  9: median|surplus| after 29.41"
+  ],
+  "ladder": {
+   "4": {
+    "n": 13,
+    "lam_max": 0.0001
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 0.00526295725
+   },
+   "6": {
+    "n": 50,
+    "lam_max": 0.001063262654
+   },
+   "7": {
+    "n": 55,
+    "lam_max": 0.02048589289
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.0007264100922
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 189
+ },
+ {
+  "case": "april_s103",
+  "arm": "eb",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 9.9,
+  "heldout_dev": 6.761,
+  "x2_info": 0.151,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 94883.7 -> 94883.7  median|surplus| 300.35",
+   "[reshrink] depth  5: m=  18 tau 4496.0 -> 4496.0  median|surplus| 71.10",
+   "[reshrink] depth  6: m=  31 tau 19828.4 -> 19828.4  median|surplus| 153.46",
+   "[reshrink] depth  7: m=  30 tau 8785.0 -> 6856.1  median|surplus| 100.69",
+   "[reshrink] depth  8: m=  26 tau 9771.8 -> 7357.2  median|surplus| 105.00",
+   "[reshrink] depth  9: m=  13 tau 12596.3 -> 12259.3  median|surplus| 177.30",
+   "[laddereb] depth  4: m=  12 tau_mle=131072.0 tau_global=32768.0 tau*=91750.4",
+   "[laddereb] depth  5: m=  18 tau_mle=32768.0 tau_global=32768.0 tau*=4496.0",
+   "[laddereb] depth  6: m=  31 tau_mle=32768.0 tau_global=32768.0 tau*=19828.4",
+   "[laddereb] depth  7: m=  30 tau_mle=13804.2 tau_global=32768.0 tau*=8785.0",
+   "[laddereb] depth  8: m=  26 tau_mle=15018.4 tau_global=32768.0 tau*=9771.8",
+   "[laddereb] depth  9: m=  13 tau_mle=15346.6 tau_global=32768.0 tau*=12596.3",
+   "[reshrink] depth  4: median|surplus| after 82.20",
+   "[reshrink] depth  5: median|surplus| after 52.65",
+   "[reshrink] depth  6: median|surplus| after 128.99",
+   "[reshrink] depth  7: median|surplus| after 77.29",
+   "[reshrink] depth  8: median|surplus| after 86.98",
+   "[reshrink] depth  9: median|surplus| after 120.35"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0002032242967
+   },
+   "5": {
+    "n": 18,
+    "lam_max": 0.2338319507
+   },
+   "6": {
+    "n": 31,
+    "lam_max": 0.001620863575
+   },
+   "7": {
+    "n": 30,
+    "lam_max": 0.0008280398252
+   },
+   "8": {
+    "n": 26,
+    "lam_max": 0.0008013757798
+   },
+   "9": {
+    "n": 13,
+    "lam_max": 0.0008046480912
+   }
+  },
+  "admitted": 130
+ },
+ {
+  "case": "april_s103",
+  "arm": "ebcell",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 9.5,
+  "heldout_dev": 6.761,
+  "x2_info": 0.151,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 94883.7 -> 94883.7  median|surplus| 300.35",
+   "[reshrink] depth  5: m=  18 tau 4496.0 -> 4496.0  median|surplus| 71.10",
+   "[reshrink] depth  6: m=  31 tau 19828.4 -> 19828.4  median|surplus| 153.46",
+   "[reshrink] depth  7: m=  30 tau 8785.0 -> 6856.1  median|surplus| 100.69",
+   "[reshrink] depth  8: m=  26 tau 9771.8 -> 7357.2  median|surplus| 105.00",
+   "[reshrink] depth  9: m=  13 tau 12596.3 -> 12259.3  median|surplus| 177.30",
+   "[ladderebcell] depth  4: tau_d=91750.4 | lo m=9 tau=94883.7 | hi m=3 tau=80079.2",
+   "[ladderebcell] depth  5: tau_d=4496.0 | lo m=12 tau=4496.0 | hi m=6 tau=2892.4",
+   "[ladderebcell] depth  6: tau_d=19828.4 | lo m=16 tau=19828.4 | hi m=15 tau=15047.1",
+   "[ladderebcell] depth  7: tau_d=8785.0 | lo m=12 tau=8785.0 | hi m=18 tau=8374.5",
+   "[ladderebcell] depth  8: tau_d=9771.8 | lo m=15 tau=9771.8 | hi m=11 tau=8857.2",
+   "[ladderebcell] depth  9: tau_d=12596.3 | lo m=11 tau=12596.3 | hi m=2 tau=10077.0",
+   "[reshrink] depth  4: median|surplus| after 84.72",
+   "[reshrink] depth  5: median|surplus| after 50.94",
+   "[reshrink] depth  6: median|surplus| after 128.47",
+   "[reshrink] depth  7: median|surplus| after 77.14",
+   "[reshrink] depth  8: median|surplus| after 87.38",
+   "[reshrink] depth  9: median|surplus| after 120.26"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001965132314
+   },
+   "5": {
+    "n": 18,
+    "lam_max": 0.2338319507
+   },
+   "6": {
+    "n": 31,
+    "lam_max": 0.001620863575
+   },
+   "7": {
+    "n": 30,
+    "lam_max": 0.0008686334188
+   },
+   "8": {
+    "n": 26,
+    "lam_max": 0.0008841276206
+   },
+   "9": {
+    "n": 13,
+    "lam_max": 0.0008046480912
+   }
+  },
+  "admitted": 130
+ },
+ {
+  "case": "april_s103",
+  "arm": "eb_free",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 10.0,
+  "heldout_dev": 6.758,
+  "x2_info": 0.1511,
+  "diag": [
+   "[reshrink] depth  4: m=  12 tau 94883.7 -> 94883.7  median|surplus| 300.35",
+   "[reshrink] depth  5: m=  18 tau 4496.0 -> 4496.0  median|surplus| 71.10",
+   "[reshrink] depth  6: m=  31 tau 19828.4 -> 19828.4  median|surplus| 153.46",
+   "[reshrink] depth  7: m=  30 tau 8785.0 -> 6856.1  median|surplus| 100.69",
+   "[reshrink] depth  8: m=  26 tau 9771.8 -> 7357.2  median|surplus| 105.00",
+   "[reshrink] depth  9: m=  13 tau 12596.3 -> 12259.3  median|surplus| 177.30",
+   "[laddereb] depth  4: m=  12 tau_mle=131072.0 tau_global=32768.0 tau*=91750.4",
+   "[laddereb] depth  5: m=  18 tau_mle=32768.0 tau_global=32768.0 tau*=32768.0",
+   "[laddereb] depth  6: m=  31 tau_mle=32768.0 tau_global=32768.0 tau*=32768.0",
+   "[laddereb] depth  7: m=  30 tau_mle=13804.2 tau_global=32768.0 tau*=17796.6",
+   "[laddereb] depth  8: m=  26 tau_mle=15018.4 tau_global=32768.0 tau*=19194.7",
+   "[laddereb] depth  9: m=  13 tau_mle=15346.6 tau_global=32768.0 tau*=21983.3",
+   "[reshrink] depth  4: median|surplus| after 78.26",
+   "[reshrink] depth  5: median|surplus| after 92.80",
+   "[reshrink] depth  6: median|surplus| after 167.22",
+   "[reshrink] depth  7: median|surplus| after 95.69",
+   "[reshrink] depth  8: median|surplus| after 100.72",
+   "[reshrink] depth  9: median|surplus| after 154.09"
+  ],
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0002032242967
+   },
+   "5": {
+    "n": 18,
+    "lam_max": 0.03208308354
+   },
+   "6": {
+    "n": 31,
+    "lam_max": 0.0009808091472
+   },
+   "7": {
+    "n": 30,
+    "lam_max": 0.0004087498604
+   },
+   "8": {
+    "n": 26,
+    "lam_max": 0.0004079694765
+   },
+   "9": {
+    "n": 13,
+    "lam_max": 0.0004610581608
+   }
+  },
+  "admitted": 130
+ },
+ {
+  "case": "aprilnull_s7",
+  "arm": "eb",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 7.4,
+  "heldout_dev": 1.014,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 123 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[reshrink] depth  5: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[laddereb] depth  4: m= 123 tau_mle=1447.4 tau_global=1502.4 tau*=0.2",
+   "[laddereb] depth  5: m=   4 tau_mle=4096.0 tau_global=1502.4 tau*=0.2",
+   "[reshrink] depth  4: median|surplus| after 0.06",
+   "[reshrink] depth  5: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 123,
+    "lam_max": 4.0
+   },
+   "5": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 127
+ },
+ {
+  "case": "aprilnull_s7",
+  "arm": "ebcell",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 7.6,
+  "heldout_dev": 1.014,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 123 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[reshrink] depth  5: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[ladderebcell] depth  4: tau_d=0.2 | lo m=119 tau=0.2 | hi m=4 tau=0.2",
+   "[ladderebcell] depth  5: tau_d=0.2 | lo m=2 tau=0.2 | hi m=2 tau=0.2",
+   "[reshrink] depth  4: median|surplus| after 0.06",
+   "[reshrink] depth  5: median|surplus| after 0.01"
+  ],
+  "ladder": {
+   "4": {
+    "n": 123,
+    "lam_max": 4.0
+   },
+   "5": {
+    "n": 4,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 127
+ },
+ {
+  "case": "aprilnull_s7",
+  "arm": "eb_free",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 6.0,
+  "heldout_dev": 1.014,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 123 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[reshrink] depth  5: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[laddereb] depth  4: m= 123 tau_mle=1447.4 tau_global=1502.4 tau*=1450.8",
+   "[laddereb] depth  5: m=   4 tau_mle=4096.0 tau_global=1502.4 tau*=2366.9",
+   "[reshrink] depth  4: median|surplus| after 0.79",
+   "[reshrink] depth  5: median|surplus| after 9.95"
+  ],
+  "ladder": {
+   "4": {
+    "n": 123,
+    "lam_max": 1.317635708
+   },
+   "5": {
+    "n": 4,
+    "lam_max": 0.003265277215
+   }
+  },
+  "admitted": 127
+ },
+ {
+  "case": "aprilnull_s103",
+  "arm": "eb",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 9.0,
+  "heldout_dev": 1.021,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 126 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[laddereb] depth  4: m= 126 tau_mle=512.0 tau_global=512.0 tau*=0.2",
+   "[reshrink] depth  4: median|surplus| after 0.06"
+  ],
+  "ladder": {
+   "4": {
+    "n": 126,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 126
+ },
+ {
+  "case": "aprilnull_s103",
+  "arm": "ebcell",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 7.6,
+  "heldout_dev": 1.021,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 126 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[ladderebcell] depth  4: tau_d=0.2 | lo m=123 tau=0.2 | hi m=3 tau=0.2",
+   "[reshrink] depth  4: median|surplus| after 0.06"
+  ],
+  "ladder": {
+   "4": {
+    "n": 126,
+    "lam_max": 4.0
+   }
+  },
+  "admitted": 126
+ },
+ {
+  "case": "aprilnull_s103",
+  "arm": "eb_free",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 7.0,
+  "heldout_dev": 1.021,
+  "x2_info": 0.0146,
+  "diag": [
+   "[reshrink] depth  4: m= 126 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[laddereb] depth  4: m= 126 tau_mle=512.0 tau_global=512.0 tau*=512.0",
+   "[reshrink] depth  4: median|surplus| after 0.48"
+  ],
+  "ladder": {
+   "4": {
+    "n": 126,
+    "lam_max": 3.735842333
+   }
+  },
+  "admitted": 126
  }
 ]

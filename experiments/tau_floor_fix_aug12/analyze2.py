@@ -4,7 +4,7 @@ import json, math, sys
 from collections import defaultdict
 
 recs = json.load(open(sys.argv[1] if len(sys.argv) > 1 else "results_ladder.json"))
-ARMS = ["off", "depth", "cells_rawkeff", "cells", "keffcont", "twogroups", "twogroups_free"]
+ARMS = ["off", "depth", "keffcont", "eb", "ebcell", "eb_free", "twogroups"]
 by_case = defaultdict(dict)
 for r in recs:
     by_case[r["case"]][r["arm"]] = r

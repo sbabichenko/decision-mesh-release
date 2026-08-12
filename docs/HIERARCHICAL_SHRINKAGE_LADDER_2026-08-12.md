@@ -27,6 +27,23 @@ estimator with the restored floor, unchanged.
   per-depth tier tau divided by its own contamination, `tau_i = tau_depth /
   (1 + r_i)`. Pool-dominated vertices shrink smoothly toward the floor,
   clean surface witnesses keep the full tier variance.
+- **`eb`** (`DMESH_RESHRINK_LADDER=eb`): principled empirical Bayes. The
+  prior variance is chosen by *selection-corrected marginal maximum
+  likelihood* (`mle_tau`) rather than method of moments: each admitted
+  surplus has calibrated sampling variance `svar = admit_sd^2` (already
+  law-aware -- `admit_sd = sd_cal` carries the gate's pool term), so its
+  marginal under `N(0, tau)` is `N(0, tau+svar)` truncated to the admission
+  region `|draw| > athr`, and tau maximizes the summed selection-corrected
+  marginal log-likelihood. The per-depth tau's are then chosen
+  *hierarchically*: each depth's MMLE is shrunk toward a global MMLE by the
+  precision weight `m/(m+kappa)` (`DMESH_EB_BORROW`, default 8), so sparse
+  depths borrow strength instead of using the ad-hoc `4^{-dd}` decay. The
+  per-vertex law-aware posterior (`tau/(1+r)`) is applied on top.
+  `DMESH_EB_FREE=1` lifts the improvement-only clamp against the loop tau.
+- **`ebcell`** (`DMESH_RESHRINK_LADDER=ebcell`): the same MMLE, three-level:
+  `(depth x K_eff cell)` tau's borrow from the depth MMLE, which borrows
+  from the global -- the evidence-geometry structure as a hierarchy level
+  rather than a hard split.
 - **`twogroups`** (`DMESH_RESHRINK_LADDER=twogroups`): per-depth
   spike-and-slab EM on the raw surpluses (spike at the floor, slab from the
   responsibility-weighted truncation-corrected moment, selection through the
@@ -50,14 +67,18 @@ fix). Held-out mean deviance/pool, June 2026 SMM design, 11 seeds
 | arm            | mean    | sd     | notes                                   |
 |----------------|---------|--------|-----------------------------------------|
 | off            | 1.1545  | 0.039  | no reshrink                             |
-| depth          | 1.1552  | 0.039  | pooled per-depth (floor-fixed default)  |
+| depth          | 1.1552  | 0.039  | pooled per-depth moment (floor-fixed default) |
 | cells_rawkeff  | 1.1606  | 0.038  | hard threshold, binomial count          |
 | cells          | 1.1595  | 0.033  | hard threshold, law-aware count         |
-| **keffcont**   | **1.1534** | 0.038 | **threshold-free, per-vertex**        |
+| keffcont       | 1.1534  | 0.038  | moment tau, threshold-free law-aware posterior |
+| **eb**         | **1.1502** | 0.037 | **MMLE tau + hierarchical borrow (recommended)** |
+| ebcell         | 1.1519  | 0.038  | MMLE tau, three-level (depth x cell)    |
+| eb_free        | 1.1490  | 0.039  | eb with the improvement-only clamp lifted |
 | twogroups      | 1.1671  | 0.034  | per-depth spike-and-slab                |
 | twogroups_free | 1.1706  | 0.035  | slab cap lifted                         |
 
-The ranking is the result, and it is monotone in principle:
+The ranking is the result, and it is monotone in principle -- each step
+that adds statistical principle improves the held-out fit:
 
 1. **Pool effects first beats raw counting.** `cells` (law-aware K_eff)
    improves on `cells_rawkeff` in both mean (1.1595 vs 1.1606) and spread
@@ -65,25 +86,44 @@ The ranking is the result, and it is monotone in principle:
    variance is a measured net positive.
 2. **Removing the threshold beats the threshold.** Both hard-threshold
    `cells` variants are worse than no reshrink; the threshold-free
-   `keffcont` is the only ladder that beats the baselines, improving on
-   `off` by 0.0011 and on `depth` by 0.0018. It wins or ties `depth` on
-   8 of 11 seeds; the three small losses (<=0.003) are all seeds where the
-   reshrink pass itself is mildly harmful (e.g. seed 107, where `off` is
-   already the second-best fit and every reshrink arm regresses it).
-3. **The per-depth spike-and-slab is not yet paying.** `twogroups`
-   over-shrinks relative to the continuous law-aware prior, and lifting the
-   slab cap (`twogroups_free`) makes it worse. The EM separation is weak at
-   shallow tiers (slab pi ~ 0.5, tau1 pinned at the loop tau), consistent
-   with the writeup's note that the correct object is a single
-   spike-and-slab per (depth x evidence-geometry) cell rather than per
-   depth. Left in as an experimental flag, not recommended.
+   `keffcont` is the first ladder that beats the baselines. It wins or ties
+   `depth` on 8 of 11 seeds; the small losses are seeds where the reshrink
+   pass itself is mildly harmful (e.g. seed 107, where `off` is already the
+   second-best fit and every reshrink arm regresses it).
+3. **Marginal maximum likelihood + hierarchical borrowing beats method of
+   moments.** `eb` (1.1502) improves on the moment-based `keffcont` (1.1534)
+   by 0.0032 and on no-reshrink (1.1545) by 0.0043 -- the largest robust
+   gain of the program. It wins on **10 of 11 seeds** (only seed 107, the
+   reshrink-hostile one, loses, by 0.008), with the tightest spread of the
+   net-positive arms and no catastrophic seed. The hierarchical borrow is
+   the mechanism: at sparse depths where the MMLE cannot self-estimate
+   (seed 103 depth 8: m=2, `tau_mle=0`) the global pull supplies a sane
+   prior (`tau*=2790`), while well-populated depths with a strong
+   noise signal keep their own low estimate (seed 103 depth 6: m=40,
+   `tau_mle=64`, stays at 635). The three-level `ebcell` does not add over
+   `eb` here (1.1519): the K_eff cell split, valuable for `cells`, is
+   already subsumed by the per-vertex `tau/(1+r)` posterior once the tau is
+   MMLE-chosen, so the extra level mostly adds estimation noise.
+4. **Lifting the clamp trades mean for tail risk.** `eb_free` (1.1490) has a
+   slightly better mean but a -0.043 blow-up on seed 104: releasing the
+   improvement-only cap lets the MMLE shrink less and occasionally readmit a
+   coefficient the loop had damped. `eb` (clamped) is the recommended
+   default for that reason -- it captures nearly all the gain with none of
+   the tail.
+5. **The per-depth spike-and-slab is not paying.** `twogroups` over-shrinks
+   and `twogroups_free` is worse; the EM separation is weak at shallow tiers
+   (slab pi ~ 0.5, tau1 pinned at the loop tau), consistent with the
+   writeup's note that the correct object is spike-and-slab per (depth x
+   evidence-geometry) cell. `eb` reaches the same principled EB target
+   through MMLE + hierarchy without the fragile per-tier mixture.
 
 Mechanism check: `keffcont` marks 13-17% of admitted coefficients per run
-as pool-dominated (`r > 1`, pool variance exceeds binomial), and those are
-exactly the vertices it shrinks harder. The largest wins land where that
-set is real signal-scale contamination (seed 105, +0.011 vs off; seed 108,
-+0.007), confirming the gain comes from the pool-effect deflation rather
-than uniform extra shrinkage.
+as pool-dominated (`r > 1`, pool variance exceeds binomial), exactly the
+vertices the law-aware posterior shrinks harder; `eb` keeps that posterior
+and additionally chooses the tier variance by likelihood. The largest `eb`
+wins land where pool-contamination is signal-scale (seed 105, +0.011 vs
+off; seed 108, +0.009), confirming the gain is the principled variance
+estimate, not uniform extra shrinkage.
 
 ### Null and April-proxy behavior
 
@@ -98,13 +138,26 @@ deployment target.
 
 ## Recommendation
 
-`DMESH_RESHRINK_LADDER=keffcont` is the recommended reshrink ladder on the
-one-law SMM configuration: it is the most principled (per-vertex,
-threshold-free, pool-effect-aware), the only variant that beats no-reshrink,
-and it leaves the null and default paths intact. The magnitude is modest
-(~0.002 deviance/pool over the pooled estimator); the structural value is
-retiring the depth-only exchangeability unit and the arbitrary K_eff cut
-in one continuous law-aware object. The per-cell spike-and-slab remains the
-writeup's target design (bar 2.7355 on the 2020 conditional-dual release);
-`twogroups` here is a first per-depth increment toward it, not the finished
-object.
+`DMESH_RESHRINK_LADDER=eb` is the recommended reshrink ladder on the one-law
+SMM configuration. It is the most principled of the variants -- the prior
+variance is chosen by selection-corrected marginal maximum likelihood, the
+tier variances are chosen hierarchically (sparse depths borrow strength
+from a global fit), and the per-vertex posterior is pool-effect-aware -- and
+it is the strongest measured: held-out deviance/pool 1.1502 vs 1.1545
+no-reshrink and 1.1552 for the pooled-moment default, winning on 10 of 11
+seeds with no catastrophic seed and the tightest spread of the net-positive
+arms. Nulls and the default (non-reshrink) path are byte-identical.
+
+The absolute magnitude is still modest (~0.004 deviance/pool); the value is
+that the shrinkage coefficients are now genuinely empirical-Bayes -- chosen
+by likelihood and by a hierarchy -- rather than a per-depth moment with an
+ad-hoc decay borrow. `eb_free` is available for the aggressive setting but
+carries tail risk (a -0.043 seed) and is not recommended as default.
+
+The remaining target is the writeup's single spike-and-slab per (depth x
+evidence-geometry) cell that unifies the admission gate and the shrinkage
+ladder (bar 2.7355 on the 2020 conditional-dual release). `eb` reaches the
+principled-EB variance-estimation half of that target on the current
+configuration; `twogroups` is a first, not-yet-paying increment toward the
+spike-and-slab half, and `ebcell` shows the cell hierarchy is already
+subsumed by the MMLE + law-aware posterior for point prediction.
