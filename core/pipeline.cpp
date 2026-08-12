@@ -2496,6 +2496,45 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             }
             return 0.5 * (lo + hi);
         };
+        // Selection-corrected marginal maximum likelihood for the prior
+        // variance tau (principled empirical Bayes, vs the method-of-moments
+        // solve_tau). Each admitted surplus has calibrated sampling variance
+        // svar (admit_sd^2, already law-aware -- it carries the gate's pool
+        // term), so its marginal under prior N(0, tau) is N(0, tau + svar)
+        // truncated to the admission region |draw| > athr. Maximize
+        //   sum_i [ -0.5 log(tau+svar_i) - 0.5 draw_i^2/(tau+svar_i)
+        //           - log erfc(athr_i / sqrt(2(tau+svar_i))) ]
+        // over tau >= 0 by golden section. Returns 0 for a corner solution
+        // (marginal prefers no signal variance).
+        auto mle_tau = [&](const std::vector<RawSurplus>& rs) {
+            if (rs.size() < 3) return 0.0;
+            auto logL = [&](double tau) {
+                double s = 0.0;
+                for (const auto& r : rs) {
+                    const double T = tau + r.svar;
+                    if (T <= 0.0) return -1e300;
+                    double q = std::erfc((r.athr > 0.0 ? r.athr : 0.0) /
+                                         std::sqrt(2.0 * T));
+                    if (q < 1e-300) q = 1e-300;
+                    s += -0.5 * std::log(T) - 0.5 * r.draw * r.draw / T -
+                         std::log(q);
+                }
+                return s;
+            };
+            const double l0 = logL(0.0);
+            double hi = 1.0;
+            while (hi < 1e8 && logL(2.0 * hi) > logL(hi)) hi *= 2.0;
+            double a = 0.0, b = hi;
+            const double gr = 0.6180339887498949;
+            double c = b - gr * (b - a), d = a + gr * (b - a);
+            double fc = logL(c), fd = logL(d);
+            for (int it = 0; it < 80; ++it) {
+                if (fc < fd) { a = c; c = d; fc = fd; d = a + gr * (b - a); fd = logL(d); }
+                else         { b = d; d = c; fd = fc; c = b - gr * (b - a); fc = logL(c); }
+            }
+            const double tau = 0.5 * (a + b);
+            return logL(tau) > l0 ? tau : 0.0;
+        };
         std::map<int, double> tau_new;
         for (auto& [d, rs] : by_depth) {
             if ((int)rs.size() < 3) continue;
@@ -2568,6 +2607,79 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                                  "keff_law>=%.2f m=%zu tau %.1f\n",
                                  d, KEFF_SPLIT, lo_cell.size(), cell_tau[0],
                                  KEFF_SPLIT, hi_cell.size(), cell_tau[1]);
+                }
+            } else if (ladder_mode == "eb" || ladder_mode == "ebcell") {
+                // Principled empirical Bayes: the prior variance is chosen by
+                // selection-corrected marginal maximum likelihood, and the
+                // per-group tau's are chosen HIERARCHICALLY -- each group's
+                // MMLE is shrunk toward a parent MMLE by a precision weight
+                // m/(m+kappa), so sparse groups borrow strength instead of
+                // relying on the ad-hoc 4^{-dd} decay. The per-vertex prior is
+                // then the group tau under the law-aware posterior (the /(1+r)
+                // realizes the pool-effect-deflated precision, as in keffcont).
+                // eb: groups = depths, parent = global MMLE.
+                // ebcell: groups = (depth x K_eff cell), parent = depth MMLE.
+                static const double EB_BORROW = [] {
+                    const char* e = std::getenv("DMESH_EB_BORROW");
+                    return e ? std::atof(e) : 8.0;
+                }();
+                static const double EB_KEFF = [] {
+                    const char* e = std::getenv("DMESH_TAU_CELL_KEFF");
+                    return e ? std::atof(e) : 1.0;
+                }();
+                static const bool EB_FREE =
+                    std::getenv("DMESH_EB_FREE") != nullptr;
+                const bool cellwise = (ladder_mode == "ebcell");
+                auto borrow = [&](double child, double m, double parent) {
+                    double t = (m * child + EB_BORROW * parent) / (m + EB_BORROW);
+                    return std::max(t, mesh->tau_floor_sq);
+                };
+                std::vector<RawSurplus> all;
+                for (auto& [d, rs] : by_depth)
+                    for (auto& r : rs) all.push_back(r);
+                const double tau_global = mle_tau(all);
+                for (auto& [d, rs] : by_depth) {
+                    const double tau_depth = mle_tau(rs);
+                    // depth tau borrows from the global fit
+                    double tau_d = borrow(tau_depth, (double)rs.size(), tau_global);
+                    if (!EB_FREE)
+                        tau_d = std::min(tau_d, std::max(mesh->tau_for_depth(d),
+                                                         mesh->tau_floor_sq));
+                    if (!cellwise) {
+                        for (auto& r : rs) {
+                            double tv = tau_d / (1.0 + std::max(r.pratio, 0.0));
+                            r.v->tau_override_sq = std::max(tv, mesh->tau_floor_sq);
+                        }
+                        std::fprintf(stderr,
+                                     "[laddereb] depth %2d: m=%4zu tau_mle=%.1f "
+                                     "tau_global=%.1f tau*=%.1f\n",
+                                     d, rs.size(), tau_depth, tau_global, tau_d);
+                    } else {
+                        // cells within the depth, each MMLE borrowing from the
+                        // depth tau; per-vertex law-aware posterior on top.
+                        std::vector<RawSurplus> lo_c, hi_c;
+                        for (auto& r : rs)
+                            (r.keff < EB_KEFF ? lo_c : hi_c).push_back(r);
+                        std::vector<RawSurplus>* cells[2] = {&lo_c, &hi_c};
+                        double ctau[2];
+                        for (int c = 0; c < 2; ++c) {
+                            ctau[c] = borrow(mle_tau(*cells[c]),
+                                             (double)cells[c]->size(), tau_d);
+                            if (!EB_FREE)
+                                ctau[c] = std::min(ctau[c],
+                                    std::max(mesh->tau_for_depth(d), mesh->tau_floor_sq));
+                        }
+                        for (int c = 0; c < 2; ++c)
+                            for (auto& r : *cells[c]) {
+                                double tv = ctau[c] / (1.0 + std::max(r.pratio, 0.0));
+                                r.v->tau_override_sq = std::max(tv, mesh->tau_floor_sq);
+                            }
+                        std::fprintf(stderr,
+                                     "[ladderebcell] depth %2d: tau_d=%.1f | "
+                                     "lo m=%zu tau=%.1f | hi m=%zu tau=%.1f\n",
+                                     d, tau_d, lo_c.size(), ctau[0],
+                                     hi_c.size(), ctau[1]);
+                    }
                 }
             } else if (ladder_mode == "keffcont") {
                 // Threshold-free continuous limit of "cells": no K_eff cut.
