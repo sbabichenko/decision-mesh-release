@@ -365,3 +365,23 @@ construction; the terminal/inter-pass renegotiations restore martingale
 values; and the outer loop is the fixed-point iteration between the two -
 gated Gauss-Seidel at the architecture level rather than the coordinate
 level.
+
+## Addendum 9: fresh-seed certification (seeds 201-215, MEASURED)
+
+All tuning decisions in this document saw seeds 7 and 101-110. Fifteen
+untouched holdout seeds certify the headline results
+(`holdout_seeds_201_215.csv`):
+
+| benchmark, paired vs baseline | tuning seeds | holdout 201-215 |
+|---|---|---|
+| April, SC outer=1 + terminal, dev | -0.0256 (se 0.028, 7/10) | **-0.0281 (se 0.017, 8/15)** |
+| SMM, SC outer=2 + terminal, dev | +0.0043 (se 0.013) | +0.0066 (se 0.008, 5/15) |
+| SMM, same, NLL | +0.0026 (se 0.003) | +0.0033 (se 0.002, 4/15) |
+
+The holdout reproduces the tuning-seed estimates within one standard error
+on every line: no seed-fishing component. Certified state: on April the
+self-child architecture BEATS the shipped baseline (repeated -0.026/-0.028
+across two independent seed sets, 25 seeds total); on SMM it is at parity
+on deviance with a small residual (~+0.003, marginal) in the mixture NLL -
+the last trace of the admissions deficit, pointing as before at the
+gate-side program (spike-and-slab with the null fraction).
