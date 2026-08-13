@@ -1745,6 +1745,41 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
         // blows past the empirical-null sigma0<=1.4 cap, and the gate mass-admits.
         double phi_disp = estimate_dispersion(*mesh);
         int stalls = 0;
+        // DMESH_SC_OUTER (self-child mode, default 1): outer iterations of
+        // {gated adaptation rounds -> terminal joint renegotiation}.  Between
+        // outer passes the mesh gets a full joint GS solve at fixed topology
+        // (cumulative-surplus tau, per the SC_FINAL_JOINT eruption lessons),
+        // then re-freezes and re-adapts: the second pass scores candidates -
+        // in particular the deep tail - against a renegotiated backdrop.
+        static const int SC_OUTER = [] {
+            const char* e = std::getenv("DMESH_SC_OUTER");
+            const int v = e ? std::atoi(e) : 1;
+            return v > 0 ? v : 1;
+        }();
+        for (int sc_outer = 0; sc_outer < SC_OUTER; ++sc_outer) {
+        if (sc_outer > 0 && self_child_frozen()) {
+            for (Vertex* v : mesh->vertices)
+                if (v->active && v->parent_edge != nullptr)
+                    v->delta_pooled = v->height - v->mu_lin();
+            mesh->recompute_tau_sq();
+            mesh->sc_frozen = false;
+            refresh_irls_working_data(*mesh, obs, extra, heldout_split);
+            for (int cyc = 0; cyc < 10; ++cyc)
+                pl_solver::run(*mesh, 0.0005, 120);
+            mesh->sc_frozen = true;
+            for (Vertex* v : mesh->vertices) {
+                v->sc_thawed = false;
+                v->sc_ref = v->height;
+                if (v->active && v->parent_edge != nullptr)
+                    v->delta_pooled = v->height - v->mu_lin();
+            }
+            refresh_hierarchical_support_diagnostics(*mesh, heldout_split);
+            mesh->recompute_tau_sq();
+            phi_disp = estimate_dispersion(*mesh);
+            stalls = 0;
+            std::printf("self-child outer %d: mid renegotiation complete; "
+                        "re-adapting on the renegotiated backdrop\n", sc_outer);
+        }
         for (int rnd = 0; rnd < config.diagnostics.max_gate_rounds; ++rnd) {
             g_diag_round = rnd;
             if ((int)mesh->active_faces.size() > vertex_cap) break;
@@ -2575,6 +2610,7 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                 phi_disp = estimate_dispersion(*mesh);
             }
         }
+        }  // sc_outer
         // DMESH_TAX_DEST=1: tax the destination, not the journey. Before the
         // taxed finalization, iterate {relinearize, untaxed sweeps} so raw
         // proposals converge to where the evidence actually points (the
