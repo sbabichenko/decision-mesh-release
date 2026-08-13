@@ -110,9 +110,13 @@ seed 7 forensics + 10-seed confirmation):
    first-class candidate type), so renegotiations that matter clear the
    bar as units and stay dated in the ledger.
 
-## Current recommended self-child configuration
+## Current recommended self-child configuration [SUPERSEDED - see final section]
 
-`DMESH_SELF_CHILD=1 DMESH_REFRESH_EVERY=1` (all other flags as shipped).
+Historical (pre-terminal-solve): `DMESH_SELF_CHILD=1 DMESH_REFRESH_EVERY=1`
+(all other flags as shipped). The certified final recommendation is
+`DMESH_SELF_CHILD=1 DMESH_REFRESH_EVERY=1 DMESH_SC_FINAL_JOINT=1
+DMESH_SC_OUTER=2` (plus DMESH_HIER_FIT=2 where the shipped env lacks it);
+see addenda 7-10.
 State: -0.011 on the book excluding the issuance-boundary corner, +0.031
 overall under the writeup's WALA-0-exclusion protocol, zero null-battery
 admissions, no topology-collapse mode, ~4x wall-time, stable dated
@@ -416,3 +420,22 @@ shipped baseline on April (-0.029, 9/15, fresh seeds, iteration-stable)
 and holds deviance parity on SMM with a ~+0.004 NLL residual (the last
 trace of the admissions program). The architecture passes the fixed-point
 test on both benchmarks.
+
+## Final recommended configuration (certified)
+
+On top of each benchmark's shipped flags (April: the run_ginnie_benchmark
+lindsey env; SMM: the one-law env plus DMESH_HIER_FIT=2, which the terminal
+solve requires):
+
+    DMESH_SELF_CHILD=1 DMESH_REFRESH_EVERY=1
+    DMESH_SC_FINAL_JOINT=1 DMESH_SC_OUTER=2
+
+OUTER=2 is universal: statistically identical to 1 on April after the
+null-flood fix (-0.0005, se 0.007) and the SMM convergence point (outer=3
+changes nothing on either benchmark). The null-flood exclusion and the
+terminal-solve guards (retirement first, cumulative-surplus tau) are code
+defaults, not flags. Certified on fresh holdout seeds 201-215: April
+-0.0287 vs baseline (se 0.014, wins 9/15), SMM deviance parity (+0.0087,
+se 0.008) with a +0.0039 NLL residual; zero complete-null admissions; no
+collapse mode; iteration-stable; dated immutable admission certificates
+with all coarse repricing gated or logged.
