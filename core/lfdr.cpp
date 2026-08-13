@@ -171,7 +171,7 @@ LfdrResult lindsey_lfdr(std::vector<double> z, bool free_empirical_null) {
         s0 = std::clamp(std::sqrt(-1.0 / (2 * a2)), S0MIN, S0MAX);
         d0 = std::clamp(a1 * s0 * s0, -D0MAX, D0MAX);
         pi0 = std::clamp(std::exp(a0 + d0 * d0 / (2 * s0 * s0))
-                             * std::sqrt(2 * M_PI) * s0,
+                             * std::sqrt(2 * kPi) * s0,
                          PI0MIN, 1.0);
     }
     R.empirical_mean = d0;
