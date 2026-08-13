@@ -323,11 +323,81 @@ refusals, sandwich-honest denominators, unified with the gate, applied
 in-loop, re-priced on design-changing events. The measured bar for the
 in-loop implementation is the conditional-dual release's 2.7355.
 
+\subsection{Addendum 2026-08-07: the \texttt{TAU\_FLOOR} bypass, resolved}
+\label{sec:aug7-taufloor}
+
+\paragraph{Root cause (\textsc{measured}).} The $\lambda=10^8$ welds are a
+two-pass interaction, not a sentinel. \texttt{DMESH\_FINAL\_RESHRINK} lowers
+\texttt{tau\_floor\_sq} to $10^{-8}$ for its own no-floor closure sweep and
+never restores it; the subsequent retirement pass
+(\texttt{retire\_zero\_support\_at\_fixed\_topology}), whenever it retires
+anything, re-runs the \emph{in-loop} tau moment over already-shrunk
+surpluses ($\chi^2\approx0$ at strongly shrunk depths) under the gutted
+floor: $\tau^2=0\to\max(0,10^{-8})\to\lambda=10^8$ exactly, wholesale per
+depth, in the post-retirement sweep and final refit --- and the reshrink's
+own solved taus are clobbered in the same call. Reproduced on
+seed7-lindsey with reshrink enabled (v5145, depth 10, $K_{\mathrm{eff}}$
+2.3, $\lambda=10^8$). Fix validated in this session
+(\texttt{core/pipeline.cpp}): save/restore \texttt{tau\_floor\_sq} around
+the reshrink sweep. After the fix the weld is gone, the vertex carries
+$\lambda=4$ (the documented floor cap), and held-out is unchanged (6.455
+vs 6.454 deviance/pool); with reshrink off the binary reproduces the
+archived seed7 verification run to one last-digit rounding. The adopted
+implementation is the August 12 session's root-cause variant
+(Section~\ref{sec:aug12-floor} and commit \texttt{a8c18d2}): the
+reshrink pass respects the configured floor outright, with
+\texttt{DMESH\_RESHRINK\_NO\_FLOOR=1} preserving the historical no-floor
+behavior; the save/restore variant is superseded --- same mechanism, same
+result.
+
+\paragraph{Empty-star hyperparameter votes (\textsc{measured}).} A second
+defect in the same estimator: support-starved (contained) vertices ---
+stars over near-empty space, $K_{\mathrm{eff}}<0.5$ or fewer than 10 fit
+points --- are frozen at their prior by \texttt{update\_height} but still
+vote in both tau moments with stale admission-time $\sigma^2$ and noise
+surpluses. Each such voter costs one degree of freedom ($m{-}1$) while
+contributing $\approx0$ to $\chi^2$ and to $\sum w$, so they deflate tau
+where their deltas are contained (seed7 depth 10: two of three voters at
+$K_{\mathrm{eff}}\approx0.01$, $\chi^2=0.3$ vs $m{-}1=2$, $\tau^2=0$, the
+one real workhorse welded at the floor) and inflate it where their deltas
+are wild (depths 4/7: tau high by $2.5\times$/$1.5\times$; the weak-plane
+self-licensing direction). New env patch
+\texttt{DMESH\_TAU\_EXCLUDE\_CONTAINED=1} (default off) removes the vote
+from both collectors; contained vertices stay fully pooled to the prior.
+On seed7-lindsey the exclusion frees the depth-10 workhorse (real surplus,
+$\lambda=3\cdot10^{-4}$ by nearest-depth borrowing) but reads slightly
+worse held-out (6.478 vs 6.455 deviance/pool; the tau change feeds the
+gate, 1873 vs 2196 vertices) --- fresh-seed confirmation required before
+default-on.
+
+\paragraph{Estimator audit (\textsc{design}).} The per-depth moment is
+DerSimonian--Laird with a floor and nearest-depth borrowing --- a sound
+skeleton with five mechanical defects beyond the structural ones of the EB
+audit above: (1) the excess-$\chi^2$ denominator uses $S_1=\sum w$ rather
+than $S_1-S_2/S_1$, which with weights spanning four decades
+($K_{\mathrm{eff}}$ 0.01--100) materially underestimates tau
+(over-shrinks); (2) the membership rule admits zero-information voters
+(previous paragraph); (3) the truncation correction is opt-in in-loop
+(\texttt{DMESH\_TRUNC}, default off: selection-inflated tau) but always on
+in the reshrink, so the two estimators disagree by construction; (4) the
+in-loop moment fits a free per-depth mean while the reshrink uses zero-mean
+--- for surpluses about the parent interpolation zero-mean is the right
+model, and a fitted mean absorbs depth-wide signal out of tau; (5) the
+in-loop inputs are jointly fitted heights, already shrunk by the previous
+tau, so the estimator partly measures its own output --- the mechanism that
+let the retirement recompute self-reinforce to a weld. (1) and (4) are
+cheap, well-defined fixes; both are queued behind fresh-seed confirmation
+of the containment exclusion.
+
 \subsection{Session open-item delta}\label{sec:aug6-open}
 
 New or re-ranked relative to Section~\ref{sec:discussion}: (1) the release
 rule and redistricting review (in-loop; conditional currency; e-BH budget);
-(2) the \texttt{TAU\_FLOOR} bypass at depths 8--9 (bug read); (3) in-loop
+(2) the \texttt{TAU\_FLOOR} bypass at depths 8--9 (resolved 2026-08-07,
+Section~\ref{sec:aug7-taufloor}; adopted upstream as the configured-floor
+fix, Section~\ref{sec:aug12-floor}; the
+containment exclusion and the DL-denominator and zero-mean estimator fixes
+await fresh-seed confirmation); (3) in-loop
 two-groups $\Lambda$ with the marginal Newton, bar 2.7355; (4) sandwich se
 inside the exact scorer (unchanged, still first); (5) fresh-seed confirmation
 of the sharp-class and conditional-slab releases; (6) the 11-site weld docket

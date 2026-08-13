@@ -319,6 +319,16 @@ void DecisionMesh::recompute_tau_sq() {
         if (!v->active || !v->gate_admitted || v->dormant_coefficient ||
             v->retired_coefficient) continue;
         if (v->sigma_sq >= 1e300 || v->sigma_sq <= 0) continue;
+        // DMESH_TAU_EXCLUDE_CONTAINED=1: support-starved vertices are frozen
+        // at their prior by update_height (containment) yet still vote here
+        // with stale admission-time sigma and noise surpluses, deflating tau
+        // where their deltas are contained and inflating it where they are
+        // wild. Excluded, they stay fully pooled without a hyperparameter vote.
+        static const bool kExcludeContained =
+            std::getenv("DMESH_TAU_EXCLUDE_CONTAINED") != nullptr;
+        if (kExcludeContained &&
+            (v->current_fit_points < Vertex::kMinimumFitPoints ||
+             v->current_keff < Vertex::minimum_effective_support())) continue;
         by_depth[v->depth].push_back(v);
     }
 

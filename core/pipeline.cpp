@@ -2429,9 +2429,16 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
         struct RawSurplus { double draw, svar, athr, keff, pratio; Vertex* v; };
         std::map<int, std::vector<RawSurplus>> by_depth;
         std::map<int, std::vector<double>> before_prof;
+        static const bool kExcludeContained =
+            std::getenv("DMESH_TAU_EXCLUDE_CONTAINED") != nullptr;
         for (Vertex* v : mesh->vertices) {
             if (!v->active || !v->gate_admitted || v->dormant_coefficient ||
                 v->retired_coefficient || !v->parent_edge) continue;
+            // Same containment exclusion as recompute_tau_sq: a near-empty
+            // star's raw xTr/xTx draw is noise and its admit_sd is stale.
+            if (kExcludeContained &&
+                (v->current_fit_points < Vertex::kMinimumFitPoints ||
+                 v->current_keff < Vertex::minimum_effective_support())) continue;
             before_prof[v->depth].push_back(std::fabs(v->height - v->mu_prior()));
             auto lr = v->loc_regress(false);
             if (!(lr.xTx > 0) || !(v->admit_sd > 0)) continue;
