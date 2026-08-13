@@ -1,3 +1,11 @@
+# Downloads (prebuilt binaries)
+
+**Windows**: [DecisionMesh-Windows-x64.zip](https://github.com/sbabichenko/triangular-decision-mesh/releases/download/build-2026-08-13/DecisionMesh-Windows-x64.zip) — self-contained bundle: `decision_mesh.exe` (no toolchain/DLLs needed), the recommended-config launcher, the frozen SMM design, and checksums. Extract, then `powershell -ExecutionPolicy Bypass -File run_recommended.ps1`.
+
+**Linux x86-64**: [`decision_mesh`](https://github.com/sbabichenko/triangular-decision-mesh/releases/tag/build-2026-08-13) from the same release; run via `scripts/run_recommended.sh`.
+
+Both run the writeup's recommended configuration (one-law gate with the converged per-stratum law, sigma0 >= 1). All releases: [releases page](https://github.com/sbabichenko/triangular-decision-mesh/releases).
+
 # August 1, 2026 update
 
 The stable production source in `core/` is unchanged by the pooled-permutation
