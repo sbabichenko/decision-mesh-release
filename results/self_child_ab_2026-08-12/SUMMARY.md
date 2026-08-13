@@ -385,3 +385,34 @@ across two independent seed sets, 25 seeds total); on SMM it is at parity
 on deviance with a small residual (~+0.003, marginal) in the mixture NLL -
 the last trace of the admissions deficit, pointing as before at the
 gate-side program (spike-and-slab with the null fraction).
+
+## Addendum 10: the fixed-point test, the null-flood defect, and re-certification (MEASURED)
+
+Suspicion (user): anything good with one iteration but bad with two is
+suspect. Correct, and productive: forensics on the April outer=2
+degradation convicted the empirical null - after a mid renegotiation every
+existing coefficient sits at its joint optimum, so its self-delta z is ~0
+BY CONSTRUCTION, and ~450 such structural zeros narrowed the central-
+matching null from 0.91-1.10 to 0.78, admitting 74 marginal candidates
+against the corrupted null. Fix: self-deltas enter the candidate population
+only in passes where values were frozen while evidence accumulated
+(sc_outer==0); a hypothesis whose null is true by construction is not a
+hypothesis.
+
+With the fix, iteration is monotone and convergent (April seed 7:
+6.447 -> 6.419 -> 6.420 across outer=1/2/3; baseline 6.455), and the
+fresh-seed holdout re-certifies (`holdout_fixed_outer2.csv`, seeds
+201-215):
+
+| holdout, paired vs baseline | fixed outer=2 |
+|---|---|
+| April dev | **-0.0287 (se 0.014, wins 9/15)** |
+| April, outer=2 vs outer=1 | -0.0005 (se 0.007): iteration STABLE |
+| SMM dev | +0.0087 (se 0.008) - parity |
+| SMM NLL | +0.0039 (se 0.002) - small residual |
+
+Certified final state: the converged self-child architecture beats the
+shipped baseline on April (-0.029, 9/15, fresh seeds, iteration-stable)
+and holds deviance parity on SMM with a ~+0.004 NLL residual (the last
+trace of the admissions program). The architecture passes the fixed-point
+test on both benchmarks.
