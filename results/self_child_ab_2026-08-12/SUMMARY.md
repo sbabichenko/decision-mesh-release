@@ -232,3 +232,25 @@ machinery is correct and in the tree; (2) gated group moves (data-driven
 renegotiation that pays FDR); (3) the innovation ledger (joint values,
 decision identity attached to per-admission full-field innovations rather
 than coordinates).
+
+## Addendum 5: transfer to the June 2026 SMM design (post-merge, MEASURED)
+
+After merging the Aug 12 shrinkage-ladder session (which added
+`data/smm_design_202606.csv`), the self-child A/B was run on the current-era
+benchmark under its recommended one-law configuration (11 seeds:
+`smm_11seed_heldout_dev.csv`): baseline vs `DMESH_SELF_CHILD=1
+DMESH_REFRESH_EVERY=1`. Paired diff +0.0238 (sd 0.032, se 0.010), self-child
+worse in 8/11, wins on 3 seeds (best -0.037).
+
+The absolute debt (~+0.02-0.03 dev/pool) transfers across designs and
+matches the April excl-WALA0 figure (+0.031) - notable because the SMM
+design has no WALA-0 artifact class (n0>=25, true SMM response): what
+remains is the genuine renegotiation debt, at consistent absolute
+magnitude, now measured on both eras. The composition roadmap after the
+merge: feed the Aug 12 session's honest per-pool variance and eb/ebscale
+slab machinery (exchangeability principle: K_eff in the likelihood, scale-
+exchangeable prior) into DMESH_SC_SMOOTH, whose measurement/residual
+structure is correct but whose slab was a crude empirical moment; and the
+unified spike-and-slab with null fraction pi - which the Aug 12 INLOOP_EB
+negative and our SC_JOINT negative independently identify as the missing
+regulariser for any gate-coupled estimator.
