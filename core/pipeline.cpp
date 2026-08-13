@@ -3276,7 +3276,16 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
     // Finalize exact obsolescence only after all adaptive topology decisions
     // and optional fixed-topology re-shrinkage are complete. No admission or
     // refinement pass follows this cleanup.
-    if (!std::getenv("DMESH_DISABLE_FINAL_RETIREMENT") && !self_child_frozen()) {
+    // Under the SC_FINAL_JOINT counterfactual the terminal joint solve is
+    // about to run, and it must not include zero-support coefficients the
+    // baseline would have retired first (the starved-coordinate eruption
+    // channel: measured dev 9.355 on April seed 107 without this).
+    static const bool SC_FJ_RETIRE = [] {
+        const char* e = std::getenv("DMESH_SC_FINAL_JOINT");
+        return e != nullptr && std::atoi(e) != 0;
+    }();
+    if (!std::getenv("DMESH_DISABLE_FINAL_RETIREMENT") &&
+        (!self_child_frozen() || SC_FJ_RETIRE)) {
         retire_zero_support_at_fixed_topology(*mesh, config.fit.heldout_split, timing);
     } else if (self_child_frozen()) {
         std::printf("self-child mode: final retirement skipped "
@@ -3333,8 +3342,18 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             } else if (exact_line) {
                 if (self_child_frozen() && SC_FINAL_JOINT) {
                     mesh->sc_frozen = false;
+                    // The terminal solve must run under baseline tau
+                    // semantics: rebook cumulative surpluses (SC's in-loop
+                    // delta_pooled holds round increments, whose per-depth
+                    // moments can inflate tau and leave terminal coordinates
+                    // nearly unpenalized).
+                    for (Vertex* v : mesh->vertices)
+                        if (v->active && v->parent_edge != nullptr)
+                            v->delta_pooled = v->height - v->mu_lin();
+                    mesh->recompute_tau_sq();
                     std::printf("self-child mode: SC_FINAL_JOINT counterfactual"
-                                " - joint GS at fixed frozen-built topology\n");
+                                " - joint GS at fixed frozen-built topology "
+                                "(cumulative-surplus tau)\n");
                 }
                 int final_cycles = 30;
                 if (const char* fc = std::getenv("DMESH_B1_FINAL_CYCLES"))
