@@ -1874,7 +1874,17 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                     // Self-child mode: an existing free coefficient is a
                     // candidate for a gated re-adjustment, priced from its
                     // current frozen value exactly like any other child.
-                    else if (self_child_mode() && vertex->active &&
+                    // In outer passes AFTER a mid renegotiation (sc_outer>0)
+                    // existing coefficients sit at the joint optimum: their
+                    // self-deltas are vacuous by construction (null true),
+                    // and admitting them to the candidate population floods
+                    // the empirical null with structural zeros (measured:
+                    // null-sd 0.91-1.10 -> 0.78, 74 marginal admissions
+                    // against the corrupted null). Self-deltas belong only
+                    // to passes where values were frozen while evidence
+                    // accumulated.
+                    else if (self_child_mode() && sc_outer == 0 &&
+                             vertex->active &&
                              vertex->parent_edge && vertex->free_coefficient &&
                              !vertex->dormant_coefficient &&
                              !vertex->retired_coefficient &&
