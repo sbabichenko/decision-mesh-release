@@ -1,0 +1,189 @@
+% ---------------------------------------------------------------------------
+% August 12 session: the shrinkage ladder, the exchangeability principle, the
+% two-currency verdict, and the in-loop negative result.  Inserted 2026-08-12.
+% ---------------------------------------------------------------------------
+\section{August 12 session: the shrinkage ladder, the exchangeability principle, and the two-currency verdict}\label{sec:aug12}
+
+This session works the empirical-Bayes conceptual audit of
+Section~\ref{sec:aug6-ladder} as an implementation program. It resolves the
+queued \texttt{TAU\_FLOOR} bug lead; builds and measures a family of
+prior-variance estimators against audit defects~1 (depth is the wrong
+exchangeability unit) and~2 (the learning signal is corrupted); reaches a
+clean two-currency verdict on what re-shrinkage can and cannot buy; and
+returns a decisive negative result on the naive route to defect~3 (unify the
+gate and the ladder) that converts the spike-and-slab target from a
+preference into a requirement. Status labels as before: \textsc{measured},
+\textsc{design}, \textsc{retracted}. Unless noted, numbers are held-out on the
+June 2026 SMM design (33{,}740 pools, one-law config, seeds 7 and 101--110),
+scored in \emph{two currencies}: mean binomial deviance per pool (the
+conditional, point-prediction currency) and held-out mixture NLL evaluated by
+reference against one fixed law (the marginal currency of
+Section~\ref{sec:aug6-release}).
+
+\subsection{The wholesale weld, resolved}\label{sec:aug12-floor}
+
+\textsc{Measured.} The August 6 bug lead --- $\lambda_v=10^8$ across all
+depth-8/9 admissions against a floor-implied cap of $4$, with depth 10 showing
+the cap working --- is a defect in the final post-selection re-shrinkage pass
+(\texttt{DMESH\_FINAL\_RESHRINK}), not the ladder or a sentinel. The mechanism:
+$\lambda_v=1/\texttt{tau\_for\_depth}(d)$ and every $\tau$ read is floored at
+\texttt{tau\_floor\_sq}, so at the documented
+\texttt{DMESH\_TAU\_FLOOR\_LOGIT\_SD}=0.005 the floor caps $\lambda_v\le4$. The
+reshrink pass re-estimated $\tau$ per depth from raw surpluses and then
+\emph{overwrote the floor itself} (\texttt{tau\_floor\_sq}$\leftarrow10^{-8}$),
+opening two weld channels: (i) a depth whose truncation-corrected $\chi^2$ sits
+below its selection-inflated null gives $\tau=0$, floored at $10^{-8}$, i.e.\
+$\lambda_v=10^8$ for every admitted coefficient at that depth in one stroke;
+(ii) the lowered floor outlives the pass, so the closing height sweeps'
+in-loop $\tau$ recomputes weld depths the pass itself read as positive. The
+``$d10$ shows the floor working'' reading is corrected: it was the
+improvement-only clamp passing through an already-floored in-loop value, not
+the floor holding at read time. \textbf{Fix}: the reshrink keeps its honest
+re-estimation but no longer lowers the floor;
+\texttt{DMESH\_RESHRINK\_NO\_FLOOR} restores the historical behaviour
+(bit-verified against a pre-fix build). On the SMM design the floor bound on 8
+of 11 seeds; held-out deviance improves $1.1661\to1.1552$ in mean, the worst
+case a full depth-6 workhorse tier (40 coefficients, median $|$surplus$|$ 43
+centilogits) welded wholesale and recovered $1.292\to1.205$ (seed 103).
+Ledger entry~(12).
+
+\subsection{Depth is the wrong exchangeability unit, and $K_{\mathrm{eff}}$ is
+not the right one either}\label{sec:aug12-ladder}
+
+Audit defect~1 asks for the prior grouping. A family of estimators, all inside
+the reshrink pass and selected by \texttt{DMESH\_RESHRINK\_LADDER}, was built
+and measured: \texttt{cells} (split each depth at a $K_{\mathrm{eff}}$
+threshold), \texttt{keffcont} (threshold-free per-vertex
+$\tau_d/(1+r)$, $r=\mathrm{Var}_{\mathrm{pool}}/\mathrm{Var}_{\mathrm{bin}}$
+the same pool-effect inflation the gate prices), \texttt{eb}
+(selection-corrected marginal maximum likelihood for $\tau$ with a hierarchical
+borrow toward a global fit, replacing the ad-hoc $4^{-\Delta d}$ decay),
+\texttt{ebscale} (a single smooth per-scale law $\tau(d)=\tau_0\rho^d$ as the
+hyperprior mean), and \texttt{twogroups} (a per-depth spike-and-slab EM). The
+$K_{\mathrm{eff}}$ deflation of $r$ uses the one-law per-pool variance, so the
+count that indexes a cell is the effective number of \emph{independent
+pool-level} observations, not raw loan mass.
+
+\paragraph{The exchangeability principle (\textsc{measured} conclusion).}
+$K_{\mathrm{eff}}$ measures the \emph{strength of the data support}, not the
+signal. The amount of signal is exchangeable over scale even though
+$K_{\mathrm{eff}}$ is not, so the prior variance must be exchangeable over
+signal coordinates (scale/depth) and $K_{\mathrm{eff}}$ must be factored
+through the \emph{likelihood} --- the per-coefficient posterior shrink
+$\tau/(\tau+v_i)$ --- never used to index the prior. Three measurements
+confirm it: (a) \texttt{ebcell}, which puts $K_{\mathrm{eff}}$ \emph{into} the
+prior grouping, does not improve on \texttt{eb}; (b) \texttt{ebscale}, whose
+prior sees only scale, matches \texttt{eb} in mean with the \emph{tightest
+cross-seed spread} of any arm (sd $0.036$), i.e.\ the scale-exchangeable prior
+buys stability by refusing to chase per-depth sampling noise; (c)
+\texttt{keffcont}'s $\tau_d/(1+r)$ is algebraically one exchangeable $\tau_d$
+under the law-aware posterior precision $x^\top x/(1+r)$ --- $K_{\mathrm{eff}}$
+in the likelihood, exactly as prescribed. \texttt{twogroups} over-shrinks
+(fit on the admitted set only, so it cannot estimate the null fraction) and is
+not adopted.
+
+\begin{center}
+\begin{tabular}{lcc}
+\hline
+reshrink estimator & held-out dev/pool & sd across seeds\\
+\hline
+off (no reshrink)              & 1.1545 & 0.039\\
+depth (per-depth moment)       & 1.1552 & 0.039\\
+cells ($K_{\mathrm{eff}}$ split)& 1.1595 & 0.033\\
+keffcont (law-aware posterior) & 1.1534 & 0.038\\
+\texttt{eb} (MMLE + borrow)    & \textbf{1.1502} & 0.038\\
+ebscale (scale prior, clamped) & 1.1508 & \textbf{0.036}\\
+twogroups (per-depth slab)     & 1.1671 & 0.034\\
+ebscale + honest $v_i$, free   & 1.1421 & 0.041\\
+\hline
+\end{tabular}
+\end{center}
+
+The ranking is monotone in statistical principle: law-aware counting beats raw,
+threshold-free beats threshold, and MMLE with hierarchical borrowing beats
+method-of-moments. \texttt{eb} is the recommended reshrink estimator where the
+point-prediction currency is the target: it wins or ties the shipped
+per-depth default on 10 of 11 seeds with no catastrophic seed.
+
+\subsection{Honest per-pool variance}\label{sec:aug12-vi}
+
+Audit defect~2 (working-binomial noise denominators understate by $2$--$3\times$
+where pool effects dominate). Once the prior is blind to $K_{\mathrm{eff}}$,
+every measurement fact rides on $v_i$, so $v_i$ must be honest. The shipped
+one-law prices pool-effect variance in four size strata --- an $8.5\times$ step
+at $n_0=512$. \textsc{Measured}: replacing the step with a smooth log-log
+interpolation of the stratum variances in pool size (a pure size covariate, no
+conditioning on the pool's own residual, so no surface-error absorption of the
+kind that inflated the retracted heavy-tail law), applied fleet-wide so it
+feeds both the gate null and the reshrink $r$, is a real but modest win:
+$+0.0014$ on \texttt{eb}, $+0.0065$ alongside the scale prior --- more where
+the prior is thinner and $v_i$ carries more weight, exactly as the
+factorisation predicts. This is only the crudest de-bucketing; the per-pool
+predictive $\mathbb E[u^2\mid\text{data}]$ (which stays large for small pools,
+where the posterior \emph{mean} would wrongly read them clean) is the deeper
+version and is deferred.
+
+\subsection{The two-currency verdict}\label{sec:aug12-currency}
+
+\textsc{Measured}, and the load-bearing result of the session. Every estimator
+above improves the conditional (deviance) currency and \emph{washes out in the
+marginal (NLL)}. The reshrink pass edits coefficient heights at frozen
+topology; it cannot change which vertices were admitted, and the pool-effect
+law absorbs a surface change of this magnitude once the pool effect is
+integrated out. On the full April Ginnie design (120{,}595 pools) all nine
+estimators give held-out mixture NLL in $[2.5963,2.5965]$ --- a spread of
+$2\times10^{-4}$ --- while held-out deviance moves $6.5803\to6.5577$. On the
+SMM design the NLL spread is $\approx0.004$ against a deviance spread of
+$\approx0.02$, and plain no-reshrink (NLL $0.9074$) ties or beats several
+reshrink arms; only the aggressive-plus-honest-$v_i$ combination gets under it
+($0.9059$). Stated in the two-currency language of
+Section~\ref{sec:aug6-release}: the reshrink ladder is a point-prediction
+improvement, not a distributional one. Moving the marginal currency requires
+changing \emph{which coefficients are admitted}, not re-shrinking the admitted
+set.
+
+\subsection{Admission is not reachable by a prior swap}\label{sec:aug12-admission}
+
+Audit defect~3 (the gate and the ladder are two inferences on one hypothesis).
+The in-loop prior does reach admission: the candidate exact gain is scored
+against prior precision $1/\tau$, so $\tau$ sets the admission bar, not only the
+shrinkage. Moving the \texttt{eb} estimator into the in-loop
+\texttt{recompute\_tau\_sq} (\texttt{DMESH\_INLOOP\_EB}) therefore puts it into
+the gate. \textsc{Measured} (SMM seed 7): it \emph{over-admits} --- mesh
+$348\to454$ vertices ($+30\%$) --- and worsens both currencies, deviance
+$1.189\to1.435$ and NLL $0.9074\to0.9387$. This reproduces the
+shrink\,$\to$\,residual\,$\to$\,re-admission spiral the reshrink architecture
+exists to avoid: the hierarchical borrow relaxes the sparse-tier prior, the
+relaxed prior raises the admission gain, the newly admitted coefficients absorb
+residual and expose more apparent signal, and the loop amplifies. The in-loop
+moment's conservatism is load-bearing, and swapping in the honest prior
+in-loop removes it.
+
+The lesson is structural: admission cannot be coupled to shrinkage through an
+\emph{unregularised} prior. The audit's own target design already carries the
+missing regulariser --- a single spike-and-slab posterior per
+(scale $\times$ evidence-geometry) cell, fitted by g-modelling on the
+\emph{full candidate ensemble including refusals}, whose slab probability
+\emph{is} the admission quantity and whose slab variance \emph{is} the
+shrinkage. There the null fraction $\pi$, anchored by the refused candidates,
+controls admission stringency directly, so admission and shrinkage move
+together without the tug of war a bare in-loop $\tau$ swap sets up. The
+negative result identifies $\pi$ --- the quantity a shrinkage estimator alone
+never sees --- as precisely what the naive route lacks.
+
+\subsection{Session open-item delta}\label{sec:aug12-open}
+
+New or re-ranked relative to Section~\ref{sec:discussion}: (1) \texttt{eb} is
+the recommended reshrink estimator on the one-law config for the
+point-prediction currency (robust, $+0.004$ deviance, 10/11 seeds); the ladder
+itself is settled and the remaining ladder work is the EB $\tau$ multiplier
+below. (2) The EB $\tau$ multiplier: replace the improvement-only clamp
+$\min(\tau_{\mathrm{reshrink}},\tau_{\mathrm{loop}})$ with a continuous factor
+on the loop $\tau$, estimated by marginal likelihood and regularised toward $1$,
+so the data --- not a kink --- decides how far to move off the in-loop
+regularisation; the aggressive gains ($\texttt{ebscale\_free}$, seed-104 tail)
+are otherwise entangled with lifting the clamp. (3) The unified spike-and-slab
+on the full candidate ensemble is \emph{the} route to the marginal currency;
+the in-loop negative result upgrades it from a design preference to a
+requirement, with $\pi$ the identified missing piece. (4) Per-pool predictive
+$v_i=\mathbb E[u^2\mid\text{data}]$, replacing the size-only de-bucketing.

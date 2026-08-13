@@ -1,0 +1,166 @@
+====================================================================================================
+Per-run table: held-out deviance (fixed vs legacy vs off), admitted count, max lambda_v
+====================================================================================================
+
+--- april ---
+           case | dev legacy  dev fixed    dev off | d(fix-leg) |   adm L/F |  maxlam L  maxlam F | identical?
+     april_s101 |     7.0060     7.0050     7.0050 |    -0.0010 |  189/189  |     1e+08         4 | no
+     april_s102 |     6.5110     6.5110     6.5110 |    +0.0000 |  242/242  |  0.000863  0.000863 | YES
+     april_s103 |     6.7590     6.7590     6.7590 |    +0.0000 |  130/130  |  0.000451  0.000451 | YES
+     april_s104 |     6.5610     6.5610     6.5610 |    +0.0000 |  179/179  |  0.000348  0.000348 | YES
+     april_s105 |     6.7350     6.7350     6.7350 |    +0.0000 |  180/180  |  0.000308  0.000308 | YES
+       april_s7 |     6.4540     6.4550     6.4550 |    +0.0010 |  198/198  |     1e+08         4 | no
+           MEAN |     6.6710     6.6710     6.6710 |    +0.0000 | (sd legacy 0.2044, fixed 0.2038, delta 0.0006)
+
+--- aprilnull ---
+           case | dev legacy  dev fixed    dev off | d(fix-leg) |   adm L/F |  maxlam L  maxlam F | identical?
+ aprilnull_s101 |     1.0130     1.0130     1.0130 |    +0.0000 |    0/0    |         0         0 | YES
+ aprilnull_s102 |     1.0130     1.0130     1.0130 |    +0.0000 |    0/0    |         0         0 | YES
+ aprilnull_s103 |     1.0220     1.0210     1.0210 |    -0.0010 |  126/126  |     1e+08         4 | no
+ aprilnull_s104 |     1.0120     1.0120     1.0120 |    +0.0000 |    0/0    |         0         0 | YES
+   aprilnull_s7 |     1.0140     1.0140     1.0140 |    +0.0000 |  127/127  |     1e+08         4 | no
+           MEAN |     1.0148     1.0146     1.0146 |    -0.0002 | (sd legacy 0.0041, fixed 0.0036, delta 0.0004)
+
+--- smm ---
+           case | dev legacy  dev fixed    dev off | d(fix-leg) |   adm L/F |  maxlam L  maxlam F | identical?
+       smm_s101 |     1.1020     1.1020     1.1020 |    +0.0000 |  134/134  |   0.00364   0.00364 | YES
+       smm_s102 |     1.1140     1.1100     1.1150 |    -0.0040 |  150/150  |     1e+08         4 | no
+       smm_s103 |     1.2920     1.2050     1.1980 |    -0.0870 |  122/122  |     1e+08         4 | no
+       smm_s104 |     1.1360     1.1330     1.1360 |    -0.0030 |  207/207  |     1e+08         4 | no
+       smm_s105 |     1.1890     1.1880     1.1900 |    -0.0010 |  139/139  |     1e+08         4 | no
+       smm_s106 |     1.1970     1.1930     1.1970 |    -0.0040 |  157/157  |     1e+08         4 | no
+       smm_s107 |     1.1430     1.1390     1.1240 |    -0.0040 |  143/143  |     1e+08         4 | no
+       smm_s108 |     1.1200     1.1210     1.1210 |    +0.0010 |  134/134  |    0.0378    0.0378 | no
+       smm_s109 |     1.1510     1.1330     1.1330 |    -0.0180 |  137/137  |     1e+08         4 | no
+       smm_s110 |     1.1950     1.1950     1.1950 |    +0.0000 |  160/160  |  0.000927  0.000927 | YES
+         smm_s7 |     1.1880     1.1880     1.1890 |    +0.0000 |  142/142  |  0.000634  0.000634 | YES
+           MEAN |     1.1661     1.1552     1.1545 |    -0.0109 | (sd legacy 0.0541, fixed 0.0386, delta 0.0258)
+
+--- smmnull ---
+           case | dev legacy  dev fixed    dev off | d(fix-leg) |   adm L/F |  maxlam L  maxlam F | identical?
+  smmnull0_s101 |    32.2760    32.2760    32.2800 |    +0.0000 |  427/427  |    0.0001    0.0001 | YES
+    smmnull0_s7 |     4.6140     4.6140     4.6170 |    +0.0000 |  470/470  |  0.000177  0.000177 | YES
+  smmnull1_s101 |    33.1480    33.1480    33.1520 |    +0.0000 |  424/424  |    0.0001    0.0001 | YES
+    smmnull1_s7 |     3.7470     3.7470     3.7710 |    +0.0000 |  493/493  |  0.000199  0.000199 | YES
+  smmnull2_s101 |    31.4170    31.4170    31.4200 |    +0.0000 |  426/426  |    0.0001    0.0001 | YES
+    smmnull2_s7 |     4.9020     4.9020     4.9640 |    +0.0000 |  474/474  |    0.0001    0.0001 | YES
+           MEAN |    18.3507    18.3507    18.3673 |    +0.0000 | (sd legacy 15.2737, fixed 15.2737, delta 0.0000)
+
+====================================================================================================
+Runs where the floor bound (legacy != fixed): reshrink taus and lambda ladders
+====================================================================================================
+
+### april_s101
+  legacy: [reshrink] depth  4: m=  12 tau 59806.7 -> 59806.7  median|surplus| 104.97
+  legacy: [reshrink] depth  5: m=  26 tau 25398.5 -> 22271.8  median|surplus| 106.03
+  legacy: [reshrink] depth  6: m=  50 tau 20734.4 -> 20734.4  median|surplus| 100.77
+  legacy: [reshrink] depth  7: m=  55 tau 6639.3 -> 3202.0  median|surplus| 75.63
+  legacy: [reshrink] depth  8: m=  41 tau 7257.6 -> 5473.8  median|surplus| 72.00
+  legacy: [reshrink] depth  9: m=   4 tau 0.2 -> 0.0  median|surplus| 0.01
+  legacy dev=7.0060 adm=189 ladder(n,max_lam)={'4': (13, '0.000205'), '5': (26, '6.21e-05'), '6': (50, '0.00022'), '7': (55, '0.000428'), '8': (41, '0.000428'), '9': (4, '1e+08')}
+  fixed  dev=7.0050 adm=189 ladder(n,max_lam)={'4': (13, '0.000205'), '5': (26, '6.2e-05'), '6': (50, '0.00022'), '7': (55, '0.000428'), '8': (41, '0.000428'), '9': (4, '4')}
+
+### april_s7
+  legacy: [reshrink] depth  4: m=  12 tau 155353.4 -> 81625.9  median|surplus| 321.08
+  legacy: [reshrink] depth  5: m=  31 tau 29010.5 -> 29010.5  median|surplus| 149.81
+  legacy: [reshrink] depth  6: m=  42 tau 17194.6 -> 17194.6  median|surplus| 118.40
+  legacy: [reshrink] depth  7: m=  38 tau 13978.2 -> 7824.8  median|surplus| 109.86
+  legacy: [reshrink] depth  8: m=  38 tau 6384.7 -> 6384.7  median|surplus| 100.30
+  legacy: [reshrink] depth  9: m=  34 tau 8338.8 -> 8338.8  median|surplus| 128.78
+  legacy: [reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01
+  legacy dev=6.4540 adm=198 ladder(n,max_lam)={'4': (12, '0.000183'), '5': (31, '6.98e-05'), '6': (42, '0.000127'), '7': (38, '0.000692'), '8': (38, '0.000157'), '9': (34, '0.000321'), '10': (3, '1e+08')}
+  fixed  dev=6.4550 adm=198 ladder(n,max_lam)={'4': (12, '0.000183'), '5': (31, '6.98e-05'), '6': (42, '0.000127'), '7': (38, '0.000692'), '8': (38, '0.000157'), '9': (34, '0.000321'), '10': (3, '4')}
+
+### aprilnull_s103
+  legacy: [reshrink] depth  4: m= 126 tau 0.2 -> 0.2  median|surplus| 0.06
+  legacy dev=1.0220 adm=126 ladder(n,max_lam)={'4': (126, '1e+08')}
+  fixed  dev=1.0210 adm=126 ladder(n,max_lam)={'4': (126, '4')}
+
+### aprilnull_s7
+  legacy: [reshrink] depth  4: m= 123 tau 0.2 -> 0.2  median|surplus| 0.06
+  legacy: [reshrink] depth  5: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01
+  legacy dev=1.0140 adm=127 ladder(n,max_lam)={'4': (123, '1e+08'), '5': (4, '1e+08')}
+  fixed  dev=1.0140 adm=127 ladder(n,max_lam)={'4': (123, '4'), '5': (4, '4')}
+
+### smm_s102
+  legacy: [reshrink] depth  4: m=  19 tau 1099.5 -> 1099.5  median|surplus| 45.88
+  legacy: [reshrink] depth  5: m=  34 tau 2419.8 -> 2419.8  median|surplus| 48.54
+  legacy: [reshrink] depth  6: m=  46 tau 4694.1 -> 2311.9  median|surplus| 49.37
+  legacy: [reshrink] depth  7: m=  33 tau 4785.4 -> 1218.6  median|surplus| 69.85
+  legacy: [reshrink] depth  8: m=   8 tau 23.7 -> 15.6  median|surplus| 4.42
+  legacy: [reshrink] depth  9: m=   5 tau 0.2 -> 0.0  median|surplus| 0.04
+  legacy: [reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.08
+  legacy: [reshrink] depth 11: m=   1 tau 0.2 -> 0.2  median|surplus| 0.02
+  legacy dev=1.1140 adm=150 ladder(n,max_lam)={'4': (19, '0.000826'), '5': (34, '0.000451'), '6': (46, '0.000326'), '7': (33, '0.000417'), '8': (8, '1e+08'), '9': (5, '1e+08'), '10': (4, '1e+08'), '11': (1, '4')}
+  fixed  dev=1.1100 adm=150 ladder(n,max_lam)={'4': (19, '0.000827'), '5': (34, '0.00045'), '6': (46, '0.000326'), '7': (33, '0.000417'), '8': (8, '4'), '9': (5, '4'), '10': (4, '4'), '11': (1, '4')}
+
+### smm_s103
+  legacy: [reshrink] depth  4: m=  19 tau 1635.5 -> 1635.5  median|surplus| 53.61
+  legacy: [reshrink] depth  5: m=  33 tau 4237.1 -> 4237.1  median|surplus| 46.67
+  legacy: [reshrink] depth  6: m=  40 tau 3253.8 -> 0.0  median|surplus| 43.33
+  legacy: [reshrink] depth  7: m=  28 tau 8666.6 -> 4720.9  median|surplus| 69.69
+  legacy: [reshrink] depth  8: m=   2 tau 8666.6 -> 1180.2  median|surplus| 67.06
+  legacy dev=1.2920 adm=122 ladder(n,max_lam)={'4': (19, '0.000432'), '5': (33, '0.000279'), '6': (40, '1e+08'), '7': (28, '0.000776'), '8': (2, '0.000776')}
+  fixed  dev=1.2050 adm=122 ladder(n,max_lam)={'4': (19, '0.000518'), '5': (33, '0.000279'), '6': (40, '4'), '7': (28, '0.000776'), '8': (2, '0.000776')}
+
+### smm_s104
+  legacy: [reshrink] depth  4: m=  25 tau 1095.0 -> 1095.0  median|surplus| 34.13
+  legacy: [reshrink] depth  5: m=  37 tau 3025.8 -> 3025.8  median|surplus| 52.56
+  legacy: [reshrink] depth  6: m=  53 tau 7627.0 -> 7627.0  median|surplus| 55.27
+  legacy: [reshrink] depth  7: m=  51 tau 8568.9 -> 8568.9  median|surplus| 69.66
+  legacy: [reshrink] depth  8: m=  23 tau 0.2 -> 0.2  median|surplus| 0.00
+  legacy: [reshrink] depth  9: m=  16 tau 0.2 -> 0.2  median|surplus| 0.00
+  legacy: [reshrink] depth 10: m=   2 tau 0.2 -> 0.2  median|surplus| 0.00
+  legacy dev=1.1360 adm=207 ladder(n,max_lam)={'4': (25, '0.00123'), '5': (37, '0.000373'), '6': (53, '0.000182'), '7': (51, '0.000265'), '8': (23, '1e+08'), '9': (16, '1e+08'), '10': (2, '1e+08')}
+  fixed  dev=1.1330 adm=207 ladder(n,max_lam)={'4': (25, '0.00123'), '5': (37, '0.000373'), '6': (53, '0.000182'), '7': (51, '0.000265'), '8': (23, '4'), '9': (16, '4'), '10': (2, '4')}
+
+### smm_s105
+  legacy: [reshrink] depth  4: m=  21 tau 2285.3 -> 2285.3  median|surplus| 43.40
+  legacy: [reshrink] depth  5: m=  35 tau 1814.5 -> 1814.5  median|surplus| 22.88
+  legacy: [reshrink] depth  6: m=  43 tau 14088.6 -> 2661.3  median|surplus| 59.58
+  legacy: [reshrink] depth  7: m=  32 tau 8887.3 -> 8887.3  median|surplus| 112.69
+  legacy: [reshrink] depth  8: m=   6 tau 0.2 -> 0.2  median|surplus| 0.02
+  legacy: [reshrink] depth  9: m=   1 tau 0.2 -> 0.2  median|surplus| 0.00
+  legacy dev=1.1890 adm=139 ladder(n,max_lam)={'4': (21, '0.00056'), '5': (36, '0.000573'), '6': (43, '0.000146'), '7': (32, '0.000146'), '8': (6, '1e+08'), '9': (1, '1e+08')}
+  fixed  dev=1.1880 adm=139 ladder(n,max_lam)={'4': (21, '0.00056'), '5': (36, '0.000573'), '6': (43, '0.000146'), '7': (32, '0.000146'), '8': (6, '4'), '9': (1, '4')}
+
+### smm_s106
+  legacy: [reshrink] depth  4: m=  19 tau 708.8 -> 708.8  median|surplus| 33.85
+  legacy: [reshrink] depth  5: m=  37 tau 2654.4 -> 2654.4  median|surplus| 50.51
+  legacy: [reshrink] depth  6: m=  47 tau 8475.4 -> 718.0  median|surplus| 49.72
+  legacy: [reshrink] depth  7: m=  34 tau 5899.1 -> 5899.1  median|surplus| 74.66
+  legacy: [reshrink] depth  8: m=   8 tau 0.2 -> 0.0  median|surplus| 0.00
+  legacy: [reshrink] depth  9: m=   9 tau 0.2 -> 0.0  median|surplus| 0.00
+  legacy: [reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01
+  legacy dev=1.1970 adm=157 ladder(n,max_lam)={'4': (19, '0.00426'), '5': (37, '0.000412'), '6': (47, '0.000143'), '7': (34, '0.000179'), '8': (8, '1e+08'), '9': (9, '1e+08'), '10': (3, '4')}
+  fixed  dev=1.1930 adm=157 ladder(n,max_lam)={'4': (19, '0.00407'), '5': (37, '0.000413'), '6': (47, '0.000143'), '7': (34, '0.000179'), '8': (8, '4'), '9': (9, '4'), '10': (3, '4')}
+
+### smm_s107
+  legacy: [reshrink] depth  4: m=  20 tau 1350.0 -> 1350.0  median|surplus| 47.97
+  legacy: [reshrink] depth  5: m=  34 tau 3474.4 -> 3474.4  median|surplus| 47.42
+  legacy: [reshrink] depth  6: m=  47 tau 1446.0 -> 48.5  median|surplus| 32.61
+  legacy: [reshrink] depth  7: m=  36 tau 6885.6 -> 6328.6  median|surplus| 70.70
+  legacy: [reshrink] depth  8: m=   3 tau 85.5 -> 85.5  median|surplus| 9.66
+  legacy: [reshrink] depth  9: m=   3 tau 0.2 -> 0.0  median|surplus| 0.02
+  legacy dev=1.1430 adm=143 ladder(n,max_lam)={'4': (20, '0.000871'), '5': (34, '0.000339'), '6': (47, '1e+08'), '7': (36, '0.000159'), '8': (3, '0.00857'), '9': (3, '1e+08')}
+  fixed  dev=1.1390 adm=143 ladder(n,max_lam)={'4': (20, '0.000884'), '5': (34, '0.000339'), '6': (47, '4'), '7': (36, '0.00015'), '8': (3, '0.00823'), '9': (3, '4')}
+
+### smm_s108
+  legacy: [reshrink] depth  4: m=  18 tau 1405.8 -> 1405.8  median|surplus| 55.23
+  legacy: [reshrink] depth  5: m=  32 tau 3174.8 -> 2409.0  median|surplus| 56.49
+  legacy: [reshrink] depth  6: m=  42 tau 11597.8 -> 3663.3  median|surplus| 48.71
+  legacy: [reshrink] depth  7: m=  37 tau 7885.9 -> 7885.9  median|surplus| 83.73
+  legacy: [reshrink] depth  8: m=   4 tau 32.6 -> 0.0  median|surplus| 1.54
+  legacy dev=1.1200 adm=134 ladder(n,max_lam)={'4': (18, '0.000848'), '5': (33, '0.000298'), '6': (42, '0.000216'), '7': (37, '0.000216'), '8': (4, '0.0378')}
+  fixed  dev=1.1210 adm=134 ladder(n,max_lam)={'4': (18, '0.000842'), '5': (33, '0.000297'), '6': (42, '0.000216'), '7': (37, '0.000216'), '8': (4, '0.0378')}
+
+### smm_s109
+  legacy: [reshrink] depth  4: m=  19 tau 1501.9 -> 1501.9  median|surplus| 58.14
+  legacy: [reshrink] depth  5: m=  33 tau 4039.6 -> 4039.6  median|surplus| 51.86
+  legacy: [reshrink] depth  6: m=  40 tau 1739.1 -> 995.4  median|surplus| 26.36
+  legacy: [reshrink] depth  7: m=  31 tau 8288.7 -> 5799.6  median|surplus| 73.66
+  legacy: [reshrink] depth  8: m=   9 tau 69.9 -> 0.0  median|surplus| 5.31
+  legacy: [reshrink] depth  9: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01
+  legacy: [reshrink] depth 10: m=   1 tau 0.2 -> 0.2  median|surplus| 0.19
+  legacy dev=1.1510 adm=137 ladder(n,max_lam)={'4': (19, '0.000653'), '5': (33, '0.000341'), '6': (40, '0.000746'), '7': (31, '0.000187'), '8': (9, '1e+08'), '9': (4, '1e+08'), '10': (1, '4')}
+  fixed  dev=1.1330 adm=137 ladder(n,max_lam)={'4': (19, '0.000653'), '5': (33, '0.000341'), '6': (40, '0.000842'), '7': (31, '0.000187'), '8': (9, '4'), '9': (4, '4'), '10': (1, '4')}
