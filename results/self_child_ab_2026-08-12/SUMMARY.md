@@ -254,3 +254,35 @@ structure is correct but whose slab was a crude empirical moment; and the
 unified spike-and-slab with null fraction pi - which the Aug 12 INLOOP_EB
 negative and our SC_JOINT negative independently identify as the missing
 regulariser for any gate-coupled estimator.
+
+## Addendum 6: the Aug 12 session's metrics applied to self-child (MEASURED)
+
+Both currencies of sec:aug12, on the SMM design, 11 seeds, three arms:
+baseline (off), baseline + eb reshrink (the Aug 12 recommended estimator),
+and self-child + rf1. Mixture NLL evaluated by
+`eval_mixture_nll.py` against the fixed ONELAW reference (two-component
+variance+kurtosis-matched scale mixture per stratum, 61-node GH);
+validated by reproducing the state-page anchor 0.9242 on seed-7 off to four
+decimals. Full table: `smm_two_currency_11seed.csv`.
+
+Paired vs off:
+
+| arm | dev | NLL |
+|---|---|---|
+| eb reshrink | -0.0044 (se 0.0015, wins 10/11) | -0.0005 (se 0.0004, inert) |
+| self-child + rf1 | +0.0238 (se 0.0095, worse 8/11) | +0.0106 (se 0.0025, worse 9/11) |
+
+Independent replication: the eb rows reproduce the Aug 12 session's
+two-currency verdict (deviance win, marginal inertness) on a fresh harness.
+
+Self-child verdict: the marginal currency does NOT rescue the formulation -
+the renegotiation debt survives the pool-law integration (0.024 dev
+compresses to 0.011 NLL: the law absorbs roughly half the surface gap, as
+the two-currency theory predicts, but not all of it). Since NLL responds
+only to admission composition, this localizes the remaining SC deficit in
+the admission pattern itself (the missing deep tail), not in height
+placement. Seed 106 remains the exception: self-child wins both currencies.
+Note the eb reshrink arm is baseline-only by construction - the reshrink
+pass edits heights at fixed topology, which frozen-increment semantics
+forbids; an SC-compatible delivery-time overlay would need to be priced as
+its own decision.
