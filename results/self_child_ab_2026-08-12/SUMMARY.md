@@ -286,3 +286,50 @@ Note the eb reshrink arm is baseline-only by construction - the reshrink
 pass edits heights at fixed topology, which frozen-increment semantics
 forbids; an SC-compatible delivery-time overlay would need to be priced as
 its own decision.
+
+## Addendum 7: the lack-of-iteration forensic and the terminal-renegotiation result (MEASURED)
+
+Hypothesis (user): the self-child deficit is lack of iteration, not the
+decision architecture. Counterfactual instrument `DMESH_SC_FINAL_JOINT`:
+build the mesh under gated frozen-increment decisions, then run the full
+joint GS iteration ONCE at fixed topology (a single dated terminal
+renegotiation event over gated structure).
+
+Two eruption channels found and closed on the way (seed 107: 9.355 ->
+8.742 -> 6.570): (a) final zero-support retirement must run before the
+terminal solve (starved coordinates); (b) the terminal solve must run under
+CUMULATIVE-surplus tau, not the in-loop delta-learned ladder (round-
+increment moments inflate tau and leave terminal coordinates nearly
+unpenalized). Both fixes are surgical (other seeds bit-identical).
+
+Definitive April battery (10 seeds, `ginnie_10seed_final_joint_fixed.csv`):
+
+| comparison | paired mean | se | wins |
+|---|---|---|---|
+| SC+FJ vs frozen SC | -0.0625 | 0.011 | 10/10 |
+| SC+FJ vs baseline | -0.0256 | 0.028 | 7/10 |
+
+On April the hypothesis is fully confirmed and then some: the gated
+process builds an equal-or-better mesh than the continuously-joint
+baseline, and with one terminal iteration the combination BEATS the
+baseline on average. Null battery under the full SC+FJ config: zero
+admissions (3/3 seeds).
+
+On SMM the story differs (seed 7: dev 1.228 vs sc 1.223 vs base 1.189;
+NLL 0.9381 vs 0.9430 vs 0.9242): the terminal iteration recovers the
+marginal currency partially but not deviance - there the admission
+composition (missing deep tail) remains binding, consistent with the
+addendum-6 NLL localization. The two datasets thus split the diagnosis
+cleanly: April's deficit was values-under-iterated (cured by terminal
+renegotiation); SMM's is admissions-under-built (needs the gate-side work:
+unified spike-and-slab / group moves).
+
+## Recommended configuration (updated)
+
+`DMESH_SELF_CHILD=1 DMESH_REFRESH_EVERY=1 DMESH_SC_FINAL_JOINT=1`.
+Decision identity during construction (gated, dated, collapse-immune
+admissions; self-deltas meaningful because values are frozen while
+decisions are made), plus one logged terminal renegotiation for
+martingale-quality values. On the April benchmark this beats the shipped
+baseline 7/10 seeds at mean -0.026 while retaining the formulation's
+structural properties.
