@@ -3319,10 +3319,23 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             }
             const char* p = std::getenv("DMESH_PL_SOLVER");
             const bool exact_line = p != nullptr && std::atoi(p) != 0;
-            if (self_child_frozen()) {
+            // DMESH_SC_FINAL_JOINT=1 (forensic counterfactual): run the full
+            // joint GS iteration on the self-child-built topology at fixed
+            // topology. Separates "values under-iterated" (this recovers the
+            // gap) from "admission composition under-built" (it does not).
+            static const bool SC_FINAL_JOINT = [] {
+                const char* e = std::getenv("DMESH_SC_FINAL_JOINT");
+                return e != nullptr && std::atoi(e) != 0;
+            }();
+            if (self_child_frozen() && !SC_FINAL_JOINT) {
                 std::printf("self-child mode: HIER_FIT=2 final refit skipped "
                             "(frozen-increment surface is final)\n");
             } else if (exact_line) {
+                if (self_child_frozen() && SC_FINAL_JOINT) {
+                    mesh->sc_frozen = false;
+                    std::printf("self-child mode: SC_FINAL_JOINT counterfactual"
+                                " - joint GS at fixed frozen-built topology\n");
+                }
                 int final_cycles = 30;
                 if (const char* fc = std::getenv("DMESH_B1_FINAL_CYCLES"))
                     final_cycles = std::max(1, std::atoi(fc));
