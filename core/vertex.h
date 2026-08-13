@@ -56,6 +56,8 @@ struct Vertex {
     bool sc_has_obs = false;
     double sc_obs = 0.0;
     double sc_obs_var = 1e300;
+    double tau_override_sq = 0.0; // per-vertex prior variance from the ladder variants
+                                  // (DMESH_RESHRINK_LADDER); 0 = use depth tau
     static int _seq;
 
     int _id;

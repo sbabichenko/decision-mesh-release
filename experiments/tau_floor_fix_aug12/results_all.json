@@ -1,0 +1,3464 @@
+[
+ {
+  "case": "smm_s7",
+  "arm": "legacy",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 2.8,
+  "heldout_dev": 1.188,
+  "x2_info": 0.7853,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  21 tau 2041.2 -> 2041.2  median|surplus| 51.83",
+   "[reshrink] depth  5: m=  32 tau 2413.9 -> 2413.9  median|surplus| 40.99",
+   "[reshrink] depth  6: m=  46 tau 10971.0 -> 2671.7  median|surplus| 47.31",
+   "[reshrink] depth  7: m=  43 tau 5871.0 -> 5871.0  median|surplus| 56.85"
+  ],
+  "admitted": 142,
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0006339779746,
+    "lam_mean": 0.0005086652190619047
+   },
+   "5": {
+    "n": 32,
+    "lam_max": 0.0005557990885,
+    "lam_mean": 0.00044306319770625
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.0002734337797,
+    "lam_mean": 0.00010190528429195647
+   },
+   "7": {
+    "n": 43,
+    "lam_max": 0.0002734337797,
+    "lam_mean": 0.00019240098526279064
+   }
+  }
+ },
+ {
+  "case": "smm_s7",
+  "arm": "fixed",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 2.6,
+  "heldout_dev": 1.188,
+  "x2_info": 0.7853,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  21 tau 2041.2 -> 2041.2  median|surplus| 51.83",
+   "[reshrink] depth  5: m=  32 tau 2413.9 -> 2413.9  median|surplus| 40.99",
+   "[reshrink] depth  6: m=  46 tau 10971.0 -> 2671.7  median|surplus| 47.31",
+   "[reshrink] depth  7: m=  43 tau 5871.0 -> 5871.0  median|surplus| 56.85"
+  ],
+  "admitted": 142,
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0006339779746,
+    "lam_mean": 0.0005086652190619047
+   },
+   "5": {
+    "n": 32,
+    "lam_max": 0.0005557990885,
+    "lam_mean": 0.00044306319770625
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.0002734337797,
+    "lam_mean": 0.00010190528429195647
+   },
+   "7": {
+    "n": 43,
+    "lam_max": 0.0002734337797,
+    "lam_mean": 0.00019240098526279064
+   }
+  }
+ },
+ {
+  "case": "smm_s7",
+  "arm": "off",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 2.5,
+  "heldout_dev": 1.189,
+  "x2_info": 0.7867,
+  "reshrink_lines": [],
+  "admitted": 142,
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0006102842882,
+    "lam_mean": 0.0004928694281285713
+   },
+   "5": {
+    "n": 32,
+    "lam_max": 0.0005404919977,
+    "lam_mean": 0.0004320612261937499
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.0002734337797,
+    "lam_mean": 9.497824515978257e-05
+   },
+   "7": {
+    "n": 43,
+    "lam_max": 0.0002734337797,
+    "lam_mean": 0.00018905196414651174
+   }
+  }
+ },
+ {
+  "case": "smm_s101",
+  "arm": "legacy",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 2.8,
+  "heldout_dev": 1.102,
+  "x2_info": 0.6224,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  20 tau 577.6 -> 577.6  median|surplus| 33.38",
+   "[reshrink] depth  5: m=  34 tau 4455.9 -> 4455.9  median|surplus| 49.26",
+   "[reshrink] depth  6: m=  44 tau 2600.7 -> 1259.6  median|surplus| 34.36",
+   "[reshrink] depth  7: m=  28 tau 6013.7 -> 2045.5  median|surplus| 59.97",
+   "[reshrink] depth  8: m=   7 tau 2228.0 -> 2228.0  median|surplus| 30.63"
+  ],
+  "admitted": 134,
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.00363671427,
+    "lam_mean": 0.0028261172510400004
+   },
+   "5": {
+    "n": 35,
+    "lam_max": 0.0003424699355,
+    "lam_mean": 0.00022311689033428566
+   },
+   "6": {
+    "n": 44,
+    "lam_max": 0.0005839507802,
+    "lam_mean": 0.0005155182802340912
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.0002272614583,
+    "lam_mean": 0.00017794910539285717
+   },
+   "8": {
+    "n": 7,
+    "lam_max": 0.0007843889327,
+    "lam_mean": 0.0005088575009571429
+   }
+  }
+ },
+ {
+  "case": "smm_s101",
+  "arm": "fixed",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 2.7,
+  "heldout_dev": 1.102,
+  "x2_info": 0.6224,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  20 tau 577.6 -> 577.6  median|surplus| 33.38",
+   "[reshrink] depth  5: m=  34 tau 4455.9 -> 4455.9  median|surplus| 49.26",
+   "[reshrink] depth  6: m=  44 tau 2600.7 -> 1259.6  median|surplus| 34.36",
+   "[reshrink] depth  7: m=  28 tau 6013.7 -> 2045.5  median|surplus| 59.97",
+   "[reshrink] depth  8: m=   7 tau 2228.0 -> 2228.0  median|surplus| 30.63"
+  ],
+  "admitted": 134,
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.00363671427,
+    "lam_mean": 0.0028261172510400004
+   },
+   "5": {
+    "n": 35,
+    "lam_max": 0.0003424699355,
+    "lam_mean": 0.00022311689033428566
+   },
+   "6": {
+    "n": 44,
+    "lam_max": 0.0005839507802,
+    "lam_mean": 0.0005155182802340912
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.0002272614583,
+    "lam_mean": 0.00017794910539285717
+   },
+   "8": {
+    "n": 7,
+    "lam_max": 0.0007843889327,
+    "lam_mean": 0.0005088575009571429
+   }
+  }
+ },
+ {
+  "case": "smm_s101",
+  "arm": "off",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 2.7,
+  "heldout_dev": 1.102,
+  "x2_info": 0.6238,
+  "reshrink_lines": [],
+  "admitted": 134,
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.003495518879,
+    "lam_mean": 0.0027202207077900004
+   },
+   "5": {
+    "n": 35,
+    "lam_max": 0.0003424699355,
+    "lam_mean": 0.0002218004480742858
+   },
+   "6": {
+    "n": 44,
+    "lam_max": 0.0004055039356,
+    "lam_mean": 0.00036140509626136365
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.0002272614583,
+    "lam_mean": 0.0001641201447857143
+   },
+   "8": {
+    "n": 7,
+    "lam_max": 0.0007843889327,
+    "lam_mean": 0.0005108131240285715
+   }
+  }
+ },
+ {
+  "case": "smm_s102",
+  "arm": "legacy",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.5,
+  "heldout_dev": 1.114,
+  "x2_info": 0.6171,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  19 tau 1099.5 -> 1099.5  median|surplus| 45.88",
+   "[reshrink] depth  5: m=  34 tau 2419.8 -> 2419.8  median|surplus| 48.54",
+   "[reshrink] depth  6: m=  46 tau 4694.1 -> 2311.9  median|surplus| 49.37",
+   "[reshrink] depth  7: m=  33 tau 4785.4 -> 1218.6  median|surplus| 69.85",
+   "[reshrink] depth  8: m=   8 tau 23.7 -> 15.6  median|surplus| 4.42",
+   "[reshrink] depth  9: m=   5 tau 0.2 -> 0.0  median|surplus| 0.04",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.08",
+   "[reshrink] depth 11: m=   1 tau 0.2 -> 0.2  median|surplus| 0.02"
+  ],
+  "admitted": 150,
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0008256225851,
+    "lam_mean": 0.0007391670860947365
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0004512826185,
+    "lam_mean": 0.0003912255981717648
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.0003255108376,
+    "lam_mean": 0.000292004367115435
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 0.0004170412147,
+    "lam_mean": 0.00028684320752363646
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 100000000.0,
+    "lam_mean": 75000000.00006232
+   },
+   "9": {
+    "n": 5,
+    "lam_max": 100000000.0,
+    "lam_mean": 40000000.800032556
+   },
+   "10": {
+    "n": 4,
+    "lam_max": 100000000.0,
+    "lam_mean": 50000002.0
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "smm_s102",
+  "arm": "fixed",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.8,
+  "heldout_dev": 1.11,
+  "x2_info": 0.6237,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  19 tau 1099.5 -> 1099.5  median|surplus| 45.88",
+   "[reshrink] depth  5: m=  34 tau 2419.8 -> 2419.8  median|surplus| 48.54",
+   "[reshrink] depth  6: m=  46 tau 4694.1 -> 2311.9  median|surplus| 49.37",
+   "[reshrink] depth  7: m=  33 tau 4785.4 -> 1218.6  median|surplus| 69.85",
+   "[reshrink] depth  8: m=   8 tau 23.7 -> 15.6  median|surplus| 4.42",
+   "[reshrink] depth  9: m=   5 tau 0.2 -> 0.0  median|surplus| 0.04",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.08",
+   "[reshrink] depth 11: m=   1 tau 0.2 -> 0.2  median|surplus| 0.02"
+  ],
+  "admitted": 150,
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0008273818919,
+    "lam_mean": 0.0007406486076105265
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0004497351819,
+    "lam_mean": 0.0003900422643011765
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.0003255108376,
+    "lam_mean": 0.00029157524748717406
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 0.0004170412147,
+    "lam_mean": 0.0002868886231842424
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0,
+    "lam_mean": 3.0000623038856986
+   },
+   "9": {
+    "n": 5,
+    "lam_max": 4.0,
+    "lam_mean": 2.4000325559483557
+   },
+   "10": {
+    "n": 4,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "smm_s102",
+  "arm": "off",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.4,
+  "heldout_dev": 1.115,
+  "x2_info": 0.6275,
+  "reshrink_lines": [],
+  "admitted": 150,
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0007797124704,
+    "lam_mean": 0.0007005059368736843
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0004497080146,
+    "lam_mean": 0.00039002148930705884
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 0.0003255108376,
+    "lam_mean": 0.00022290188400456512
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 0.0004170412147,
+    "lam_mean": 0.00021240878313575755
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0,
+    "lam_mean": 3.0000623038856986
+   },
+   "9": {
+    "n": 5,
+    "lam_max": 4.0,
+    "lam_mean": 2.4000325559483557
+   },
+   "10": {
+    "n": 4,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "smm_s103",
+  "arm": "legacy",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 2.5,
+  "heldout_dev": 1.292,
+  "x2_info": 0.68,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  19 tau 1635.5 -> 1635.5  median|surplus| 53.61",
+   "[reshrink] depth  5: m=  33 tau 4237.1 -> 4237.1  median|surplus| 46.67",
+   "[reshrink] depth  6: m=  40 tau 3253.8 -> 0.0  median|surplus| 43.33",
+   "[reshrink] depth  7: m=  28 tau 8666.6 -> 4720.9  median|surplus| 69.69",
+   "[reshrink] depth  8: m=   2 tau 8666.6 -> 1180.2  median|surplus| 67.06"
+  ],
+  "admitted": 122,
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0004316434484,
+    "lam_mean": 0.0003360714213157894
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0002790005613,
+    "lam_mean": 0.00012212560327030304
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 100000000.0,
+    "lam_mean": 85000000.00003105
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.0007756953994,
+    "lam_mean": 0.00017763797705
+   },
+   "8": {
+    "n": 2,
+    "lam_max": 0.0007756953994,
+    "lam_mean": 0.00043728312491
+   }
+  }
+ },
+ {
+  "case": "smm_s103",
+  "arm": "fixed",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 3.0,
+  "heldout_dev": 1.205,
+  "x2_info": 0.692,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  19 tau 1635.5 -> 1635.5  median|surplus| 53.61",
+   "[reshrink] depth  5: m=  33 tau 4237.1 -> 4237.1  median|surplus| 46.67",
+   "[reshrink] depth  6: m=  40 tau 3253.8 -> 0.0  median|surplus| 43.33",
+   "[reshrink] depth  7: m=  28 tau 8666.6 -> 4720.9  median|surplus| 69.69",
+   "[reshrink] depth  8: m=   2 tau 8666.6 -> 1180.2  median|surplus| 67.06"
+  ],
+  "admitted": 122,
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0005184253844,
+    "lam_mean": 0.00048288101651578955
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0002790005613,
+    "lam_mean": 0.00017051711997757583
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 4.0,
+    "lam_mean": 3.400031046474603
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.0007756953994,
+    "lam_mean": 0.00020239337553571425
+   },
+   "8": {
+    "n": 2,
+    "lam_max": 0.0007756953994,
+    "lam_mean": 0.00045461190385
+   }
+  }
+ },
+ {
+  "case": "smm_s103",
+  "arm": "off",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 2.3,
+  "heldout_dev": 1.198,
+  "x2_info": 0.7291,
+  "reshrink_lines": [],
+  "admitted": 122,
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0006941156508,
+    "lam_mean": 0.000630830714536842
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0002790005613,
+    "lam_mean": 0.00020660411182303034
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.0003694778566,
+    "lam_mean": 0.00029573429698800024
+   },
+   "7": {
+    "n": 28,
+    "lam_max": 0.0007756953994,
+    "lam_mean": 0.00018937707053571425
+   },
+   "8": {
+    "n": 2,
+    "lam_max": 0.0007756953994,
+    "lam_mean": 0.00044550049035
+   }
+  }
+ },
+ {
+  "case": "smm_s104",
+  "arm": "legacy",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 4.7,
+  "heldout_dev": 1.136,
+  "x2_info": 0.6579,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  25 tau 1095.0 -> 1095.0  median|surplus| 34.13",
+   "[reshrink] depth  5: m=  37 tau 3025.8 -> 3025.8  median|surplus| 52.56",
+   "[reshrink] depth  6: m=  53 tau 7627.0 -> 7627.0  median|surplus| 55.27",
+   "[reshrink] depth  7: m=  51 tau 8568.9 -> 8568.9  median|surplus| 69.66",
+   "[reshrink] depth  8: m=  23 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth  9: m=  16 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   2 tau 0.2 -> 0.2  median|surplus| 0.00"
+  ],
+  "admitted": 207,
+  "ladder": {
+   "4": {
+    "n": 25,
+    "lam_max": 0.001234657368,
+    "lam_mean": 0.0010075166384399996
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0003734956604,
+    "lam_mean": 0.0002908784899786486
+   },
+   "6": {
+    "n": 53,
+    "lam_max": 0.0001822261363,
+    "lam_mean": 0.00017164278279962252
+   },
+   "7": {
+    "n": 51,
+    "lam_max": 0.0002648953488,
+    "lam_mean": 0.00013597761890588242
+   },
+   "8": {
+    "n": 23,
+    "lam_max": 100000000.0,
+    "lam_mean": 82608696.17392457
+   },
+   "9": {
+    "n": 16,
+    "lam_max": 100000000.0,
+    "lam_mean": 68750001.25
+   },
+   "10": {
+    "n": 2,
+    "lam_max": 100000000.0,
+    "lam_mean": 100000000.0
+   }
+  }
+ },
+ {
+  "case": "smm_s104",
+  "arm": "fixed",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 4.8,
+  "heldout_dev": 1.133,
+  "x2_info": 0.6561,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  25 tau 1095.0 -> 1095.0  median|surplus| 34.13",
+   "[reshrink] depth  5: m=  37 tau 3025.8 -> 3025.8  median|surplus| 52.56",
+   "[reshrink] depth  6: m=  53 tau 7627.0 -> 7627.0  median|surplus| 55.27",
+   "[reshrink] depth  7: m=  51 tau 8568.9 -> 8568.9  median|surplus| 69.66",
+   "[reshrink] depth  8: m=  23 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth  9: m=  16 tau 0.2 -> 0.2  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   2 tau 0.2 -> 0.2  median|surplus| 0.00"
+  ],
+  "admitted": 207,
+  "ladder": {
+   "4": {
+    "n": 25,
+    "lam_max": 0.001234657368,
+    "lam_mean": 0.0010075166384399996
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0003734956604,
+    "lam_mean": 0.0002908784899786486
+   },
+   "6": {
+    "n": 53,
+    "lam_max": 0.0001822261363,
+    "lam_mean": 0.00017164278279962252
+   },
+   "7": {
+    "n": 51,
+    "lam_max": 0.0002648953488,
+    "lam_mean": 0.00013597761890588242
+   },
+   "8": {
+    "n": 23,
+    "lam_max": 4.0,
+    "lam_mean": 3.8260984737108177
+   },
+   "9": {
+    "n": 16,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   },
+   "10": {
+    "n": 2,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "smm_s104",
+  "arm": "off",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 4.7,
+  "heldout_dev": 1.136,
+  "x2_info": 0.6577,
+  "reshrink_lines": [],
+  "admitted": 207,
+  "ladder": {
+   "4": {
+    "n": 25,
+    "lam_max": 0.00118974467,
+    "lam_mean": 0.0009733829879599998
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0003734956604,
+    "lam_mean": 0.00029180908416783776
+   },
+   "6": {
+    "n": 53,
+    "lam_max": 0.0001761191252,
+    "lam_mean": 0.00016634235807132087
+   },
+   "7": {
+    "n": 51,
+    "lam_max": 0.0002648953488,
+    "lam_mean": 0.00013451352167450986
+   },
+   "8": {
+    "n": 23,
+    "lam_max": 4.0,
+    "lam_mean": 3.8260984737108177
+   },
+   "9": {
+    "n": 16,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   },
+   "10": {
+    "n": 2,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "smm_s105",
+  "arm": "legacy",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 3.9,
+  "heldout_dev": 1.189,
+  "x2_info": 0.7791,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  21 tau 2285.3 -> 2285.3  median|surplus| 43.40",
+   "[reshrink] depth  5: m=  35 tau 1814.5 -> 1814.5  median|surplus| 22.88",
+   "[reshrink] depth  6: m=  43 tau 14088.6 -> 2661.3  median|surplus| 59.58",
+   "[reshrink] depth  7: m=  32 tau 8887.3 -> 8887.3  median|surplus| 112.69",
+   "[reshrink] depth  8: m=   6 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[reshrink] depth  9: m=   1 tau 0.2 -> 0.2  median|surplus| 0.00"
+  ],
+  "admitted": 139,
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0005597154285,
+    "lam_mean": 0.0004767773549666667
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.000573111086,
+    "lam_mean": 0.0004509408492536111
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.0001461608674,
+    "lam_mean": 7.716902307627901e-05
+   },
+   "7": {
+    "n": 32,
+    "lam_max": 0.0001461608674,
+    "lam_mean": 0.00012926029697875002
+   },
+   "8": {
+    "n": 6,
+    "lam_max": 100000000.0,
+    "lam_mean": 66666667.333358854
+   },
+   "9": {
+    "n": 1,
+    "lam_max": 100000000.0,
+    "lam_mean": 100000000.0
+   }
+  }
+ },
+ {
+  "case": "smm_s105",
+  "arm": "fixed",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 3.7,
+  "heldout_dev": 1.188,
+  "x2_info": 0.7771,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  21 tau 2285.3 -> 2285.3  median|surplus| 43.40",
+   "[reshrink] depth  5: m=  35 tau 1814.5 -> 1814.5  median|surplus| 22.88",
+   "[reshrink] depth  6: m=  43 tau 14088.6 -> 2661.3  median|surplus| 59.58",
+   "[reshrink] depth  7: m=  32 tau 8887.3 -> 8887.3  median|surplus| 112.69",
+   "[reshrink] depth  8: m=   6 tau 0.2 -> 0.2  median|surplus| 0.02",
+   "[reshrink] depth  9: m=   1 tau 0.2 -> 0.2  median|surplus| 0.00"
+  ],
+  "admitted": 139,
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0005597154285,
+    "lam_mean": 0.0004767773549666667
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.000573111086,
+    "lam_mean": 0.0004509408492536111
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.0001461608674,
+    "lam_mean": 7.716902307627901e-05
+   },
+   "7": {
+    "n": 32,
+    "lam_max": 0.0001461608674,
+    "lam_mean": 0.00012926029697875002
+   },
+   "8": {
+    "n": 6,
+    "lam_max": 4.0,
+    "lam_mean": 3.333358855314433
+   },
+   "9": {
+    "n": 1,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "smm_s105",
+  "arm": "off",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 3.5,
+  "heldout_dev": 1.19,
+  "x2_info": 0.7819,
+  "reshrink_lines": [],
+  "admitted": 139,
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0006174511354,
+    "lam_mean": 0.0005180171456095239
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.0005775822714,
+    "lam_mean": 0.0004541700387091666
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.0001461608674,
+    "lam_mean": 7.502459754325586e-05
+   },
+   "7": {
+    "n": 32,
+    "lam_max": 0.0001461608674,
+    "lam_mean": 0.00012293792259437497
+   },
+   "8": {
+    "n": 6,
+    "lam_max": 4.0,
+    "lam_mean": 3.333358855314433
+   },
+   "9": {
+    "n": 1,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "smm_s106",
+  "arm": "legacy",
+  "seed": 106,
+  "exit": 0,
+  "wall_s": 4.9,
+  "heldout_dev": 1.197,
+  "x2_info": 0.6571,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  19 tau 708.8 -> 708.8  median|surplus| 33.85",
+   "[reshrink] depth  5: m=  37 tau 2654.4 -> 2654.4  median|surplus| 50.51",
+   "[reshrink] depth  6: m=  47 tau 8475.4 -> 718.0  median|surplus| 49.72",
+   "[reshrink] depth  7: m=  34 tau 5899.1 -> 5899.1  median|surplus| 74.66",
+   "[reshrink] depth  8: m=   8 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth  9: m=   9 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01"
+  ],
+  "admitted": 157,
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.004259951704,
+    "lam_mean": 0.002983891814465264
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0004122478533,
+    "lam_mean": 0.00035401149297891875
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.0001425555776,
+    "lam_mean": 0.00012545343563936172
+   },
+   "7": {
+    "n": 34,
+    "lam_max": 0.000179483581,
+    "lam_mean": 0.00015846045802352934
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 100000000.0,
+    "lam_mean": 87500000.0000475
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 100000000.0,
+    "lam_mean": 88888889.33333333
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "smm_s106",
+  "arm": "fixed",
+  "seed": 106,
+  "exit": 0,
+  "wall_s": 5.3,
+  "heldout_dev": 1.193,
+  "x2_info": 0.6519,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  19 tau 708.8 -> 708.8  median|surplus| 33.85",
+   "[reshrink] depth  5: m=  37 tau 2654.4 -> 2654.4  median|surplus| 50.51",
+   "[reshrink] depth  6: m=  47 tau 8475.4 -> 718.0  median|surplus| 49.72",
+   "[reshrink] depth  7: m=  34 tau 5899.1 -> 5899.1  median|surplus| 74.66",
+   "[reshrink] depth  8: m=   8 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth  9: m=   9 tau 0.2 -> 0.0  median|surplus| 0.00",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01"
+  ],
+  "admitted": 157,
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.004072155366,
+    "lam_mean": 0.002855399583202106
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0004127929342,
+    "lam_mean": 0.0003544387185491893
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.0001425555776,
+    "lam_mean": 0.00012564505001170218
+   },
+   "7": {
+    "n": 34,
+    "lam_max": 0.000179483581,
+    "lam_mean": 0.00016148386099117644
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0,
+    "lam_mean": 3.5000475115990626
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "smm_s106",
+  "arm": "off",
+  "seed": 106,
+  "exit": 0,
+  "wall_s": 4.9,
+  "heldout_dev": 1.197,
+  "x2_info": 0.6544,
+  "reshrink_lines": [],
+  "admitted": 157,
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.005028798841,
+    "lam_mean": 0.0035099451187284208
+   },
+   "5": {
+    "n": 37,
+    "lam_max": 0.0003797747012,
+    "lam_mean": 0.00032855956295459464
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.0001425555776,
+    "lam_mean": 0.00011261051800106393
+   },
+   "7": {
+    "n": 34,
+    "lam_max": 0.000179483581,
+    "lam_mean": 0.00016147739893823527
+   },
+   "8": {
+    "n": 8,
+    "lam_max": 4.0,
+    "lam_mean": 3.5000475115990626
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "smm_s107",
+  "arm": "legacy",
+  "seed": 107,
+  "exit": 0,
+  "wall_s": 4.5,
+  "heldout_dev": 1.143,
+  "x2_info": 0.6145,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  20 tau 1350.0 -> 1350.0  median|surplus| 47.97",
+   "[reshrink] depth  5: m=  34 tau 3474.4 -> 3474.4  median|surplus| 47.42",
+   "[reshrink] depth  6: m=  47 tau 1446.0 -> 48.5  median|surplus| 32.61",
+   "[reshrink] depth  7: m=  36 tau 6885.6 -> 6328.6  median|surplus| 70.70",
+   "[reshrink] depth  8: m=   3 tau 85.5 -> 85.5  median|surplus| 9.66",
+   "[reshrink] depth  9: m=   3 tau 0.2 -> 0.0  median|surplus| 0.02"
+  ],
+  "admitted": 143,
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.0008712402594,
+    "lam_mean": 0.0007155765180500001
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0003387233584,
+    "lam_mean": 0.0002562009761235294
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 100000000.0,
+    "lam_mean": 89361702.12766755
+   },
+   "7": {
+    "n": 36,
+    "lam_max": 0.0001593942581,
+    "lam_mean": 0.00015757794726666664
+   },
+   "8": {
+    "n": 3,
+    "lam_max": 0.00856810137,
+    "lam_mean": 0.002917020525206666
+   },
+   "9": {
+    "n": 3,
+    "lam_max": 100000000.0,
+    "lam_mean": 33333333.33585748
+   }
+  }
+ },
+ {
+  "case": "smm_s107",
+  "arm": "fixed",
+  "seed": 107,
+  "exit": 0,
+  "wall_s": 4.9,
+  "heldout_dev": 1.139,
+  "x2_info": 0.6261,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  20 tau 1350.0 -> 1350.0  median|surplus| 47.97",
+   "[reshrink] depth  5: m=  34 tau 3474.4 -> 3474.4  median|surplus| 47.42",
+   "[reshrink] depth  6: m=  47 tau 1446.0 -> 48.5  median|surplus| 32.61",
+   "[reshrink] depth  7: m=  36 tau 6885.6 -> 6328.6  median|surplus| 70.70",
+   "[reshrink] depth  8: m=   3 tau 85.5 -> 85.5  median|surplus| 9.66",
+   "[reshrink] depth  9: m=   3 tau 0.2 -> 0.0  median|surplus| 0.02"
+  ],
+  "admitted": 143,
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.0008844570701,
+    "lam_mean": 0.0007254891260750002
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0003387233584,
+    "lam_mean": 0.0002558891053
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 4.0,
+    "lam_mean": 3.5744760620655582
+   },
+   "7": {
+    "n": 36,
+    "lam_max": 0.0001498221261,
+    "lam_mean": 0.0001496011706000001
+   },
+   "8": {
+    "n": 3,
+    "lam_max": 0.008226107822,
+    "lam_mean": 0.002803022675873333
+   },
+   "9": {
+    "n": 3,
+    "lam_max": 4.0,
+    "lam_mean": 1.3358574800599368
+   }
+  }
+ },
+ {
+  "case": "smm_s107",
+  "arm": "off",
+  "seed": 107,
+  "exit": 0,
+  "wall_s": 4.5,
+  "heldout_dev": 1.124,
+  "x2_info": 0.6465,
+  "reshrink_lines": [],
+  "admitted": 143,
+  "ladder": {
+   "4": {
+    "n": 20,
+    "lam_max": 0.000916562812,
+    "lam_mean": 0.0007495684324999998
+   },
+   "5": {
+    "n": 34,
+    "lam_max": 0.0003387233584,
+    "lam_mean": 0.0002695730653705883
+   },
+   "6": {
+    "n": 47,
+    "lam_max": 0.0006267369317,
+    "lam_mean": 0.0005680397492048939
+   },
+   "7": {
+    "n": 36,
+    "lam_max": 0.0001484963931,
+    "lam_mean": 0.00013902938868333328
+   },
+   "8": {
+    "n": 3,
+    "lam_max": 0.008566975189,
+    "lam_mean": 0.00291664513154
+   },
+   "9": {
+    "n": 3,
+    "lam_max": 4.0,
+    "lam_mean": 1.3358574800599368
+   }
+  }
+ },
+ {
+  "case": "smm_s108",
+  "arm": "legacy",
+  "seed": 108,
+  "exit": 0,
+  "wall_s": 3.4,
+  "heldout_dev": 1.12,
+  "x2_info": 0.6505,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  18 tau 1405.8 -> 1405.8  median|surplus| 55.23",
+   "[reshrink] depth  5: m=  32 tau 3174.8 -> 2409.0  median|surplus| 56.49",
+   "[reshrink] depth  6: m=  42 tau 11597.8 -> 3663.3  median|surplus| 48.71",
+   "[reshrink] depth  7: m=  37 tau 7885.9 -> 7885.9  median|surplus| 83.73",
+   "[reshrink] depth  8: m=   4 tau 32.6 -> 0.0  median|surplus| 1.54"
+  ],
+  "admitted": 134,
+  "ladder": {
+   "4": {
+    "n": 18,
+    "lam_max": 0.0008478031791,
+    "lam_mean": 0.0007050832660816665
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0002982060798,
+    "lam_mean": 0.00024302725816787894
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.000215989161,
+    "lam_mean": 8.947643014047614e-05
+   },
+   "7": {
+    "n": 37,
+    "lam_max": 0.000215989161,
+    "lam_mean": 0.0001624169619999999
+   },
+   "8": {
+    "n": 4,
+    "lam_max": 0.03783580635,
+    "lam_mean": 0.0095818135071
+   }
+  }
+ },
+ {
+  "case": "smm_s108",
+  "arm": "fixed",
+  "seed": 108,
+  "exit": 0,
+  "wall_s": 3.7,
+  "heldout_dev": 1.121,
+  "x2_info": 0.6543,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  18 tau 1405.8 -> 1405.8  median|surplus| 55.23",
+   "[reshrink] depth  5: m=  32 tau 3174.8 -> 2409.0  median|surplus| 56.49",
+   "[reshrink] depth  6: m=  42 tau 11597.8 -> 3663.3  median|surplus| 48.71",
+   "[reshrink] depth  7: m=  37 tau 7885.9 -> 7885.9  median|surplus| 83.73",
+   "[reshrink] depth  8: m=   4 tau 32.6 -> 0.0  median|surplus| 1.54"
+  ],
+  "admitted": 134,
+  "ladder": {
+   "4": {
+    "n": 18,
+    "lam_max": 0.0008417691092,
+    "lam_mean": 0.0007003901006038889
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0002974720524,
+    "lam_mean": 0.0002424711768042425
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.000215989161,
+    "lam_mean": 9.023970042380952e-05
+   },
+   "7": {
+    "n": 37,
+    "lam_max": 0.000215989161,
+    "lam_mean": 0.00014813509578378385
+   },
+   "8": {
+    "n": 4,
+    "lam_max": 0.03781445608,
+    "lam_mean": 0.009576475939600001
+   }
+  }
+ },
+ {
+  "case": "smm_s108",
+  "arm": "off",
+  "seed": 108,
+  "exit": 0,
+  "wall_s": 3.0,
+  "heldout_dev": 1.121,
+  "x2_info": 0.6537,
+  "reshrink_lines": [],
+  "admitted": 134,
+  "ladder": {
+   "4": {
+    "n": 18,
+    "lam_max": 0.0008515858414,
+    "lam_mean": 0.0007080253367594445
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0002888447507,
+    "lam_mean": 0.0002359353421830304
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.000215989161,
+    "lam_mean": 8.794006235714286e-05
+   },
+   "7": {
+    "n": 37,
+    "lam_max": 0.000215989161,
+    "lam_mean": 0.00015097769051351342
+   },
+   "8": {
+    "n": 4,
+    "lam_max": 0.03519102773,
+    "lam_mean": 0.0089206188521
+   }
+  }
+ },
+ {
+  "case": "smm_s109",
+  "arm": "legacy",
+  "seed": 109,
+  "exit": 0,
+  "wall_s": 4.4,
+  "heldout_dev": 1.151,
+  "x2_info": 0.6513,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  19 tau 1501.9 -> 1501.9  median|surplus| 58.14",
+   "[reshrink] depth  5: m=  33 tau 4039.6 -> 4039.6  median|surplus| 51.86",
+   "[reshrink] depth  6: m=  40 tau 1739.1 -> 995.4  median|surplus| 26.36",
+   "[reshrink] depth  7: m=  31 tau 8288.7 -> 5799.6  median|surplus| 73.66",
+   "[reshrink] depth  8: m=   9 tau 69.9 -> 0.0  median|surplus| 5.31",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth 10: m=   1 tau 0.2 -> 0.2  median|surplus| 0.19"
+  ],
+  "admitted": 137,
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0006532376801,
+    "lam_mean": 0.0005420187696263159
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0003413232148,
+    "lam_mean": 0.0002485736597363636
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.0007464187797,
+    "lam_mean": 0.0006067140581562504
+   },
+   "7": {
+    "n": 31,
+    "lam_max": 0.0001866634242,
+    "lam_mean": 0.0001457699007967742
+   },
+   "8": {
+    "n": 9,
+    "lam_max": 100000000.0,
+    "lam_mean": 44444445.77788836
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 100000000.0,
+    "lam_mean": 25000003.0
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "smm_s109",
+  "arm": "fixed",
+  "seed": 109,
+  "exit": 0,
+  "wall_s": 4.6,
+  "heldout_dev": 1.133,
+  "x2_info": 0.6499,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  19 tau 1501.9 -> 1501.9  median|surplus| 58.14",
+   "[reshrink] depth  5: m=  33 tau 4039.6 -> 4039.6  median|surplus| 51.86",
+   "[reshrink] depth  6: m=  40 tau 1739.1 -> 995.4  median|surplus| 26.36",
+   "[reshrink] depth  7: m=  31 tau 8288.7 -> 5799.6  median|surplus| 73.66",
+   "[reshrink] depth  8: m=   9 tau 69.9 -> 0.0  median|surplus| 5.31",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01",
+   "[reshrink] depth 10: m=   1 tau 0.2 -> 0.2  median|surplus| 0.19"
+  ],
+  "admitted": 137,
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0006532376801,
+    "lam_mean": 0.0005470400844421052
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0003413232148,
+    "lam_mean": 0.00024935303348181813
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.0008418288094,
+    "lam_mean": 0.0006806568311737505
+   },
+   "7": {
+    "n": 31,
+    "lam_max": 0.0001866634242,
+    "lam_mean": 0.00013741695832580645
+   },
+   "8": {
+    "n": 9,
+    "lam_max": 4.0,
+    "lam_mean": 3.1112216918104667
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "smm_s109",
+  "arm": "off",
+  "seed": 109,
+  "exit": 0,
+  "wall_s": 4.4,
+  "heldout_dev": 1.133,
+  "x2_info": 0.6509,
+  "reshrink_lines": [],
+  "admitted": 137,
+  "ladder": {
+   "4": {
+    "n": 19,
+    "lam_max": 0.0006532376801,
+    "lam_mean": 0.0005565730545736842
+   },
+   "5": {
+    "n": 33,
+    "lam_max": 0.0003413232148,
+    "lam_mean": 0.00024928370126363624
+   },
+   "6": {
+    "n": 40,
+    "lam_max": 0.0006225402229,
+    "lam_mean": 0.0005107081766362499
+   },
+   "7": {
+    "n": 31,
+    "lam_max": 0.0001866634242,
+    "lam_mean": 0.00012944343637096774
+   },
+   "8": {
+    "n": 9,
+    "lam_max": 4.0,
+    "lam_mean": 3.1112216918104667
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "smm_s110",
+  "arm": "legacy",
+  "seed": 110,
+  "exit": 0,
+  "wall_s": 2.9,
+  "heldout_dev": 1.195,
+  "x2_info": 0.7027,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  21 tau 1250.6 -> 1250.6  median|surplus| 48.76",
+   "[reshrink] depth  5: m=  35 tau 2749.9 -> 2749.9  median|surplus| 43.80",
+   "[reshrink] depth  6: m=  45 tau 5226.3 -> 3796.7  median|surplus| 37.60",
+   "[reshrink] depth  7: m=  46 tau 4431.2 -> 3222.0  median|surplus| 47.08",
+   "[reshrink] depth  8: m=  10 tau 2477.8 -> 2477.8  median|surplus| 40.24",
+   "[reshrink] depth  9: m=   2 tau 2477.8 -> 842.4  median|surplus| 118.15"
+  ],
+  "admitted": 160,
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0009266490783,
+    "lam_mean": 0.0006506276930095238
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.0004825299929,
+    "lam_mean": 0.000286302622473611
+   },
+   "6": {
+    "n": 45,
+    "lam_max": 0.0002088630977,
+    "lam_mean": 0.0001923744035033333
+   },
+   "7": {
+    "n": 46,
+    "lam_max": 0.000473568208,
+    "lam_mean": 0.0002686250903739129
+   },
+   "8": {
+    "n": 10,
+    "lam_max": 0.000473568208,
+    "lam_mean": 0.00042470900283999994
+   },
+   "9": {
+    "n": 2,
+    "lam_max": 0.0003921361994,
+    "lam_mean": 0.0003921361994
+   }
+  }
+ },
+ {
+  "case": "smm_s110",
+  "arm": "fixed",
+  "seed": 110,
+  "exit": 0,
+  "wall_s": 2.9,
+  "heldout_dev": 1.195,
+  "x2_info": 0.7027,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  21 tau 1250.6 -> 1250.6  median|surplus| 48.76",
+   "[reshrink] depth  5: m=  35 tau 2749.9 -> 2749.9  median|surplus| 43.80",
+   "[reshrink] depth  6: m=  45 tau 5226.3 -> 3796.7  median|surplus| 37.60",
+   "[reshrink] depth  7: m=  46 tau 4431.2 -> 3222.0  median|surplus| 47.08",
+   "[reshrink] depth  8: m=  10 tau 2477.8 -> 2477.8  median|surplus| 40.24",
+   "[reshrink] depth  9: m=   2 tau 2477.8 -> 842.4  median|surplus| 118.15"
+  ],
+  "admitted": 160,
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0009266490783,
+    "lam_mean": 0.0006506276930095238
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.0004825299929,
+    "lam_mean": 0.000286302622473611
+   },
+   "6": {
+    "n": 45,
+    "lam_max": 0.0002088630977,
+    "lam_mean": 0.0001923744035033333
+   },
+   "7": {
+    "n": 46,
+    "lam_max": 0.000473568208,
+    "lam_mean": 0.0002686250903739129
+   },
+   "8": {
+    "n": 10,
+    "lam_max": 0.000473568208,
+    "lam_mean": 0.00042470900283999994
+   },
+   "9": {
+    "n": 2,
+    "lam_max": 0.0003921361994,
+    "lam_mean": 0.0003921361994
+   }
+  }
+ },
+ {
+  "case": "smm_s110",
+  "arm": "off",
+  "seed": 110,
+  "exit": 0,
+  "wall_s": 2.9,
+  "heldout_dev": 1.195,
+  "x2_info": 0.703,
+  "reshrink_lines": [],
+  "admitted": 160,
+  "ladder": {
+   "4": {
+    "n": 21,
+    "lam_max": 0.0009266490783,
+    "lam_mean": 0.0006464878633142856
+   },
+   "5": {
+    "n": 36,
+    "lam_max": 0.0004825299929,
+    "lam_mean": 0.00028599247379305546
+   },
+   "6": {
+    "n": 45,
+    "lam_max": 0.0002002960867,
+    "lam_mean": 0.00017903811897666656
+   },
+   "7": {
+    "n": 46,
+    "lam_max": 0.000473568208,
+    "lam_mean": 0.0002541093407869565
+   },
+   "8": {
+    "n": 10,
+    "lam_max": 0.000473568208,
+    "lam_mean": 0.0004356469678
+   },
+   "9": {
+    "n": 2,
+    "lam_max": 0.000410366141,
+    "lam_mean": 0.000410366141
+   }
+  }
+ },
+ {
+  "case": "april_s7",
+  "arm": "legacy",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 18.4,
+  "heldout_dev": 6.454,
+  "x2_info": 0.1443,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  12 tau 155353.4 -> 81625.9  median|surplus| 321.08",
+   "[reshrink] depth  5: m=  31 tau 29010.5 -> 29010.5  median|surplus| 149.81",
+   "[reshrink] depth  6: m=  42 tau 17194.6 -> 17194.6  median|surplus| 118.40",
+   "[reshrink] depth  7: m=  38 tau 13978.2 -> 7824.8  median|surplus| 109.86",
+   "[reshrink] depth  8: m=  38 tau 6384.7 -> 6384.7  median|surplus| 100.30",
+   "[reshrink] depth  9: m=  34 tau 8338.8 -> 8338.8  median|surplus| 128.78",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01"
+  ],
+  "admitted": 198,
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001832803562,
+    "lam_mean": 5.569265707816667e-05
+   },
+   "5": {
+    "n": 31,
+    "lam_max": 6.976133662e-05,
+    "lam_mean": 5.605695171922578e-05
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.0001272519148,
+    "lam_mean": 4.9191575325761895e-05
+   },
+   "7": {
+    "n": 38,
+    "lam_max": 0.0006918858588,
+    "lam_mean": 0.00010906557072210524
+   },
+   "8": {
+    "n": 38,
+    "lam_max": 0.0001567764707,
+    "lam_mean": 0.00014413926190605248
+   },
+   "9": {
+    "n": 34,
+    "lam_max": 0.0003209715162,
+    "lam_mean": 0.00014030650919588235
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 100000000.0,
+    "lam_mean": 33333333.333454084
+   }
+  }
+ },
+ {
+  "case": "april_s7",
+  "arm": "fixed",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 32.0,
+  "heldout_dev": 6.455,
+  "x2_info": 0.1443,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  12 tau 155353.4 -> 81625.9  median|surplus| 321.08",
+   "[reshrink] depth  5: m=  31 tau 29010.5 -> 29010.5  median|surplus| 149.81",
+   "[reshrink] depth  6: m=  42 tau 17194.6 -> 17194.6  median|surplus| 118.40",
+   "[reshrink] depth  7: m=  38 tau 13978.2 -> 7824.8  median|surplus| 109.86",
+   "[reshrink] depth  8: m=  38 tau 6384.7 -> 6384.7  median|surplus| 100.30",
+   "[reshrink] depth  9: m=  34 tau 8338.8 -> 8338.8  median|surplus| 128.78",
+   "[reshrink] depth 10: m=   3 tau 0.2 -> 0.2  median|surplus| 0.01"
+  ],
+  "admitted": 198,
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001832803562,
+    "lam_mean": 5.569265707816667e-05
+   },
+   "5": {
+    "n": 31,
+    "lam_max": 6.976133662e-05,
+    "lam_mean": 5.605695171922578e-05
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.0001272519148,
+    "lam_mean": 4.9191575325761895e-05
+   },
+   "7": {
+    "n": 38,
+    "lam_max": 0.0006918858588,
+    "lam_mean": 0.00010906557072210524
+   },
+   "8": {
+    "n": 38,
+    "lam_max": 0.0001567764707,
+    "lam_mean": 0.00014413926190605248
+   },
+   "9": {
+    "n": 34,
+    "lam_max": 0.0003209715162,
+    "lam_mean": 0.00014030650919588235
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0,
+    "lam_mean": 1.3334540829396333
+   }
+  }
+ },
+ {
+  "case": "april_s7",
+  "arm": "off",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 30.2,
+  "heldout_dev": 6.455,
+  "x2_info": 0.1443,
+  "reshrink_lines": [],
+  "admitted": 198,
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001832803562,
+    "lam_mean": 5.560524973816667e-05
+   },
+   "5": {
+    "n": 31,
+    "lam_max": 6.97780782e-05,
+    "lam_mean": 5.606883284051614e-05
+   },
+   "6": {
+    "n": 42,
+    "lam_max": 0.0001272519148,
+    "lam_mean": 4.922480012171424e-05
+   },
+   "7": {
+    "n": 38,
+    "lam_max": 0.0006918858588,
+    "lam_mean": 0.0001046647086897369
+   },
+   "8": {
+    "n": 38,
+    "lam_max": 0.0001566098394,
+    "lam_mean": 0.0001440033258455263
+   },
+   "9": {
+    "n": 34,
+    "lam_max": 0.0003209715162,
+    "lam_mean": 0.00014003430824588236
+   },
+   "10": {
+    "n": 3,
+    "lam_max": 4.0,
+    "lam_mean": 1.3334540829396333
+   }
+  }
+ },
+ {
+  "case": "april_s101",
+  "arm": "legacy",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 17.4,
+  "heldout_dev": 7.006,
+  "x2_info": 0.166,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  12 tau 59806.7 -> 59806.7  median|surplus| 104.97",
+   "[reshrink] depth  5: m=  26 tau 25398.5 -> 22271.8  median|surplus| 106.03",
+   "[reshrink] depth  6: m=  50 tau 20734.4 -> 20734.4  median|surplus| 100.77",
+   "[reshrink] depth  7: m=  55 tau 6639.3 -> 3202.0  median|surplus| 75.63",
+   "[reshrink] depth  8: m=  41 tau 7257.6 -> 5473.8  median|surplus| 72.00",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.0  median|surplus| 0.01"
+  ],
+  "admitted": 189,
+  "ladder": {
+   "4": {
+    "n": 13,
+    "lam_max": 0.0002045932342,
+    "lam_mean": 0.00011686701133692309
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 6.213937551e-05,
+    "lam_mean": 5.0912163937807675e-05
+   },
+   "6": {
+    "n": 50,
+    "lam_max": 0.0002199231774,
+    "lam_mean": 5.441474333900003e-05
+   },
+   "7": {
+    "n": 55,
+    "lam_max": 0.0004281710728,
+    "lam_mean": 0.0001782885948527273
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.0004281710728,
+    "lam_mean": 0.00016082588976195134
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 100000000.0,
+    "lam_mean": 75000001.0
+   }
+  }
+ },
+ {
+  "case": "april_s101",
+  "arm": "fixed",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 49.5,
+  "heldout_dev": 7.005,
+  "x2_info": 0.1659,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  12 tau 59806.7 -> 59806.7  median|surplus| 104.97",
+   "[reshrink] depth  5: m=  26 tau 25398.5 -> 22271.8  median|surplus| 106.03",
+   "[reshrink] depth  6: m=  50 tau 20734.4 -> 20734.4  median|surplus| 100.77",
+   "[reshrink] depth  7: m=  55 tau 6639.3 -> 3202.0  median|surplus| 75.63",
+   "[reshrink] depth  8: m=  41 tau 7257.6 -> 5473.8  median|surplus| 72.00",
+   "[reshrink] depth  9: m=   4 tau 0.2 -> 0.0  median|surplus| 0.01"
+  ],
+  "admitted": 189,
+  "ladder": {
+   "4": {
+    "n": 13,
+    "lam_max": 0.0002046965976,
+    "lam_mean": 0.00011691471752153845
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 6.201797925e-05,
+    "lam_mean": 5.082345128626924e-05
+   },
+   "6": {
+    "n": 50,
+    "lam_max": 0.0002199231774,
+    "lam_mean": 5.4429250732999985e-05
+   },
+   "7": {
+    "n": 55,
+    "lam_max": 0.0004281710728,
+    "lam_mean": 0.0001783206647654547
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.0004281710728,
+    "lam_mean": 0.00016140256790829252
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "april_s101",
+  "arm": "off",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 43.7,
+  "heldout_dev": 7.005,
+  "x2_info": 0.1659,
+  "reshrink_lines": [],
+  "admitted": 189,
+  "ladder": {
+   "4": {
+    "n": 13,
+    "lam_max": 0.0002061408153,
+    "lam_mean": 0.00011758127953692311
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 6.202374868e-05,
+    "lam_mean": 5.082766740819229e-05
+   },
+   "6": {
+    "n": 50,
+    "lam_max": 0.0002199231774,
+    "lam_mean": 5.433112046780001e-05
+   },
+   "7": {
+    "n": 55,
+    "lam_max": 0.0004281710728,
+    "lam_mean": 0.00016864247487454533
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.0004281710728,
+    "lam_mean": 0.00015923151606926834
+   },
+   "9": {
+    "n": 4,
+    "lam_max": 4.0,
+    "lam_mean": 4.0
+   }
+  }
+ },
+ {
+  "case": "april_s102",
+  "arm": "legacy",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 14.0,
+  "heldout_dev": 6.511,
+  "x2_info": 0.1542,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  14 tau 28095.4 -> 28095.4  median|surplus| 180.93",
+   "[reshrink] depth  5: m=  26 tau 6032.7 -> 5892.5  median|surplus| 86.78",
+   "[reshrink] depth  6: m=  43 tau 25488.9 -> 25488.9  median|surplus| 137.17",
+   "[reshrink] depth  7: m=  47 tau 5277.0 -> 5277.0  median|surplus| 80.65",
+   "[reshrink] depth  8: m=  60 tau 8446.2 -> 7229.4  median|surplus| 106.11",
+   "[reshrink] depth  9: m=  43 tau 22337.3 -> 13654.1  median|surplus| 145.83",
+   "[reshrink] depth 10: m=   8 tau 1254.4 -> 1254.4  median|surplus| 13.69",
+   "[reshrink] depth 11: m=   1 tau 1254.4 -> 1254.4  median|surplus| 27.50"
+  ],
+  "admitted": 242,
+  "ladder": {
+   "4": {
+    "n": 14,
+    "lam_max": 0.0001691916509,
+    "lam_mean": 0.00012501772010178574
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 0.0005822111091,
+    "lam_mean": 0.00017686901897846148
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.0001336381404,
+    "lam_mean": 3.4819909336046525e-05
+   },
+   "7": {
+    "n": 47,
+    "lam_max": 0.0001908738134,
+    "lam_mean": 0.00018320774501170224
+   },
+   "8": {
+    "n": 60,
+    "lam_max": 0.0001112727559,
+    "lam_mean": 0.00010623963552883325
+   },
+   "9": {
+    "n": 43,
+    "lam_max": 8.148331289e-05,
+    "lam_mean": 5.270079311488372e-05
+   },
+   "10": {
+    "n": 8,
+    "lam_max": 0.0008633731996,
+    "lam_mean": 0.00025565352506125
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 0.0006039328278,
+    "lam_mean": 0.0006039328278
+   }
+  }
+ },
+ {
+  "case": "april_s102",
+  "arm": "fixed",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 13.7,
+  "heldout_dev": 6.511,
+  "x2_info": 0.1542,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  14 tau 28095.4 -> 28095.4  median|surplus| 180.93",
+   "[reshrink] depth  5: m=  26 tau 6032.7 -> 5892.5  median|surplus| 86.78",
+   "[reshrink] depth  6: m=  43 tau 25488.9 -> 25488.9  median|surplus| 137.17",
+   "[reshrink] depth  7: m=  47 tau 5277.0 -> 5277.0  median|surplus| 80.65",
+   "[reshrink] depth  8: m=  60 tau 8446.2 -> 7229.4  median|surplus| 106.11",
+   "[reshrink] depth  9: m=  43 tau 22337.3 -> 13654.1  median|surplus| 145.83",
+   "[reshrink] depth 10: m=   8 tau 1254.4 -> 1254.4  median|surplus| 13.69",
+   "[reshrink] depth 11: m=   1 tau 1254.4 -> 1254.4  median|surplus| 27.50"
+  ],
+  "admitted": 242,
+  "ladder": {
+   "4": {
+    "n": 14,
+    "lam_max": 0.0001691916509,
+    "lam_mean": 0.00012501772010178574
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 0.0005822111091,
+    "lam_mean": 0.00017686901897846148
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.0001336381404,
+    "lam_mean": 3.4819909336046525e-05
+   },
+   "7": {
+    "n": 47,
+    "lam_max": 0.0001908738134,
+    "lam_mean": 0.00018320774501170224
+   },
+   "8": {
+    "n": 60,
+    "lam_max": 0.0001112727559,
+    "lam_mean": 0.00010623963552883325
+   },
+   "9": {
+    "n": 43,
+    "lam_max": 8.148331289e-05,
+    "lam_mean": 5.270079311488372e-05
+   },
+   "10": {
+    "n": 8,
+    "lam_max": 0.0008633731996,
+    "lam_mean": 0.00025565352506125
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 0.0006039328278,
+    "lam_mean": 0.0006039328278
+   }
+  }
+ },
+ {
+  "case": "april_s102",
+  "arm": "off",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 13.5,
+  "heldout_dev": 6.511,
+  "x2_info": 0.1542,
+  "reshrink_lines": [],
+  "admitted": 242,
+  "ladder": {
+   "4": {
+    "n": 14,
+    "lam_max": 0.0001691817616,
+    "lam_mean": 0.00012501065631607142
+   },
+   "5": {
+    "n": 26,
+    "lam_max": 0.0005822111091,
+    "lam_mean": 0.00017681267725538455
+   },
+   "6": {
+    "n": 43,
+    "lam_max": 0.0001336381404,
+    "lam_mean": 3.499617191883721e-05
+   },
+   "7": {
+    "n": 47,
+    "lam_max": 0.0001904481046,
+    "lam_mean": 0.0001828363820159574
+   },
+   "8": {
+    "n": 60,
+    "lam_max": 0.0001090121879,
+    "lam_mean": 0.00010424280046216661
+   },
+   "9": {
+    "n": 43,
+    "lam_max": 8.148331289e-05,
+    "lam_mean": 5.117542059209305e-05
+   },
+   "10": {
+    "n": 8,
+    "lam_max": 0.0008261567532,
+    "lam_mean": 0.00025100146926125
+   },
+   "11": {
+    "n": 1,
+    "lam_max": 0.0006039328278,
+    "lam_mean": 0.0006039328278
+   }
+  }
+ },
+ {
+  "case": "april_s103",
+  "arm": "legacy",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 11.4,
+  "heldout_dev": 6.759,
+  "x2_info": 0.1511,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  12 tau 94883.7 -> 94883.7  median|surplus| 300.35",
+   "[reshrink] depth  5: m=  18 tau 4496.0 -> 4496.0  median|surplus| 71.10",
+   "[reshrink] depth  6: m=  31 tau 19828.4 -> 19828.4  median|surplus| 153.46",
+   "[reshrink] depth  7: m=  30 tau 8785.0 -> 6856.1  median|surplus| 100.69",
+   "[reshrink] depth  8: m=  26 tau 9771.8 -> 7357.2  median|surplus| 105.00",
+   "[reshrink] depth  9: m=  13 tau 12596.3 -> 12259.3  median|surplus| 177.30"
+  ],
+  "admitted": 130,
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001,
+    "lam_mean": 5.064639373499999e-05
+   },
+   "5": {
+    "n": 18,
+    "lam_max": 0.0004512702504,
+    "lam_mean": 0.0003857025431477778
+   },
+   "6": {
+    "n": 31,
+    "lam_max": 7.964063407e-05,
+    "lam_mean": 6.558602009506449e-05
+   },
+   "7": {
+    "n": 30,
+    "lam_max": 0.0004026901789,
+    "lam_mean": 0.0001545863691356667
+   },
+   "8": {
+    "n": 26,
+    "lam_max": 0.0001021309946,
+    "lam_mean": 8.842355901923078e-05
+   },
+   "9": {
+    "n": 13,
+    "lam_max": 8.937825433e-05,
+    "lam_mean": 6.848678201538463e-05
+   }
+  }
+ },
+ {
+  "case": "april_s103",
+  "arm": "fixed",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 11.8,
+  "heldout_dev": 6.759,
+  "x2_info": 0.1511,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  12 tau 94883.7 -> 94883.7  median|surplus| 300.35",
+   "[reshrink] depth  5: m=  18 tau 4496.0 -> 4496.0  median|surplus| 71.10",
+   "[reshrink] depth  6: m=  31 tau 19828.4 -> 19828.4  median|surplus| 153.46",
+   "[reshrink] depth  7: m=  30 tau 8785.0 -> 6856.1  median|surplus| 100.69",
+   "[reshrink] depth  8: m=  26 tau 9771.8 -> 7357.2  median|surplus| 105.00",
+   "[reshrink] depth  9: m=  13 tau 12596.3 -> 12259.3  median|surplus| 177.30"
+  ],
+  "admitted": 130,
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001,
+    "lam_mean": 5.064639373499999e-05
+   },
+   "5": {
+    "n": 18,
+    "lam_max": 0.0004512702504,
+    "lam_mean": 0.0003857025431477778
+   },
+   "6": {
+    "n": 31,
+    "lam_max": 7.964063407e-05,
+    "lam_mean": 6.558602009506449e-05
+   },
+   "7": {
+    "n": 30,
+    "lam_max": 0.0004026901789,
+    "lam_mean": 0.0001545863691356667
+   },
+   "8": {
+    "n": 26,
+    "lam_max": 0.0001021309946,
+    "lam_mean": 8.842355901923078e-05
+   },
+   "9": {
+    "n": 13,
+    "lam_max": 8.937825433e-05,
+    "lam_mean": 6.848678201538463e-05
+   }
+  }
+ },
+ {
+  "case": "april_s103",
+  "arm": "off",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 12.0,
+  "heldout_dev": 6.759,
+  "x2_info": 0.1511,
+  "reshrink_lines": [],
+  "admitted": 130,
+  "ladder": {
+   "4": {
+    "n": 12,
+    "lam_max": 0.0001,
+    "lam_mean": 5.066137020166667e-05
+   },
+   "5": {
+    "n": 18,
+    "lam_max": 0.0004522844606,
+    "lam_mean": 0.00038649137330333327
+   },
+   "6": {
+    "n": 31,
+    "lam_max": 7.964063407e-05,
+    "lam_mean": 6.54683855282903e-05
+   },
+   "7": {
+    "n": 30,
+    "lam_max": 0.0004026901789,
+    "lam_mean": 0.00015117836314899993
+   },
+   "8": {
+    "n": 26,
+    "lam_max": 9.972537173e-05,
+    "lam_mean": 8.666560384499999e-05
+   },
+   "9": {
+    "n": 13,
+    "lam_max": 8.937825433e-05,
+    "lam_mean": 6.869070714615384e-05
+   }
+  }
+ },
+ {
+  "case": "april_s104",
+  "arm": "legacy",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 12.8,
+  "heldout_dev": 6.561,
+  "x2_info": 0.1567,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  15 tau 61898.2 -> 61898.2  median|surplus| 330.31",
+   "[reshrink] depth  5: m=  25 tau 6789.3 -> 6789.3  median|surplus| 62.67",
+   "[reshrink] depth  6: m=  46 tau 31274.3 -> 31274.3  median|surplus| 141.67",
+   "[reshrink] depth  7: m=  33 tau 5828.0 -> 3147.1  median|surplus| 75.01",
+   "[reshrink] depth  8: m=  45 tau 18148.5 -> 9731.7  median|surplus| 90.46",
+   "[reshrink] depth  9: m=  15 tau 15522.9 -> 15522.9  median|surplus| 125.58"
+  ],
+  "admitted": 179,
+  "ladder": {
+   "4": {
+    "n": 15,
+    "lam_max": 5.457533709e-05,
+    "lam_mean": 3.287934558693333e-05
+   },
+   "5": {
+    "n": 25,
+    "lam_max": 0.0003479905443,
+    "lam_mean": 0.00013837679955844002
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 5.022480161e-05,
+    "lam_mean": 2.7531832650391315e-05
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 0.0001851747852,
+    "lam_mean": 0.0001730910292815152
+   },
+   "8": {
+    "n": 45,
+    "lam_max": 6.592404157e-05,
+    "lam_mean": 5.722288117955554e-05
+   },
+   "9": {
+    "n": 15,
+    "lam_max": 9.367661918e-05,
+    "lam_mean": 7.169634695266667e-05
+   }
+  }
+ },
+ {
+  "case": "april_s104",
+  "arm": "fixed",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 12.9,
+  "heldout_dev": 6.561,
+  "x2_info": 0.1567,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  15 tau 61898.2 -> 61898.2  median|surplus| 330.31",
+   "[reshrink] depth  5: m=  25 tau 6789.3 -> 6789.3  median|surplus| 62.67",
+   "[reshrink] depth  6: m=  46 tau 31274.3 -> 31274.3  median|surplus| 141.67",
+   "[reshrink] depth  7: m=  33 tau 5828.0 -> 3147.1  median|surplus| 75.01",
+   "[reshrink] depth  8: m=  45 tau 18148.5 -> 9731.7  median|surplus| 90.46",
+   "[reshrink] depth  9: m=  15 tau 15522.9 -> 15522.9  median|surplus| 125.58"
+  ],
+  "admitted": 179,
+  "ladder": {
+   "4": {
+    "n": 15,
+    "lam_max": 5.457533709e-05,
+    "lam_mean": 3.287934558693333e-05
+   },
+   "5": {
+    "n": 25,
+    "lam_max": 0.0003479905443,
+    "lam_mean": 0.00013837679955844002
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 5.022480161e-05,
+    "lam_mean": 2.7531832650391315e-05
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 0.0001851747852,
+    "lam_mean": 0.0001730910292815152
+   },
+   "8": {
+    "n": 45,
+    "lam_max": 6.592404157e-05,
+    "lam_mean": 5.722288117955554e-05
+   },
+   "9": {
+    "n": 15,
+    "lam_max": 9.367661918e-05,
+    "lam_mean": 7.169634695266667e-05
+   }
+  }
+ },
+ {
+  "case": "april_s104",
+  "arm": "off",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 13.9,
+  "heldout_dev": 6.561,
+  "x2_info": 0.1567,
+  "reshrink_lines": [],
+  "admitted": 179,
+  "ladder": {
+   "4": {
+    "n": 15,
+    "lam_max": 5.451223077e-05,
+    "lam_mean": 3.2849895970933334e-05
+   },
+   "5": {
+    "n": 25,
+    "lam_max": 0.0003479905443,
+    "lam_mean": 0.00013828898925444003
+   },
+   "6": {
+    "n": 46,
+    "lam_max": 5.022480161e-05,
+    "lam_mean": 2.7359689821913025e-05
+   },
+   "7": {
+    "n": 33,
+    "lam_max": 0.0001755615507,
+    "lam_mean": 0.0001605521047178787
+   },
+   "8": {
+    "n": 45,
+    "lam_max": 6.592404157e-05,
+    "lam_mean": 5.597490244244443e-05
+   },
+   "9": {
+    "n": 15,
+    "lam_max": 9.367661918e-05,
+    "lam_mean": 7.200069535666667e-05
+   }
+  }
+ },
+ {
+  "case": "april_s105",
+  "arm": "legacy",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 11.7,
+  "heldout_dev": 6.735,
+  "x2_info": 0.1632,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  16 tau 54061.2 -> 54061.2  median|surplus| 271.85",
+   "[reshrink] depth  5: m=  28 tau 5769.0 -> 5769.0  median|surplus| 102.05",
+   "[reshrink] depth  6: m=  36 tau 22582.6 -> 13429.8  median|surplus| 127.37",
+   "[reshrink] depth  7: m=  35 tau 11892.6 -> 11892.6  median|surplus| 113.89",
+   "[reshrink] depth  8: m=  41 tau 16481.4 -> 14138.1  median|surplus| 111.72",
+   "[reshrink] depth  9: m=  23 tau 27340.0 -> 24286.4  median|surplus| 198.00",
+   "[reshrink] depth 10: m=   1 tau 27340.0 -> 6071.6  median|surplus| 10.95"
+  ],
+  "admitted": 180,
+  "ladder": {
+   "4": {
+    "n": 16,
+    "lam_max": 0.0001,
+    "lam_mean": 4.54383720545e-05
+   },
+   "5": {
+    "n": 28,
+    "lam_max": 0.0003083940212,
+    "lam_mean": 0.00022989045082578576
+   },
+   "6": {
+    "n": 36,
+    "lam_max": 6.649542281e-05,
+    "lam_mean": 5.5001530926e-05
+   },
+   "7": {
+    "n": 35,
+    "lam_max": 0.0001731059127,
+    "lam_mean": 9.090633120885711e-05
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.0001731059127,
+    "lam_mean": 6.960765809951221e-05
+   },
+   "9": {
+    "n": 23,
+    "lam_max": 9.181138331e-05,
+    "lam_mean": 4.656970469130435e-05
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 7.347415763e-05,
+    "lam_mean": 7.347415763e-05
+   }
+  }
+ },
+ {
+  "case": "april_s105",
+  "arm": "fixed",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 12.2,
+  "heldout_dev": 6.735,
+  "x2_info": 0.1632,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  16 tau 54061.2 -> 54061.2  median|surplus| 271.85",
+   "[reshrink] depth  5: m=  28 tau 5769.0 -> 5769.0  median|surplus| 102.05",
+   "[reshrink] depth  6: m=  36 tau 22582.6 -> 13429.8  median|surplus| 127.37",
+   "[reshrink] depth  7: m=  35 tau 11892.6 -> 11892.6  median|surplus| 113.89",
+   "[reshrink] depth  8: m=  41 tau 16481.4 -> 14138.1  median|surplus| 111.72",
+   "[reshrink] depth  9: m=  23 tau 27340.0 -> 24286.4  median|surplus| 198.00",
+   "[reshrink] depth 10: m=   1 tau 27340.0 -> 6071.6  median|surplus| 10.95"
+  ],
+  "admitted": 180,
+  "ladder": {
+   "4": {
+    "n": 16,
+    "lam_max": 0.0001,
+    "lam_mean": 4.54383720545e-05
+   },
+   "5": {
+    "n": 28,
+    "lam_max": 0.0003083940212,
+    "lam_mean": 0.00022989045082578576
+   },
+   "6": {
+    "n": 36,
+    "lam_max": 6.649542281e-05,
+    "lam_mean": 5.5001530926e-05
+   },
+   "7": {
+    "n": 35,
+    "lam_max": 0.0001731059127,
+    "lam_mean": 9.090633120885711e-05
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.0001731059127,
+    "lam_mean": 6.960765809951221e-05
+   },
+   "9": {
+    "n": 23,
+    "lam_max": 9.181138331e-05,
+    "lam_mean": 4.656970469130435e-05
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 7.347415763e-05,
+    "lam_mean": 7.347415763e-05
+   }
+  }
+ },
+ {
+  "case": "april_s105",
+  "arm": "off",
+  "seed": 105,
+  "exit": 0,
+  "wall_s": 12.0,
+  "heldout_dev": 6.735,
+  "x2_info": 0.1632,
+  "reshrink_lines": [],
+  "admitted": 180,
+  "ladder": {
+   "4": {
+    "n": 16,
+    "lam_max": 0.0001,
+    "lam_mean": 4.5354360771375e-05
+   },
+   "5": {
+    "n": 28,
+    "lam_max": 0.0003094423984,
+    "lam_mean": 0.00023060184964007134
+   },
+   "6": {
+    "n": 36,
+    "lam_max": 6.649542281e-05,
+    "lam_mean": 5.4023263511555554e-05
+   },
+   "7": {
+    "n": 35,
+    "lam_max": 0.0001731059127,
+    "lam_mean": 9.077909958342856e-05
+   },
+   "8": {
+    "n": 41,
+    "lam_max": 0.0001731059127,
+    "lam_mean": 6.898985069341462e-05
+   },
+   "9": {
+    "n": 23,
+    "lam_max": 9.181138331e-05,
+    "lam_mean": 4.6300713609565205e-05
+   },
+   "10": {
+    "n": 1,
+    "lam_max": 7.347415763e-05,
+    "lam_mean": 7.347415763e-05
+   }
+  }
+ },
+ {
+  "case": "aprilnull_s7",
+  "arm": "legacy",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 22.6,
+  "heldout_dev": 1.014,
+  "x2_info": 0.0146,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m= 123 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[reshrink] depth  5: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01"
+  ],
+  "admitted": 127,
+  "ladder": {
+   "4": {
+    "n": 123,
+    "lam_max": 100000000.0,
+    "lam_mean": 87804878.04879265
+   },
+   "5": {
+    "n": 4,
+    "lam_max": 100000000.0,
+    "lam_mean": 75000000.000025
+   }
+  }
+ },
+ {
+  "case": "aprilnull_s7",
+  "arm": "fixed",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 9.6,
+  "heldout_dev": 1.014,
+  "x2_info": 0.0146,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m= 123 tau 0.2 -> 0.2  median|surplus| 0.06",
+   "[reshrink] depth  5: m=   4 tau 0.2 -> 0.2  median|surplus| 0.01"
+  ],
+  "admitted": 127,
+  "ladder": {
+   "4": {
+    "n": 123,
+    "lam_max": 4.0,
+    "lam_mean": 3.5122073170731687
+   },
+   "5": {
+    "n": 4,
+    "lam_max": 4.0,
+    "lam_mean": 3.000025
+   }
+  }
+ },
+ {
+  "case": "aprilnull_s7",
+  "arm": "off",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 9.8,
+  "heldout_dev": 1.014,
+  "x2_info": 0.0146,
+  "reshrink_lines": [],
+  "admitted": 127,
+  "ladder": {
+   "4": {
+    "n": 123,
+    "lam_max": 4.0,
+    "lam_mean": 3.5122073170731687
+   },
+   "5": {
+    "n": 4,
+    "lam_max": 4.0,
+    "lam_mean": 3.000025
+   }
+  }
+ },
+ {
+  "case": "aprilnull_s101",
+  "arm": "legacy",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 4.0,
+  "heldout_dev": 1.013,
+  "x2_info": 0.0148,
+  "reshrink_lines": [],
+  "admitted": 0,
+  "ladder": {}
+ },
+ {
+  "case": "aprilnull_s101",
+  "arm": "fixed",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 4.1,
+  "heldout_dev": 1.013,
+  "x2_info": 0.0148,
+  "reshrink_lines": [],
+  "admitted": 0,
+  "ladder": {}
+ },
+ {
+  "case": "aprilnull_s101",
+  "arm": "off",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 4.0,
+  "heldout_dev": 1.013,
+  "x2_info": 0.0148,
+  "reshrink_lines": [],
+  "admitted": 0,
+  "ladder": {}
+ },
+ {
+  "case": "aprilnull_s102",
+  "arm": "legacy",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.0,
+  "heldout_dev": 1.013,
+  "x2_info": 0.0148,
+  "reshrink_lines": [],
+  "admitted": 0,
+  "ladder": {}
+ },
+ {
+  "case": "aprilnull_s102",
+  "arm": "fixed",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 3.9,
+  "heldout_dev": 1.013,
+  "x2_info": 0.0148,
+  "reshrink_lines": [],
+  "admitted": 0,
+  "ladder": {}
+ },
+ {
+  "case": "aprilnull_s102",
+  "arm": "off",
+  "seed": 102,
+  "exit": 0,
+  "wall_s": 4.4,
+  "heldout_dev": 1.013,
+  "x2_info": 0.0148,
+  "reshrink_lines": [],
+  "admitted": 0,
+  "ladder": {}
+ },
+ {
+  "case": "aprilnull_s103",
+  "arm": "legacy",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 25.3,
+  "heldout_dev": 1.022,
+  "x2_info": 0.0145,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m= 126 tau 0.2 -> 0.2  median|surplus| 0.06"
+  ],
+  "admitted": 126,
+  "ladder": {
+   "4": {
+    "n": 126,
+    "lam_max": 100000000.0,
+    "lam_mean": 84920634.92064996
+   }
+  }
+ },
+ {
+  "case": "aprilnull_s103",
+  "arm": "fixed",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 12.7,
+  "heldout_dev": 1.021,
+  "x2_info": 0.0146,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m= 126 tau 0.2 -> 0.2  median|surplus| 0.06"
+  ],
+  "admitted": 126,
+  "ladder": {
+   "4": {
+    "n": 126,
+    "lam_max": 4.0,
+    "lam_mean": 3.3968404761904742
+   }
+  }
+ },
+ {
+  "case": "aprilnull_s103",
+  "arm": "off",
+  "seed": 103,
+  "exit": 0,
+  "wall_s": 11.5,
+  "heldout_dev": 1.021,
+  "x2_info": 0.0146,
+  "reshrink_lines": [],
+  "admitted": 126,
+  "ladder": {
+   "4": {
+    "n": 126,
+    "lam_max": 4.0,
+    "lam_mean": 3.3968404761904742
+   }
+  }
+ },
+ {
+  "case": "aprilnull_s104",
+  "arm": "legacy",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 4.0,
+  "heldout_dev": 1.012,
+  "x2_info": 0.0148,
+  "reshrink_lines": [],
+  "admitted": 0,
+  "ladder": {}
+ },
+ {
+  "case": "aprilnull_s104",
+  "arm": "fixed",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 3.8,
+  "heldout_dev": 1.012,
+  "x2_info": 0.0148,
+  "reshrink_lines": [],
+  "admitted": 0,
+  "ladder": {}
+ },
+ {
+  "case": "aprilnull_s104",
+  "arm": "off",
+  "seed": 104,
+  "exit": 0,
+  "wall_s": 4.1,
+  "heldout_dev": 1.012,
+  "x2_info": 0.0148,
+  "reshrink_lines": [],
+  "admitted": 0,
+  "ladder": {}
+ },
+ {
+  "case": "smmnull0_s7",
+  "arm": "legacy",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 5.2,
+  "heldout_dev": 4.614,
+  "x2_info": 10.3725,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  68 tau 15991.8 -> 15991.8  median|surplus| 24.72",
+   "[reshrink] depth  5: m= 105 tau 75850.3 -> 40242.2  median|surplus| 29.14",
+   "[reshrink] depth  6: m= 145 tau 305335.2 -> 101625.4  median|surplus| 20.63",
+   "[reshrink] depth  7: m= 127 tau 45061.6 -> 45061.6  median|surplus| 32.74",
+   "[reshrink] depth  8: m=  14 tau 416462.8 -> 416462.8  median|surplus| 404.61",
+   "[reshrink] depth  9: m=   9 tau 416462.8 -> 416462.8  median|surplus| 212.12"
+  ],
+  "admitted": 470,
+  "ladder": {
+   "4": {
+    "n": 70,
+    "lam_max": 0.0001770658732,
+    "lam_mean": 0.0001432950380806272
+   },
+   "5": {
+    "n": 105,
+    "lam_max": 4.537388042e-05,
+    "lam_mean": 2.096340569577146e-05
+   },
+   "6": {
+    "n": 145,
+    "lam_max": 1.138634171e-05,
+    "lam_mean": 9.594116965120015e-06
+   },
+   "7": {
+    "n": 127,
+    "lam_max": 3.176228324e-05,
+    "lam_mean": 2.1528979870110227e-05
+   },
+   "8": {
+    "n": 14,
+    "lam_max": 6.296556678e-06,
+    "lam_mean": 3.1868119586999996e-06
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 1.269757025e-05,
+    "lam_mean": 4.523141322088889e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull0_s7",
+  "arm": "fixed",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 5.4,
+  "heldout_dev": 4.614,
+  "x2_info": 10.3725,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  68 tau 15991.8 -> 15991.8  median|surplus| 24.72",
+   "[reshrink] depth  5: m= 105 tau 75850.3 -> 40242.2  median|surplus| 29.14",
+   "[reshrink] depth  6: m= 145 tau 305335.2 -> 101625.4  median|surplus| 20.63",
+   "[reshrink] depth  7: m= 127 tau 45061.6 -> 45061.6  median|surplus| 32.74",
+   "[reshrink] depth  8: m=  14 tau 416462.8 -> 416462.8  median|surplus| 404.61",
+   "[reshrink] depth  9: m=   9 tau 416462.8 -> 416462.8  median|surplus| 212.12"
+  ],
+  "admitted": 470,
+  "ladder": {
+   "4": {
+    "n": 70,
+    "lam_max": 0.0001770658732,
+    "lam_mean": 0.0001432950380806272
+   },
+   "5": {
+    "n": 105,
+    "lam_max": 4.537388042e-05,
+    "lam_mean": 2.096340569577146e-05
+   },
+   "6": {
+    "n": 145,
+    "lam_max": 1.138634171e-05,
+    "lam_mean": 9.594116965120015e-06
+   },
+   "7": {
+    "n": 127,
+    "lam_max": 3.176228324e-05,
+    "lam_mean": 2.1528979870110227e-05
+   },
+   "8": {
+    "n": 14,
+    "lam_max": 6.296556678e-06,
+    "lam_mean": 3.1868119586999996e-06
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 1.269757025e-05,
+    "lam_mean": 4.523141322088889e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull0_s7",
+  "arm": "off",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 4.5,
+  "heldout_dev": 4.617,
+  "x2_info": 10.3839,
+  "reshrink_lines": [],
+  "admitted": 470,
+  "ladder": {
+   "4": {
+    "n": 70,
+    "lam_max": 0.0001746643329,
+    "lam_mean": 0.0001415453444334843
+   },
+   "5": {
+    "n": 105,
+    "lam_max": 4.537388042e-05,
+    "lam_mean": 1.9584216408152406e-05
+   },
+   "6": {
+    "n": 145,
+    "lam_max": 1.136643984e-05,
+    "lam_mean": 9.578058214844136e-06
+   },
+   "7": {
+    "n": 127,
+    "lam_max": 3.12594867e-05,
+    "lam_mean": 2.1220175695936976e-05
+   },
+   "8": {
+    "n": 14,
+    "lam_max": 6.296556678e-06,
+    "lam_mean": 3.1534412631999998e-06
+   },
+   "9": {
+    "n": 9,
+    "lam_max": 1.282310351e-05,
+    "lam_mean": 4.551037602088889e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull0_s101",
+  "arm": "legacy",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 4.3,
+  "heldout_dev": 32.276,
+  "x2_info": 61.4074,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  61 tau 3169612.6 -> 399722.1  median|surplus| 37.44",
+   "[reshrink] depth  5: m= 114 tau 33475.7 -> 33475.7  median|surplus| 27.12",
+   "[reshrink] depth  6: m= 150 tau 1572501.5 -> 964428.0  median|surplus| 28.97",
+   "[reshrink] depth  7: m= 101 tau 1572501.5 -> 66458.7  median|surplus| 28.16"
+  ],
+  "admitted": 427,
+  "ladder": {
+   "4": {
+    "n": 62,
+    "lam_max": 0.0001,
+    "lam_mean": 1.0481332659570971e-05
+   },
+   "5": {
+    "n": 114,
+    "lam_max": 2.987239854e-05,
+    "lam_mean": 9.284373837061394e-06
+   },
+   "6": {
+    "n": 150,
+    "lam_max": 1.453783407e-05,
+    "lam_mean": 1.8948779476320043e-06
+   },
+   "7": {
+    "n": 101,
+    "lam_max": 2.94504219e-06,
+    "lam_mean": 2.2363046116098984e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull0_s101",
+  "arm": "fixed",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 4.2,
+  "heldout_dev": 32.276,
+  "x2_info": 61.4074,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  61 tau 3169612.6 -> 399722.1  median|surplus| 37.44",
+   "[reshrink] depth  5: m= 114 tau 33475.7 -> 33475.7  median|surplus| 27.12",
+   "[reshrink] depth  6: m= 150 tau 1572501.5 -> 964428.0  median|surplus| 28.97",
+   "[reshrink] depth  7: m= 101 tau 1572501.5 -> 66458.7  median|surplus| 28.16"
+  ],
+  "admitted": 427,
+  "ladder": {
+   "4": {
+    "n": 62,
+    "lam_max": 0.0001,
+    "lam_mean": 1.0481332659570971e-05
+   },
+   "5": {
+    "n": 114,
+    "lam_max": 2.987239854e-05,
+    "lam_mean": 9.284373837061394e-06
+   },
+   "6": {
+    "n": 150,
+    "lam_max": 1.453783407e-05,
+    "lam_mean": 1.8948779476320043e-06
+   },
+   "7": {
+    "n": 101,
+    "lam_max": 2.94504219e-06,
+    "lam_mean": 2.2363046116098984e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull0_s101",
+  "arm": "off",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 3.6,
+  "heldout_dev": 32.28,
+  "x2_info": 61.441,
+  "reshrink_lines": [],
+  "admitted": 427,
+  "ladder": {
+   "4": {
+    "n": 62,
+    "lam_max": 0.0001,
+    "lam_mean": 1.0480994281829045e-05
+   },
+   "5": {
+    "n": 114,
+    "lam_max": 2.987239854e-05,
+    "lam_mean": 9.256400719298258e-06
+   },
+   "6": {
+    "n": 150,
+    "lam_max": 1.453783407e-05,
+    "lam_mean": 1.8879435856559986e-06
+   },
+   "7": {
+    "n": 101,
+    "lam_max": 2.912958008e-06,
+    "lam_mean": 2.214068049827726e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull1_s7",
+  "arm": "legacy",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 4.1,
+  "heldout_dev": 3.747,
+  "x2_info": 28.6339,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  62 tau 13133.0 -> 13133.0  median|surplus| 26.86",
+   "[reshrink] depth  5: m= 119 tau 62194.6 -> 27093.0  median|surplus| 30.50",
+   "[reshrink] depth  6: m= 141 tau 132083.4 -> 79979.5  median|surplus| 22.91",
+   "[reshrink] depth  7: m= 140 tau 38127.8 -> 36109.6  median|surplus| 32.41",
+   "[reshrink] depth  8: m=  18 tau 53614.0 -> 53614.0  median|surplus| 201.84",
+   "[reshrink] depth  9: m=  11 tau 41362.4 -> 41362.4  median|surplus| 93.31"
+  ],
+  "admitted": 493,
+  "ladder": {
+   "4": {
+    "n": 64,
+    "lam_max": 0.0001988230964,
+    "lam_mean": 0.00015493799507107804
+   },
+   "5": {
+    "n": 119,
+    "lam_max": 3.148765383e-05,
+    "lam_mean": 2.6108356605974772e-05
+   },
+   "6": {
+    "n": 141,
+    "lam_max": 1.196962708e-05,
+    "lam_mean": 1.0602148562463134e-05
+   },
+   "7": {
+    "n": 140,
+    "lam_max": 2.633041796e-05,
+    "lam_mean": 1.8738251211600725e-05
+   },
+   "8": {
+    "n": 18,
+    "lam_max": 2.842932102e-05,
+    "lam_mean": 2.034740229644444e-05
+   },
+   "9": {
+    "n": 11,
+    "lam_max": 2.417656528e-05,
+    "lam_mean": 1.0524236510181817e-05
+   }
+  }
+ },
+ {
+  "case": "smmnull1_s7",
+  "arm": "fixed",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 3.8,
+  "heldout_dev": 3.747,
+  "x2_info": 28.6339,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  62 tau 13133.0 -> 13133.0  median|surplus| 26.86",
+   "[reshrink] depth  5: m= 119 tau 62194.6 -> 27093.0  median|surplus| 30.50",
+   "[reshrink] depth  6: m= 141 tau 132083.4 -> 79979.5  median|surplus| 22.91",
+   "[reshrink] depth  7: m= 140 tau 38127.8 -> 36109.6  median|surplus| 32.41",
+   "[reshrink] depth  8: m=  18 tau 53614.0 -> 53614.0  median|surplus| 201.84",
+   "[reshrink] depth  9: m=  11 tau 41362.4 -> 41362.4  median|surplus| 93.31"
+  ],
+  "admitted": 493,
+  "ladder": {
+   "4": {
+    "n": 64,
+    "lam_max": 0.0001988230964,
+    "lam_mean": 0.00015493799507107804
+   },
+   "5": {
+    "n": 119,
+    "lam_max": 3.148765383e-05,
+    "lam_mean": 2.6108356605974772e-05
+   },
+   "6": {
+    "n": 141,
+    "lam_max": 1.196962708e-05,
+    "lam_mean": 1.0602148562463134e-05
+   },
+   "7": {
+    "n": 140,
+    "lam_max": 2.633041796e-05,
+    "lam_mean": 1.8738251211600725e-05
+   },
+   "8": {
+    "n": 18,
+    "lam_max": 2.842932102e-05,
+    "lam_mean": 2.034740229644444e-05
+   },
+   "9": {
+    "n": 11,
+    "lam_max": 2.417656528e-05,
+    "lam_mean": 1.0524236510181817e-05
+   }
+  }
+ },
+ {
+  "case": "smmnull1_s7",
+  "arm": "off",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 3.3,
+  "heldout_dev": 3.771,
+  "x2_info": 25.2385,
+  "reshrink_lines": [],
+  "admitted": 493,
+  "ladder": {
+   "4": {
+    "n": 64,
+    "lam_max": 0.0001947928185,
+    "lam_mean": 0.00015210420592264045
+   },
+   "5": {
+    "n": 119,
+    "lam_max": 2.668424755e-05,
+    "lam_mean": 2.263698736160502e-05
+   },
+   "6": {
+    "n": 141,
+    "lam_max": 1.13483594e-05,
+    "lam_mean": 1.0091034726434746e-05
+   },
+   "7": {
+    "n": 140,
+    "lam_max": 2.851627585e-05,
+    "lam_mean": 2.0080992486886465e-05
+   },
+   "8": {
+    "n": 18,
+    "lam_max": 2.903847986e-05,
+    "lam_mean": 2.0685823874222218e-05
+   },
+   "9": {
+    "n": 11,
+    "lam_max": 2.417656528e-05,
+    "lam_mean": 1.053030962372727e-05
+   }
+  }
+ },
+ {
+  "case": "smmnull1_s101",
+  "arm": "legacy",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 3.6,
+  "heldout_dev": 33.148,
+  "x2_info": 60.7744,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  63 tau 3128671.1 -> 383218.2  median|surplus| 41.26",
+   "[reshrink] depth  5: m= 115 tau 33645.6 -> 33645.6  median|surplus| 35.05",
+   "[reshrink] depth  6: m= 152 tau 1571814.1 -> 966476.5  median|surplus| 34.06",
+   "[reshrink] depth  7: m=  93 tau 1571814.1 -> 68089.1  median|surplus| 19.85"
+  ],
+  "admitted": 424,
+  "ladder": {
+   "4": {
+    "n": 64,
+    "lam_max": 0.0001,
+    "lam_mean": 1.1918420585056262e-05
+   },
+   "5": {
+    "n": 115,
+    "lam_max": 2.972154605e-05,
+    "lam_mean": 8.907247537217401e-06
+   },
+   "6": {
+    "n": 152,
+    "lam_max": 1.260233247e-05,
+    "lam_mean": 1.9567205611282935e-06
+   },
+   "7": {
+    "n": 93,
+    "lam_max": 2.800480318e-06,
+    "lam_mean": 2.0092408108344064e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull1_s101",
+  "arm": "fixed",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 3.5,
+  "heldout_dev": 33.148,
+  "x2_info": 60.7744,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  63 tau 3128671.1 -> 383218.2  median|surplus| 41.26",
+   "[reshrink] depth  5: m= 115 tau 33645.6 -> 33645.6  median|surplus| 35.05",
+   "[reshrink] depth  6: m= 152 tau 1571814.1 -> 966476.5  median|surplus| 34.06",
+   "[reshrink] depth  7: m=  93 tau 1571814.1 -> 68089.1  median|surplus| 19.85"
+  ],
+  "admitted": 424,
+  "ladder": {
+   "4": {
+    "n": 64,
+    "lam_max": 0.0001,
+    "lam_mean": 1.1918420585056262e-05
+   },
+   "5": {
+    "n": 115,
+    "lam_max": 2.972154605e-05,
+    "lam_mean": 8.907247537217401e-06
+   },
+   "6": {
+    "n": 152,
+    "lam_max": 1.260233247e-05,
+    "lam_mean": 1.9567205611282935e-06
+   },
+   "7": {
+    "n": 93,
+    "lam_max": 2.800480318e-06,
+    "lam_mean": 2.0092408108344064e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull1_s101",
+  "arm": "off",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 3.4,
+  "heldout_dev": 33.152,
+  "x2_info": 60.8117,
+  "reshrink_lines": [],
+  "admitted": 424,
+  "ladder": {
+   "4": {
+    "n": 64,
+    "lam_max": 0.0001,
+    "lam_mean": 1.1916961380056251e-05
+   },
+   "5": {
+    "n": 115,
+    "lam_max": 2.972154605e-05,
+    "lam_mean": 8.876712783000006e-06
+   },
+   "6": {
+    "n": 152,
+    "lam_max": 1.260233247e-05,
+    "lam_mean": 1.9504408290296044e-06
+   },
+   "7": {
+    "n": 93,
+    "lam_max": 2.76841876e-06,
+    "lam_mean": 1.988900682640861e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull2_s7",
+  "arm": "legacy",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 3.6,
+  "heldout_dev": 4.902,
+  "x2_info": 30.9007,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  58 tau 482783.4 -> 236754.0  median|surplus| 33.27",
+   "[reshrink] depth  5: m= 108 tau 34219.6 -> 34219.6  median|surplus| 27.50",
+   "[reshrink] depth  6: m= 161 tau 2187809.2 -> 113744.6  median|surplus| 32.82",
+   "[reshrink] depth  7: m= 145 tau 2187809.2 -> 84275.7  median|surplus| 27.87"
+  ],
+  "admitted": 474,
+  "ladder": {
+   "4": {
+    "n": 60,
+    "lam_max": 0.0001,
+    "lam_mean": 3.684800041964e-05
+   },
+   "5": {
+    "n": 108,
+    "lam_max": 2.922304415e-05,
+    "lam_mean": 1.779455244046298e-05
+   },
+   "6": {
+    "n": 161,
+    "lam_max": 2.364611962e-06,
+    "lam_mean": 1.7555553211055894e-06
+   },
+   "7": {
+    "n": 145,
+    "lam_max": 5.235552124e-06,
+    "lam_mean": 3.1264326214344812e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull2_s7",
+  "arm": "fixed",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 3.5,
+  "heldout_dev": 4.902,
+  "x2_info": 30.9007,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  58 tau 482783.4 -> 236754.0  median|surplus| 33.27",
+   "[reshrink] depth  5: m= 108 tau 34219.6 -> 34219.6  median|surplus| 27.50",
+   "[reshrink] depth  6: m= 161 tau 2187809.2 -> 113744.6  median|surplus| 32.82",
+   "[reshrink] depth  7: m= 145 tau 2187809.2 -> 84275.7  median|surplus| 27.87"
+  ],
+  "admitted": 474,
+  "ladder": {
+   "4": {
+    "n": 60,
+    "lam_max": 0.0001,
+    "lam_mean": 3.684800041964e-05
+   },
+   "5": {
+    "n": 108,
+    "lam_max": 2.922304415e-05,
+    "lam_mean": 1.779455244046298e-05
+   },
+   "6": {
+    "n": 161,
+    "lam_max": 2.364611962e-06,
+    "lam_mean": 1.7555553211055894e-06
+   },
+   "7": {
+    "n": 145,
+    "lam_max": 5.235552124e-06,
+    "lam_mean": 3.1264326214344812e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull2_s7",
+  "arm": "off",
+  "seed": 7,
+  "exit": 0,
+  "wall_s": 3.0,
+  "heldout_dev": 4.964,
+  "x2_info": 23.691,
+  "reshrink_lines": [],
+  "admitted": 474,
+  "ladder": {
+   "4": {
+    "n": 60,
+    "lam_max": 0.0001,
+    "lam_mean": 2.613101308663999e-05
+   },
+   "5": {
+    "n": 108,
+    "lam_max": 2.922304415e-05,
+    "lam_mean": 1.922101255490742e-05
+   },
+   "6": {
+    "n": 161,
+    "lam_max": 2.364611962e-06,
+    "lam_mean": 1.862183351677018e-06
+   },
+   "7": {
+    "n": 145,
+    "lam_max": 4.577109977e-06,
+    "lam_mean": 2.758613215179317e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull2_s101",
+  "arm": "legacy",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 3.2,
+  "heldout_dev": 31.417,
+  "x2_info": 52.0005,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  61 tau 2849135.7 -> 333695.3  median|surplus| 25.81",
+   "[reshrink] depth  5: m= 112 tau 37869.7 -> 37869.7  median|surplus| 31.03",
+   "[reshrink] depth  6: m= 151 tau 1526565.8 -> 972167.1  median|surplus| 35.16",
+   "[reshrink] depth  7: m= 101 tau 1526565.8 -> 71303.2  median|surplus| 25.14"
+  ],
+  "admitted": 426,
+  "ladder": {
+   "4": {
+    "n": 62,
+    "lam_max": 0.0001,
+    "lam_mean": 1.780235142657097e-05
+   },
+   "5": {
+    "n": 112,
+    "lam_max": 2.64063264e-05,
+    "lam_mean": 8.525967538446435e-06
+   },
+   "6": {
+    "n": 151,
+    "lam_max": 1.200356223e-05,
+    "lam_mean": 1.7234008126370879e-06
+   },
+   "7": {
+    "n": 101,
+    "lam_max": 2.903230407e-06,
+    "lam_mean": 2.1464222843900932e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull2_s101",
+  "arm": "fixed",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 3.2,
+  "heldout_dev": 31.417,
+  "x2_info": 52.0005,
+  "reshrink_lines": [
+   "[reshrink] depth  4: m=  61 tau 2849135.7 -> 333695.3  median|surplus| 25.81",
+   "[reshrink] depth  5: m= 112 tau 37869.7 -> 37869.7  median|surplus| 31.03",
+   "[reshrink] depth  6: m= 151 tau 1526565.8 -> 972167.1  median|surplus| 35.16",
+   "[reshrink] depth  7: m= 101 tau 1526565.8 -> 71303.2  median|surplus| 25.14"
+  ],
+  "admitted": 426,
+  "ladder": {
+   "4": {
+    "n": 62,
+    "lam_max": 0.0001,
+    "lam_mean": 1.780235142657097e-05
+   },
+   "5": {
+    "n": 112,
+    "lam_max": 2.64063264e-05,
+    "lam_mean": 8.525967538446435e-06
+   },
+   "6": {
+    "n": 151,
+    "lam_max": 1.200356223e-05,
+    "lam_mean": 1.7234008126370879e-06
+   },
+   "7": {
+    "n": 101,
+    "lam_max": 2.903230407e-06,
+    "lam_mean": 2.1464222843900932e-06
+   }
+  }
+ },
+ {
+  "case": "smmnull2_s101",
+  "arm": "off",
+  "seed": 101,
+  "exit": 0,
+  "wall_s": 2.7,
+  "heldout_dev": 31.42,
+  "x2_info": 52.0262,
+  "reshrink_lines": [],
+  "admitted": 426,
+  "ladder": {
+   "4": {
+    "n": 62,
+    "lam_max": 0.0001,
+    "lam_mean": 1.780828160463548e-05
+   },
+   "5": {
+    "n": 112,
+    "lam_max": 2.64063264e-05,
+    "lam_mean": 8.491034309089297e-06
+   },
+   "6": {
+    "n": 151,
+    "lam_max": 1.200356223e-05,
+    "lam_mean": 1.7162372616807965e-06
+   },
+   "7": {
+    "n": 101,
+    "lam_max": 2.866234864e-06,
+    "lam_mean": 2.1218806865584107e-06
+   }
+  }
+ }
+]

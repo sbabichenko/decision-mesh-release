@@ -62,6 +62,19 @@ the two-currency principle, the wholesale depth-8/9 soft weld
 ($\lambda_v=10^8$; \texttt{TAU\_FLOOR} bypass bug lead), and a first
 hierarchical-$\tau$ layer whose conditional-dual release is the best held-out
 surface on the June$\to$July 2020 month (dev 2.7355 vs 2.7936 shipped).
+\emph{August 12 addendum:} Section~\ref{sec:aug12} resolves the
+\texttt{TAU\_FLOOR} weld bug (a floor overwrite in the reshrink pass, not a
+sentinel), builds and measures the shrinkage-ladder family against the EB
+audit, states the exchangeability principle ($K_{\mathrm{eff}}$ belongs in the
+likelihood, not the prior; \texttt{eb} = selection-corrected MMLE with
+hierarchical borrow is the recommended reshrink estimator), and returns the
+two-currency verdict --- the ladder improves held-out deviance (best
+$1.1502$ vs $1.1545$ naked on the SMM design) but is inert in the marginal
+NLL (full April Ginnie: all estimators within $2\times10^{-4}$), because
+re-shrinkage cannot change admission; a direct in-loop prior swap that does
+reach admission over-admits and regresses both currencies, upgrading the
+unified spike-and-slab (with $\pi$ on the full candidate ensemble) from
+preference to requirement.
 
 \paragraph{Full mechanics.} Section~\ref{sec:current} is the single
 self-contained specification of the current model.
@@ -133,7 +146,16 @@ known disease loci; release criteria stated in the marginal currency are withdra
 (Section~\ref{sec:aug6-release}). (11) [Aug 6] The K$_{\mathrm{eff}}$ candidate-support
 floor is refuted as a void repair (every threshold worsens held-out deviance);
 final-dump K$_{\mathrm{eff}}$ readings overstate admission-time pathology because
-later refinements steal support.
+later refinements steal support. (12) [Aug 12] The wholesale depth-8/9 weld
+($\lambda_v=10^8$) flagged August 6 is a floor-overwrite defect in the reshrink
+pass, not a sentinel: the pass reset \texttt{tau\_floor\_sq} to $10^{-8}$, so a
+$\tau=0$ moment read welded a whole depth; fixed by retaining the configured
+floor, and the ``$d10$ shows the floor working'' reading is corrected --- it
+was the improvement-only clamp passing an already-floored value
+(Section~\ref{sec:aug12-floor}). The $K_{\mathrm{eff}}$-indexed prior of the
+\texttt{cells}/\texttt{ebcell} ladder is likewise not adopted:
+$K_{\mathrm{eff}}$ is data support, not signal, and belongs in the likelihood,
+not the prior (Section~\ref{sec:aug12-ladder}).
 
 \section{Introduction}\label{sec:intro}
 
@@ -2549,6 +2571,8 @@ Consolidated with the program-wide list in Section~\ref{sec:discussion}, which
 supersedes per-section lists.
 
 \input{sec_aug6_session}
+
+\input{sec_aug12_shrinkage}
 
 \section{Discussion}\label{sec:discussion}
 

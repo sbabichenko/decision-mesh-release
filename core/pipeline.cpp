@@ -2820,12 +2820,15 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
     // honest prior is safe. Recover RAW surpluses for admitted vertices from
     // local regressions at the final linearization (undoing shrinkage without a
     // global refit), re-estimate tau per depth with the truncation correction,
-    // zero-mean chi^2, and NO floor, decay-borrow sparse depths at 4^{-dd}
+    // zero-mean chi^2, floored at the configured tau floor (a tau = 0 moment
+    // read means "shrink hard", not "weld": the historical no-floor variant
+    // produced lambda_v = 1e8 wholesale welds at whole depths and is kept
+    // only under DMESH_RESHRINK_NO_FLOOR=1), decay-borrow sparse depths at 4^{-dd}
     // (the C^2 surplus scaling), then re-sweep heights once at fixed topology.
     // Raw-surplus variance omits the 0.25*sp parent term that admit_a includes,
     // which overstates alpha slightly and biases tau DOWN: conservative.
     if (std::getenv("DMESH_FINAL_RESHRINK") && !self_child_frozen()) {
-        struct RawSurplus { double draw, svar, athr; };
+        struct RawSurplus { double draw, svar, athr, keff, pratio; Vertex* v; };
         std::map<int, std::vector<RawSurplus>> by_depth;
         std::map<int, std::vector<double>> before_prof;
         for (Vertex* v : mesh->vertices) {
@@ -2834,10 +2837,32 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             before_prof[v->depth].push_back(std::fabs(v->height - v->mu_prior()));
             auto lr = v->loc_regress(false);
             if (!(lr.xTx > 0) || !(v->admit_sd > 0)) continue;
+            // Law-aware effective count. current_keff = xTx^2/xT2x counts pools
+            // under binomial weights only; a tier of a few mega-pools reads as
+            // high support even though each mega-pool is one draw of its pool
+            // effect and a weak witness of the surface (writeup EB audit
+            // defect 2). Deflate by the same pool-effect variance inflation the
+            // admission gate prices: r = Var_pool / Var_binom, using the one-law
+            // per-pool variance (xT2xs) or the flat extra-variance model (xT2x),
+            // matching env_gate_extra_var / DMESH_ONELAW at the gate. keff_law =
+            // keff / (1 + r) is the effective number of independent pool-level
+            // observations after pool effects are accounted for first.
+            static const bool ONELAW_KEFF = std::getenv("DMESH_ONELAW") != nullptr;
+            const double gev_keff = env_gate_extra_var();
+            double pool_ratio =
+                ONELAW_KEFF ? kVarianceScale * lr.xT2xs / lr.xTx
+                            : gev_keff * kVarianceScale * lr.xT2x / lr.xTx;
+            if (!(pool_ratio > 0.0)) pool_ratio = 0.0;
+            // DMESH_TAU_CELL_RAWKEFF=1 keeps the binomial count for the cells
+            // split, isolating the value of the pool-effect deflation itself.
+            static const bool RAW_KEFF = std::getenv("DMESH_TAU_CELL_RAWKEFF") != nullptr;
+            const double keff_law =
+                RAW_KEFF ? v->current_keff : v->current_keff / (1.0 + pool_ratio);
             // variance = admission-time calibrated sd^2: alpha(tau=0) is then the
             // actual selection cutoff, making the truncation term self-consistent
             by_depth[v->depth].push_back(
-                {lr.xTr / lr.xTx - v->mu_prior(), v->admit_sd * v->admit_sd, v->admit_a});
+                {lr.xTr / lr.xTx - v->mu_prior(), v->admit_sd * v->admit_sd,
+                 v->admit_a, keff_law, pool_ratio, v});
         }
         auto kap = [](double alpha) {
             if (alpha <= 1e-12) return 1.0;
@@ -2846,30 +2871,76 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
             if (Q < 1e-300) return alpha * alpha + 1.0;
             return 1.0 + alpha * ph / Q;
         };
-        std::map<int, double> tau_new;
-        for (auto& [d, rs] : by_depth) {
-            if ((int)rs.size() < 3) continue;
+        // Truncation-corrected moment solve; w = nullptr for the unweighted
+        // per-depth read, or per-surplus responsibilities for the two-groups
+        // M-step. Returns 0 when the (weighted) chi^2 sits below its
+        // selection-inflated null expectation.
+        auto solve_tau = [&](const std::vector<RawSurplus>& rs,
+                             const std::vector<double>* w) {
             double chi = 0.0;
-            for (auto& r : rs) chi += r.draw * r.draw / r.svar;
+            for (size_t i = 0; i < rs.size(); ++i)
+                chi += (w ? (*w)[i] : 1.0) * rs[i].draw * rs[i].draw / rs[i].svar;
             auto target = [&](double t2) {
                 double acc = 0.0;
-                for (auto& r : rs) {
+                for (size_t i = 0; i < rs.size(); ++i) {
+                    const auto& r = rs[i];
                     double al = r.athr > 0 ? r.athr / std::sqrt(t2 + r.svar) : 0.0;
-                    acc += kap(al) * (t2 + r.svar) / r.svar;
+                    acc += (w ? (*w)[i] : 1.0) * kap(al) * (t2 + r.svar) / r.svar;
                 }
                 return acc;
             };
-            double tau = 0.0;
-            if (chi > target(0.0)) {
-                double lo = 0.0, hi = 1.0;
-                while (target(hi) < chi && hi < 1e8) hi *= 2;
-                for (int it = 0; it < 60; ++it) {
-                    double mid = 0.5 * (lo + hi);
-                    if (target(mid) < chi) lo = mid; else hi = mid;
-                }
-                tau = 0.5 * (lo + hi);
+            if (chi <= target(0.0)) return 0.0;
+            double lo = 0.0, hi = 1.0;
+            while (target(hi) < chi && hi < 1e8) hi *= 2;
+            for (int it = 0; it < 60; ++it) {
+                double mid = 0.5 * (lo + hi);
+                if (target(mid) < chi) lo = mid; else hi = mid;
             }
-            tau_new[d] = tau;
+            return 0.5 * (lo + hi);
+        };
+        // Selection-corrected marginal maximum likelihood for the prior
+        // variance tau (principled empirical Bayes, vs the method-of-moments
+        // solve_tau). Each admitted surplus has calibrated sampling variance
+        // svar (admit_sd^2, already law-aware -- it carries the gate's pool
+        // term), so its marginal under prior N(0, tau) is N(0, tau + svar)
+        // truncated to the admission region |draw| > athr. Maximize
+        //   sum_i [ -0.5 log(tau+svar_i) - 0.5 draw_i^2/(tau+svar_i)
+        //           - log erfc(athr_i / sqrt(2(tau+svar_i))) ]
+        // over tau >= 0 by golden section. Returns 0 for a corner solution
+        // (marginal prefers no signal variance).
+        auto mle_tau = [&](const std::vector<RawSurplus>& rs) {
+            if (rs.size() < 3) return 0.0;
+            auto logL = [&](double tau) {
+                double s = 0.0;
+                for (const auto& r : rs) {
+                    const double T = tau + r.svar;
+                    if (T <= 0.0) return -1e300;
+                    double q = std::erfc((r.athr > 0.0 ? r.athr : 0.0) /
+                                         std::sqrt(2.0 * T));
+                    if (q < 1e-300) q = 1e-300;
+                    s += -0.5 * std::log(T) - 0.5 * r.draw * r.draw / T -
+                         std::log(q);
+                }
+                return s;
+            };
+            const double l0 = logL(0.0);
+            double hi = 1.0;
+            while (hi < 1e8 && logL(2.0 * hi) > logL(hi)) hi *= 2.0;
+            double a = 0.0, b = hi;
+            const double gr = 0.6180339887498949;
+            double c = b - gr * (b - a), d = a + gr * (b - a);
+            double fc = logL(c), fd = logL(d);
+            for (int it = 0; it < 80; ++it) {
+                if (fc < fd) { a = c; c = d; fc = fd; d = a + gr * (b - a); fd = logL(d); }
+                else         { b = d; d = c; fd = fc; c = b - gr * (b - a); fc = logL(c); }
+            }
+            const double tau = 0.5 * (a + b);
+            return logL(tau) > l0 ? tau : 0.0;
+        };
+        std::map<int, double> tau_new;
+        for (auto& [d, rs] : by_depth) {
+            if ((int)rs.size() < 3) continue;
+            tau_new[d] = solve_tau(rs, nullptr);
         }
         if (!tau_new.empty()) {
             for (auto& [d, rs] : by_depth) {
@@ -2893,8 +2964,298 @@ int run_pipeline(const RunConfig& config, Dataset& dataset, const SurfaceSpec& s
                              "[reshrink] depth %2d: m=%4zu tau %.1f -> %.1f  median|surplus| %.2f\n",
                              d, rs.size(), old_tau, tau_new[d], bp[bp.size() / 2]);
             }
+            // --- Ladder variants (DMESH_RESHRINK_LADDER=cells|twogroups). ---
+            // Depth is the wrong exchangeability unit when one tier spans
+            // starved corridor vertices and well-supported workhorses: a
+            // single pooled moment read then shrinks the whole tier to one
+            // tau (writeup sec:aug6-ladder, EB audit defect 1). Both variants
+            // keep the truncation-corrected moment machinery and the
+            // improvement-only clamp against the loop tau, but assign
+            // per-vertex prior variances (Vertex::tau_override_sq) consumed
+            // by compute_eb_params in the fixed-topology re-solve below.
+            // Vertices outside the raw-surplus set keep the pooled depth tau.
+            const char* lme = std::getenv("DMESH_RESHRINK_LADDER");
+            const std::string ladder_mode = lme ? lme : "depth";
+            if (ladder_mode == "cells") {
+                // Evidence-geometry cells: split each depth at a K_eff
+                // threshold and give each side its own moment read, so a
+                // noise-dominated starved cell cannot weld the workhorse
+                // cell (and vice versa).
+                static const double KEFF_SPLIT = [] {
+                    const char* e = std::getenv("DMESH_TAU_CELL_KEFF");
+                    return e ? std::atof(e) : 1.0;
+                }();
+                for (auto& [d, rs] : by_depth) {
+                    std::vector<RawSurplus> lo_cell, hi_cell;
+                    for (auto& r : rs)
+                        (r.keff < KEFF_SPLIT ? lo_cell : hi_cell).push_back(r);
+                    const double pooled = std::max(tau_new[d], mesh->tau_floor_sq);
+                    double cell_tau[2];
+                    const std::vector<RawSurplus>* cells[2] = {&lo_cell, &hi_cell};
+                    for (int c = 0; c < 2; ++c) {
+                        if ((int)cells[c]->size() < 3) {
+                            cell_tau[c] = pooled;
+                            continue;
+                        }
+                        double t = std::min(solve_tau(*cells[c], nullptr),
+                                            mesh->tau_for_depth(d));
+                        cell_tau[c] = std::max(t, mesh->tau_floor_sq);
+                    }
+                    for (int c = 0; c < 2; ++c)
+                        for (auto& r : *cells[c])
+                            r.v->tau_override_sq = cell_tau[c];
+                    std::fprintf(stderr,
+                                 "[laddercells] depth %2d: keff_law<%.2f m=%zu tau %.1f | "
+                                 "keff_law>=%.2f m=%zu tau %.1f\n",
+                                 d, KEFF_SPLIT, lo_cell.size(), cell_tau[0],
+                                 KEFF_SPLIT, hi_cell.size(), cell_tau[1]);
+                }
+            } else if (ladder_mode == "ebscale") {
+                // Exchangeable-on-scale prior: tau(d) = tau0 * rho^d, a single
+                // smooth per-scale decay fit by MMLE over ALL admitted
+                // coefficients jointly (maximal pooling). The prior sees only
+                // scale (depth); K_eff / pool support never enter it -- they
+                // enter through svar in the marginal and through the per-vertex
+                // /(1+r) posterior. This is the pure form of "the signal is
+                // exchangeable, K_eff is not": one scale law, factored.
+                auto logL_scale = [&](double tau0, double rho) {
+                    double s = 0.0;
+                    for (auto& [d, rs] : by_depth) {
+                        const double tau = tau0 * std::pow(rho, (double)d);
+                        for (const auto& r : rs) {
+                            const double T = tau + r.svar;
+                            if (T <= 0.0) return -1e300;
+                            double q = std::erfc((r.athr > 0.0 ? r.athr : 0.0) /
+                                                 std::sqrt(2.0 * T));
+                            if (q < 1e-300) q = 1e-300;
+                            s += -0.5 * std::log(T) - 0.5 * r.draw * r.draw / T -
+                                 std::log(q);
+                        }
+                    }
+                    return s;
+                };
+                // grid on rho (per-scale decay), golden section on tau0 within.
+                double best = -1e300, best_tau0 = mesh->tau_floor_sq, best_rho = 1.0;
+                for (int gi = 0; gi <= 24; ++gi) {
+                    const double rho = 0.12 + (0.98 - 0.12) * gi / 24.0;
+                    double a = mesh->tau_floor_sq, b = 1.0;
+                    while (b < 1e9 && logL_scale(2.0 * b, rho) > logL_scale(b, rho)) b *= 2.0;
+                    const double gr = 0.6180339887498949;
+                    double c = b - gr * (b - a), d = a + gr * (b - a);
+                    double fc = logL_scale(c, rho), fd = logL_scale(d, rho);
+                    for (int it = 0; it < 60; ++it) {
+                        if (fc < fd) { a = c; c = d; fc = fd; d = a + gr * (b - a); fd = logL_scale(d, rho); }
+                        else         { b = d; d = c; fd = fc; c = b - gr * (b - a); fc = logL_scale(c, rho); }
+                    }
+                    const double t0 = 0.5 * (a + b), L = logL_scale(t0, rho);
+                    if (L > best) { best = L; best_tau0 = t0; best_rho = rho; }
+                }
+                std::fprintf(stderr,
+                             "[ladderebscale] tau0=%.1f rho=%.3f logL=%.1f\n",
+                             best_tau0, best_rho, best);
+                // The fitted curve is the hyperprior MEAN, not a hard law: each
+                // depth's own MMLE borrows toward curve(d) by m/(m+kappa), so a
+                // depth with real structure can deviate (a rigid geometric law
+                // cannot crater a single deep noise tier -- measured seed 104,
+                // 1.130 -> 1.181). The improvement-only clamp (as in eb) keeps
+                // genuine noise tiers floored; the scale curve only improves
+                // WHERE the depths borrow, i.e. the sparse ones.
+                static const bool SCALE_FREE =
+                    std::getenv("DMESH_EB_FREE") != nullptr;
+                static const double SCALE_BORROW = [] {
+                    const char* e = std::getenv("DMESH_EB_BORROW");
+                    return e ? std::atof(e) : 8.0;
+                }();
+                for (auto& [d, rs] : by_depth) {
+                    const double curve = best_tau0 * std::pow(best_rho, (double)d);
+                    const double tau_mle = mle_tau(rs);
+                    const double m = (double)rs.size();
+                    double tau = (m * tau_mle + SCALE_BORROW * curve) / (m + SCALE_BORROW);
+                    if (!SCALE_FREE)
+                        tau = std::min(tau, std::max(mesh->tau_for_depth(d),
+                                                     mesh->tau_floor_sq));
+                    tau = std::max(tau, mesh->tau_floor_sq);
+                    for (auto& r : rs) {
+                        double tv = tau / (1.0 + std::max(r.pratio, 0.0));
+                        r.v->tau_override_sq = std::max(tv, mesh->tau_floor_sq);
+                    }
+                    std::fprintf(stderr,
+                                 "[ladderebscale] depth %2d: m=%4zu curve=%.1f "
+                                 "tau_mle=%.1f tau(d)=%.1f\n",
+                                 d, rs.size(), curve, tau_mle, tau);
+                }
+            } else if (ladder_mode == "eb" || ladder_mode == "ebcell") {
+                // Principled empirical Bayes: the prior variance is chosen by
+                // selection-corrected marginal maximum likelihood, and the
+                // per-group tau's are chosen HIERARCHICALLY -- each group's
+                // MMLE is shrunk toward a parent MMLE by a precision weight
+                // m/(m+kappa), so sparse groups borrow strength instead of
+                // relying on the ad-hoc 4^{-dd} decay. The per-vertex prior is
+                // then the group tau under the law-aware posterior (the /(1+r)
+                // realizes the pool-effect-deflated precision, as in keffcont).
+                // eb: groups = depths, parent = global MMLE.
+                // ebcell: groups = (depth x K_eff cell), parent = depth MMLE.
+                static const double EB_BORROW = [] {
+                    const char* e = std::getenv("DMESH_EB_BORROW");
+                    return e ? std::atof(e) : 8.0;
+                }();
+                static const double EB_KEFF = [] {
+                    const char* e = std::getenv("DMESH_TAU_CELL_KEFF");
+                    return e ? std::atof(e) : 1.0;
+                }();
+                static const bool EB_FREE =
+                    std::getenv("DMESH_EB_FREE") != nullptr;
+                const bool cellwise = (ladder_mode == "ebcell");
+                auto borrow = [&](double child, double m, double parent) {
+                    double t = (m * child + EB_BORROW * parent) / (m + EB_BORROW);
+                    return std::max(t, mesh->tau_floor_sq);
+                };
+                std::vector<RawSurplus> all;
+                for (auto& [d, rs] : by_depth)
+                    for (auto& r : rs) all.push_back(r);
+                const double tau_global = mle_tau(all);
+                for (auto& [d, rs] : by_depth) {
+                    const double tau_depth = mle_tau(rs);
+                    // depth tau borrows from the global fit
+                    double tau_d = borrow(tau_depth, (double)rs.size(), tau_global);
+                    if (!EB_FREE)
+                        tau_d = std::min(tau_d, std::max(mesh->tau_for_depth(d),
+                                                         mesh->tau_floor_sq));
+                    if (!cellwise) {
+                        for (auto& r : rs) {
+                            double tv = tau_d / (1.0 + std::max(r.pratio, 0.0));
+                            r.v->tau_override_sq = std::max(tv, mesh->tau_floor_sq);
+                        }
+                        std::fprintf(stderr,
+                                     "[laddereb] depth %2d: m=%4zu tau_mle=%.1f "
+                                     "tau_global=%.1f tau*=%.1f\n",
+                                     d, rs.size(), tau_depth, tau_global, tau_d);
+                    } else {
+                        // cells within the depth, each MMLE borrowing from the
+                        // depth tau; per-vertex law-aware posterior on top.
+                        std::vector<RawSurplus> lo_c, hi_c;
+                        for (auto& r : rs)
+                            (r.keff < EB_KEFF ? lo_c : hi_c).push_back(r);
+                        std::vector<RawSurplus>* cells[2] = {&lo_c, &hi_c};
+                        double ctau[2];
+                        for (int c = 0; c < 2; ++c) {
+                            ctau[c] = borrow(mle_tau(*cells[c]),
+                                             (double)cells[c]->size(), tau_d);
+                            if (!EB_FREE)
+                                ctau[c] = std::min(ctau[c],
+                                    std::max(mesh->tau_for_depth(d), mesh->tau_floor_sq));
+                        }
+                        for (int c = 0; c < 2; ++c)
+                            for (auto& r : *cells[c]) {
+                                double tv = ctau[c] / (1.0 + std::max(r.pratio, 0.0));
+                                r.v->tau_override_sq = std::max(tv, mesh->tau_floor_sq);
+                            }
+                        std::fprintf(stderr,
+                                     "[ladderebcell] depth %2d: tau_d=%.1f | "
+                                     "lo m=%zu tau=%.1f | hi m=%zu tau=%.1f\n",
+                                     d, tau_d, lo_c.size(), ctau[0],
+                                     hi_c.size(), ctau[1]);
+                    }
+                }
+            } else if (ladder_mode == "keffcont") {
+                // Threshold-free continuous limit of "cells": no K_eff cut.
+                // Each vertex takes the honest per-depth tier tau divided by
+                // its own pool-effect contamination, tau_i = tau_depth /
+                // (1 + r_i), r_i = Var_pool/Var_binom (the same ratio that
+                // deflates keff_law). A pool-dominated vertex (large r) shrinks
+                // smoothly toward the floor; a clean surface witness (r ~ 0)
+                // keeps the full tier variance. This is the per-vertex, no-cut
+                // generalization of the cells split.
+                for (auto& [d, rs] : by_depth) {
+                    const double base = std::max(tau_new[d], mesh->tau_floor_sq);
+                    int hard = 0;
+                    for (auto& r : rs) {
+                        double tv = base / (1.0 + std::max(r.pratio, 0.0));
+                        r.v->tau_override_sq = std::max(tv, mesh->tau_floor_sq);
+                        if (r.pratio > 1.0) ++hard;  // pool var exceeds binomial
+                    }
+                    std::fprintf(stderr,
+                                 "[ladderkeffcont] depth %2d: m=%4zu base_tau=%.1f "
+                                 "pool-dominated(r>1)=%d\n",
+                                 d, rs.size(), base, hard);
+                }
+            } else if (ladder_mode == "twogroups") {
+                // Spike-and-slab: per depth, a two-component EM on the raw
+                // surpluses -- spike at the configured floor, slab variance
+                // from the responsibility-weighted truncation-corrected
+                // moment, selection entering each component's likelihood
+                // through the admission normalizer P(|draw| clears athr).
+                // Each coefficient gets the posterior-mixture prior variance
+                // gamma*tau1 + (1-gamma)*tau0: slab-probable coefficients
+                // keep their evidence, spike-probable ones shrink to the
+                // floor, and no single pooled read can weld a mixed tier.
+                const double t0 = std::max(mesh->tau_floor_sq, 1e-8);
+                auto logtrunc = [](double x, double v, double a) {
+                    double q = 0.5 * std::erfc((a > 0.0 ? a : 0.0) /
+                                               std::sqrt(v) / 1.4142135623730951);
+                    if (q < 1e-300) q = 1e-300;
+                    return -0.5 * std::log(v) - 0.5 * x * x / v - std::log(2.0 * q);
+                };
+                // DMESH_RESHRINK_2G_FREE=1 lifts the improvement-only cap on
+                // the slab variance: the responsibility-weighted moment may
+                // then exceed the loop tau, letting slab-probable
+                // coefficients shrink LESS than the loop did. The pooled
+                // clamp's rationale (the loop under-read is load-bearing at
+                // signal depths) was measured for the all-or-nothing pooled
+                // estimator; with per-coefficient responsibilities the spike
+                // still absorbs the noise mass.
+                static const bool TG_FREE =
+                    std::getenv("DMESH_RESHRINK_2G_FREE") != nullptr;
+                for (auto& [d, rs] : by_depth) {
+                    if ((int)rs.size() < 4) continue;  // depth tau stands
+                    const double old_tau = mesh->tau_for_depth(d);
+                    const double tau1_cap = TG_FREE ? 1e8 : old_tau;
+                    double mean_pos = 0.0;
+                    for (auto& r : rs)
+                        mean_pos += std::max(r.draw * r.draw - r.svar, 0.0);
+                    mean_pos /= rs.size();
+                    double tau1 = std::clamp(std::max(tau_new[d], mean_pos),
+                                             4.0 * t0, tau1_cap);
+                    if (tau1 <= 2.0 * t0) continue;  // no separable slab
+                    double pi = 0.5;
+                    std::vector<double> gam(rs.size(), 0.5);
+                    for (int it = 0; it < 30; ++it) {
+                        for (size_t i = 0; i < rs.size(); ++i) {
+                            const auto& r = rs[i];
+                            double ls = std::log(pi) +
+                                        logtrunc(r.draw, tau1 + r.svar, r.athr);
+                            double l0 = std::log(1.0 - pi) +
+                                        logtrunc(r.draw, t0 + r.svar, r.athr);
+                            double mx = std::max(ls, l0);
+                            gam[i] = std::exp(ls - mx) /
+                                     (std::exp(ls - mx) + std::exp(l0 - mx));
+                        }
+                        double s = 0.0;
+                        for (double g : gam) s += g;
+                        pi = std::clamp(s / rs.size(), 0.01, 0.99);
+                        tau1 = std::clamp(solve_tau(rs, &gam), 4.0 * t0, tau1_cap);
+                    }
+                    int nslab = 0;
+                    for (size_t i = 0; i < rs.size(); ++i) {
+                        double tv = gam[i] * tau1 + (1.0 - gam[i]) * t0;
+                        rs[i].v->tau_override_sq = std::max(tv, mesh->tau_floor_sq);
+                        if (gam[i] > 0.5) ++nslab;
+                    }
+                    std::fprintf(stderr,
+                                 "[ladder2g] depth %2d: m=%4zu pi=%.2f tau1=%.1f "
+                                 "slab(g>.5)=%d\n",
+                                 d, rs.size(), pi, tau1, nslab);
+                }
+            }
             mesh->tau_sq = tau_new;
-            mesh->tau_floor_sq = 1e-8;
+            // The configured floor (DMESH_TAU_FLOOR_LOGIT_SD) stays in force:
+            // a depth whose truncation-corrected moment reads tau = 0 shrinks
+            // to the floor, not to a 1e-8 hard weld (lambda_v ~ 1e8, T = 0),
+            // which silently freezes every admitted coefficient at that depth
+            // regardless of its individual information. DMESH_RESHRINK_NO_FLOOR=1
+            // restores the historical no-floor behavior for reproducibility.
+            if (std::getenv("DMESH_RESHRINK_NO_FLOOR"))
+                mesh->tau_floor_sq = 1e-8;
             run_height_sweeps(*mesh, 0.0005, 120, timing);
             std::map<int, std::vector<double>> after_prof;
             for (Vertex* v : mesh->vertices)

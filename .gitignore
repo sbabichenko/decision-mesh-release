@@ -5,3 +5,4 @@ __pycache__/
 .venv/
 build-release/
 benchmark-output/
+build/
