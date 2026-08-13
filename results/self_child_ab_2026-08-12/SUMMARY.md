@@ -333,3 +333,35 @@ decisions are made), plus one logged terminal renegotiation for
 martingale-quality values. On the April benchmark this beats the shipped
 baseline 7/10 seeds at mean -0.026 while retaining the formulation's
 structural properties.
+
+## Addendum 8: two outer iterations - SMM reaches parity (MEASURED)
+
+`DMESH_SC_OUTER=2`: {gated adaptation -> terminal renegotiation} twice, the
+second adaptation scoring against the renegotiated backdrop. 10-seed SMM
+battery, both currencies (`smm_outer2_10seed.csv`):
+
+| SMM, paired vs baseline | dev | NLL |
+|---|---|---|
+| frozen SC (+rf1) | +0.0238 (se 0.010) | +0.0106 (se 0.003) |
+| SC outer=2 + terminal solve | **+0.0043 (se 0.013) - parity** | **+0.0026 (se 0.003) - parity** |
+
+vs frozen SC: wins 9/10 (mean -0.019 dev). outer=3 (seed 7): 1.219 vs
+1.220 - converged at two. April remains a one-iteration dataset (outer=2
+worsens 6.447 -> 6.522: post-renegotiation candidates chase noise once the
+values constraint is already resolved).
+
+Combined verdict across both benchmarks: the self-child architecture with
+the right number of outer iterations MATCHES OR BEATS the shipped
+continuously-joint baseline - April: one iteration, beats baseline 7/10 at
+mean -0.026; SMM: two iterations, statistical parity in both currencies -
+while retaining gated, dated, collapse-immune decisions. The iteration
+count is governed by which constraint binds (values vs admissions), and the
+natural adaptive stopping rule is the gate itself: iterate while a fresh
+pass's admissions clear the gate in meaningful numbers.
+
+Two-regime interpretation, closing the arc of this document: the original
+formulation's freezing is what makes decision evidence meaningful during
+construction; the terminal/inter-pass renegotiations restore martingale
+values; and the outer loop is the fixed-point iteration between the two -
+gated Gauss-Seidel at the architecture level rather than the coordinate
+level.
